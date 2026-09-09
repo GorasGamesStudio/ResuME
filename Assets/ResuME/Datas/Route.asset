@@ -168,8 +168,8 @@ MonoBehaviour:
       domaine ; il s'\xE9claire fen\xEAtre par fen\xEAtre \xE0 l'approche. Le sprite
       devient adulte \xE0 la sortie."
   - id: support
-    title: "Support et d\xE9veloppement informatique"
-    years: 2005 - 2010
+    title: "Missions SSII : support et d\xE9ploiement"
+    years: 2009 - 2011
     level: 20
     kind: 6
     widthScreens: 0.8
@@ -184,15 +184,32 @@ MonoBehaviour:
       category: 3
     rewards: []
     projects:
-    - id: support-parcs
-      title: "Parcs informatiques (\xE0 d\xE9tailler par entreprise)"
-      description: Installation et migration de parcs, support utilisateurs.
+    - id: support-spie
+      title: SPIE Communications (2009)
+      description: "En mission chez des clients : d\xE9ploiement de postes (jusqu'\xE0
+        200), migration de parc. R\xE9partition \xE0 confirmer."
       skillIds:
       - maintenance
-      - installation
       platforms: []
-    notes: "Grappe de petits b\xE2timents, un par mission (d\xE9ploiement PC, mise
-      \xE0 jour de parc, support). \xC0 lister par entreprise."
+    - id: support-iris-conseil
+      title: IRIS Conseil (2010)
+      description: "En mission chez des clients : d\xE9veloppement d'un outil de
+        suivi de tickets, support utilisateurs. R\xE9partition \xE0 confirmer."
+      skillIds:
+      - maintenance
+      platforms: []
+    - id: support-computacenter
+      title: "Computacenter (2011, int\xE9rim)"
+      description: "Mission d'int\xE9rim : support utilisateurs et d\xE9ploiement.
+        R\xE9partition \xE0 confirmer."
+      skillIds:
+      - maintenance
+      platforms: []
+    notes: "Espace ext\xE9rieur (le c\xF4t\xE9 SSII : en d\xE9placement chez les
+      clients) avec trois petits b\xE2timents clients, de gauche \xE0 droite SPIE
+      2009, IRIS 2010, Computacenter 2011 (int\xE9rim, plus petit). Tout donne Maintenance
+      & Support informatique. Dates \xE0 r\xE9concilier avec le CV (2005-2010) et
+      Cr\xE9ajeux (2010-2013)."
   - id: creajeux
     title: "Cr\xE9ajeux, N\xEEmes"
     years: "2010 - 2013 \xB7 Programmation de jeux vid\xE9o (RNCP 6)"
