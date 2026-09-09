@@ -84,13 +84,28 @@ voient, sans qu'aucune trace ne soit conservée.
 
 ## Structure du dépôt
 
+Arborescence posée par l'outil `Setup Project` de GGS Core (`GGS/Core/Project/Setup Project`),
+commune à tous les jeux du studio :
+
 ```
 ResuME/
 ├── Assets/
-│   ├── Scenes/            ← scènes du jeu
-│   └── Settings/          ← URP, 2D Renderer, Input Actions
-├── Packages/              ← manifest des packages (dont GGS Core)
-├── ProjectSettings/       ← réglages projet, GGSVersion.json (source de vérité de la version)
+│   ├── ResuME/
+│   │   ├── Datas/                 ← Route.asset (le parcours), AppSceneMap.asset
+│   │   ├── Editor/                ← GreyboxSetup (menu ResuME/Greybox), RouteContent
+│   │   ├── Graphics/Sprites/      ← sprites (greybox : un carré blanc généré)
+│   │   ├── Scenes/                ← 00_Bootstrap, 01_MainMenu, GA_GreyboxScene, GA_Gameplay, 90_Credits, 99_Loading
+│   │   ├── Scripts/
+│   │   │   ├── Core/              ← RouteDefinition (données du parcours)
+│   │   │   ├── World/             ← WorldBuilder, FollowCamera, GreyboxPalette
+│   │   │   ├── Player/            ← PlayerMover, PlayerProgress
+│   │   │   ├── UI/                ← CharacterSheetHud
+│   │   │   └── DevTools/          ← GreyboxDebugOverlay
+│   │   └── Tests/PlayMode/        ← GreyboxRouteTests
+│   ├── Resources/GGS/             ← BuildInfo généré avant chaque build
+│   └── Settings/                  ← URP, 2D Renderer, Input Actions
+├── Packages/                      ← manifest des packages (dont GGS Core)
+├── ProjectSettings/               ← réglages projet, GGSVersion.json (source de vérité de la version)
 ├── LICENSE
 └── README.md
 ```
@@ -114,7 +129,8 @@ git clone git@github.com:GorasGamesStudio/ResuME.git
 ```
 
 Ouvrir le dossier `ResuME` dans Unity Hub avec l'éditeur 6000.3.23f1. Les packages se
-résolvent à l'ouverture.
+résolvent à l'ouverture. Scène de travail : `Assets/ResuME/Scenes/GA_GreyboxScene`, régénérable
+par le menu `ResuME/Greybox/Rebuild everything`. Build : `GGS/Core/Build/Build Game`.
 
 ---
 

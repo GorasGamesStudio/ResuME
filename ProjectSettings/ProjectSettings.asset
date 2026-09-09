@@ -171,8 +171,9 @@ PlayerSettings:
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.DefaultCompany.urp_2d
+    Android: com.ggs.resume
     Standalone: com.DefaultCompany.2D-URP
+    iPhone: com.ggs.resume
   buildNumber:
     Standalone: 2
     VisionOS: 0

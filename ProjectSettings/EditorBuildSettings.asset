@@ -6,8 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_ResuME/Scenes/Greybox.unity
+    path: Assets/ResuME/Scenes/GA_GreyboxScene.unity
     guid: 41b7d81cf7e0e04d98eed4da174fd1f4
+  - enabled: 1
+    path: Assets/ResuME/Scenes/00_BootstrapScene.unity
+    guid: f0ad81c9ff2109d1b8c581770a49069d
+  - enabled: 1
+    path: Assets/ResuME/Scenes/01_MainMenuScene.unity
+    guid: a24a462a4e641ae99a8c647e7740cee3
+  - enabled: 1
+    path: Assets/ResuME/Scenes/GA_GameplayScene.unity
+    guid: 44c81622dce4db14a8904480ab389e2b
+  - enabled: 1
+    path: Assets/ResuME/Scenes/90_CreditsScene.unity
+    guid: 172b91ffdf4076d359d307df8a98eb97
+  - enabled: 1
+    path: Assets/ResuME/Scenes/99_LoadingScene.unity
+    guid: c1ae2ac04abb87b6889c7f408038f37e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
