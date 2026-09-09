@@ -25,18 +25,6 @@
       "description": "Programmation orientée objet en C++."
     },
     {
-      "id": "c",
-      "label": "C",
-      "category": "Technique",
-      "description": "Algorithmie et premiers programmes."
-    },
-    {
-      "id": "poo",
-      "label": "Programmation orientée objet",
-      "category": "Technique",
-      "description": "C, C++, C#, architectures logicielles."
-    },
-    {
       "id": "game-design",
       "label": "Conception de jeux vidéo",
       "category": "Technique",
@@ -61,40 +49,10 @@
       "description": "Installation et migration de parcs, support technique sur site."
     },
     {
-      "id": "pilotage",
-      "label": "Pilotage de projets",
-      "category": "Gestion",
-      "description": "Conception, planification et suivi de projets."
-    },
-    {
-      "id": "optimisation",
-      "label": "Analyse & Optimisation de processus",
-      "category": "Gestion",
-      "description": "Analyse des besoins, procédures, automatisation."
-    },
-    {
-      "id": "etude-projet",
-      "label": "Étude de projet",
-      "category": "Gestion",
-      "description": "Étude des besoins, modélisation, choix de solutions."
-    },
-    {
-      "id": "ouverture",
-      "label": "Ouverture de nouvel établissement",
-      "category": "Gestion",
-      "description": "Préparation et ouverture d'une nouvelle structure."
-    },
-    {
       "id": "formation",
       "label": "Formation & Accompagnement",
       "category": "Gestion",
       "description": "Pédagogie, programmes de formation, transmission."
-    },
-    {
-      "id": "coordination",
-      "label": "Coordination d'équipe",
-      "category": "Gestion",
-      "description": "Organisation quotidienne et coordination d'équipes."
     },
     {
       "id": "gestion-entreprise",
@@ -210,29 +168,11 @@
       },
       "projects": [
         {
-          "id": "bts-algorithmie",
-          "title": "Algorithmie avec Algexec",
-          "description": "Logique, structures, premiers programmes ; le C comme langage de référence.",
-          "skills": [
-            "c"
-          ],
-          "platforms": []
-        },
-        {
           "id": "bts-bdd-mcd",
           "title": "Bases de données et MCD (Merise)",
           "description": "Modélisation conceptuelle des données, requêtes, schémas.",
           "skills": [
             "bases-donnees"
-          ],
-          "platforms": []
-        },
-        {
-          "id": "bts-conception",
-          "title": "Conception d'applications",
-          "description": "Analyste-programmeur : cahier des charges, découpage, réalisation.",
-          "skills": [
-            "etude-projet"
           ],
           "platforms": []
         },
@@ -295,8 +235,6 @@
             "unity",
             "csharp",
             "cpp",
-            "c",
-            "poo",
             "game-design"
           ],
           "platforms": []
@@ -321,11 +259,8 @@
           "skills": [
             "unity",
             "csharp",
-            "poo",
             "game-design",
-            "vr",
-            "pilotage",
-            "etude-projet"
+            "vr"
           ],
           "platforms": []
         }
@@ -345,9 +280,7 @@
           "description": "Simulation et apprentissage.",
           "skills": [
             "unity",
-            "csharp",
-            "poo",
-            "optimisation"
+            "csharp"
           ],
           "platforms": []
         }
@@ -377,10 +310,8 @@
           "skills": [
             "unity",
             "csharp",
-            "poo",
             "game-design",
             "vr",
-            "pilotage",
             "gestion-entreprise",
             "dev-web"
           ],
@@ -407,10 +338,7 @@
             "formation",
             "unity",
             "csharp",
-            "poo",
-            "game-design",
-            "pilotage",
-            "coordination"
+            "game-design"
           ],
           "platforms": []
         }
@@ -430,10 +358,7 @@
           "title": "Création et gestion de R'Paint Games (à détailler)",
           "description": "Loisirs sportifs et activités récréatives.",
           "skills": [
-            "gestion-entreprise",
-            "coordination",
-            "pilotage",
-            "ouverture"
+            "gestion-entreprise"
           ],
           "platforms": []
         }
@@ -450,18 +375,7 @@
       "traitsAfter": [
         "polyvalence"
       ],
-      "projects": [
-        {
-          "id": "lidl-magasin",
-          "title": "Ouverture d'un nouveau magasin (à détailler)",
-          "description": "Préparation, rayons, boulangerie, procédures.",
-          "skills": [
-            "ouverture",
-            "optimisation"
-          ],
-          "platforms": []
-        }
-      ]
+      "projects": []
     },
     {
       "id": "loire-games",
@@ -478,9 +392,6 @@
           "description": "Trésorerie, boutique, adhésions, outil web d'automatisation.",
           "skills": [
             "gestion-entreprise",
-            "optimisation",
-            "pilotage",
-            "coordination",
             "csharp",
             "dev-web"
           ],
@@ -503,8 +414,7 @@
           "description": "Programmation, planification, support technique, organisation.",
           "skills": [
             "maintenance",
-            "installation",
-            "coordination"
+            "installation"
           ],
           "platforms": []
         }
@@ -524,8 +434,6 @@
           "title": "Conseil et gamification (à détailler)",
           "description": "Étude des besoins numériques, pédagogie.",
           "skills": [
-            "optimisation",
-            "etude-projet",
             "formation"
           ],
           "platforms": []

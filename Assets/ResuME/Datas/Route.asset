@@ -31,14 +31,6 @@ MonoBehaviour:
     label: C++
     category: 1
     description: "Programmation orient\xE9e objet en C++."
-  - id: c
-    label: C
-    category: 1
-    description: Algorithmie et premiers programmes.
-  - id: poo
-    label: "Programmation orient\xE9e objet"
-    category: 1
-    description: C, C++, C#, architectures logicielles.
   - id: game-design
     label: "Conception de jeux vid\xE9o"
     category: 1
@@ -55,30 +47,10 @@ MonoBehaviour:
     label: "Installation mat\xE9riel informatique"
     category: 1
     description: Installation et migration de parcs, support technique sur site.
-  - id: pilotage
-    label: Pilotage de projets
-    category: 2
-    description: Conception, planification et suivi de projets.
-  - id: optimisation
-    label: Analyse & Optimisation de processus
-    category: 2
-    description: "Analyse des besoins, proc\xE9dures, automatisation."
-  - id: etude-projet
-    label: "\xC9tude de projet"
-    category: 2
-    description: "\xC9tude des besoins, mod\xE9lisation, choix de solutions."
-  - id: ouverture
-    label: "Ouverture de nouvel \xE9tablissement"
-    category: 2
-    description: "Pr\xE9paration et ouverture d'une nouvelle structure."
   - id: formation
     label: Formation & Accompagnement
     category: 2
     description: "P\xE9dagogie, programmes de formation, transmission."
-  - id: coordination
-    label: "Coordination d'\xE9quipe"
-    category: 2
-    description: "Organisation quotidienne et coordination d'\xE9quipes."
   - id: gestion-entreprise
     label: Gestion d'entreprise
     category: 2
@@ -172,24 +144,11 @@ MonoBehaviour:
       description: BTS Informatique de Gestion, 2005.
       category: 0
     projects:
-    - id: bts-algorithmie
-      title: Algorithmie avec Algexec
-      description: "Logique, structures, premiers programmes ; le C comme langage
-        de r\xE9f\xE9rence."
-      skillIds:
-      - c
-      platforms: []
     - id: bts-bdd-mcd
       title: "Bases de donn\xE9es et MCD (Merise)"
       description: "Mod\xE9lisation conceptuelle des donn\xE9es, requ\xEAtes, sch\xE9mas."
       skillIds:
       - bases-donnees
-      platforms: []
-    - id: bts-conception
-      title: Conception d'applications
-      description: "Analyste-programmeur : cahier des charges, d\xE9coupage, r\xE9alisation."
-      skillIds:
-      - etude-projet
       platforms: []
     - id: bts-sites-web
       title: Sites HTML et PHP (perso)
@@ -252,8 +211,6 @@ MonoBehaviour:
       - unity
       - csharp
       - cpp
-      - c
-      - poo
       - game-design
       platforms: []
     notes: 
@@ -280,11 +237,8 @@ MonoBehaviour:
       skillIds:
       - unity
       - csharp
-      - poo
       - game-design
       - vr
-      - pilotage
-      - etude-projet
       platforms: []
     notes: 
   - id: alsace
@@ -305,8 +259,6 @@ MonoBehaviour:
       skillIds:
       - unity
       - csharp
-      - poo
-      - optimisation
       platforms: []
     notes: 
   - id: ggs
@@ -338,10 +290,8 @@ MonoBehaviour:
       skillIds:
       - unity
       - csharp
-      - poo
       - game-design
       - vr
-      - pilotage
       - gestion-entreprise
       - dev-web
       platforms: []
@@ -370,10 +320,7 @@ MonoBehaviour:
       - formation
       - unity
       - csharp
-      - poo
       - game-design
-      - pilotage
-      - coordination
       platforms: []
     notes: 
   - id: rpaint
@@ -393,9 +340,6 @@ MonoBehaviour:
       description: "Loisirs sportifs et activit\xE9s r\xE9cr\xE9atives."
       skillIds:
       - gestion-entreprise
-      - coordination
-      - pilotage
-      - ouverture
       platforms: []
     notes: "Le b\xE2timent se r\xE9nove pendant la travers\xE9e."
   - id: lidl
@@ -414,14 +358,7 @@ MonoBehaviour:
       description: Rayons, boulangerie, inventaire, encaissement.
       category: 3
     rewards: []
-    projects:
-    - id: lidl-magasin
-      title: "Ouverture d'un nouveau magasin (\xE0 d\xE9tailler)"
-      description: "Pr\xE9paration, rayons, boulangerie, proc\xE9dures."
-      skillIds:
-      - ouverture
-      - optimisation
-      platforms: []
+    projects: []
     notes: 
   - id: loire-games
     title: Loire Games
@@ -440,9 +377,6 @@ MonoBehaviour:
       description: "Tr\xE9sorerie, boutique, adh\xE9sions, outil web d'automatisation."
       skillIds:
       - gestion-entreprise
-      - optimisation
-      - pilotage
-      - coordination
       - csharp
       - dev-web
       platforms: []
@@ -465,7 +399,6 @@ MonoBehaviour:
       skillIds:
       - maintenance
       - installation
-      - coordination
       platforms: []
     notes: "Fa\xE7ade seulement, sans logo."
   - id: crn
@@ -484,8 +417,6 @@ MonoBehaviour:
       title: "Conseil et gamification (\xE0 d\xE9tailler)"
       description: "\xC9tude des besoins num\xE9riques, p\xE9dagogie."
       skillIds:
-      - optimisation
-      - etude-projet
       - formation
       platforms: []
     notes: "Place publique, logo du Conseil R\xE9gional."
