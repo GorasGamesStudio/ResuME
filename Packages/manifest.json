@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.ggs.core": "https://github.com/GorasGamesStudio/GGS-Core.git#v0.5.1",
+    "com.ggs.core": "https://github.com/GorasGamesStudio/GGS-Core.git#bb7021b412a3f6ae7165a4abc8e72118511394cc",
     "com.unity.2d.animation": "13.0.6",
     "com.unity.2d.aseprite": "3.0.2",
     "com.unity.2d.psdimporter": "12.0.2",

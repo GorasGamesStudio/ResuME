@@ -1,15 +1,17 @@
 {
   "dependencies": {
     "com.ggs.core": {
-      "version": "https://github.com/GorasGamesStudio/GGS-Core.git#v0.5.1",
+      "version": "https://github.com/GorasGamesStudio/GGS-Core.git#bb7021b412a3f6ae7165a4abc8e72118511394cc",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.unity.editorcoroutines": "1.0.0",
-        "com.unity.2d.sprite": "1.0.0"
+        "com.unity.2d.sprite": "1.0.0",
+        "com.unity.mathematics": "1.3.2",
+        "com.unity.ugui": "2.0.0",
+        "com.unity.inputsystem": "1.12.0"
       },
-      "hash": "f6f1efc797e7cb00f94b557fe0cdeff1200d0bf5"
+      "hash": "bb7021b412a3f6ae7165a4abc8e72118511394cc"
     },
     "com.unity.2d.animation": {
       "version": "13.0.6",
@@ -138,13 +140,6 @@
         "com.unity.nuget.mono-cecil": "1.11.6",
         "com.unity.test-framework.performance": "3.0.3"
       },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.editorcoroutines": {
-      "version": "1.1.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.ext.nunit": {
