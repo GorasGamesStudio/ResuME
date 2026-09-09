@@ -169,7 +169,7 @@ MonoBehaviour:
       devient adulte \xE0 la sortie."
   - id: support
     title: "Missions SSII : support et d\xE9ploiement"
-    years: 2009 - 2011
+    years: 2005
     level: 20
     kind: 6
     widthScreens: 0.8
@@ -185,34 +185,35 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: support-spie
-      title: SPIE Communications (2009)
+      title: SPIE Communications
       description: "En mission chez des clients : d\xE9ploiement de postes (jusqu'\xE0
-        200), migration de parc. R\xE9partition \xE0 confirmer."
+        200), migration de parc."
       skillIds:
       - maintenance
       platforms: []
     - id: support-iris-conseil
-      title: IRIS Conseil (2010)
+      title: IRIS Conseil
       description: "En mission chez des clients : d\xE9veloppement d'un outil de
-        suivi de tickets, support utilisateurs. R\xE9partition \xE0 confirmer."
+        suivi de tickets, support utilisateurs."
       skillIds:
       - maintenance
       platforms: []
     - id: support-computacenter
-      title: "Computacenter (2011, int\xE9rim)"
-      description: "Mission d'int\xE9rim : support utilisateurs et d\xE9ploiement.
-        R\xE9partition \xE0 confirmer."
+      title: Computacenter
+      description: "Mission d'int\xE9rim, repr\xE9sentative des autres missions de
+        la p\xE9riode dont les noms sont perdus."
       skillIds:
       - maintenance
       platforms: []
     notes: "Espace ext\xE9rieur (le c\xF4t\xE9 SSII : en d\xE9placement chez les
-      clients) avec trois petits b\xE2timents clients, de gauche \xE0 droite SPIE
-      2009, IRIS 2010, Computacenter 2011 (int\xE9rim, plus petit). Tout donne Maintenance
-      & Support informatique. Dates \xE0 r\xE9concilier avec le CV (2005-2010) et
-      Cr\xE9ajeux (2010-2013)."
+      clients) avec trois petits b\xE2timents clients : SPIE Communications, IRIS
+      Conseil, Computacenter (int\xE9rim, plus petit). Seule l'ann\xE9e de d\xE9but
+      du secteur est affich\xE9e (2005) ; les autres missions de la p\xE9riode n'ont
+      plus de nom. Tout donne Maintenance & Support informatique. Chaque b\xE2timent
+      s'allume en entier au passage, un \xE0 la fois."
   - id: creajeux
     title: "Cr\xE9ajeux, N\xEEmes"
-    years: "2010 - 2013 \xB7 Programmation de jeux vid\xE9o (RNCP 6)"
+    years: 2010
     level: 25
     kind: 1
     widthScreens: 0.8

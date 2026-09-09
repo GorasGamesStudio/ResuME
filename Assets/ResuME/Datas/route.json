@@ -202,7 +202,7 @@
     {
       "id": "support",
       "title": "Missions SSII : support et déploiement",
-      "years": "2009 - 2011",
+      "years": "2005",
       "level": 20,
       "kind": "Cluster",
       "widthScreens": 0.8,
@@ -212,8 +212,8 @@
       "projects": [
         {
           "id": "support-spie",
-          "title": "SPIE Communications (2009)",
-          "description": "En mission chez des clients : déploiement de postes (jusqu'à 200), migration de parc. Répartition à confirmer.",
+          "title": "SPIE Communications",
+          "description": "En mission chez des clients : déploiement de postes (jusqu'à 200), migration de parc.",
           "skills": [
             "maintenance"
           ],
@@ -221,8 +221,8 @@
         },
         {
           "id": "support-iris-conseil",
-          "title": "IRIS Conseil (2010)",
-          "description": "En mission chez des clients : développement d'un outil de suivi de tickets, support utilisateurs. Répartition à confirmer.",
+          "title": "IRIS Conseil",
+          "description": "En mission chez des clients : développement d'un outil de suivi de tickets, support utilisateurs.",
           "skills": [
             "maintenance"
           ],
@@ -230,20 +230,20 @@
         },
         {
           "id": "support-computacenter",
-          "title": "Computacenter (2011, intérim)",
-          "description": "Mission d'intérim : support utilisateurs et déploiement. Répartition à confirmer.",
+          "title": "Computacenter",
+          "description": "Mission d'intérim, représentative des autres missions de la période dont les noms sont perdus.",
           "skills": [
             "maintenance"
           ],
           "platforms": []
         }
       ],
-      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec trois petits bâtiments clients, de gauche à droite SPIE 2009, IRIS 2010, Computacenter 2011 (intérim, plus petit). Tout donne Maintenance & Support informatique. Dates à réconcilier avec le CV (2005-2010) et Créajeux (2010-2013)."
+      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec trois petits bâtiments clients : SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Tout donne Maintenance & Support informatique. Chaque bâtiment s'allume en entier au passage, un à la fois."
     },
     {
       "id": "creajeux",
       "title": "Créajeux, Nîmes",
-      "years": "2010 - 2013 · Programmation de jeux vidéo (RNCP 6)",
+      "years": "2010",
       "level": 25,
       "kind": "Facade",
       "widthScreens": 0.8,
