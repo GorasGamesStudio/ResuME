@@ -91,7 +91,7 @@ MonoBehaviour:
   stops:
   - id: chambre
     title: Chambre d'enfant
-    years: vers 1991
+    years: "vers 2000 \xB7 entr\xE9e en seconde"
     level: 15
     kind: 0
     widthScreens: 1
@@ -101,12 +101,18 @@ MonoBehaviour:
     - kind: 0
       id: curiosite
       label: "Curiosit\xE9"
-      description: "Tout a commenc\xE9 devant une NES."
+      description: "Premiers pas sur internet au son du modem, un Celeron 433 et
+        une N64 : tout a commenc\xE9 dans cette chambre."
       category: 3
     rewards: []
     projects: []
-    notes: "NES, pistolet Nintendo, la t\xE9l\xE9 sert d'\xE9cran de chargement.
-      Niveau 15 : l\xE0 o\xF9 \xC9ric devient accro \xE0 l'informatique et aux jeux."
+    notes: "Nostalgie et r\xE9tro. PC Celeron 433 MHz avec lecteur CD et disquette,
+      \xE9cran cathodique (sert d'\xE9cran de chargement), bo\xEEte de Dark Age of
+      Camelot, N64 avec Mario 64, Ocarina of Time et GoldenEye, NES et pistolet en
+      objets de collection, premiers pas curieux sur internet. Niveau 15 : l\xE0
+      o\xF9 \xC9ric devient accro. Carton : \xAB Quelque part au d\xE9but du mill\xE9naire,
+      un lyc\xE9e, un ordinateur et une connexion 56k. \xBB Sprite adolescent jusqu'\xE0
+      la sortie du BTS. Son du modem 56k."
   - id: bac
     title: "Lyc\xE9e Saint Vincent, Senlis"
     years: "2003 \xB7 BAC STT Comptabilit\xE9 & Gestion"
@@ -123,13 +129,29 @@ MonoBehaviour:
       description: "BAC STT Comptabilit\xE9 & Gestion, 2003."
       category: 0
     projects:
-    - id: bac-stt
-      title: "BAC STT (\xE0 d\xE9tailler)"
-      description: "Bases en comptabilit\xE9 et gestion administrative."
+    - id: bac-plan-comptable
+      title: Plan comptable et gestion
+      description: "Le plan comptable, la gestion administrative, la rigueur des
+        \xE9critures."
       skillIds:
       - comptabilite
       platforms: []
-    notes: "Le PNJ donne la qu\xEAte."
+    - id: bac-communication
+      title: Communication
+      description: "\xC9crite et orale, rapports et pr\xE9sentations. Comp\xE9tence
+        \xE0 cr\xE9er ou \xE0 rattacher (\xE0 trancher)."
+      skillIds: []
+      platforms: []
+    - id: bac-montage-pc
+      title: Montage de PC (perso)
+      description: "Composants, assemblage, mises \xE0 niveau, en parall\xE8le du
+        lyc\xE9e."
+      skillIds:
+      - installation
+      platforms: []
+    notes: "Le PNJ donne la qu\xEAte (\xE0 d\xE9finir : prof, surveillant, camarade).
+      Outils informatiques d\xE9j\xE0 connus : pas de point, ou comp\xE9tence bureautique
+      \xE0 trancher."
   - id: bts
     title: "Lyc\xE9e Saint Vincent, Senlis"
     years: "2005 \xB7 BTS Informatique de Gestion"
@@ -146,14 +168,34 @@ MonoBehaviour:
       description: BTS Informatique de Gestion, 2005.
       category: 0
     projects:
-    - id: bts-ig
-      title: "BTS Informatique de Gestion (\xE0 d\xE9tailler)"
-      description: "Algorithmie, bases de donn\xE9es, mod\xE9lisation Merise et UML."
+    - id: bts-algorithmie
+      title: Algorithmie avec Algexec
+      description: "Logique, structures, premiers programmes ; le C comme langage
+        de r\xE9f\xE9rence."
       skillIds:
       - c
+      platforms: []
+    - id: bts-bdd-mcd
+      title: "Bases de donn\xE9es et MCD (Merise)"
+      description: "Mod\xE9lisation conceptuelle des donn\xE9es, requ\xEAtes, sch\xE9mas."
+      skillIds:
       - etude-projet
       platforms: []
-    notes: "M\xEAme b\xE2timent que le BAC, un \xE9tage en plus."
+    - id: bts-conception
+      title: Conception d'applications
+      description: "Analyste-programmeur : cahier des charges, d\xE9coupage, r\xE9alisation."
+      skillIds:
+      - etude-projet
+      platforms: []
+    - id: bts-sites-web
+      title: Sites HTML et PHP (perso)
+      description: "Premiers sites dynamiques, en parall\xE8le du BTS. Comp\xE9tence
+        \xAB D\xE9veloppement web \xBB \xE0 cr\xE9er (\xE0 trancher)."
+      skillIds: []
+      platforms:
+      - Web
+    notes: "M\xEAme b\xE2timent que le BAC, un \xE9tage en plus. Le sprite devient
+      adulte \xE0 la sortie."
   - id: support
     title: "Support et d\xE9veloppement informatique"
     years: 2005 - 2010

@@ -168,16 +168,32 @@
       },
       "projects": [
         {
-          "id": "bac-stt",
-          "title": "BAC STT (à détailler)",
-          "description": "Bases en comptabilité et gestion administrative.",
+          "id": "bac-plan-comptable",
+          "title": "Plan comptable et gestion",
+          "description": "Le plan comptable, la gestion administrative, la rigueur des écritures.",
           "skills": [
             "comptabilite"
           ],
           "platforms": []
+        },
+        {
+          "id": "bac-communication",
+          "title": "Communication",
+          "description": "Écrite et orale, rapports et présentations. Compétence à créer ou à rattacher (à trancher).",
+          "skills": [],
+          "platforms": []
+        },
+        {
+          "id": "bac-montage-pc",
+          "title": "Montage de PC (perso)",
+          "description": "Composants, assemblage, mises à niveau, en parallèle du lycée.",
+          "skills": [
+            "installation"
+          ],
+          "platforms": []
         }
       ],
-      "notes": "Le PNJ donne la quête."
+      "notes": "Le PNJ donne la quête (à définir : prof, surveillant, camarade). Outils informatiques déjà connus : pas de point, ou compétence bureautique à trancher."
     },
     {
       "id": "bts",
@@ -193,17 +209,43 @@
       },
       "projects": [
         {
-          "id": "bts-ig",
-          "title": "BTS Informatique de Gestion (à détailler)",
-          "description": "Algorithmie, bases de données, modélisation Merise et UML.",
+          "id": "bts-algorithmie",
+          "title": "Algorithmie avec Algexec",
+          "description": "Logique, structures, premiers programmes ; le C comme langage de référence.",
           "skills": [
-            "c",
+            "c"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "bts-bdd-mcd",
+          "title": "Bases de données et MCD (Merise)",
+          "description": "Modélisation conceptuelle des données, requêtes, schémas.",
+          "skills": [
             "etude-projet"
           ],
           "platforms": []
+        },
+        {
+          "id": "bts-conception",
+          "title": "Conception d'applications",
+          "description": "Analyste-programmeur : cahier des charges, découpage, réalisation.",
+          "skills": [
+            "etude-projet"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "bts-sites-web",
+          "title": "Sites HTML et PHP (perso)",
+          "description": "Premiers sites dynamiques, en parallèle du BTS. Compétence « Développement web » à créer (à trancher).",
+          "skills": [],
+          "platforms": [
+            "Web"
+          ]
         }
       ],
-      "notes": "Même bâtiment que le BAC, un étage en plus."
+      "notes": "Même bâtiment que le BAC, un étage en plus. Le sprite devient adulte à la sortie."
     },
     {
       "id": "support",
