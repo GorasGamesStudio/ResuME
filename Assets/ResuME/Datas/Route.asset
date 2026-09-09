@@ -102,6 +102,7 @@ MonoBehaviour:
     kind: 0
     widthScreens: 1
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -123,9 +124,10 @@ MonoBehaviour:
     title: "Lyc\xE9e Saint Vincent, Senlis"
     years: "2003 \xB7 BAC STT Comptabilit\xE9 & Gestion"
     level: 18
-    kind: 1
-    widthScreens: 0.6
+    kind: 2
+    widthScreens: 0.8
     founder: 0
+    gapAfterScreens: 0.1
     traitsBefore: []
     traitsAfter: []
     rewards:
@@ -151,15 +153,16 @@ MonoBehaviour:
       platforms: []
     notes: "Lyc\xE9e catholique de Senlis (Oise) : cour pav\xE9e, grand c\xE8dre,
       chapelle \xE0 clocher, fa\xE7ade classique en pierre blonde \xE0 fronton cintr\xE9,
-      armoiries au-dessus du portail. Pas de PNJ ni de qu\xEAte : le carton d'ouverture
-      suffit."
+      armoiries au-dessus du portail. On entre par la gauche et on traverse. Pas
+      de PNJ ni de qu\xEAte."
   - id: bts
     title: "Lyc\xE9e Saint Vincent, Senlis"
     years: "2005 \xB7 BTS Informatique de Gestion"
     level: 20
-    kind: 1
-    widthScreens: 0.6
+    kind: 2
+    widthScreens: 0.8
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards:
@@ -195,9 +198,9 @@ MonoBehaviour:
       - dev-web
       platforms:
       - Web
-    notes: "B\xE2timent BTS \xE0 droite de la cour, plus haut et plus sobre ; il
-      s'\xE9claire fen\xEAtre par fen\xEAtre \xE0 l'approche. Le sprite devient adulte
-      \xE0 la sortie."
+    notes: "Second b\xE2timent coll\xE9 \xE0 droite du premier, m\xEAme style, m\xEAme
+      domaine ; il s'\xE9claire fen\xEAtre par fen\xEAtre \xE0 l'approche. Le sprite
+      devient adulte \xE0 la sortie."
   - id: support
     title: "Support et d\xE9veloppement informatique"
     years: 2005 - 2010
@@ -205,6 +208,7 @@ MonoBehaviour:
     kind: 6
     widthScreens: 0.8
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -230,6 +234,7 @@ MonoBehaviour:
     kind: 1
     widthScreens: 0.8
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards:
@@ -259,6 +264,7 @@ MonoBehaviour:
     kind: 2
     widthScreens: 1.2
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -288,6 +294,7 @@ MonoBehaviour:
     kind: 2
     widthScreens: 0.8
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -309,6 +316,7 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.4
     founder: 1
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -345,6 +353,7 @@ MonoBehaviour:
     kind: 2
     widthScreens: 1.2
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -374,6 +383,7 @@ MonoBehaviour:
     kind: 2
     widthScreens: 1.2
     founder: 1
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -395,6 +405,7 @@ MonoBehaviour:
     kind: 2
     widthScreens: 0.8
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -419,6 +430,7 @@ MonoBehaviour:
     kind: 4
     widthScreens: 0.6
     founder: 1
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -442,6 +454,7 @@ MonoBehaviour:
     kind: 1
     widthScreens: 0.5
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -462,6 +475,7 @@ MonoBehaviour:
     kind: 5
     widthScreens: 0.8
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -482,6 +496,7 @@ MonoBehaviour:
     kind: 7
     widthScreens: 1
     founder: 0
+    gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards: []

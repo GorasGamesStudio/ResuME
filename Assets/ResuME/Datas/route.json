@@ -166,8 +166,8 @@
       "title": "Lycée Saint Vincent, Senlis",
       "years": "2003 · BAC STT Comptabilité & Gestion",
       "level": 18,
-      "kind": "Facade",
-      "widthScreens": 0.6,
+      "kind": "Traverse",
+      "widthScreens": 0.8,
       "classChange": {
         "id": "classe-gestionnaire",
         "title": "Gestionnaire",
@@ -193,15 +193,16 @@
           "platforms": []
         }
       ],
-      "notes": "Lycée catholique de Senlis (Oise) : cour pavée, grand cèdre, chapelle à clocher, façade classique en pierre blonde à fronton cintré, armoiries au-dessus du portail. Pas de PNJ ni de quête : le carton d'ouverture suffit."
+      "notes": "Lycée catholique de Senlis (Oise) : cour pavée, grand cèdre, chapelle à clocher, façade classique en pierre blonde à fronton cintré, armoiries au-dessus du portail. On entre par la gauche et on traverse. Pas de PNJ ni de quête.",
+      "gapAfterScreens": 0.1
     },
     {
       "id": "bts",
       "title": "Lycée Saint Vincent, Senlis",
       "years": "2005 · BTS Informatique de Gestion",
       "level": 20,
-      "kind": "Facade",
-      "widthScreens": 0.6,
+      "kind": "Traverse",
+      "widthScreens": 0.8,
       "classChange": {
         "id": "classe-dev-app",
         "title": "Développeur d'applications",
@@ -247,7 +248,7 @@
           ]
         }
       ],
-      "notes": "Bâtiment BTS à droite de la cour, plus haut et plus sobre ; il s'éclaire fenêtre par fenêtre à l'approche. Le sprite devient adulte à la sortie."
+      "notes": "Second bâtiment collé à droite du premier, même style, même domaine ; il s'éclaire fenêtre par fenêtre à l'approche. Le sprite devient adulte à la sortie."
     },
     {
       "id": "support",
