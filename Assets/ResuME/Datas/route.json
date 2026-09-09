@@ -186,6 +186,15 @@
           "platforms": [
             "Web"
           ]
+        },
+        {
+          "id": "bts-montage-pc",
+          "title": "Montage et mise à niveau de PC (perso, suite)",
+          "description": "Composants, assemblage, mises à niveau, pendant les années de BTS.",
+          "skills": [
+            "installation"
+          ],
+          "platforms": []
         }
       ],
       "notes": "Second bâtiment collé à droite du premier, même style, même domaine ; il s'éclaire fenêtre par fenêtre à l'approche. Le sprite devient adulte à la sortie."

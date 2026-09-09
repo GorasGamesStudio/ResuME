@@ -157,6 +157,13 @@ MonoBehaviour:
       - dev-web
       platforms:
       - Web
+    - id: bts-montage-pc
+      title: "Montage et mise \xE0 niveau de PC (perso, suite)"
+      description: "Composants, assemblage, mises \xE0 niveau, pendant les ann\xE9es
+        de BTS."
+      skillIds:
+      - installation
+      platforms: []
     notes: "Second b\xE2timent coll\xE9 \xE0 droite du premier, m\xEAme style, m\xEAme
       domaine ; il s'\xE9claire fen\xEAtre par fen\xEAtre \xE0 l'approche. Le sprite
       devient adulte \xE0 la sortie."
