@@ -55,19 +55,10 @@ MonoBehaviour:
     label: "Installation mat\xE9riel informatique"
     category: 1
     description: Installation et migration de parcs, support technique sur site.
-  - id: comptabilite
-    label: "Comptabilit\xE9 g\xE9n\xE9rale"
-    category: 1
-    description: "Comptabilit\xE9, gestion administrative et bancaire."
   - id: pilotage
     label: Pilotage de projets
     category: 2
     description: Conception, planification et suivi de projets.
-  - id: creation-entreprise
-    label: "Cr\xE9ation & Gestion d'entreprise"
-    category: 2
-    description: "Cr\xE9ation et gestion de structures : micro-entreprise, soci\xE9t\xE9,
-      association."
   - id: optimisation
     label: Analyse & Optimisation de processus
     category: 2
@@ -88,6 +79,21 @@ MonoBehaviour:
     label: "Coordination d'\xE9quipe"
     category: 2
     description: "Organisation quotidienne et coordination d'\xE9quipes."
+  - id: gestion-entreprise
+    label: Gestion d'entreprise
+    category: 2
+    description: "Cr\xE9ation, administration, comptabilit\xE9 et tr\xE9sorerie de
+      structures : micro-entreprise, soci\xE9t\xE9, association."
+  - id: bases-donnees
+    label: "Bases de donn\xE9es"
+    category: 1
+    description: "Mod\xE9lisation (MCD, Merise), sch\xE9mas, requ\xEAtes, donn\xE9es
+      applicatives."
+  - id: dev-web
+    label: "D\xE9veloppement web"
+    category: 1
+    description: "Sites et applications web, du HTML/PHP des d\xE9buts aux outils
+      web des associations."
   stops:
   - id: chambre
     title: Chambre d'enfant
@@ -134,13 +140,7 @@ MonoBehaviour:
       description: "Le plan comptable, la gestion administrative, la rigueur des
         \xE9critures."
       skillIds:
-      - comptabilite
-      platforms: []
-    - id: bac-communication
-      title: Communication
-      description: "\xC9crite et orale, rapports et pr\xE9sentations. Comp\xE9tence
-        \xE0 cr\xE9er ou \xE0 rattacher (\xE0 trancher)."
-      skillIds: []
+      - gestion-entreprise
       platforms: []
     - id: bac-montage-pc
       title: Montage de PC (perso)
@@ -149,9 +149,10 @@ MonoBehaviour:
       skillIds:
       - installation
       platforms: []
-    notes: "Le PNJ donne la qu\xEAte (\xE0 d\xE9finir : prof, surveillant, camarade).
-      Outils informatiques d\xE9j\xE0 connus : pas de point, ou comp\xE9tence bureautique
-      \xE0 trancher."
+    notes: "Lyc\xE9e catholique de Senlis (Oise) : cour pav\xE9e, grand c\xE8dre,
+      chapelle \xE0 clocher, fa\xE7ade classique en pierre blonde \xE0 fronton cintr\xE9,
+      armoiries au-dessus du portail. Pas de PNJ ni de qu\xEAte : le carton d'ouverture
+      suffit."
   - id: bts
     title: "Lyc\xE9e Saint Vincent, Senlis"
     years: "2005 \xB7 BTS Informatique de Gestion"
@@ -179,7 +180,7 @@ MonoBehaviour:
       title: "Bases de donn\xE9es et MCD (Merise)"
       description: "Mod\xE9lisation conceptuelle des donn\xE9es, requ\xEAtes, sch\xE9mas."
       skillIds:
-      - etude-projet
+      - bases-donnees
       platforms: []
     - id: bts-conception
       title: Conception d'applications
@@ -189,13 +190,14 @@ MonoBehaviour:
       platforms: []
     - id: bts-sites-web
       title: Sites HTML et PHP (perso)
-      description: "Premiers sites dynamiques, en parall\xE8le du BTS. Comp\xE9tence
-        \xAB D\xE9veloppement web \xBB \xE0 cr\xE9er (\xE0 trancher)."
-      skillIds: []
+      description: "Premiers sites dynamiques, en parall\xE8le du BTS."
+      skillIds:
+      - dev-web
       platforms:
       - Web
-    notes: "M\xEAme b\xE2timent que le BAC, un \xE9tage en plus. Le sprite devient
-      adulte \xE0 la sortie."
+    notes: "B\xE2timent BTS \xE0 droite de la cour, plus haut et plus sobre ; il
+      s'\xE9claire fen\xEAtre par fen\xEAtre \xE0 l'approche. Le sprite devient adulte
+      \xE0 la sortie."
   - id: support
     title: "Support et d\xE9veloppement informatique"
     years: 2005 - 2010
@@ -332,8 +334,8 @@ MonoBehaviour:
       - game-design
       - vr
       - pilotage
-      - creation-entreprise
-      - comptabilite
+      - gestion-entreprise
+      - dev-web
       platforms: []
     notes: 
   - id: game-academy
@@ -380,9 +382,8 @@ MonoBehaviour:
       title: "Cr\xE9ation et gestion de R'Paint Games (\xE0 d\xE9tailler)"
       description: "Loisirs sportifs et activit\xE9s r\xE9cr\xE9atives."
       skillIds:
-      - creation-entreprise
+      - gestion-entreprise
       - coordination
-      - comptabilite
       - pilotage
       - ouverture
       platforms: []
@@ -426,12 +427,12 @@ MonoBehaviour:
       title: "Association Loire Games (\xE0 d\xE9tailler)"
       description: "Tr\xE9sorerie, boutique, adh\xE9sions, outil web d'automatisation."
       skillIds:
-      - comptabilite
-      - creation-entreprise
+      - gestion-entreprise
       - optimisation
       - pilotage
       - coordination
       - csharp
+      - dev-web
       platforms: []
     notes: Stand de salon, jaune bien visible, logo Loire Games.
   - id: cine-sologne

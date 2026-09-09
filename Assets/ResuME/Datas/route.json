@@ -61,22 +61,10 @@
       "description": "Installation et migration de parcs, support technique sur site."
     },
     {
-      "id": "comptabilite",
-      "label": "Comptabilité générale",
-      "category": "Technique",
-      "description": "Comptabilité, gestion administrative et bancaire."
-    },
-    {
       "id": "pilotage",
       "label": "Pilotage de projets",
       "category": "Gestion",
       "description": "Conception, planification et suivi de projets."
-    },
-    {
-      "id": "creation-entreprise",
-      "label": "Création & Gestion d'entreprise",
-      "category": "Gestion",
-      "description": "Création et gestion de structures : micro-entreprise, société, association."
     },
     {
       "id": "optimisation",
@@ -107,6 +95,24 @@
       "label": "Coordination d'équipe",
       "category": "Gestion",
       "description": "Organisation quotidienne et coordination d'équipes."
+    },
+    {
+      "id": "gestion-entreprise",
+      "label": "Gestion d'entreprise",
+      "category": "Gestion",
+      "description": "Création, administration, comptabilité et trésorerie de structures : micro-entreprise, société, association."
+    },
+    {
+      "id": "bases-donnees",
+      "label": "Bases de données",
+      "category": "Technique",
+      "description": "Modélisation (MCD, Merise), schémas, requêtes, données applicatives."
+    },
+    {
+      "id": "dev-web",
+      "label": "Développement web",
+      "category": "Technique",
+      "description": "Sites et applications web, du HTML/PHP des débuts aux outils web des associations."
     }
   ],
   "traits": [
@@ -152,7 +158,8 @@
       "traitsAfter": [
         "curiosite"
       ],
-      "notes": "Nostalgie et rétro. PC Celeron 433 MHz avec lecteur CD et disquette, écran cathodique (sert d'écran de chargement), boîte de Dark Age of Camelot, N64 avec Mario 64, Ocarina of Time et GoldenEye, NES et pistolet en objets de collection, premiers pas curieux sur internet. Niveau 15 : là où Éric devient accro. Carton : « Quelque part au début du millénaire, un lycée, un ordinateur et une connexion 56k. » Sprite adolescent jusqu'à la sortie du BTS. Son du modem 56k."
+      "notes": "Nostalgie et rétro. PC Celeron 433 MHz avec lecteur CD et disquette, écran cathodique (sert d'écran de chargement), boîte de Dark Age of Camelot, N64 avec Mario 64, Ocarina of Time et GoldenEye, NES et pistolet en objets de collection, premiers pas curieux sur internet. Niveau 15 : là où Éric devient accro. Carton : « Quelque part au début du millénaire, un lycée, un ordinateur et une connexion 56k. » Sprite adolescent jusqu'à la sortie du BTS. Son du modem 56k.",
+      "projects": []
     },
     {
       "id": "bac",
@@ -172,15 +179,8 @@
           "title": "Plan comptable et gestion",
           "description": "Le plan comptable, la gestion administrative, la rigueur des écritures.",
           "skills": [
-            "comptabilite"
+            "gestion-entreprise"
           ],
-          "platforms": []
-        },
-        {
-          "id": "bac-communication",
-          "title": "Communication",
-          "description": "Écrite et orale, rapports et présentations. Compétence à créer ou à rattacher (à trancher).",
-          "skills": [],
           "platforms": []
         },
         {
@@ -193,7 +193,7 @@
           "platforms": []
         }
       ],
-      "notes": "Lycée catholique de Senlis (Oise) : cour pavée, grand cèdre, chapelle à clocher, façade classique en pierre blonde à fronton cintré, armoiries au-dessus du portail. Le PNJ donne la quête (à définir). Outils informatiques déjà connus : pas de point."
+      "notes": "Lycée catholique de Senlis (Oise) : cour pavée, grand cèdre, chapelle à clocher, façade classique en pierre blonde à fronton cintré, armoiries au-dessus du portail. Pas de PNJ ni de quête : le carton d'ouverture suffit."
     },
     {
       "id": "bts",
@@ -222,7 +222,7 @@
           "title": "Bases de données et MCD (Merise)",
           "description": "Modélisation conceptuelle des données, requêtes, schémas.",
           "skills": [
-            "etude-projet"
+            "bases-donnees"
           ],
           "platforms": []
         },
@@ -238,8 +238,10 @@
         {
           "id": "bts-sites-web",
           "title": "Sites HTML et PHP (perso)",
-          "description": "Premiers sites dynamiques, en parallèle du BTS. Compétence « Développement web » à créer (à trancher).",
-          "skills": [],
+          "description": "Premiers sites dynamiques, en parallèle du BTS.",
+          "skills": [
+            "dev-web"
+          ],
           "platforms": [
             "Web"
           ]
@@ -378,8 +380,8 @@
             "game-design",
             "vr",
             "pilotage",
-            "creation-entreprise",
-            "comptabilite"
+            "gestion-entreprise",
+            "dev-web"
           ],
           "platforms": []
         }
@@ -427,9 +429,8 @@
           "title": "Création et gestion de R'Paint Games (à détailler)",
           "description": "Loisirs sportifs et activités récréatives.",
           "skills": [
-            "creation-entreprise",
+            "gestion-entreprise",
             "coordination",
-            "comptabilite",
             "pilotage",
             "ouverture"
           ],
@@ -475,12 +476,12 @@
           "title": "Association Loire Games (à détailler)",
           "description": "Trésorerie, boutique, adhésions, outil web d'automatisation.",
           "skills": [
-            "comptabilite",
-            "creation-entreprise",
+            "gestion-entreprise",
             "optimisation",
             "pilotage",
             "coordination",
-            "csharp"
+            "csharp",
+            "dev-web"
           ],
           "platforms": []
         }
@@ -538,7 +539,8 @@
       "level": 40,
       "kind": "End",
       "widthScreens": 1.0,
-      "notes": "Le PNJ regarde la caméra, pluie de compétences, pouce, carte de contact."
+      "notes": "Le PNJ regarde la caméra, pluie de compétences, pouce, carte de contact.",
+      "projects": []
     }
   ]
 }
