@@ -77,7 +77,7 @@ voient, sans qu'aucune trace ne soit conservée.
 | Moteur | Unity | 6000.3.23f1 (6.3 LTS) |
 | Rendu | Universal Render Pipeline, 2D Renderer | 17.3 |
 | Entrées | Input System | 1.20 |
-| Socle studio | GGS Core | 0.5.1 |
+| Socle studio | GGS Core | 0.7.0 |
 | Cible | WebGL | build compressé Brotli |
 
 ---

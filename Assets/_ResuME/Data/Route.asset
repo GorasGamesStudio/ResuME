@@ -1,0 +1,309 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921395d58fc00c5679d3dde1809130f4, type: 3}
+  m_Name: Route
+  m_EditorClassIdentifier: ResuME.Runtime::ResuME.Data.RouteDefinition
+  screenWidthUnits: 20
+  buildingHeightUnits: 6
+  roadHeightUnits: 2
+  secondsPerScreen: 3
+  gapScreens: 0.5
+  stops:
+  - id: chambre
+    title: Chambre d'enfant
+    years: vers 1991
+    level: 6
+    kind: 0
+    widthScreens: 1
+    founder: 0
+    rewards: []
+    roadRewards:
+    - kind: 1
+      id: curiosite
+      label: "Curiosit\xE9"
+      description: "Tout a commenc\xE9 devant une NES."
+      category: 3
+    notes: "NES, pistolet Nintendo, la t\xE9l\xE9 sert d'\xE9cran de chargement."
+  - id: bac
+    title: "Lyc\xE9e Saint Vincent, Senlis"
+    years: "2003 \xB7 BAC STT Comptabilit\xE9 & Gestion"
+    level: 18
+    kind: 1
+    widthScreens: 0.6
+    founder: 0
+    rewards:
+    - kind: 0
+      id: comptabilite
+      label: "Comptabilit\xE9 g\xE9n\xE9rale"
+      description: "Bases en comptabilit\xE9 et gestion administrative."
+      category: 1
+    - kind: 2
+      id: classe-gestionnaire
+      label: Gestionnaire
+      description: "BAC STT Comptabilit\xE9 & Gestion, 2003."
+      category: 0
+    roadRewards: []
+    notes: "Le PNJ donne la qu\xEAte."
+  - id: bts
+    title: "Lyc\xE9e Saint Vincent, Senlis"
+    years: "2005 \xB7 BTS Informatique de Gestion"
+    level: 20
+    kind: 1
+    widthScreens: 0.6
+    founder: 0
+    rewards:
+    - kind: 0
+      id: c
+      label: C
+      description: "Algorithmie, bases de donn\xE9es, Visual Basic, Merise et UML."
+      category: 1
+    - kind: 0
+      id: etude-projet
+      label: "\xC9tude de projet"
+      description: "Mod\xE9lisation et architectures logicielles."
+      category: 2
+    - kind: 2
+      id: classe-dev-app
+      label: "D\xE9veloppeur d'applications"
+      description: BTS Informatique de Gestion, 2005.
+      category: 0
+    roadRewards: []
+    notes: "M\xEAme b\xE2timent que le BAC, un \xE9tage en plus."
+  - id: support
+    title: "Support et d\xE9veloppement informatique"
+    years: 2005 - 2010
+    level: 20
+    kind: 2
+    widthScreens: 0.8
+    founder: 0
+    rewards:
+    - kind: 0
+      id: maintenance
+      label: Maintenance & Support informatique
+      description: "Support utilisateurs, configuration de postes, maintenance r\xE9seau."
+      category: 1
+    - kind: 0
+      id: installation
+      label: "Installation mat\xE9riel informatique"
+      description: Installation et migration de parcs informatiques.
+      category: 1
+    roadRewards:
+    - kind: 1
+      id: sens-service
+      label: Sens du service
+      description: Support technique sur site, au contact des utilisateurs.
+      category: 3
+    notes: "Plusieurs entreprises, trait\xE9es en b\xE2timent anonyme."
+  - id: creajeux
+    title: "Cr\xE9ajeux, N\xEEmes"
+    years: "2010 - 2013 \xB7 Programmation de jeux vid\xE9o (RNCP 6)"
+    level: 25
+    kind: 1
+    widthScreens: 0.8
+    founder: 0
+    rewards:
+    - kind: 0
+      id: unity
+      label: Unity 3D
+      description: "Prototypes 2D et 3D, physique temps r\xE9el, gameplay en \xE9quipe."
+      category: 1
+    - kind: 0
+      id: csharp
+      label: C#
+      description: "Programmation orient\xE9e objet en C#."
+      category: 1
+    - kind: 0
+      id: cpp
+      label: C++
+      description: "Programmation orient\xE9e objet en C++."
+      category: 1
+    - kind: 0
+      id: poo
+      label: "Programmation orient\xE9e objet"
+      description: C, C++, C#.
+      category: 1
+    - kind: 0
+      id: game-design
+      label: "Conception de jeux vid\xE9o"
+      description: Game design, game jams, projets personnels.
+      category: 1
+    - kind: 2
+      id: classe-dev-jeux
+      label: "D\xE9veloppeur de jeux vid\xE9o"
+      description: "Cr\xE9ajeux, 2013. Classe d\xE9finitive."
+      category: 0
+    roadRewards: []
+    notes: 
+  - id: montbeliard
+    title: "D\xE9veloppement Unity, Montb\xE9liard"
+    years: 2013 - 2016
+    level: 28
+    kind: 2
+    widthScreens: 1.2
+    founder: 0
+    rewards:
+    - kind: 0
+      id: vr
+      label: "R\xE9alit\xE9 virtuelle"
+      description: "Applications 3D p\xE9dagogiques, culturelles et immersives pour
+        l'arm\xE9e et le tourisme."
+      category: 1
+    roadRewards:
+    - kind: 1
+      id: esprit-equipe
+      label: "Esprit d'\xE9quipe"
+      description: "Premiers projets professionnels, en \xE9quipe."
+      category: 3
+    notes: 
+  - id: alsace
+    title: "D\xE9veloppement pharmaceutique, Alsace"
+    years: 2017
+    level: 32
+    kind: 2
+    widthScreens: 0.8
+    founder: 0
+    rewards:
+    - kind: 0
+      id: optimisation
+      label: Analyse & Optimisation de processus
+      description: Serious games de simulation et d'apprentissage.
+      category: 2
+    roadRewards: []
+    notes: 
+  - id: ggs
+    title: Goras Games Studio
+    years: "2018 - aujourd'hui \xB7 micro-entreprise"
+    level: 33
+    kind: 3
+    widthScreens: 0.4
+    founder: 1
+    rewards:
+    - kind: 3
+      id: ggs-passif
+      label: Goras Games Studio
+      description: 'Actif depuis 2018 : jeux PC, mobile et VR, applications web,
+        multijoueur. Docker, Notion, GitHub.'
+      category: 0
+    - kind: 0
+      id: pilotage
+      label: Pilotage de projets
+      description: "Conception et d\xE9veloppement de jeux et d'applications."
+      category: 2
+    roadRewards:
+    - kind: 1
+      id: autonomie
+      label: Autonomie
+      description: "Micro-entreprise men\xE9e en parall\xE8le de tout le reste."
+      category: 3
+    notes: 
+  - id: game-academy
+    title: Game Academy
+    years: "2018 - 2020 \xB7 Formateur"
+    level: 33
+    kind: 2
+    widthScreens: 1.2
+    founder: 0
+    rewards:
+    - kind: 0
+      id: formation
+      label: Formation & Accompagnement
+      description: "Programme p\xE9dagogique sur quatre ans, de la pr\xE9pa \xE0
+        la 3e ann\xE9e."
+      category: 2
+    roadRewards:
+    - kind: 1
+      id: force-proposition
+      label: Force de proposition
+      description: "\xC9v\xE9nements, salons jeux vid\xE9o, apport d'id\xE9es nouvelles."
+      category: 3
+    notes: 
+  - id: rpaint
+    title: R'Paint Games
+    years: "2020 - 2023 \xB7 Co-fondateur & Pr\xE9sident"
+    level: 35
+    kind: 2
+    widthScreens: 1.2
+    founder: 1
+    rewards:
+    - kind: 0
+      id: creation-entreprise
+      label: "Cr\xE9ation & Gestion d'entreprise"
+      description: "Loisirs sportifs et activit\xE9s r\xE9cr\xE9atives."
+      category: 2
+    - kind: 0
+      id: coordination
+      label: "Coordination d'\xE9quipe"
+      description: Gestion administrative, logistique et comptable.
+      category: 2
+    roadRewards: []
+    notes: "Le b\xE2timent se r\xE9nove pendant la travers\xE9e."
+  - id: lidl
+    title: Lidl
+    years: "2023 - 2024 \xB7 Employ\xE9 polyvalent"
+    level: 38
+    kind: 2
+    widthScreens: 0.8
+    founder: 0
+    rewards:
+    - kind: 0
+      id: ouverture
+      label: "Ouverture de nouvel \xE9tablissement"
+      description: "Pr\xE9paration et ouverture d'un nouveau magasin."
+      category: 2
+    roadRewards:
+    - kind: 1
+      id: polyvalence
+      label: Polyvalence
+      description: Rayons, boulangerie, inventaire, encaissement.
+      category: 3
+    notes: 
+  - id: loire-games
+    title: Loire Games
+    years: "2025 - aujourd'hui \xB7 Co-fondateur & Tr\xE9sorier"
+    level: 40
+    kind: 4
+    widthScreens: 0.6
+    founder: 1
+    rewards: []
+    roadRewards: []
+    notes: Stand de salon, jaune bien visible, logo Loire Games.
+  - id: cine-sologne
+    title: "Cin\xE9 Sologne"
+    years: "2025 - 2026 \xB7 Assistant directeur"
+    level: 40
+    kind: 1
+    widthScreens: 0.5
+    founder: 0
+    rewards: []
+    roadRewards: []
+    notes: "Fa\xE7ade seulement, sans logo."
+  - id: crn
+    title: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
+    years: "2026 - aujourd'hui \xB7 B\xE9n\xE9volat"
+    level: 40
+    kind: 5
+    widthScreens: 0.8
+    founder: 0
+    rewards: []
+    roadRewards: []
+    notes: "Place publique, logo du Conseil R\xE9gional."
+  - id: aujourdhui
+    title: Aujourd'hui
+    years: 2026
+    level: 40
+    kind: 6
+    widthScreens: 1
+    founder: 0
+    rewards: []
+    roadRewards: []
+    notes: "Le PNJ regarde la cam\xE9ra, pluie de comp\xE9tences, pouce, carte de
+      contact."

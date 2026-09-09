@@ -1,0 +1,22 @@
+{
+    "name": "ResuME.Editor",
+    "rootNamespace": "ResuME.Editor",
+    "references": [
+        "ResuME.Runtime",
+        "Unity.InputSystem",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "UnityEngine.UI",
+        "Unity.RenderPipelines.Universal.2D.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
