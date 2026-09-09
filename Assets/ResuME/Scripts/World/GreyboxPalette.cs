@@ -24,10 +24,13 @@ namespace ResuME.World
                 case StopKind.Counter: return new Color(0.50f, 0.46f, 0.38f);
                 case StopKind.Stand: return new Color(0.62f, 0.58f, 0.32f);
                 case StopKind.Square: return new Color(0.40f, 0.46f, 0.44f);
+                case StopKind.Cluster: return new Color(0.44f, 0.42f, 0.40f);
                 case StopKind.End: return new Color(0.46f, 0.40f, 0.40f);
                 default: return Floor;
             }
         }
+
+        public static readonly Color Project = new Color(0.90f, 0.90f, 0.92f);
 
         public static Color ForReward(RewardKind kind, SkillCategory category)
         {
@@ -36,11 +39,15 @@ namespace ResuME.World
                 case RewardKind.ClassChange: return new Color(0.95f, 0.85f, 0.45f);
                 case RewardKind.Passive: return new Color(0.55f, 0.80f, 0.95f);
                 case RewardKind.Trait: return new Color(0.80f, 0.60f, 0.85f);
-                default:
-                    return category == SkillCategory.Gestion
-                        ? new Color(0.60f, 0.85f, 0.60f)
-                        : new Color(0.60f, 0.75f, 0.95f);
+                default: return ForSkill(category);
             }
+        }
+
+        public static Color ForSkill(SkillCategory category)
+        {
+            return category == SkillCategory.Gestion
+                ? new Color(0.60f, 0.85f, 0.60f)
+                : new Color(0.60f, 0.75f, 0.95f);
         }
     }
 }

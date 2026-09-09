@@ -112,6 +112,7 @@ namespace ResuME.UI
             if (world != null)
             {
                 world.RewardCollected += OnRewardCollected;
+                world.ProjectCompleted += OnProjectCompleted;
                 world.StopEntered += OnStopEntered;
             }
             if (progress != null)
@@ -126,6 +127,7 @@ namespace ResuME.UI
             if (world != null)
             {
                 world.RewardCollected -= OnRewardCollected;
+                world.ProjectCompleted -= OnProjectCompleted;
                 world.StopEntered -= OnStopEntered;
             }
             if (progress != null)
@@ -254,7 +256,7 @@ namespace ResuME.UI
 
         private SkillSquare MakeSquare(SkillMastery mastery)
         {
-            Color color = GreyboxPalette.ForReward(RewardKind.Skill, mastery.Definition.category);
+            Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
 
             RectTransform rect = MakeImage(barContent, "Skill " + mastery.Definition.id, Vector2.zero, new Vector2(SquareSize, SquareSize), SquareBack);
             rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0f);
@@ -290,13 +292,16 @@ namespace ResuME.UI
 
         #region Skills
 
+        /// <summary>Every skill the project used activates and gains a point, all at once.</summary>
+        private void OnProjectCompleted(ProjectDefinition project, Vector3 worldPosition, StopDefinition stop)
+        {
+            foreach (string skillId in project.skillIds) StartCoroutine(GainSkill(skillId));
+        }
+
         private void OnRewardCollected(RewardDefinition reward, Vector3 worldPosition, StopDefinition stop)
         {
             switch (reward.kind)
             {
-                case RewardKind.Skill:
-                    StartCoroutine(GainSkill(reward));
-                    break;
                 case RewardKind.Trait:
                     StartCoroutine(FlyToChip(reward, worldPosition, NextFree(traitChips)));
                     break;
@@ -310,32 +315,32 @@ namespace ResuME.UI
         }
 
         /// <summary>Activate the square, send a small square to the character, bring a dot back, fill the gauge.</summary>
-        private IEnumerator GainSkill(RewardDefinition reward)
+        private IEnumerator GainSkill(string skillId)
         {
             // Let PlayerProgress apply the gain first (handler order is not guaranteed), then read it back.
             yield return null;
-            SkillMastery mastery = FindMastery(reward.id);
+            SkillMastery mastery = FindMastery(skillId);
             if (mastery == null) yield break;
 
-            if (!squaresById.TryGetValue(reward.id, out SkillSquare square))
+            if (!squaresById.TryGetValue(skillId, out SkillSquare square))
             {
                 square = MakeSquare(mastery);
                 squares.Add(square);
-                squaresById.Add(reward.id, square);
+                squaresById.Add(skillId, square);
                 Layout(snapNew: square);
                 yield return Scale(square.Rect, 0f, 1f, 0.2f);
             }
 
-            Color color = GreyboxPalette.ForReward(RewardKind.Skill, mastery.Definition.category);
+            Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
             square.Inner.color = WithAlpha(color, 1f);
             StartCoroutine(Punch(square.Rect, 0.15f, 0.15f));
 
             Vector2 from = SquareCentre(square);
             Vector2 to = CharacterCanvasPosition();
-            yield return Travel("Spark " + reward.id, from, to, new Vector2(14f, 14f), color, 0.3f);
-            yield return Travel("Dot " + reward.id, CharacterCanvasPosition(), SquareCentre(square), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), 0.3f);
+            yield return Travel("Spark " + skillId, from, to, new Vector2(14f, 14f), color, 0.3f);
+            yield return Travel("Dot " + skillId, CharacterCanvasPosition(), SquareCentre(square), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), 0.3f);
 
-            square.ShownPoints = Mathf.Min(square.ShownPoints + Mathf.Max(1, reward.points), mastery.Points);
+            square.ShownPoints = Mathf.Min(square.ShownPoints + 1, mastery.Points);
             RefreshSquare(square);
             StartCoroutine(Punch(square.Points.rectTransform, 0.3f, 0.35f));
             square.Inner.color = WithAlpha(color, InnerIdleAlpha);
@@ -352,7 +357,7 @@ namespace ResuME.UI
         private void RefreshSquare(SkillSquare square)
         {
             int points = square.ShownPoints;
-            Color color = GreyboxPalette.ForReward(RewardKind.Skill, square.Mastery.Definition.category);
+            Color color = GreyboxPalette.ForSkill(square.Mastery.Definition.category);
             for (int i = 0; i < square.Segments.Length; i++)
                 square.Segments[i].color = i < points ? color : SlotEmpty;
             square.Points.text = points.ToString();

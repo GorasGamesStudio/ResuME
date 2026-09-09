@@ -7,10 +7,10 @@ using UnityEngine;
 
 namespace ResuME.Player
 {
-    /// <summary>Mastery of one skill: points and the experiences that granted them.</summary>
+    /// <summary>Mastery of one skill: points and the projects that granted them.</summary>
     public sealed class SkillMastery
     {
-        public RewardDefinition Definition;
+        public SkillDefinition Definition;
         public int Points;
         public readonly List<string> Contributors = new List<string>();
     }
@@ -61,6 +61,7 @@ namespace ResuME.Player
             if (world == null) return;
             world.StopEntered += OnStopEntered;
             world.RewardCollected += OnRewardCollected;
+            world.ProjectCompleted += OnProjectCompleted;
         }
 
         private void OnDisable()
@@ -68,6 +69,7 @@ namespace ResuME.Player
             if (world == null) return;
             world.StopEntered -= OnStopEntered;
             world.RewardCollected -= OnRewardCollected;
+            world.ProjectCompleted -= OnProjectCompleted;
         }
 
         private void OnStopEntered(StopDefinition stop)
@@ -87,9 +89,6 @@ namespace ResuME.Player
                     ClassChanged?.Invoke(ClassTitle);
                     StartCoroutine(Reinforce());
                     break;
-                case RewardKind.Skill:
-                    GainSkill(reward, stop);
-                    break;
                 case RewardKind.Trait:
                     traits.Add(reward);
                     break;
@@ -99,17 +98,32 @@ namespace ResuME.Player
             }
         }
 
-        private void GainSkill(RewardDefinition reward, StopDefinition stop)
+        /// <summary>Every skill the project used gains one mastery point.</summary>
+        private void OnProjectCompleted(ProjectDefinition project, Vector3 position, StopDefinition stop)
         {
-            bool isNew = !skillsById.TryGetValue(reward.id, out SkillMastery mastery);
+            foreach (string skillId in project.skillIds)
+            {
+                SkillDefinition definition = world != null && world.Route != null ? world.Route.FindSkill(skillId) : null;
+                if (definition == null)
+                {
+                    Debug.LogWarning($"[ResuME] Project {project.id} uses unknown skill '{skillId}'.");
+                    continue;
+                }
+                GainSkill(definition, project.title);
+            }
+        }
+
+        private void GainSkill(SkillDefinition definition, string contributor)
+        {
+            bool isNew = !skillsById.TryGetValue(definition.id, out SkillMastery mastery);
             if (isNew)
             {
-                mastery = new SkillMastery { Definition = reward };
+                mastery = new SkillMastery { Definition = definition };
                 skills.Add(mastery);
-                skillsById.Add(reward.id, mastery);
+                skillsById.Add(definition.id, mastery);
             }
-            mastery.Points += Mathf.Max(1, reward.points);
-            if (stop != null) mastery.Contributors.Add(stop.title);
+            mastery.Points++;
+            mastery.Contributors.Add(contributor);
             SkillChanged?.Invoke(mastery, isNew);
         }
 

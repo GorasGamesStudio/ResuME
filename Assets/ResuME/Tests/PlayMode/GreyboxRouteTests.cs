@@ -34,11 +34,12 @@ namespace ResuME.Tests
             Assert.IsNotNull(progress, "PlayerProgress missing in GA_GreyboxScene");
 
             int expectedSkills = world.Route.CountDistinctSkills();
-            int expectedGains = world.Route.CountRewards(Data.RewardKind.Skill);
+            int expectedGains = world.Route.CountGains();
             int expectedTraits = world.Route.CountRewards(Data.RewardKind.Trait);
             int expectedPassives = world.Route.CountRewards(Data.RewardKind.Passive);
             Assert.AreEqual(17, expectedSkills, "the CV lists 17 skills (10 technical, 7 management)");
-            Assert.Greater(expectedGains, expectedSkills, "skills must be reinforced by several experiences");
+            Assert.Greater(expectedGains, expectedSkills, "skills must be reinforced by several projects");
+            Assert.Greater(world.Route.CountProjects(), 0, "the route must contain projects");
             Assert.AreEqual(6, expectedTraits, "the CV lists 6 personal traits");
             Assert.AreEqual(1, expectedPassives, "Goras Games Studio is the only passive");
 
@@ -71,7 +72,7 @@ namespace ResuME.Tests
             foreach (SkillMastery mastery in progress.Skills)
             {
                 Assert.AreEqual(world.Route.TotalPoints(mastery.Definition.id), mastery.Points, $"mastery of {mastery.Definition.id}");
-                Assert.AreEqual(mastery.Points, mastery.Contributors.Count, $"one contributor per point for {mastery.Definition.id}");
+                Assert.AreEqual(mastery.Points, mastery.Contributors.Count, $"one contributing project per point for {mastery.Definition.id}");
                 totalPoints += mastery.Points;
             }
             Assert.AreEqual(expectedGains, totalPoints, "every gain on the lane counts once");

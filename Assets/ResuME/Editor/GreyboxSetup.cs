@@ -25,27 +25,25 @@ namespace ResuME.Editor
     {
         private const string Root = "Assets/ResuME";
         private const string SpritePath = Root + "/Graphics/Sprites/Greybox/square.png";
-        private const string RoutePath = Root + "/Datas/Route.asset";
-        private const string ScenePath = Root + "/Scenes/GA_GreyboxScene.unity";
+                private const string ScenePath = Root + "/Scenes/GA_GreyboxScene.unity";
         private const string InputActionsPath = "Assets/Settings/InputSystem_Actions.inputactions";
 
         [MenuItem("ResuME/Greybox/Rebuild everything")]
         public static void BuildAll()
         {
             Sprite square = CreateSquareSprite();
-            RouteDefinition route = CreateRouteAsset();
+            RouteDefinition route = RouteImporter.Import();
+            if (route == null)
+            {
+                Debug.LogError("[ResuME] Greybox not rebuilt: fix route.json first.");
+                if (Application.isBatchMode) EditorApplication.Exit(1);
+                return;
+            }
             CreateScene(route, square);
             RegisterScene();
             AssetDatabase.SaveAssets();
             Debug.Log($"[ResuME] Greybox rebuilt: {route.stops.Count} stops, {route.TotalScreens:F2} screens, " +
-                      $"{route.CountRewards(RewardKind.Skill)} skill gains over {route.CountDistinctSkills()} skills, {route.CountRewards(RewardKind.Trait)} traits.");
-        }
-
-        [MenuItem("ResuME/Greybox/Regenerate Route asset only")]
-        public static void RegenerateRoute()
-        {
-            CreateRouteAsset();
-            AssetDatabase.SaveAssets();
+                      $"{route.CountProjects()} projects, {route.CountGains()} mastery points over {route.CountDistinctSkills()} skills, {route.CountRewards(RewardKind.Trait)} traits.");
         }
 
         private static Sprite CreateSquareSprite()
@@ -73,20 +71,6 @@ namespace ResuME.Editor
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.SaveAndReimport();
             return AssetDatabase.LoadAssetAtPath<Sprite>(SpritePath);
-        }
-
-        private static RouteDefinition CreateRouteAsset()
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(RoutePath));
-            RouteDefinition route = AssetDatabase.LoadAssetAtPath<RouteDefinition>(RoutePath);
-            if (route == null)
-            {
-                route = ScriptableObject.CreateInstance<RouteDefinition>();
-                AssetDatabase.CreateAsset(route, RoutePath);
-            }
-            route.stops = RouteContent.Build();
-            EditorUtility.SetDirty(route);
-            return route;
         }
 
         private static void CreateScene(RouteDefinition route, Sprite square)

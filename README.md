@@ -63,7 +63,7 @@ voient, sans qu'aucune trace ne soit conservée.
 |---|---|
 | **Déplacement au défilement** (flèches, swipe), vue 3/4 sur une voie unique | Input Actions |
 | **Bâtiments traversables** (murs qui disparaissent), façades, guichet, stand, place | Greybox des tailles |
-| **Fiche de personnage** : classe, compétences, traits, passif, niveau = âge | HUD |
+| **Fiche de personnage** : classe, maîtrise des compétences (un point par projet), traits, passif, niveau = âge | HUD |
 | **Contenu** : quinze arrêts, PNJ, quête, fin (pluie, pouce, contact) | Direction artistique |
 | **Présence multijoueur** (WebSocket, pseudos générés, aucune trace) | Serveur de présence |
 | **Menu et CV PDF**, déploiement web | Build WebGL |
@@ -91,8 +91,8 @@ commune à tous les jeux du studio :
 ResuME/
 ├── Assets/
 │   ├── ResuME/
-│   │   ├── Datas/                 ← Route.asset (le parcours), AppSceneMap.asset
-│   │   ├── Editor/                ← GreyboxSetup (menu ResuME/Greybox), RouteContent
+│   │   ├── Datas/                 ← route.json (la timeline : lieux, projets, compétences), Route.asset généré, AppSceneMap.asset
+│   │   ├── Editor/                ← GreyboxSetup (menu ResuME/Greybox), RouteImporter (route.json → Route.asset)
 │   │   ├── Graphics/Sprites/      ← sprites (greybox : un carré blanc généré)
 │   │   ├── Scenes/                ← 00_Bootstrap, 01_MainMenu, GA_GreyboxScene, GA_Gameplay, 90_Credits, 99_Loading
 │   │   ├── Scripts/

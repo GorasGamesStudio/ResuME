@@ -27,6 +27,7 @@ namespace ResuME.World
         private sealed class PickupInstance
         {
             public RewardDefinition Reward;
+            public ProjectDefinition Project;
             public StopDefinition Stop;
             public float X;
             public GameObject Root;
@@ -61,6 +62,8 @@ namespace ResuME.World
         public event Action<StopDefinition> StopExited;
         /// <summary>Raised with the world position of the pickup and the stop that grants it.</summary>
         public event Action<RewardDefinition, Vector3, StopDefinition> RewardCollected;
+        /// <summary>Raised when the character crosses a project: its skills each gain one point.</summary>
+        public event Action<ProjectDefinition, Vector3, StopDefinition> ProjectCompleted;
 
         public void Configure(RouteDefinition routeDefinition, Sprite squareSprite, Font font, Transform playerTransform)
         {
@@ -99,20 +102,29 @@ namespace ResuME.World
             for (int i = 0; i < route.stops.Count; i++)
             {
                 StopDefinition definition = route.stops[i];
+
+                // The gap before a stop carries the previous stop's "after" traits, then this stop's "before" traits.
+                if (i > 0)
+                {
+                    StopDefinition previous = route.stops[i - 1];
+                    PlaceRewards(previous, previous.traitsAfter, x, x + gap * 0.5f, transform);
+                    PlaceRewards(definition, definition.traitsBefore, x + gap * 0.5f, x + gap, transform);
+                    x += gap;
+                }
+
                 float width = Mathf.Max(0.1f, definition.widthScreens) * screen;
                 StopInstance stop = new StopInstance { Definition = definition, StartX = x, EndX = x + width };
                 BuildStop(stop);
                 stops.Add(stop);
 
-                PlacePickups(definition, definition.rewards, stop.StartX, stop.EndX, stop.Root.transform);
+                // Projects in order across the stop, then the class change or passive at the exit.
+                var inside = new List<PickupInstance>();
+                foreach (ProjectDefinition project in definition.projects)
+                    inside.Add(new PickupInstance { Project = project, Stop = definition });
+                foreach (RewardDefinition reward in definition.rewards)
+                    inside.Add(new PickupInstance { Reward = reward, Stop = definition });
+                PlacePickups(inside, stop.StartX, stop.EndX, stop.Root.transform);
                 x += width;
-
-                bool last = i == route.stops.Count - 1;
-                if (!last)
-                {
-                    PlacePickups(definition, definition.roadRewards, x, x + gap, transform);
-                    x += gap;
-                }
             }
 
             StartX = stops.Count > 0 ? stops[0].StartX + 1f : 0f;
@@ -132,6 +144,7 @@ namespace ResuME.World
             float centerX = (stop.StartX + stop.EndX) * 0.5f;
             float height = route.buildingHeightUnits;
             float road = route.roadHeightUnits;
+            float screen = route.screenWidthUnits;
             Color tint = GreyboxPalette.ForStop(d.kind);
 
             GameObject root = new GameObject($"Stop {d.id}");
@@ -160,6 +173,19 @@ namespace ResuME.World
                     MakeBlock("Tent", root.transform, centerX, height * 0.35f, width, height * 0.7f, tint, SortFloor);
                     MakeLabel("Sign", root.transform, centerX, height * 0.75f, "stand", 0.35f, SortLabel);
                     break;
+                case StopKind.Cluster:
+                {
+                    // One small building per project, aligned with the project pickups.
+                    int count = Mathf.Max(1, d.projects.Count);
+                    float blockWidth = Mathf.Min(width / (count + 1) * 0.8f, screen * 0.25f);
+                    for (int i = 0; i < count; i++)
+                    {
+                        float bx = Mathf.Lerp(stop.StartX, stop.EndX, (i + 1f) / (count + 1f));
+                        float bh = height * (0.4f + 0.1f * (i % 3));
+                        MakeBlock($"Building {i + 1}", root.transform, bx, bh * 0.5f, blockWidth, bh, tint, SortFloor);
+                    }
+                    break;
+                }
                 case StopKind.Square:
                     MakeBlock("Ground", root.transform, centerX, height * 0.15f, width, height * 0.3f, tint, SortFloor);
                     MakeBlock("Lectern", root.transform, centerX, height * 0.45f, 0.8f, height * 0.3f, GreyboxPalette.FrontWall, SortFloor + 1);
@@ -179,25 +205,38 @@ namespace ResuME.World
             }
         }
 
-        private void PlacePickups(StopDefinition stop, List<RewardDefinition> rewards, float fromX, float toX, Transform parent)
+        private void PlaceRewards(StopDefinition stop, List<RewardDefinition> rewards, float fromX, float toX, Transform parent)
         {
             if (rewards == null || rewards.Count == 0) return;
-            for (int i = 0; i < rewards.Count; i++)
+            var list = new List<PickupInstance>();
+            foreach (RewardDefinition reward in rewards) list.Add(new PickupInstance { Reward = reward, Stop = stop });
+            PlacePickups(list, fromX, toX, parent);
+        }
+
+        private void PlacePickups(List<PickupInstance> list, float fromX, float toX, Transform parent)
+        {
+            if (list == null || list.Count == 0) return;
+            for (int i = 0; i < list.Count; i++)
             {
-                RewardDefinition reward = rewards[i];
-                float t = (i + 1f) / (rewards.Count + 1f);
+                PickupInstance pickup = list[i];
+                float t = (i + 1f) / (list.Count + 1f);
                 float x = Mathf.Lerp(fromX, toX, t);
-                float size = reward.kind == RewardKind.ClassChange ? 0.9f : 0.6f;
                 float y = -route.roadHeightUnits * 0.5f;
 
-                GameObject root = new GameObject($"Pickup {reward.id}");
+                string id = pickup.Project != null ? pickup.Project.id : pickup.Reward.id;
+                string caption = pickup.Project != null ? pickup.Project.title : pickup.Reward.label;
+                Color color = pickup.Project != null ? GreyboxPalette.Project : GreyboxPalette.ForReward(pickup.Reward.kind, pickup.Reward.category);
+                float size = pickup.Project != null ? 0.7f : pickup.Reward.kind == RewardKind.ClassChange ? 0.9f : 0.6f;
+
+                GameObject root = new GameObject($"Pickup {id}");
                 root.transform.SetParent(parent, false);
                 root.transform.position = new Vector3(x, y, 0f);
-                MakeBlock("Icon", root.transform, x, y, size, size, GreyboxPalette.ForReward(reward.kind, reward.category), SortPickup);
-                string caption = reward.kind == RewardKind.Skill && reward.points > 0 ? $"{reward.label} +{reward.points}" : reward.label;
+                MakeBlock("Icon", root.transform, x, y, size, size, color, SortPickup);
                 MakeLabel("Label", root.transform, x, y - 0.75f, caption, 0.22f, SortLabel);
 
-                pickups.Add(new PickupInstance { Reward = reward, Stop = stop, X = x, Root = root });
+                pickup.X = x;
+                pickup.Root = root;
+                pickups.Add(pickup);
             }
         }
 
@@ -273,7 +312,8 @@ namespace ResuME.World
                 pickup.Collected = true;
                 CollectedRewards++;
                 Vector3 position = pickup.Root.transform.position;
-                RewardCollected?.Invoke(pickup.Reward, position, pickup.Stop);
+                if (pickup.Project != null) ProjectCompleted?.Invoke(pickup.Project, position, pickup.Stop);
+                else RewardCollected?.Invoke(pickup.Reward, position, pickup.Stop);
                 StartCoroutine(PopAndHide(pickup.Root));
             }
         }

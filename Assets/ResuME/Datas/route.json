@@ -1,0 +1,502 @@
+{
+  "screenWidthUnits": 20,
+  "buildingHeightUnits": 6,
+  "roadHeightUnits": 2,
+  "secondsPerScreen": 3,
+  "gapScreens": 0.5,
+  "masteryScaleMax": 5,
+  "skills": [
+    {
+      "id": "unity",
+      "label": "Unity 3D",
+      "category": "Technique",
+      "description": "Jeux et applications 3D, VR, prototypes 2D et 3D."
+    },
+    {
+      "id": "csharp",
+      "label": "C#",
+      "category": "Technique",
+      "description": "Langage principal, d'Unity aux outils web."
+    },
+    {
+      "id": "cpp",
+      "label": "C++",
+      "category": "Technique",
+      "description": "Programmation orientée objet en C++."
+    },
+    {
+      "id": "c",
+      "label": "C",
+      "category": "Technique",
+      "description": "Algorithmie et premiers programmes."
+    },
+    {
+      "id": "poo",
+      "label": "Programmation orientée objet",
+      "category": "Technique",
+      "description": "C, C++, C#, architectures logicielles."
+    },
+    {
+      "id": "game-design",
+      "label": "Conception de jeux vidéo",
+      "category": "Technique",
+      "description": "Game design, game jams, projets personnels et professionnels."
+    },
+    {
+      "id": "vr",
+      "label": "Réalité virtuelle",
+      "category": "Technique",
+      "description": "Applications immersives et expériences VR."
+    },
+    {
+      "id": "maintenance",
+      "label": "Maintenance & Support informatique",
+      "category": "Technique",
+      "description": "Support utilisateurs, configuration de postes, maintenance réseau."
+    },
+    {
+      "id": "installation",
+      "label": "Installation matériel informatique",
+      "category": "Technique",
+      "description": "Installation et migration de parcs, support technique sur site."
+    },
+    {
+      "id": "comptabilite",
+      "label": "Comptabilité générale",
+      "category": "Technique",
+      "description": "Comptabilité, gestion administrative et bancaire."
+    },
+    {
+      "id": "pilotage",
+      "label": "Pilotage de projets",
+      "category": "Gestion",
+      "description": "Conception, planification et suivi de projets."
+    },
+    {
+      "id": "creation-entreprise",
+      "label": "Création & Gestion d'entreprise",
+      "category": "Gestion",
+      "description": "Création et gestion de structures : micro-entreprise, société, association."
+    },
+    {
+      "id": "optimisation",
+      "label": "Analyse & Optimisation de processus",
+      "category": "Gestion",
+      "description": "Analyse des besoins, procédures, automatisation."
+    },
+    {
+      "id": "etude-projet",
+      "label": "Étude de projet",
+      "category": "Gestion",
+      "description": "Étude des besoins, modélisation, choix de solutions."
+    },
+    {
+      "id": "ouverture",
+      "label": "Ouverture de nouvel établissement",
+      "category": "Gestion",
+      "description": "Préparation et ouverture d'une nouvelle structure."
+    },
+    {
+      "id": "formation",
+      "label": "Formation & Accompagnement",
+      "category": "Gestion",
+      "description": "Pédagogie, programmes de formation, transmission."
+    },
+    {
+      "id": "coordination",
+      "label": "Coordination d'équipe",
+      "category": "Gestion",
+      "description": "Organisation quotidienne et coordination d'équipes."
+    }
+  ],
+  "traits": [
+    {
+      "id": "curiosite",
+      "label": "Curiosité",
+      "description": "Tout a commencé devant une NES."
+    },
+    {
+      "id": "sens-service",
+      "label": "Sens du service",
+      "description": "Support technique sur site, au contact des utilisateurs."
+    },
+    {
+      "id": "esprit-equipe",
+      "label": "Esprit d'équipe",
+      "description": "Premiers projets professionnels, en équipe."
+    },
+    {
+      "id": "autonomie",
+      "label": "Autonomie",
+      "description": "Micro-entreprise menée en parallèle de tout le reste."
+    },
+    {
+      "id": "force-proposition",
+      "label": "Force de proposition",
+      "description": "Événements, salons jeux vidéo, apport d'idées nouvelles."
+    },
+    {
+      "id": "polyvalence",
+      "label": "Polyvalence",
+      "description": "Rayons, boulangerie, inventaire, encaissement."
+    }
+  ],
+  "stops": [
+    {
+      "id": "chambre",
+      "title": "Chambre d'enfant",
+      "years": "vers 1991",
+      "level": 15,
+      "kind": "Intro",
+      "widthScreens": 1.0,
+      "traitsAfter": [
+        "curiosite"
+      ],
+      "notes": "NES, pistolet Nintendo, la télé sert d'écran de chargement. Niveau 15 : là où Éric devient accro à l'informatique et aux jeux."
+    },
+    {
+      "id": "bac",
+      "title": "Lycée Saint Vincent, Senlis",
+      "years": "2003 · BAC STT Comptabilité & Gestion",
+      "level": 18,
+      "kind": "Facade",
+      "widthScreens": 0.6,
+      "classChange": {
+        "id": "classe-gestionnaire",
+        "title": "Gestionnaire",
+        "description": "BAC STT Comptabilité & Gestion, 2003."
+      },
+      "projects": [
+        {
+          "id": "bac-stt",
+          "title": "BAC STT (à détailler)",
+          "description": "Bases en comptabilité et gestion administrative.",
+          "skills": [
+            "comptabilite"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Le PNJ donne la quête."
+    },
+    {
+      "id": "bts",
+      "title": "Lycée Saint Vincent, Senlis",
+      "years": "2005 · BTS Informatique de Gestion",
+      "level": 20,
+      "kind": "Facade",
+      "widthScreens": 0.6,
+      "classChange": {
+        "id": "classe-dev-app",
+        "title": "Développeur d'applications",
+        "description": "BTS Informatique de Gestion, 2005."
+      },
+      "projects": [
+        {
+          "id": "bts-ig",
+          "title": "BTS Informatique de Gestion (à détailler)",
+          "description": "Algorithmie, bases de données, modélisation Merise et UML.",
+          "skills": [
+            "c",
+            "etude-projet"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Même bâtiment que le BAC, un étage en plus."
+    },
+    {
+      "id": "support",
+      "title": "Support et développement informatique",
+      "years": "2005 - 2010",
+      "level": 20,
+      "kind": "Cluster",
+      "widthScreens": 0.8,
+      "traitsAfter": [
+        "sens-service"
+      ],
+      "projects": [
+        {
+          "id": "support-parcs",
+          "title": "Parcs informatiques (à détailler par entreprise)",
+          "description": "Installation et migration de parcs, support utilisateurs.",
+          "skills": [
+            "maintenance",
+            "installation"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Grappe de petits bâtiments, un par mission (déploiement PC, mise à jour de parc, support). À lister par entreprise."
+    },
+    {
+      "id": "creajeux",
+      "title": "Créajeux, Nîmes",
+      "years": "2010 - 2013 · Programmation de jeux vidéo (RNCP 6)",
+      "level": 25,
+      "kind": "Facade",
+      "widthScreens": 0.8,
+      "classChange": {
+        "id": "classe-dev-jeux",
+        "title": "Développeur de jeux vidéo",
+        "description": "Créajeux, 2013. Classe définitive."
+      },
+      "projects": [
+        {
+          "id": "creajeux-formation",
+          "title": "Formation Créajeux (à détailler par projet)",
+          "description": "Prototypes 2D et 3D, physique temps réel, gameplay en équipe, game jams.",
+          "skills": [
+            "unity",
+            "csharp",
+            "cpp",
+            "c",
+            "poo",
+            "game-design"
+          ],
+          "platforms": []
+        }
+      ]
+    },
+    {
+      "id": "montbeliard",
+      "title": "Développement Unity, Montbéliard",
+      "years": "2013 - 2016",
+      "level": 28,
+      "kind": "Traverse",
+      "widthScreens": 1.2,
+      "traitsAfter": [
+        "esprit-equipe"
+      ],
+      "projects": [
+        {
+          "id": "montbeliard-projets",
+          "title": "Applications 3D armée et tourisme (à détailler)",
+          "description": "Applications pédagogiques, culturelles et immersives.",
+          "skills": [
+            "unity",
+            "csharp",
+            "poo",
+            "game-design",
+            "vr",
+            "pilotage",
+            "etude-projet"
+          ],
+          "platforms": []
+        }
+      ]
+    },
+    {
+      "id": "alsace",
+      "title": "Développement pharmaceutique, Alsace",
+      "years": "2017",
+      "level": 32,
+      "kind": "Traverse",
+      "widthScreens": 0.8,
+      "projects": [
+        {
+          "id": "alsace-projets",
+          "title": "Serious games pharmaceutiques (à détailler)",
+          "description": "Simulation et apprentissage.",
+          "skills": [
+            "unity",
+            "csharp",
+            "poo",
+            "optimisation"
+          ],
+          "platforms": []
+        }
+      ]
+    },
+    {
+      "id": "ggs",
+      "title": "Goras Games Studio",
+      "years": "2018 - aujourd'hui · micro-entreprise",
+      "level": 33,
+      "kind": "Counter",
+      "widthScreens": 0.4,
+      "founder": true,
+      "traitsAfter": [
+        "autonomie"
+      ],
+      "passive": {
+        "id": "ggs-passif",
+        "title": "Goras Games Studio",
+        "description": "Actif depuis 2018 : jeux PC, mobile et VR, applications web, multijoueur."
+      },
+      "projects": [
+        {
+          "id": "ggs-projets",
+          "title": "Projets GGS (à détailler un par un)",
+          "description": "Jeux, applications web et mobiles, VR.",
+          "skills": [
+            "unity",
+            "csharp",
+            "poo",
+            "game-design",
+            "vr",
+            "pilotage",
+            "creation-entreprise",
+            "comptabilite"
+          ],
+          "platforms": []
+        }
+      ]
+    },
+    {
+      "id": "game-academy",
+      "title": "Game Academy",
+      "years": "2018 - 2020 · Formateur",
+      "level": 33,
+      "kind": "Traverse",
+      "widthScreens": 1.2,
+      "traitsAfter": [
+        "force-proposition"
+      ],
+      "projects": [
+        {
+          "id": "ga-programme",
+          "title": "Programme pédagogique sur quatre ans (à détailler)",
+          "description": "De la prépa à la 3e année, événements et salons.",
+          "skills": [
+            "formation",
+            "unity",
+            "csharp",
+            "poo",
+            "game-design",
+            "pilotage",
+            "coordination"
+          ],
+          "platforms": []
+        }
+      ]
+    },
+    {
+      "id": "rpaint",
+      "title": "R'Paint Games",
+      "years": "2020 - 2023 · Co-fondateur & Président",
+      "level": 35,
+      "kind": "Traverse",
+      "widthScreens": 1.2,
+      "founder": true,
+      "projects": [
+        {
+          "id": "rpaint-societe",
+          "title": "Création et gestion de R'Paint Games (à détailler)",
+          "description": "Loisirs sportifs et activités récréatives.",
+          "skills": [
+            "creation-entreprise",
+            "coordination",
+            "comptabilite",
+            "pilotage",
+            "ouverture"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Le bâtiment se rénove pendant la traversée."
+    },
+    {
+      "id": "lidl",
+      "title": "Lidl",
+      "years": "2023 - 2024 · Employé polyvalent",
+      "level": 38,
+      "kind": "Traverse",
+      "widthScreens": 0.8,
+      "traitsAfter": [
+        "polyvalence"
+      ],
+      "projects": [
+        {
+          "id": "lidl-magasin",
+          "title": "Ouverture d'un nouveau magasin (à détailler)",
+          "description": "Préparation, rayons, boulangerie, procédures.",
+          "skills": [
+            "ouverture",
+            "optimisation"
+          ],
+          "platforms": []
+        }
+      ]
+    },
+    {
+      "id": "loire-games",
+      "title": "Loire Games",
+      "years": "2025 - aujourd'hui · Co-fondateur & Trésorier",
+      "level": 40,
+      "kind": "Stand",
+      "widthScreens": 0.6,
+      "founder": true,
+      "projects": [
+        {
+          "id": "loire-games-asso",
+          "title": "Association Loire Games (à détailler)",
+          "description": "Trésorerie, boutique, adhésions, outil web d'automatisation.",
+          "skills": [
+            "comptabilite",
+            "creation-entreprise",
+            "optimisation",
+            "pilotage",
+            "coordination",
+            "csharp"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Stand de salon, jaune bien visible, logo Loire Games."
+    },
+    {
+      "id": "cine-sologne",
+      "title": "Ciné Sologne",
+      "years": "2025 - 2026 · Assistant directeur",
+      "level": 40,
+      "kind": "Facade",
+      "widthScreens": 0.5,
+      "projects": [
+        {
+          "id": "cine-sologne-poste",
+          "title": "Assistant directeur (à détailler)",
+          "description": "Programmation, planification, support technique, organisation.",
+          "skills": [
+            "maintenance",
+            "installation",
+            "coordination"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Façade seulement, sans logo."
+    },
+    {
+      "id": "crn",
+      "title": "Conseil Régional du Numérique Centre-Val de Loire",
+      "years": "2026 - aujourd'hui · Bénévolat",
+      "level": 40,
+      "kind": "Square",
+      "widthScreens": 0.8,
+      "projects": [
+        {
+          "id": "crn-conseil",
+          "title": "Conseil et gamification (à détailler)",
+          "description": "Étude des besoins numériques, pédagogie.",
+          "skills": [
+            "optimisation",
+            "etude-projet",
+            "formation"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Place publique, logo du Conseil Régional."
+    },
+    {
+      "id": "aujourdhui",
+      "title": "Aujourd'hui",
+      "years": "2026",
+      "level": 40,
+      "kind": "End",
+      "widthScreens": 1.0,
+      "notes": "Le PNJ regarde la caméra, pluie de compétences, pouce, carte de contact."
+    }
+  ]
+}
