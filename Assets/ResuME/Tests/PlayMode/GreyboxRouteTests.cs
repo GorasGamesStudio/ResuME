@@ -37,7 +37,7 @@ namespace ResuME.Tests
             int expectedGains = world.Route.CountGains();
             int expectedTraits = world.Route.CountRewards(Data.RewardKind.Trait);
             int expectedPassives = world.Route.CountRewards(Data.RewardKind.Passive);
-            Assert.AreEqual(17, expectedSkills, "the CV lists 17 skills (10 technical, 7 management)");
+            Assert.AreEqual(18, expectedSkills, "18 skills after merging accounting into business management and adding databases and web");
             Assert.Greater(expectedGains, expectedSkills, "skills must be reinforced by several projects");
             Assert.Greater(world.Route.CountProjects(), 0, "the route must contain projects");
             Assert.AreEqual(6, expectedTraits, "the CV lists 6 personal traits");
