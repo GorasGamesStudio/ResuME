@@ -45,6 +45,7 @@ namespace ResuME.Editor
             public int level;
             public string kind;
             public float widthScreens = 1f;
+            public float gapAfterScreens = -1f;
             public bool founder;
             public List<string> traitsBefore = new List<string>();
             public List<string> traitsAfter = new List<string>();
@@ -120,7 +121,7 @@ namespace ResuME.Editor
                 StopDefinition stop = new StopDefinition
                 {
                     id = s.id, title = s.title, years = s.years, level = s.level, kind = kind,
-                    widthScreens = s.widthScreens <= 0f ? 1f : s.widthScreens, founder = s.founder, notes = s.notes
+                    widthScreens = s.widthScreens <= 0f ? 1f : s.widthScreens, gapAfterScreens = s.gapAfterScreens, founder = s.founder, notes = s.notes
                 };
 
                 foreach (string traitId in s.traitsBefore) AddTrait(stop.traitsBefore, traitId, traits, s.id, errors);

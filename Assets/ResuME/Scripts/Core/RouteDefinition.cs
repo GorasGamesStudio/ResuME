@@ -89,6 +89,8 @@ namespace ResuME.Data
         public float widthScreens = 1f;
         [Tooltip("Structure founded by Éric: shows the Fondateur badge.")]
         public bool founder;
+        [Tooltip("Road after this stop, in screens. Negative = the route's default gap. 0 glues the next stop to this one.")]
+        public float gapAfterScreens = -1f;
         [Tooltip("Traits picked up on the road just before entering the stop.")]
         public List<RewardDefinition> traitsBefore = new List<RewardDefinition>();
         [Tooltip("Traits picked up on the road just after leaving the stop.")]
@@ -140,11 +142,14 @@ namespace ResuME.Data
                 for (int i = 0; i < stops.Count; i++)
                 {
                     total += stops[i].widthScreens;
-                    if (i < stops.Count - 1) total += gapScreens;
+                    if (i < stops.Count - 1) total += GapAfter(stops[i]);
                 }
                 return total;
             }
         }
+
+        /// <summary>Road length after a stop, in screens: its own override or the route default.</summary>
+        public float GapAfter(StopDefinition stop) => stop.gapAfterScreens >= 0f ? stop.gapAfterScreens : gapScreens;
 
         public SkillDefinition FindSkill(string id)
         {

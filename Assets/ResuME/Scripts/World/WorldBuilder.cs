@@ -96,7 +96,6 @@ namespace ResuME.World
             built = true;
 
             float screen = route.screenWidthUnits;
-            float gap = route.gapScreens * screen;
             float x = 0f;
 
             for (int i = 0; i < route.stops.Count; i++)
@@ -107,9 +106,10 @@ namespace ResuME.World
                 if (i > 0)
                 {
                     StopDefinition previous = route.stops[i - 1];
-                    PlaceRewards(previous, previous.traitsAfter, x, x + gap * 0.5f, transform);
-                    PlaceRewards(definition, definition.traitsBefore, x + gap * 0.5f, x + gap, transform);
-                    x += gap;
+                    float gapHere = route.GapAfter(previous) * screen;
+                    PlaceRewards(previous, previous.traitsAfter, x, x + gapHere * 0.5f, transform);
+                    PlaceRewards(definition, definition.traitsBefore, x + gapHere * 0.5f, x + gapHere, transform);
+                    x += gapHere;
                 }
 
                 float width = Mathf.Max(0.1f, definition.widthScreens) * screen;
