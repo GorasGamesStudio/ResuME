@@ -193,7 +193,7 @@
           "platforms": []
         }
       ],
-      "notes": "Le PNJ donne la quête (à définir : prof, surveillant, camarade). Outils informatiques déjà connus : pas de point, ou compétence bureautique à trancher."
+      "notes": "Lycée catholique de Senlis (Oise) : cour pavée, grand cèdre, chapelle à clocher, façade classique en pierre blonde à fronton cintré, armoiries au-dessus du portail. Le PNJ donne la quête (à définir). Outils informatiques déjà connus : pas de point."
     },
     {
       "id": "bts",
@@ -245,7 +245,7 @@
           ]
         }
       ],
-      "notes": "Même bâtiment que le BAC, un étage en plus. Le sprite devient adulte à la sortie."
+      "notes": "Bâtiment BTS à droite de la cour, plus haut et plus sobre ; il s'éclaire fenêtre par fenêtre à l'approche. Le sprite devient adulte à la sortie."
     },
     {
       "id": "support",
