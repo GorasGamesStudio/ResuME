@@ -113,7 +113,7 @@
     {
       "id": "curiosite",
       "label": "Curiosité",
-      "description": "Tout a commencé devant une NES."
+      "description": "Premiers pas sur internet au son du modem, un Celeron 433 et une N64 : tout a commencé dans cette chambre."
     },
     {
       "id": "sens-service",
@@ -145,14 +145,14 @@
     {
       "id": "chambre",
       "title": "Chambre d'enfant",
-      "years": "vers 1991",
+      "years": "vers 2000 · entrée en seconde",
       "level": 15,
       "kind": "Intro",
       "widthScreens": 1.0,
       "traitsAfter": [
         "curiosite"
       ],
-      "notes": "NES, pistolet Nintendo, la télé sert d'écran de chargement. Niveau 15 : là où Éric devient accro à l'informatique et aux jeux."
+      "notes": "Nostalgie et rétro. PC Celeron 433 MHz avec lecteur CD et disquette, écran cathodique (sert d'écran de chargement), boîte de Dark Age of Camelot, N64 avec Mario 64, Ocarina of Time et GoldenEye, NES et pistolet en objets de collection, premiers pas curieux sur internet. Niveau 15 : là où Éric devient accro."
     },
     {
       "id": "bac",
