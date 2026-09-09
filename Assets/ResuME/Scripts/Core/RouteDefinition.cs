@@ -49,6 +49,8 @@ namespace ResuME.Data
         public string label;
         [TextArea] public string description;
         public SkillCategory category;
+        [Tooltip("Mastery points granted (skills only): one per project or experience that used the skill.")]
+        public int points = 1;
     }
 
     [Serializable]
@@ -92,6 +94,10 @@ namespace ResuME.Data
         [Tooltip("Empty road between two stops, in screens.")]
         public float gapScreens = 0.5f;
 
+        [Header("Mastery")]
+        [Tooltip("Segments of the mastery bar. Points beyond it still count and are shown as a number.")]
+        public int masteryScaleMax = 5;
+
         [Header("Route")]
         public List<StopDefinition> stops = new List<StopDefinition>();
 
@@ -109,6 +115,30 @@ namespace ResuME.Data
                 }
                 return total;
             }
+        }
+
+        /// <summary>Number of distinct skills on the route (a skill id may be granted by several stops).</summary>
+        public int CountDistinctSkills()
+        {
+            var ids = new HashSet<string>();
+            foreach (StopDefinition stop in stops)
+            {
+                foreach (RewardDefinition reward in stop.rewards) if (reward.kind == RewardKind.Skill) ids.Add(reward.id);
+                foreach (RewardDefinition reward in stop.roadRewards) if (reward.kind == RewardKind.Skill) ids.Add(reward.id);
+            }
+            return ids.Count;
+        }
+
+        /// <summary>Mastery points a skill reaches at the end of the route.</summary>
+        public int TotalPoints(string skillId)
+        {
+            int total = 0;
+            foreach (StopDefinition stop in stops)
+            {
+                foreach (RewardDefinition reward in stop.rewards) if (reward.kind == RewardKind.Skill && reward.id == skillId) total += reward.points;
+                foreach (RewardDefinition reward in stop.roadRewards) if (reward.kind == RewardKind.Skill && reward.id == skillId) total += reward.points;
+            }
+            return total;
         }
 
         public int CountRewards(RewardKind kind)

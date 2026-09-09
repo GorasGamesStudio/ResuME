@@ -7,9 +7,18 @@ using UnityEngine;
 
 namespace ResuME.Player
 {
+    /// <summary>Mastery of one skill: points and the experiences that granted them.</summary>
+    public sealed class SkillMastery
+    {
+        public RewardDefinition Definition;
+        public int Points;
+        public readonly List<string> Contributors = new List<string>();
+    }
+
     /// <summary>
-    /// The character sheet state: level (Éric's age), current class and everything collected.
-    /// Plays the greybox versions of the level-up burst and the class reinforcement.
+    /// The character sheet state: level (Éric's age), current class, skill mastery (one point
+    /// per project that used the skill), traits and passives. Plays the greybox versions of the
+    /// level-up burst and the class reinforcement.
     /// </summary>
     public class PlayerProgress : MonoBehaviour
     {
@@ -20,18 +29,22 @@ namespace ResuME.Player
         [SerializeField] private SpriteRenderer visualRenderer;
         [SerializeField] private Sprite particleSprite;
 
-        private readonly List<RewardDefinition> skills = new List<RewardDefinition>();
+        private readonly List<SkillMastery> skills = new List<SkillMastery>();
+        private readonly Dictionary<string, SkillMastery> skillsById = new Dictionary<string, SkillMastery>();
         private readonly List<RewardDefinition> traits = new List<RewardDefinition>();
         private readonly List<RewardDefinition> passives = new List<RewardDefinition>();
 
         public int Level { get; private set; }
         public string ClassTitle { get; private set; } = NoClass;
-        public IReadOnlyList<RewardDefinition> Skills => skills;
+        /// <summary>Distinct skills, in order of first acquisition.</summary>
+        public IReadOnlyList<SkillMastery> Skills => skills;
         public IReadOnlyList<RewardDefinition> Traits => traits;
         public IReadOnlyList<RewardDefinition> Passives => passives;
 
         public event Action<int> LevelChanged;
         public event Action<string> ClassChanged;
+        /// <summary>A skill gained points; true when the skill is new on the sheet.</summary>
+        public event Action<SkillMastery, bool> SkillChanged;
 
         public void Configure(WorldBuilder worldBuilder, Transform visualTransform, SpriteRenderer renderer, Sprite particle)
         {
@@ -40,6 +53,8 @@ namespace ResuME.Player
             visualRenderer = renderer;
             particleSprite = particle;
         }
+
+        public int MasteryOf(string skillId) => skillsById.TryGetValue(skillId, out SkillMastery mastery) ? mastery.Points : 0;
 
         private void OnEnable()
         {
@@ -63,7 +78,7 @@ namespace ResuME.Player
             StartCoroutine(LevelBurst());
         }
 
-        private void OnRewardCollected(RewardDefinition reward, Vector3 position)
+        private void OnRewardCollected(RewardDefinition reward, Vector3 position, StopDefinition stop)
         {
             switch (reward.kind)
             {
@@ -73,7 +88,7 @@ namespace ResuME.Player
                     StartCoroutine(Reinforce());
                     break;
                 case RewardKind.Skill:
-                    skills.Add(reward);
+                    GainSkill(reward, stop);
                     break;
                 case RewardKind.Trait:
                     traits.Add(reward);
@@ -82,6 +97,20 @@ namespace ResuME.Player
                     passives.Add(reward);
                     break;
             }
+        }
+
+        private void GainSkill(RewardDefinition reward, StopDefinition stop)
+        {
+            bool isNew = !skillsById.TryGetValue(reward.id, out SkillMastery mastery);
+            if (isNew)
+            {
+                mastery = new SkillMastery { Definition = reward };
+                skills.Add(mastery);
+                skillsById.Add(reward.id, mastery);
+            }
+            mastery.Points += Mathf.Max(1, reward.points);
+            if (stop != null) mastery.Contributors.Add(stop.title);
+            SkillChanged?.Invoke(mastery, isNew);
         }
 
         /// <summary>Greybox stand-in for the level-up particles: a ring of small squares.</summary>

@@ -10,25 +10,47 @@ using UnityEngine.UI;
 namespace ResuME.UI
 {
     /// <summary>
-    /// Greybox character sheet built entirely from code: name, class, level, then one slot row
-    /// per category (skills, traits, passive). Pickups fly from their world position to their
-    /// slot; hovering or touching a filled slot shows its tooltip.
+    /// Greybox character profile built from code. Top-left: portrait, name, class, level bubble,
+    /// traits and passive. Bottom: the skill bar, big squares sorted by mastery that slide when
+    /// one overtakes another. On a gain the square activates, sends a small square to the character
+    /// and a dot comes back to fill its gauge. Everything is anchored and scaled so it holds on any
+    /// screen (see memory/ui-responsive.md).
     /// </summary>
     public class CharacterSheetHud : MonoBehaviour
     {
-        private sealed class Slot
+        private sealed class SkillSquare
+        {
+            public SkillMastery Mastery;
+            public RectTransform Rect;
+            public Image Inner;
+            public Text Points;
+            public Text Label;
+            public Image[] Segments;
+            public float TargetX;
+            public int ShownPoints;
+        }
+
+        private sealed class Chip
         {
             public RectTransform Rect;
             public Image Image;
             public RewardDefinition Reward;
         }
 
+        private const float SquareSize = 60f;
+        private const float SquareGap = 8f;
+        private const float LabelHeight = 28f;
+        private const float BarHeight = SquareSize + LabelHeight + 22f;
+        private const float SlideSpeed = 10f;
+
         [SerializeField] private WorldBuilder world;
         [SerializeField] private PlayerProgress progress;
         [SerializeField] private Font font;
 
-        private Canvas canvas;
         private RectTransform canvasRect;
+        private RectTransform safeArea;
+        private RectTransform bar;
+        private RectTransform barContent;
         private Text classText;
         private Text levelText;
         private Text bannerTitle;
@@ -36,13 +58,28 @@ namespace ResuME.UI
         private CanvasGroup bannerGroup;
         private RectTransform tooltip;
         private Text tooltipText;
-        private readonly List<Slot> skillSlots = new List<Slot>();
-        private readonly List<Slot> traitSlots = new List<Slot>();
-        private readonly List<Slot> passiveSlots = new List<Slot>();
         private Coroutine bannerRoutine;
 
+        private readonly List<SkillSquare> squares = new List<SkillSquare>();
+        private readonly Dictionary<string, SkillSquare> squaresById = new Dictionary<string, SkillSquare>();
+        private readonly List<Chip> traitChips = new List<Chip>();
+        private readonly List<Chip> passiveChips = new List<Chip>();
+        private int masteryScale = 5;
+        private int expectedSkills = 17;
+
         private static readonly Color SlotEmpty = new Color(0.22f, 0.22f, 0.25f, 0.9f);
-        private static readonly Color PanelColor = new Color(0.08f, 0.08f, 0.10f, 0.75f);
+        private static readonly Color PanelColor = new Color(0.08f, 0.08f, 0.10f, 0.78f);
+        private static readonly Color SquareBack = new Color(0.14f, 0.14f, 0.17f, 0.95f);
+        private static readonly Color SectionColor = new Color(0.75f, 0.75f, 0.78f);
+        private const float InnerIdleAlpha = 0.35f;
+
+        /// <summary>Skill ids in bar order with the points they display (for tests and debugging).</summary>
+        public List<(string id, int points)> BarOrder()
+        {
+            var order = new List<(string, int)>(squares.Count);
+            foreach (SkillSquare square in squares) order.Add((square.Mastery.Definition.id, square.ShownPoints));
+            return order;
+        }
 
         public void Configure(WorldBuilder worldBuilder, PlayerProgress playerProgress, Font uiFont)
         {
@@ -60,10 +97,13 @@ namespace ResuME.UI
         private void Start()
         {
             RouteDefinition route = world != null ? world.Route : null;
-            int skills = route != null ? route.CountRewards(RewardKind.Skill) : 17;
-            int traits = route != null ? route.CountRewards(RewardKind.Trait) : 6;
-            int passives = route != null ? route.CountRewards(RewardKind.Passive) : 1;
-            BuildSheet(skills, traits, passives);
+            expectedSkills = route != null ? route.CountDistinctSkills() : 17;
+            int traitCount = route != null ? route.CountRewards(RewardKind.Trait) : 6;
+            int passiveCount = route != null ? route.CountRewards(RewardKind.Passive) : 1;
+            masteryScale = route != null ? Mathf.Max(1, route.masteryScaleMax) : 5;
+            BuildProfile(traitCount, passiveCount);
+            BuildBar();
+            BuildBannerAndTooltip();
             Refresh();
         }
 
@@ -95,150 +135,299 @@ namespace ResuME.UI
             }
         }
 
+        private void Update()
+        {
+            // Squares slide towards their sorted slot: this is the swap animation.
+            float k = 1f - Mathf.Exp(-SlideSpeed * Time.deltaTime);
+            foreach (SkillSquare square in squares)
+            {
+                Vector2 position = square.Rect.anchoredPosition;
+                position.x = Mathf.Lerp(position.x, square.TargetX, k);
+                square.Rect.anchoredPosition = position;
+            }
+        }
+
+        #region Build
+
         private void BuildCanvas()
         {
-            canvas = gameObject.GetComponent<Canvas>();
+            // Never use ?? on Unity components: a missing component is a fake null that ?? does not detect.
+            Canvas canvas = gameObject.GetComponent<Canvas>();
             if (canvas == null) canvas = gameObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             CanvasScaler scaler = gameObject.GetComponent<CanvasScaler>();
             if (scaler == null) scaler = gameObject.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1280f, 720f);
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.matchWidthOrHeight = 0.5f;
             if (gameObject.GetComponent<GraphicRaycaster>() == null) gameObject.AddComponent<GraphicRaycaster>();
             canvasRect = (RectTransform)transform;
+
+            // Everything that must stay visible lives under the safe area container.
+            GameObject safeGo = new GameObject("SafeArea", typeof(RectTransform), typeof(SafeAreaFitter));
+            safeArea = (RectTransform)safeGo.transform;
+            safeArea.SetParent(canvasRect, false);
+            safeArea.anchorMin = Vector2.zero;
+            safeArea.anchorMax = Vector2.one;
+            safeArea.offsetMin = safeArea.offsetMax = Vector2.zero;
         }
 
-        private void BuildSheet(int skillCount, int traitCount, int passiveCount)
+        private void BuildProfile(int traitCount, int passiveCount)
         {
-            RectTransform panel = MakePanel("Sheet", new Vector2(0f, 1f), new Vector2(16f, -16f), new Vector2(640f, 190f));
+            RectTransform panel = MakePanel(safeArea, "Profile", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -16f), new Vector2(360f, 132f));
 
-            MakeText(panel, "Name", "Éric Dovergne", 22, FontStyle.Bold, new Vector2(12f, -10f), new Vector2(400f, 28f));
-            classText = MakeText(panel, "Class", PlayerProgress.NoClass, 16, FontStyle.Normal, new Vector2(12f, -38f), new Vector2(400f, 22f));
-            levelText = MakeText(panel, "Level", "Niveau -", 16, FontStyle.Bold, new Vector2(500f, -10f), new Vector2(130f, 28f));
+            // Portrait placeholder (art later), level bubble placeholder next to it.
+            RectTransform portrait = MakeImage(panel, "Portrait", new Vector2(10f, -10f), new Vector2(64f, 64f), SquareBack);
+            MakeText(portrait, "PortraitLabel", "portrait", 9, FontStyle.Italic, Vector2.zero, new Vector2(64f, 64f)).alignment = TextAnchor.MiddleCenter;
 
-            MakeRow(panel, "Compétences", -66f, skillCount, skillSlots);
-            MakeRow(panel, "Traits", -108f, traitCount, traitSlots);
-            MakeRow(panel, "Passif", -150f, passiveCount, passiveSlots);
+            MakeText(panel, "Name", "Éric Dovergne", 18, FontStyle.Bold, new Vector2(84f, -10f), new Vector2(200f, 24f));
+            classText = MakeText(panel, "Class", PlayerProgress.NoClass, 13, FontStyle.Normal, new Vector2(84f, -36f), new Vector2(200f, 20f));
 
-            RectTransform banner = MakePanel("Banner", new Vector2(1f, 1f), new Vector2(-16f, -16f), new Vector2(440f, 64f));
-            banner.pivot = new Vector2(1f, 1f);
+            RectTransform bubble = MakeImage(panel, "LevelBubble", new Vector2(360f - 10f - 52f, -10f), new Vector2(52f, 52f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
+            levelText = MakeText(bubble, "Level", "-", 20, FontStyle.Bold, Vector2.zero, new Vector2(52f, 52f));
+            levelText.alignment = TextAnchor.MiddleCenter;
+            MakeText(panel, "LevelCaption", "niveau", 9, FontStyle.Italic, new Vector2(360f - 10f - 52f, -62f), new Vector2(52f, 14f)).alignment = TextAnchor.MiddleCenter;
+
+            MakeSectionLabel(panel, "Traits", new Vector2(10f, -84f));
+            RectTransform traitsRow = MakeContainer(panel, "TraitsRow", new Vector2(70f, -84f), new Vector2(200f, 22f));
+            MakeChips(traitsRow, "Trait", traitCount, traitChips);
+
+            MakeSectionLabel(panel, "Passif", new Vector2(10f, -108f));
+            RectTransform passiveRow = MakeContainer(panel, "PassiveRow", new Vector2(70f, -108f), new Vector2(200f, 22f));
+            MakeChips(passiveRow, "Passive", passiveCount, passiveChips);
+        }
+
+        private void BuildBar()
+        {
+            // Anchored to the bottom edge and stretched horizontally: it follows the screen width.
+            GameObject go = new GameObject("SkillBar", typeof(RectTransform), typeof(Image));
+            bar = (RectTransform)go.transform;
+            bar.SetParent(safeArea, false);
+            bar.anchorMin = new Vector2(0f, 0f);
+            bar.anchorMax = new Vector2(1f, 0f);
+            bar.pivot = new Vector2(0.5f, 0f);
+            bar.anchoredPosition = new Vector2(0f, 12f);
+            bar.sizeDelta = new Vector2(-32f, BarHeight);
+            go.GetComponent<Image>().color = PanelColor;
+
+            MakeText(bar, "Caption", "Compétences · maîtrise = projets où elle a servi", 10, FontStyle.Italic, new Vector2(10f, -4f), new Vector2(400f, 14f)).color = SectionColor;
+
+            // Squares are placed from the bar's bottom centre; their slot x is computed in Layout().
+            barContent = MakeContainer(bar, "Squares", Vector2.zero, Vector2.zero);
+            barContent.anchorMin = barContent.anchorMax = new Vector2(0.5f, 0f);
+            barContent.pivot = new Vector2(0.5f, 0f);
+            barContent.anchoredPosition = new Vector2(0f, LabelHeight + 6f);
+        }
+
+        private void BuildBannerAndTooltip()
+        {
+            RectTransform banner = MakePanel(safeArea, "Banner", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -16f), new Vector2(440f, 64f));
             bannerGroup = banner.gameObject.AddComponent<CanvasGroup>();
             bannerGroup.alpha = 0f;
-            bannerTitle = MakeText(banner, "Title", "", 20, FontStyle.Bold, new Vector2(0f, -8f), new Vector2(500f, 26f));
+            bannerTitle = MakeText(banner, "Title", "", 20, FontStyle.Bold, new Vector2(0f, -8f), new Vector2(430f, 26f));
             bannerTitle.alignment = TextAnchor.MiddleCenter;
             SetStretch(bannerTitle.rectTransform, -8f, 26f);
-            bannerYears = MakeText(banner, "Years", "", 14, FontStyle.Normal, new Vector2(0f, -36f), new Vector2(500f, 20f));
+            bannerYears = MakeText(banner, "Years", "", 14, FontStyle.Normal, new Vector2(0f, -36f), new Vector2(430f, 20f));
             bannerYears.alignment = TextAnchor.MiddleCenter;
             SetStretch(bannerYears.rectTransform, -36f, 20f);
 
-            tooltip = MakePanel("Tooltip", new Vector2(0f, 1f), Vector2.zero, new Vector2(300f, 70f));
-            tooltip.pivot = new Vector2(0f, 1f);
-            tooltipText = MakeText(tooltip, "Text", "", 13, FontStyle.Normal, new Vector2(8f, -6f), new Vector2(284f, 58f));
+            tooltip = MakePanel(safeArea, "Tooltip", new Vector2(0f, 0f), new Vector2(0.5f, 0f), Vector2.zero, new Vector2(320f, 92f));
+            tooltipText = MakeText(tooltip, "Text", "", 13, FontStyle.Normal, new Vector2(8f, -6f), new Vector2(304f, 80f));
             tooltipText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            tooltipText.verticalOverflow = VerticalWrapMode.Overflow;
             tooltip.gameObject.SetActive(false);
         }
 
-        private void MakeRow(RectTransform panel, string caption, float y, int count, List<Slot> slots)
+        private void MakeChips(RectTransform parent, string prefix, int count, List<Chip> chips)
         {
-            MakeText(panel, caption, caption, 13, FontStyle.Normal, new Vector2(12f, y), new Vector2(110f, 22f));
-            const float size = 24f;
+            const float size = 22f;
             const float spacing = 6f;
             for (int i = 0; i < count; i++)
             {
-                GameObject go = new GameObject($"{caption} {i + 1}", typeof(RectTransform), typeof(Image));
-                RectTransform rect = (RectTransform)go.transform;
-                rect.SetParent(panel, false);
-                rect.anchorMin = rect.anchorMax = new Vector2(0f, 1f);
-                rect.pivot = new Vector2(0f, 1f);
-                rect.anchoredPosition = new Vector2(120f + i * (size + spacing), y + 2f);
-                rect.sizeDelta = new Vector2(size, size);
-                Image image = go.GetComponent<Image>();
-                image.color = SlotEmpty;
-
-                Slot slot = new Slot { Rect = rect, Image = image };
-                slots.Add(slot);
-                AddHover(go, slot);
+                RectTransform rect = MakeImage(parent, $"{prefix} {i + 1}", new Vector2(i * (size + spacing), 0f), new Vector2(size, size), SlotEmpty);
+                Chip chip = new Chip { Rect = rect, Image = rect.GetComponent<Image>() };
+                chips.Add(chip);
+                AddHover(rect.gameObject, () => chip.Reward == null ? null : TooltipFor(chip.Reward), rect, TooltipSide.Below);
             }
         }
 
-        private void AddHover(GameObject go, Slot slot)
+        private SkillSquare MakeSquare(SkillMastery mastery)
         {
-            EventTrigger trigger = go.AddComponent<EventTrigger>();
-            EventTrigger.Entry enter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
-            enter.callback.AddListener(_ => ShowTooltip(slot));
-            EventTrigger.Entry down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
-            down.callback.AddListener(_ => ShowTooltip(slot));
-            EventTrigger.Entry exit = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
-            exit.callback.AddListener(_ => HideTooltip());
-            EventTrigger.Entry up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
-            up.callback.AddListener(_ => HideTooltip());
-            trigger.triggers.Add(enter);
-            trigger.triggers.Add(down);
-            trigger.triggers.Add(exit);
-            trigger.triggers.Add(up);
+            Color color = GreyboxPalette.ForReward(RewardKind.Skill, mastery.Definition.category);
+
+            RectTransform rect = MakeImage(barContent, "Skill " + mastery.Definition.id, Vector2.zero, new Vector2(SquareSize, SquareSize), SquareBack);
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0f);
+            rect.pivot = new Vector2(0.5f, 0f);
+
+            RectTransform inner = MakeImage(rect, "Inner", new Vector2(4f, -4f), new Vector2(SquareSize - 8f, SquareSize - 8f), WithAlpha(color, InnerIdleAlpha));
+            inner.GetComponent<Image>().raycastTarget = false;
+
+            var segments = new Image[masteryScale];
+            float segmentWidth = (SquareSize - 8f - (masteryScale - 1) * 2f) / masteryScale;
+            for (int i = 0; i < masteryScale; i++)
+            {
+                RectTransform segment = MakeImage(rect, $"Segment {i + 1}", new Vector2(4f + i * (segmentWidth + 2f), -(SquareSize - 4f - 8f)), new Vector2(segmentWidth, 8f), SlotEmpty);
+                segments[i] = segment.GetComponent<Image>();
+                segments[i].raycastTarget = false;
+            }
+
+            Text points = MakeText(rect, "Points", "0", 14, FontStyle.Bold, new Vector2(0f, -2f), new Vector2(SquareSize - 6f, 18f));
+            points.alignment = TextAnchor.MiddleRight;
+            points.color = Color.white;
+
+            Text label = MakeText(rect, "Label", mastery.Definition.label, 10, FontStyle.Normal, new Vector2(-14f, -SquareSize - 2f), new Vector2(SquareSize + 28f, LabelHeight));
+            label.alignment = TextAnchor.UpperCenter;
+            label.horizontalOverflow = HorizontalWrapMode.Wrap;
+            label.verticalOverflow = VerticalWrapMode.Truncate;
+
+            SkillSquare square = new SkillSquare { Mastery = mastery, Rect = rect, Inner = inner.GetComponent<Image>(), Points = points, Label = label, Segments = segments };
+            AddHover(rect.gameObject, () => TooltipFor(square.Mastery), rect, TooltipSide.Above);
+            return square;
         }
 
-        private void ShowTooltip(Slot slot)
-        {
-            if (slot.Reward == null) return;
-            string category = slot.Reward.category == SkillCategory.None ? "" : $" · {slot.Reward.category}";
-            tooltipText.text = $"<b>{slot.Reward.label}</b>{category}\n{slot.Reward.description}";
-            tooltip.gameObject.SetActive(true);
-            Vector2 local = canvasRect.InverseTransformPoint(slot.Rect.position);
-            tooltip.anchoredPosition = new Vector2(local.x + canvasRect.rect.width * 0.5f, local.y - canvasRect.rect.height * 0.5f - 30f);
-        }
+        #endregion
 
-        private void HideTooltip()
-        {
-            tooltip.gameObject.SetActive(false);
-        }
+        #region Skills
 
-        private void OnRewardCollected(RewardDefinition reward, Vector3 worldPosition)
+        private void OnRewardCollected(RewardDefinition reward, Vector3 worldPosition, StopDefinition stop)
         {
-            Slot target = null;
             switch (reward.kind)
             {
-                case RewardKind.Skill: target = NextFree(skillSlots); break;
-                case RewardKind.Trait: target = NextFree(traitSlots); break;
-                case RewardKind.Passive: target = NextFree(passiveSlots); break;
+                case RewardKind.Skill:
+                    StartCoroutine(GainSkill(reward));
+                    break;
+                case RewardKind.Trait:
+                    StartCoroutine(FlyToChip(reward, worldPosition, NextFree(traitChips)));
+                    break;
+                case RewardKind.Passive:
+                    StartCoroutine(FlyToChip(reward, worldPosition, NextFree(passiveChips)));
+                    break;
+                default:
+                    StartCoroutine(FlyToChip(reward, worldPosition, null));
+                    break;
             }
-            StartCoroutine(Fly(reward, worldPosition, target));
         }
 
-        private static Slot NextFree(List<Slot> slots)
+        /// <summary>Activate the square, send a small square to the character, bring a dot back, fill the gauge.</summary>
+        private IEnumerator GainSkill(RewardDefinition reward)
         {
-            foreach (Slot slot in slots) if (slot.Reward == null) return slot;
+            // Let PlayerProgress apply the gain first (handler order is not guaranteed), then read it back.
+            yield return null;
+            SkillMastery mastery = FindMastery(reward.id);
+            if (mastery == null) yield break;
+
+            if (!squaresById.TryGetValue(reward.id, out SkillSquare square))
+            {
+                square = MakeSquare(mastery);
+                squares.Add(square);
+                squaresById.Add(reward.id, square);
+                Layout(snapNew: square);
+                yield return Scale(square.Rect, 0f, 1f, 0.2f);
+            }
+
+            Color color = GreyboxPalette.ForReward(RewardKind.Skill, mastery.Definition.category);
+            square.Inner.color = WithAlpha(color, 1f);
+            StartCoroutine(Punch(square.Rect, 0.15f, 0.15f));
+
+            Vector2 from = SquareCentre(square);
+            Vector2 to = CharacterCanvasPosition();
+            yield return Travel("Spark " + reward.id, from, to, new Vector2(14f, 14f), color, 0.3f);
+            yield return Travel("Dot " + reward.id, CharacterCanvasPosition(), SquareCentre(square), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), 0.3f);
+
+            square.ShownPoints = Mathf.Min(square.ShownPoints + Mathf.Max(1, reward.points), mastery.Points);
+            RefreshSquare(square);
+            StartCoroutine(Punch(square.Points.rectTransform, 0.3f, 0.35f));
+            square.Inner.color = WithAlpha(color, InnerIdleAlpha);
+            Resort();
+        }
+
+        private SkillMastery FindMastery(string id)
+        {
+            if (progress == null) return null;
+            foreach (SkillMastery mastery in progress.Skills) if (mastery.Definition.id == id) return mastery;
             return null;
         }
 
-        private IEnumerator Fly(RewardDefinition reward, Vector3 worldPosition, Slot target)
+        private void RefreshSquare(SkillSquare square)
+        {
+            int points = square.ShownPoints;
+            Color color = GreyboxPalette.ForReward(RewardKind.Skill, square.Mastery.Definition.category);
+            for (int i = 0; i < square.Segments.Length; i++)
+                square.Segments[i].color = i < points ? color : SlotEmpty;
+            square.Points.text = points.ToString();
+        }
+
+        /// <summary>Stable sort by shown points: on a tie the previous order is kept, so only real overtakes move.</summary>
+        private void Resort()
+        {
+            for (int i = 1; i < squares.Count; i++)
+            {
+                SkillSquare current = squares[i];
+                int j = i - 1;
+                while (j >= 0 && squares[j].ShownPoints < current.ShownPoints)
+                {
+                    squares[j + 1] = squares[j];
+                    j--;
+                }
+                squares[j + 1] = current;
+            }
+            Layout(null);
+        }
+
+        /// <summary>
+        /// Slots are centred in the bar. When the bar is narrower than the row of squares (tall
+        /// or narrow screens) the whole row shrinks to fit instead of overflowing.
+        /// </summary>
+        private void Layout(SkillSquare snapNew)
+        {
+            int count = Mathf.Max(squares.Count, 1);
+            float cell = SquareSize + SquareGap;
+            float available = bar.rect.width - 24f;
+            float scale = Mathf.Min(1f, available / (expectedSkills * cell));
+            barContent.localScale = Vector3.one * scale;
+
+            for (int i = 0; i < squares.Count; i++)
+            {
+                squares[i].TargetX = (i - (squares.Count - 1) * 0.5f) * cell;
+                if (squares[i] == snapNew)
+                    squares[i].Rect.anchoredPosition = new Vector2(squares[i].TargetX, 0f);
+            }
+        }
+
+        private Vector2 SquareCentre(SkillSquare square)
+        {
+            Vector3 world = barContent.TransformPoint(new Vector3(square.TargetX, SquareSize * 0.5f, 0f));
+            return canvasRect.InverseTransformPoint(world);
+        }
+
+        private Vector2 CharacterCanvasPosition()
+        {
+            Camera cam = Camera.main;
+            if (cam == null || world == null || world.Player == null) return Vector2.zero;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, cam.WorldToScreenPoint(world.Player.position + Vector3.up * 0.8f), null, out Vector2 local);
+            return local;
+        }
+
+        #endregion
+
+        #region Chips and flights
+
+        private static Chip NextFree(List<Chip> chips)
+        {
+            foreach (Chip chip in chips) if (chip.Reward == null) return chip;
+            return null;
+        }
+
+        private IEnumerator FlyToChip(RewardDefinition reward, Vector3 worldPosition, Chip target)
         {
             Camera cam = Camera.main;
             if (cam == null) yield break;
-
-            GameObject go = new GameObject("Flying " + reward.id, typeof(RectTransform), typeof(Image));
-            RectTransform rect = (RectTransform)go.transform;
-            rect.SetParent(canvasRect, false);
-            rect.sizeDelta = new Vector2(26f, 26f);
-            go.GetComponent<Image>().color = GreyboxPalette.ForReward(reward.kind, reward.category);
-
-            Vector2 start = ToCanvas(cam.WorldToScreenPoint(worldPosition));
-            Vector2 end = target != null ? (Vector2)canvasRect.InverseTransformPoint(target.Rect.position) + new Vector2(12f, -12f)
-                                         : (Vector2)canvasRect.InverseTransformPoint(classText.rectTransform.position);
-            rect.anchoredPosition = start;
-
-            const float duration = 0.6f;
-            float t = 0f;
-            while (t < duration)
-            {
-                t += Time.deltaTime;
-                float k = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / duration));
-                rect.anchoredPosition = Vector2.Lerp(start, end, k) + Vector2.up * (Mathf.Sin(k * Mathf.PI) * 60f);
-                yield return null;
-            }
-            Destroy(go);
-
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, cam.WorldToScreenPoint(worldPosition), null, out Vector2 start);
+            Vector2 end = target != null
+                ? (Vector2)canvasRect.InverseTransformPoint(target.Rect.position) + new Vector2(11f, -11f)
+                : (Vector2)canvasRect.InverseTransformPoint(classText.rectTransform.position);
+            yield return Travel("Flying " + reward.id, start, end, new Vector2(22f, 22f), GreyboxPalette.ForReward(reward.kind, reward.category), 0.6f, arc: 60f);
             if (target != null)
             {
                 target.Reward = reward;
@@ -246,10 +435,85 @@ namespace ResuME.UI
             }
         }
 
-        private Vector2 ToCanvas(Vector3 screenPoint)
+        private IEnumerator Travel(string name, Vector2 from, Vector2 to, Vector2 size, Color color, float duration, float arc = 20f)
         {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, null, out Vector2 local);
-            return local;
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            RectTransform rect = (RectTransform)go.transform;
+            rect.SetParent(canvasRect, false);
+            rect.sizeDelta = size;
+            Image image = go.GetComponent<Image>();
+            image.color = color;
+            image.raycastTarget = false;
+            rect.anchoredPosition = from;
+
+            float t = 0f;
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+                float k = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / duration));
+                rect.anchoredPosition = Vector2.Lerp(from, to, k) + Vector2.up * (Mathf.Sin(k * Mathf.PI) * arc);
+                yield return null;
+            }
+            Destroy(go);
+        }
+
+        #endregion
+
+        #region Tooltip, banner, header
+
+        private enum TooltipSide { Above, Below }
+
+        private void AddHover(GameObject go, System.Func<string> content, RectTransform anchor, TooltipSide side)
+        {
+            EventTrigger trigger = go.AddComponent<EventTrigger>();
+            void Show(BaseEventData _)
+            {
+                string text = content();
+                if (text == null) return;
+                tooltipText.text = text;
+                tooltip.gameObject.SetActive(true);
+                Vector3 centre = anchor.TransformPoint(anchor.rect.center);
+                Vector2 local = canvasRect.InverseTransformPoint(centre);
+                Vector2 half = canvasRect.rect.size * 0.5f;
+                float scaledHalfHeight = anchor.rect.height * 0.5f * anchor.lossyScale.y / canvasRect.lossyScale.y;
+                if (side == TooltipSide.Above)
+                {
+                    tooltip.pivot = new Vector2(0.5f, 0f);
+                    tooltip.anchoredPosition = new Vector2(local.x + half.x, local.y + half.y + scaledHalfHeight + 8f);
+                }
+                else
+                {
+                    tooltip.pivot = new Vector2(0f, 1f);
+                    tooltip.anchoredPosition = new Vector2(local.x + half.x, local.y + half.y - scaledHalfHeight - 8f);
+                }
+            }
+            void Hide(BaseEventData _) => tooltip.gameObject.SetActive(false);
+
+            AddEntry(trigger, EventTriggerType.PointerEnter, Show);
+            AddEntry(trigger, EventTriggerType.PointerDown, Show);
+            AddEntry(trigger, EventTriggerType.PointerExit, Hide);
+            AddEntry(trigger, EventTriggerType.PointerUp, Hide);
+        }
+
+        private static void AddEntry(EventTrigger trigger, EventTriggerType type, UnityEngine.Events.UnityAction<BaseEventData> action)
+        {
+            EventTrigger.Entry entry = new EventTrigger.Entry { eventID = type };
+            entry.callback.AddListener(action);
+            trigger.triggers.Add(entry);
+        }
+
+        private static string TooltipFor(RewardDefinition reward)
+        {
+            string category = reward.category == SkillCategory.None ? "" : $" · {reward.category}";
+            return $"<b>{reward.label}</b>{category}\n{reward.description}";
+        }
+
+        private static string TooltipFor(SkillMastery mastery)
+        {
+            string plural = mastery.Points > 1 ? "s" : "";
+            return $"<b>{mastery.Definition.label}</b> · {mastery.Definition.category}\n" +
+                   $"{mastery.Definition.description}\n" +
+                   $"Maîtrise {mastery.Points} : {mastery.Contributors.Count} projet{plural}, {string.Join(", ", mastery.Contributors)}";
         }
 
         private void OnStopEntered(StopDefinition stop)
@@ -277,45 +541,94 @@ namespace ResuME.UI
         private void OnLevelChanged(int level)
         {
             Refresh();
-            StartCoroutine(Punch(levelText.rectTransform));
+            StartCoroutine(Punch(levelText.rectTransform, 0.3f, 0.4f));
         }
 
         private void OnClassChanged(string title)
         {
             Refresh();
-            StartCoroutine(Punch(classText.rectTransform));
+            StartCoroutine(Punch(classText.rectTransform, 0.3f, 0.4f));
         }
 
         private void Refresh()
         {
             if (progress == null) return;
             classText.text = progress.ClassTitle;
-            levelText.text = $"Niveau {progress.Level}";
+            levelText.text = progress.Level.ToString();
         }
 
-        private static IEnumerator Punch(RectTransform rect)
+        private static IEnumerator Punch(RectTransform rect, float amount, float duration)
         {
             float t = 0f;
-            while (t < 0.4f)
+            while (t < duration)
             {
                 t += Time.deltaTime;
-                rect.localScale = Vector3.one * (1f + 0.3f * Mathf.Sin(Mathf.Clamp01(t / 0.4f) * Mathf.PI));
+                rect.localScale = Vector3.one * (1f + amount * Mathf.Sin(Mathf.Clamp01(t / duration) * Mathf.PI));
                 yield return null;
             }
             rect.localScale = Vector3.one;
         }
 
-        private RectTransform MakePanel(string name, Vector2 anchor, Vector2 position, Vector2 size)
+        private static IEnumerator Scale(RectTransform rect, float from, float to, float duration)
+        {
+            float t = 0f;
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+                rect.localScale = Vector3.one * Mathf.Lerp(from, to, Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / duration)));
+                yield return null;
+            }
+            rect.localScale = Vector3.one * to;
+        }
+
+        #endregion
+
+        #region Primitives
+
+        private static Color WithAlpha(Color color, float alpha) => new Color(color.r, color.g, color.b, alpha);
+
+        private RectTransform MakePanel(RectTransform parent, string name, Vector2 anchor, Vector2 pivot, Vector2 position, Vector2 size)
         {
             GameObject go = new GameObject(name, typeof(RectTransform), typeof(Image));
             RectTransform rect = (RectTransform)go.transform;
-            rect.SetParent(canvasRect, false);
+            rect.SetParent(parent, false);
             rect.anchorMin = rect.anchorMax = anchor;
-            rect.pivot = new Vector2(0f, 1f);
+            rect.pivot = pivot;
             rect.anchoredPosition = position;
             rect.sizeDelta = size;
             go.GetComponent<Image>().color = PanelColor;
             return rect;
+        }
+
+        private static RectTransform MakeImage(RectTransform parent, string name, Vector2 position, Vector2 size, Color color)
+        {
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            RectTransform rect = (RectTransform)go.transform;
+            rect.SetParent(parent, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(0f, 1f);
+            rect.pivot = new Vector2(0f, 1f);
+            rect.anchoredPosition = position;
+            rect.sizeDelta = size;
+            go.GetComponent<Image>().color = color;
+            return rect;
+        }
+
+        private static RectTransform MakeContainer(RectTransform parent, string name, Vector2 position, Vector2 size)
+        {
+            GameObject go = new GameObject(name, typeof(RectTransform));
+            RectTransform rect = (RectTransform)go.transform;
+            rect.SetParent(parent, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(0f, 1f);
+            rect.pivot = new Vector2(0f, 1f);
+            rect.anchoredPosition = position;
+            rect.sizeDelta = size;
+            return rect;
+        }
+
+        private void MakeSectionLabel(RectTransform parent, string caption, Vector2 position)
+        {
+            Text text = MakeText(parent, caption, caption, 12, FontStyle.Bold, position, new Vector2(60f, 22f));
+            text.color = SectionColor;
         }
 
         private Text MakeText(RectTransform parent, string name, string value, int size, FontStyle style, Vector2 position, Vector2 box)
@@ -348,5 +661,7 @@ namespace ResuME.UI
             rect.anchoredPosition = new Vector2(0f, top);
             rect.sizeDelta = new Vector2(0f, height);
         }
+
+        #endregion
     }
 }

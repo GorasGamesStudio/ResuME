@@ -4,13 +4,43 @@ using ResuME.Data;
 namespace ResuME.Editor
 {
     /// <summary>
-    /// The fifteen stops of the route, transcribed from the design sheets. Regenerating the
-    /// Route asset from here keeps the greybox in sync with the CV without hand-editing.
+    /// The fifteen stops of the route, transcribed from the design sheets. A skill is granted one
+    /// mastery point by every project or experience that used it, so the same skill id appears
+    /// under several stops. Regenerating the Route asset from here keeps the greybox in sync.
     /// </summary>
     public static class RouteContent
     {
-        private static RewardDefinition Skill(string id, string label, SkillCategory category, string description) =>
-            new RewardDefinition { kind = RewardKind.Skill, id = id, label = label, category = category, description = description };
+        private const SkillCategory T = SkillCategory.Technique;
+        private const SkillCategory G = SkillCategory.Gestion;
+
+        /// <summary>Skill catalogue: id → label, category, description. Points are granted per stop.</summary>
+        private static readonly Dictionary<string, (string label, SkillCategory category, string description)> Catalogue =
+            new Dictionary<string, (string, SkillCategory, string)>
+            {
+                ["unity"] = ("Unity 3D", T, "Jeux et applications 3D, VR, prototypes 2D et 3D."),
+                ["csharp"] = ("C#", T, "Langage principal, d'Unity aux outils web."),
+                ["cpp"] = ("C++", T, "Programmation orientée objet en C++."),
+                ["c"] = ("C", T, "Algorithmie et premiers programmes."),
+                ["poo"] = ("Programmation orientée objet", T, "C, C++, C#, architectures logicielles."),
+                ["game-design"] = ("Conception de jeux vidéo", T, "Game design, game jams, projets personnels et professionnels."),
+                ["vr"] = ("Réalité virtuelle", T, "Applications immersives et expériences VR."),
+                ["maintenance"] = ("Maintenance & Support informatique", T, "Support utilisateurs, configuration de postes, maintenance réseau."),
+                ["installation"] = ("Installation matériel informatique", T, "Installation et migration de parcs, support technique sur site."),
+                ["comptabilite"] = ("Comptabilité générale", T, "Comptabilité, gestion administrative et bancaire."),
+                ["pilotage"] = ("Pilotage de projets", G, "Conception, planification et suivi de projets."),
+                ["creation-entreprise"] = ("Création & Gestion d'entreprise", G, "Création et gestion de structures : micro-entreprise, société, association."),
+                ["optimisation"] = ("Analyse & Optimisation de processus", G, "Analyse des besoins, procédures, automatisation."),
+                ["etude-projet"] = ("Étude de projet", G, "Étude des besoins, modélisation, choix de solutions."),
+                ["ouverture"] = ("Ouverture de nouvel établissement", G, "Préparation et ouverture d'une nouvelle structure."),
+                ["formation"] = ("Formation & Accompagnement", G, "Pédagogie, programmes de formation, transmission."),
+                ["coordination"] = ("Coordination d'équipe", G, "Organisation quotidienne et coordination d'équipes.")
+            };
+
+        private static RewardDefinition Gain(string id, int points = 1)
+        {
+            (string label, SkillCategory category, string description) entry = Catalogue[id];
+            return new RewardDefinition { kind = RewardKind.Skill, id = id, label = entry.label, category = entry.category, description = entry.description, points = points };
+        }
 
         private static RewardDefinition Trait(string id, string label, string description) =>
             new RewardDefinition { kind = RewardKind.Trait, id = id, label = label, category = SkillCategory.Relationnel, description = description };
@@ -35,9 +65,6 @@ namespace ResuME.Editor
 
         public static List<StopDefinition> Build()
         {
-            const SkillCategory T = SkillCategory.Technique;
-            const SkillCategory G = SkillCategory.Gestion;
-
             return new List<StopDefinition>
             {
                 Stop("chambre", "Chambre d'enfant", "vers 1991", 6, StopKind.Intro, 1.0f,
@@ -47,7 +74,7 @@ namespace ResuME.Editor
                 Stop("bac", "Lycée Saint Vincent, Senlis", "2003 · BAC STT Comptabilité & Gestion", 18, StopKind.Facade, 0.6f,
                     rewards: new[]
                     {
-                        Skill("comptabilite", "Comptabilité générale", T, "Bases en comptabilité et gestion administrative."),
+                        Gain("comptabilite"),
                         Class("classe-gestionnaire", "Gestionnaire", "BAC STT Comptabilité & Gestion, 2003.")
                     },
                     notes: "Le PNJ donne la quête."),
@@ -55,70 +82,62 @@ namespace ResuME.Editor
                 Stop("bts", "Lycée Saint Vincent, Senlis", "2005 · BTS Informatique de Gestion", 20, StopKind.Facade, 0.6f,
                     rewards: new[]
                     {
-                        Skill("c", "C", T, "Algorithmie, bases de données, Visual Basic, Merise et UML."),
-                        Skill("etude-projet", "Étude de projet", G, "Modélisation et architectures logicielles."),
+                        Gain("c"),
+                        Gain("etude-projet"),
                         Class("classe-dev-app", "Développeur d'applications", "BTS Informatique de Gestion, 2005.")
                     },
                     notes: "Même bâtiment que le BAC, un étage en plus."),
 
                 Stop("support", "Support et développement informatique", "2005 - 2010", 20, StopKind.Traverse, 0.8f,
-                    rewards: new[]
-                    {
-                        Skill("maintenance", "Maintenance & Support informatique", T, "Support utilisateurs, configuration de postes, maintenance réseau."),
-                        Skill("installation", "Installation matériel informatique", T, "Installation et migration de parcs informatiques.")
-                    },
+                    rewards: new[] { Gain("maintenance"), Gain("installation") },
                     road: new[] { Trait("sens-service", "Sens du service", "Support technique sur site, au contact des utilisateurs.") },
                     notes: "Plusieurs entreprises, traitées en bâtiment anonyme."),
 
                 Stop("creajeux", "Créajeux, Nîmes", "2010 - 2013 · Programmation de jeux vidéo (RNCP 6)", 25, StopKind.Facade, 0.8f,
                     rewards: new[]
                     {
-                        Skill("unity", "Unity 3D", T, "Prototypes 2D et 3D, physique temps réel, gameplay en équipe."),
-                        Skill("csharp", "C#", T, "Programmation orientée objet en C#."),
-                        Skill("cpp", "C++", T, "Programmation orientée objet en C++."),
-                        Skill("poo", "Programmation orientée objet", T, "C, C++, C#."),
-                        Skill("game-design", "Conception de jeux vidéo", T, "Game design, game jams, projets personnels."),
+                        Gain("unity"), Gain("csharp"), Gain("cpp"), Gain("c"), Gain("poo"), Gain("game-design"),
                         Class("classe-dev-jeux", "Développeur de jeux vidéo", "Créajeux, 2013. Classe définitive.")
                     }),
 
                 Stop("montbeliard", "Développement Unity, Montbéliard", "2013 - 2016", 28, StopKind.Traverse, 1.2f,
-                    rewards: new[] { Skill("vr", "Réalité virtuelle", T, "Applications 3D pédagogiques, culturelles et immersives pour l'armée et le tourisme.") },
-                    road: new[] { Trait("esprit-equipe", "Esprit d'équipe", "Premiers projets professionnels, en équipe.") }),
+                    rewards: new[] { Gain("unity"), Gain("csharp"), Gain("poo"), Gain("game-design"), Gain("vr"), Gain("pilotage"), Gain("etude-projet") },
+                    road: new[] { Trait("esprit-equipe", "Esprit d'équipe", "Premiers projets professionnels, en équipe.") },
+                    notes: "Applications 3D pour l'armée et le tourisme."),
 
                 Stop("alsace", "Développement pharmaceutique, Alsace", "2017", 32, StopKind.Traverse, 0.8f,
-                    rewards: new[] { Skill("optimisation", "Analyse & Optimisation de processus", G, "Serious games de simulation et d'apprentissage.") }),
+                    rewards: new[] { Gain("unity"), Gain("csharp"), Gain("poo"), Gain("optimisation") }),
 
                 Stop("ggs", "Goras Games Studio", "2018 - aujourd'hui · micro-entreprise", 33, StopKind.Counter, 0.4f, founder: true,
                     rewards: new[]
                     {
                         Passive("ggs-passif", "Goras Games Studio", "Actif depuis 2018 : jeux PC, mobile et VR, applications web, multijoueur. Docker, Notion, GitHub."),
-                        Skill("pilotage", "Pilotage de projets", G, "Conception et développement de jeux et d'applications.")
+                        Gain("unity"), Gain("csharp"), Gain("poo"), Gain("game-design"), Gain("vr"), Gain("pilotage"), Gain("creation-entreprise"), Gain("comptabilite")
                     },
                     road: new[] { Trait("autonomie", "Autonomie", "Micro-entreprise menée en parallèle de tout le reste.") }),
 
                 Stop("game-academy", "Game Academy", "2018 - 2020 · Formateur", 33, StopKind.Traverse, 1.2f,
-                    rewards: new[] { Skill("formation", "Formation & Accompagnement", G, "Programme pédagogique sur quatre ans, de la prépa à la 3e année.") },
+                    rewards: new[] { Gain("formation"), Gain("unity"), Gain("csharp"), Gain("poo"), Gain("game-design"), Gain("pilotage"), Gain("coordination") },
                     road: new[] { Trait("force-proposition", "Force de proposition", "Événements, salons jeux vidéo, apport d'idées nouvelles.") }),
 
                 Stop("rpaint", "R'Paint Games", "2020 - 2023 · Co-fondateur & Président", 35, StopKind.Traverse, 1.2f, founder: true,
-                    rewards: new[]
-                    {
-                        Skill("creation-entreprise", "Création & Gestion d'entreprise", G, "Loisirs sportifs et activités récréatives."),
-                        Skill("coordination", "Coordination d'équipe", G, "Gestion administrative, logistique et comptable.")
-                    },
+                    rewards: new[] { Gain("creation-entreprise"), Gain("coordination"), Gain("comptabilite"), Gain("pilotage"), Gain("ouverture") },
                     notes: "Le bâtiment se rénove pendant la traversée."),
 
                 Stop("lidl", "Lidl", "2023 - 2024 · Employé polyvalent", 38, StopKind.Traverse, 0.8f,
-                    rewards: new[] { Skill("ouverture", "Ouverture de nouvel établissement", G, "Préparation et ouverture d'un nouveau magasin.") },
+                    rewards: new[] { Gain("ouverture"), Gain("optimisation") },
                     road: new[] { Trait("polyvalence", "Polyvalence", "Rayons, boulangerie, inventaire, encaissement.") }),
 
                 Stop("loire-games", "Loire Games", "2025 - aujourd'hui · Co-fondateur & Trésorier", 40, StopKind.Stand, 0.6f, founder: true,
+                    rewards: new[] { Gain("comptabilite"), Gain("creation-entreprise"), Gain("optimisation"), Gain("pilotage"), Gain("coordination"), Gain("csharp") },
                     notes: "Stand de salon, jaune bien visible, logo Loire Games."),
 
                 Stop("cine-sologne", "Ciné Sologne", "2025 - 2026 · Assistant directeur", 40, StopKind.Facade, 0.5f,
+                    rewards: new[] { Gain("maintenance"), Gain("installation"), Gain("coordination") },
                     notes: "Façade seulement, sans logo."),
 
                 Stop("crn", "Conseil Régional du Numérique Centre-Val de Loire", "2026 - aujourd'hui · Bénévolat", 40, StopKind.Square, 0.8f,
+                    rewards: new[] { Gain("optimisation"), Gain("etude-projet"), Gain("formation") },
                     notes: "Place publique, logo du Conseil Régional."),
 
                 Stop("aujourdhui", "Aujourd'hui", "2026", 40, StopKind.End, 1.0f,

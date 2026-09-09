@@ -38,7 +38,7 @@ namespace ResuME.Editor
             RegisterScene();
             AssetDatabase.SaveAssets();
             Debug.Log($"[ResuME] Greybox rebuilt: {route.stops.Count} stops, {route.TotalScreens:F2} screens, " +
-                      $"{route.CountRewards(RewardKind.Skill)} skills, {route.CountRewards(RewardKind.Trait)} traits.");
+                      $"{route.CountRewards(RewardKind.Skill)} skill gains over {route.CountDistinctSkills()} skills, {route.CountRewards(RewardKind.Trait)} traits.");
         }
 
         [MenuItem("ResuME/Greybox/Regenerate Route asset only")]

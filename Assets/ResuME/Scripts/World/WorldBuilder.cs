@@ -27,6 +27,7 @@ namespace ResuME.World
         private sealed class PickupInstance
         {
             public RewardDefinition Reward;
+            public StopDefinition Stop;
             public float X;
             public GameObject Root;
             public bool Collected;
@@ -58,8 +59,8 @@ namespace ResuME.World
 
         public event Action<StopDefinition> StopEntered;
         public event Action<StopDefinition> StopExited;
-        /// <summary>Raised with the world position of the pickup, so the HUD can fly it to its slot.</summary>
-        public event Action<RewardDefinition, Vector3> RewardCollected;
+        /// <summary>Raised with the world position of the pickup and the stop that grants it.</summary>
+        public event Action<RewardDefinition, Vector3, StopDefinition> RewardCollected;
 
         public void Configure(RouteDefinition routeDefinition, Sprite squareSprite, Font font, Transform playerTransform)
         {
@@ -103,13 +104,13 @@ namespace ResuME.World
                 BuildStop(stop);
                 stops.Add(stop);
 
-                PlacePickups(definition.rewards, stop.StartX, stop.EndX, stop.Root.transform);
+                PlacePickups(definition, definition.rewards, stop.StartX, stop.EndX, stop.Root.transform);
                 x += width;
 
                 bool last = i == route.stops.Count - 1;
                 if (!last)
                 {
-                    PlacePickups(definition.roadRewards, x, x + gap, transform);
+                    PlacePickups(definition, definition.roadRewards, x, x + gap, transform);
                     x += gap;
                 }
             }
@@ -178,7 +179,7 @@ namespace ResuME.World
             }
         }
 
-        private void PlacePickups(List<RewardDefinition> rewards, float fromX, float toX, Transform parent)
+        private void PlacePickups(StopDefinition stop, List<RewardDefinition> rewards, float fromX, float toX, Transform parent)
         {
             if (rewards == null || rewards.Count == 0) return;
             for (int i = 0; i < rewards.Count; i++)
@@ -193,9 +194,10 @@ namespace ResuME.World
                 root.transform.SetParent(parent, false);
                 root.transform.position = new Vector3(x, y, 0f);
                 MakeBlock("Icon", root.transform, x, y, size, size, GreyboxPalette.ForReward(reward.kind, reward.category), SortPickup);
-                MakeLabel("Label", root.transform, x, y - 0.75f, reward.label, 0.22f, SortLabel);
+                string caption = reward.kind == RewardKind.Skill && reward.points > 0 ? $"{reward.label} +{reward.points}" : reward.label;
+                MakeLabel("Label", root.transform, x, y - 0.75f, caption, 0.22f, SortLabel);
 
-                pickups.Add(new PickupInstance { Reward = reward, X = x, Root = root });
+                pickups.Add(new PickupInstance { Reward = reward, Stop = stop, X = x, Root = root });
             }
         }
 
@@ -271,7 +273,7 @@ namespace ResuME.World
                 pickup.Collected = true;
                 CollectedRewards++;
                 Vector3 position = pickup.Root.transform.position;
-                RewardCollected?.Invoke(pickup.Reward, position);
+                RewardCollected?.Invoke(pickup.Reward, position, pickup.Stop);
                 StartCoroutine(PopAndHide(pickup.Root));
             }
         }

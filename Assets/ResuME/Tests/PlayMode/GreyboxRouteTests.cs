@@ -1,6 +1,7 @@
 using System.Collections;
 using NUnit.Framework;
 using ResuME.Player;
+using ResuME.UI;
 using ResuME.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,10 +33,12 @@ namespace ResuME.Tests
             Assert.IsNotNull(mover, "PlayerMover missing in GA_GreyboxScene");
             Assert.IsNotNull(progress, "PlayerProgress missing in GA_GreyboxScene");
 
-            int expectedSkills = world.Route.CountRewards(Data.RewardKind.Skill);
+            int expectedSkills = world.Route.CountDistinctSkills();
+            int expectedGains = world.Route.CountRewards(Data.RewardKind.Skill);
             int expectedTraits = world.Route.CountRewards(Data.RewardKind.Trait);
             int expectedPassives = world.Route.CountRewards(Data.RewardKind.Passive);
             Assert.AreEqual(17, expectedSkills, "the CV lists 17 skills (10 technical, 7 management)");
+            Assert.Greater(expectedGains, expectedSkills, "skills must be reinforced by several experiences");
             Assert.AreEqual(6, expectedTraits, "the CV lists 6 personal traits");
             Assert.AreEqual(1, expectedPassives, "Goras Games Studio is the only passive");
 
@@ -50,8 +53,9 @@ namespace ResuME.Tests
                     Assert.Less(Time.realtimeSinceStartup, realDeadline, "the character never reached the end of the route");
                     yield return null;
                 }
-                // Let the last pickups' events settle.
-                yield return null;
+                // Let the last pickups' events and the HUD gain animations settle (about 1.5 s of game time).
+                float settleUntil = Time.time + 2f;
+                while (Time.time < settleUntil) yield return null;
             }
             finally
             {
@@ -62,12 +66,36 @@ namespace ResuME.Tests
                       $"({world.Route.TotalScreens:F2} screens at {world.Route.secondsPerScreen:F1} s/screen).");
 
             Assert.AreEqual(world.TotalRewards, world.CollectedRewards, "every pickup on the lane must be collected");
-            Assert.AreEqual(expectedSkills, progress.Skills.Count);
+            Assert.AreEqual(expectedSkills, progress.Skills.Count, "every distinct skill is on the sheet");
+            int totalPoints = 0;
+            foreach (SkillMastery mastery in progress.Skills)
+            {
+                Assert.AreEqual(world.Route.TotalPoints(mastery.Definition.id), mastery.Points, $"mastery of {mastery.Definition.id}");
+                Assert.AreEqual(mastery.Points, mastery.Contributors.Count, $"one contributor per point for {mastery.Definition.id}");
+                totalPoints += mastery.Points;
+            }
+            Assert.AreEqual(expectedGains, totalPoints, "every gain on the lane counts once");
+            Assert.AreEqual(5, progress.MasteryOf("unity"), "Unity was used at five stops");
+            Assert.AreEqual(6, progress.MasteryOf("csharp"), "C# was used at six stops, web tooling included");
+            Assert.AreEqual(1, progress.MasteryOf("cpp"), "C++ was only used at Créajeux");
             Assert.AreEqual(expectedTraits, progress.Traits.Count);
             Assert.AreEqual(expectedPassives, progress.Passives.Count);
             Assert.AreEqual("Développeur de jeux vidéo", progress.ClassTitle);
             Assert.AreEqual(40, progress.Level);
             Assert.That(walkSeconds, Is.InRange(30f, 300f), "pure walking time should stay within the 3 to 5 minute budget, with room for pauses");
+
+            CharacterSheetHud hud = Object.FindFirstObjectByType<CharacterSheetHud>();
+            Assert.IsNotNull(hud, "CharacterSheetHud missing in GA_GreyboxScene");
+            var bar = hud.BarOrder();
+            Assert.AreEqual(expectedSkills, bar.Count, "every distinct skill has a square in the bar");
+            for (int i = 1; i < bar.Count; i++)
+                Assert.GreaterOrEqual(bar[i - 1].points, bar[i].points, $"bar must be sorted by mastery at index {i}");
+            foreach ((string id, int points) in bar)
+                Assert.AreEqual(progress.MasteryOf(id), points, $"square of {id} shows its mastery");
+            int best = 0;
+            foreach (SkillMastery mastery in progress.Skills) best = Mathf.Max(best, mastery.Points);
+            Assert.AreEqual(best, bar[0].points, "the most exercised skill leads the bar");
+            Assert.AreEqual("csharp", bar[0].id, "C# is the skill used by the most experiences (six)");
         }
     }
 }

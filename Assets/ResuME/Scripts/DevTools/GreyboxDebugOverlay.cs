@@ -41,8 +41,9 @@ namespace ResuME.UI
                 $"objets = {world.CollectedRewards}/{world.TotalRewards}   fps = {1f / Mathf.Max(0.0001f, Time.unscaledDeltaTime):F0}\n" +
                 "Flèches / glisser pour marcher, Espace pour sauter";
 
-            GUI.Box(new Rect(8f, Screen.height - 84f, 560f, 76f), GUIContent.none);
-            GUI.Label(new Rect(14f, Screen.height - 82f, 550f, 74f), text, style);
+            // Top right, under the stop banner: the bottom of the screen belongs to the skill bar.
+            GUI.Box(new Rect(Screen.width - 568f, 96f, 560f, 76f), GUIContent.none);
+            GUI.Label(new Rect(Screen.width - 562f, 98f, 550f, 74f), text, style);
         }
     }
 }
