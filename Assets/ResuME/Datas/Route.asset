@@ -486,10 +486,11 @@ MonoBehaviour:
       category: 3
     rewards:
     - kind: 2
-      id: ggs-passif
-      label: Goras Games Studio
-      description: 'Actif depuis 2018 : jeux PC, mobile et VR, applications web,
-        multijoueur.'
+      id: entrepreneur
+      label: Entrepreneur
+      description: "Passif permanent depuis 2018 : Goras Games Studio, micro-entreprise
+        ; jeux PC, mobile et VR, applications web, multijoueur, et tout ce qu'il
+        faut faire soi-m\xEAme \xE0 c\xF4t\xE9."
       category: 0
     projects:
     - id: ggs-creation
