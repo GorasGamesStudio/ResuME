@@ -662,10 +662,10 @@ MonoBehaviour:
       - Quest
       - Android
     notes: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : un seul projet
-      d\xE9clin\xE9 en adaptations, apr\xE8s le d\xE9part de Game Academy (2020 ou
-      2021, \xE0 confirmer). Comp\xE9tences limit\xE9es : beaucoup de RV (5), moyen
-      en Unity (3), un peu de C# (1) et de conception (1). Composition \xE0 d\xE9finir
-      : salle de cin\xE9ma en VR, rang\xE9e de casques."
+      d\xE9clin\xE9 en adaptations, en 2021 (d\xE9cision d'\xC9ric), apr\xE8s le
+      d\xE9part de Game Academy. Comp\xE9tences limit\xE9es : beaucoup de RV (5),
+      moyen en Unity (3), un peu de C# (1) et de conception (1). Composition \xE0
+      d\xE9finir : salle de cin\xE9ma en VR, rang\xE9e de casques."
   - id: lidl
     title: Lidl
     years: "2023 - 2024 \xB7 Employ\xE9 polyvalent"
