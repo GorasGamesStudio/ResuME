@@ -469,7 +469,7 @@ MonoBehaviour:
     years: "2018 - aujourd'hui \xB7 micro-entreprise"
     level: 33
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 1.2
     founder: 1
     gapAfterScreens: -1
     traitsBefore: []
@@ -487,18 +487,109 @@ MonoBehaviour:
         multijoueur.'
       category: 0
     projects:
-    - id: ggs-projets
-      title: "Projets GGS (\xE0 d\xE9tailler un par un)"
-      description: Jeux, applications web et mobiles, VR.
+    - id: ggs-goodapp
+      title: GoodApp (client, mobile 2D)
+      description: "Projet client mobile en 2D. \xC0 d\xE9crire."
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - Android
+      - iOS
+    - id: ggs-goodtime
+      title: GoodTime (client, mobile 2D)
+      description: "Projet client mobile en 2D. \xC0 d\xE9crire."
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - Android
+      - iOS
+    - id: ggs-heartbeatgames
+      title: HeartBeat Games (client, mobile 2D)
+      description: "Projet client mobile en 2D pour un studio de jeux. \xC0 d\xE9crire."
       skillIds:
       - unity
       - csharp
       - game-design
+      platforms:
+      - Android
+      - iOS
+    - id: ggs-studiostark
+      title: Studio Stark (client, mobile 2D)
+      description: "Projet client mobile en 2D. \xC0 d\xE9crire."
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - Android
+      - iOS
+    - id: ggs-odn-refonte
+      title: 'ODN CineVR : refonte totale'
+      description: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : refonte
+        compl\xE8te de l'application, plusieurs ann\xE9es de suivi."
+      skillIds:
+      - unity
+      - csharp
       - vr
-      - gestion-entreprise
-      - dev-web
-      platforms: []
-    notes: 
+      - game-design
+      platforms:
+      - Quest
+    - id: ggs-odn-quest-rift
+      title: 'ODN CineVR : portage Meta Quest et Rift'
+      description: Portage et maintenance sur les casques Meta.
+      skillIds:
+      - vr
+      platforms:
+      - Quest
+      - PC
+    - id: ggs-odn-pico
+      title: 'ODN CineVR : portage Pico'
+      description: Portage sur les casques Pico.
+      skillIds:
+      - vr
+      platforms:
+      - Pico
+    - id: ggs-odn-vive
+      title: 'ODN CineVR : portage HTC Vive Flow et Focus 3'
+      description: Portage sur les casques HTC.
+      skillIds:
+      - vr
+      platforms:
+      - Vive
+    - id: ggs-odn-mobile
+      title: 'ODN CineVR : versions Android et iOS'
+      description: "D\xE9clinaisons mobiles, CineVR et CineVR Plus."
+      skillIds:
+      - csharp
+      platforms:
+      - Android
+      - iOS
+    - id: ggs-odn-decors
+      title: "ODN CineVR : d\xE9cors"
+      description: "Salles et d\xE9cors : vaisseau, drive-in, IMAX, manoir, plage,
+        lobby."
+      skillIds:
+      - game-design
+      platforms:
+      - Quest
+    - id: ggs-odn-pro-plugin
+      title: ODN CineVR Pro et plugin Android VR
+      description: "Version Pro et plugin Android natif pour la lecture vid\xE9o
+        en VR."
+      skillIds:
+      - vr
+      - csharp
+      platforms:
+      - Quest
+      - Android
+    notes: "2018 : passage en freelance pour rejoindre Game Academy, puis projets
+      clients ext\xE9rieurs. Mobiles 2D pour la plupart (GoodApp, GoodTime, HeartBeat
+      Games, Studio Stark d'apr\xE8s les archives clients, \xE0 confirmer). ODN (One
+      Digital Nation, CineVR) sur plusieurs ann\xE9es : refonte totale et portages
+      sur de nombreux casques, gros gain en RV, faible en Unity, moyen en conception.
+      Les projets propres du studio, jamais sortis, sont ignor\xE9s. Guichet au d\xE9but
+      du lieu, puis les projets."
   - id: game-academy
     title: Game Academy
     years: "2018 - 2020 \xB7 Formateur"

@@ -558,7 +558,7 @@
       "years": "2018 - aujourd'hui · micro-entreprise",
       "level": 33,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 1.2,
       "founder": true,
       "traitsAfter": [
         "autonomie"
@@ -570,20 +570,144 @@
       },
       "projects": [
         {
-          "id": "ggs-projets",
-          "title": "Projets GGS (à détailler un par un)",
-          "description": "Jeux, applications web et mobiles, VR.",
+          "id": "ggs-goodapp",
+          "title": "GoodApp (client, mobile 2D)",
+          "description": "Projet client mobile en 2D. À décrire.",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "Android",
+            "iOS"
+          ]
+        },
+        {
+          "id": "ggs-goodtime",
+          "title": "GoodTime (client, mobile 2D)",
+          "description": "Projet client mobile en 2D. À décrire.",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "Android",
+            "iOS"
+          ]
+        },
+        {
+          "id": "ggs-heartbeatgames",
+          "title": "HeartBeat Games (client, mobile 2D)",
+          "description": "Projet client mobile en 2D pour un studio de jeux. À décrire.",
           "skills": [
             "unity",
             "csharp",
-            "game-design",
-            "vr",
-            "gestion-entreprise",
-            "dev-web"
+            "game-design"
           ],
-          "platforms": []
+          "platforms": [
+            "Android",
+            "iOS"
+          ]
+        },
+        {
+          "id": "ggs-studiostark",
+          "title": "Studio Stark (client, mobile 2D)",
+          "description": "Projet client mobile en 2D. À décrire.",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "Android",
+            "iOS"
+          ]
+        },
+        {
+          "id": "ggs-odn-refonte",
+          "title": "ODN CineVR : refonte totale",
+          "description": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, plusieurs années de suivi.",
+          "skills": [
+            "unity",
+            "csharp",
+            "vr",
+            "game-design"
+          ],
+          "platforms": [
+            "Quest"
+          ]
+        },
+        {
+          "id": "ggs-odn-quest-rift",
+          "title": "ODN CineVR : portage Meta Quest et Rift",
+          "description": "Portage et maintenance sur les casques Meta.",
+          "skills": [
+            "vr"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
+        },
+        {
+          "id": "ggs-odn-pico",
+          "title": "ODN CineVR : portage Pico",
+          "description": "Portage sur les casques Pico.",
+          "skills": [
+            "vr"
+          ],
+          "platforms": [
+            "Pico"
+          ]
+        },
+        {
+          "id": "ggs-odn-vive",
+          "title": "ODN CineVR : portage HTC Vive Flow et Focus 3",
+          "description": "Portage sur les casques HTC.",
+          "skills": [
+            "vr"
+          ],
+          "platforms": [
+            "Vive"
+          ]
+        },
+        {
+          "id": "ggs-odn-mobile",
+          "title": "ODN CineVR : versions Android et iOS",
+          "description": "Déclinaisons mobiles, CineVR et CineVR Plus.",
+          "skills": [
+            "csharp"
+          ],
+          "platforms": [
+            "Android",
+            "iOS"
+          ]
+        },
+        {
+          "id": "ggs-odn-decors",
+          "title": "ODN CineVR : décors",
+          "description": "Salles et décors : vaisseau, drive-in, IMAX, manoir, plage, lobby.",
+          "skills": [
+            "game-design"
+          ],
+          "platforms": [
+            "Quest"
+          ]
+        },
+        {
+          "id": "ggs-odn-pro-plugin",
+          "title": "ODN CineVR Pro et plugin Android VR",
+          "description": "Version Pro et plugin Android natif pour la lecture vidéo en VR.",
+          "skills": [
+            "vr",
+            "csharp"
+          ],
+          "platforms": [
+            "Quest",
+            "Android"
+          ]
         }
-      ]
+      ],
+      "notes": "2018 : passage en freelance pour rejoindre Game Academy, puis projets clients extérieurs. Mobiles 2D pour la plupart (GoodApp, GoodTime, HeartBeat Games, Studio Stark d'après les archives clients, à confirmer). ODN (One Digital Nation, CineVR) sur plusieurs années : refonte totale et portages sur de nombreux casques, gros gain en RV, faible en Unity, moyen en conception. Les projets propres du studio, jamais sortis, sont ignorés. Guichet au début du lieu, puis les projets."
     },
     {
       "id": "game-academy",
