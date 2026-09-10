@@ -609,7 +609,7 @@
           ]
         }
       ],
-      "notes": "2018 : passage en freelance pour rejoindre Game Academy, puis projets clients extérieurs. Guichet (création de la micro-entreprise), puis clichés d'applications mobiles pour les clients mobiles 2D. ODN CineVR vient plus tard, après Game Academy : lieu à part."
+      "notes": "Guichet 2018 : création de la micro-entreprise (passif épinglé) et premiers clients mobiles 2D. Le guichet réapparaît ensuite chaque année (fil rouge) avec les projets de l'année."
     },
     {
       "id": "game-academy",
@@ -687,6 +687,72 @@
       "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste anecdotique (pas de projet). Composition : bâtiment avec logo (photos d'Éric à venir), salle vue de derrière, étudiants de dos qui lèvent la main, écrans visibles, Éric de face ; le personnage passe devant les étudiants, derrière leurs sprites."
     },
     {
+      "id": "ggs-2019",
+      "title": "Goras Games Studio",
+      "years": "2019",
+      "level": 34,
+      "kind": "Counter",
+      "widthScreens": 0.4,
+      "founder": false,
+      "projects": [
+        {
+          "id": "odn-refonte",
+          "title": "ODN CineVR : refonte totale",
+          "description": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, version Pro, plugin Android natif, déclinaisons mobiles.",
+          "skills": [
+            "vr",
+            "unity",
+            "csharp",
+            "game-design"
+          ],
+          "platforms": [
+            "Quest",
+            "Android",
+            "iOS"
+          ]
+        }
+      ],
+      "notes": "Guichet annuel 2019 : le fil rouge du studio."
+    },
+    {
+      "id": "ggs-2020",
+      "title": "Goras Games Studio",
+      "years": "2020",
+      "level": 35,
+      "kind": "Counter",
+      "widthScreens": 0.4,
+      "founder": false,
+      "projects": [
+        {
+          "id": "odn-quest-rift",
+          "title": "ODN CineVR : adaptation Meta Quest et Rift",
+          "description": "Portage et maintenance sur les casques Meta.",
+          "skills": [
+            "vr",
+            "unity"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
+        },
+        {
+          "id": "k4rant-2020",
+          "title": "K4rant : début du projet",
+          "description": "Salle d'arcade sociale en VR, premier prototype.",
+          "skills": [
+            "game-design",
+            "unity"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
+        }
+      ],
+      "notes": "Guichet annuel 2020 : le fil rouge du studio."
+    },
+    {
       "id": "rpaint",
       "title": "R'Paint Games, Méhers",
       "years": "2021",
@@ -729,46 +795,17 @@
       ]
     },
     {
-      "id": "odn",
-      "title": "ODN CineVR, client de Goras Games Studio",
-      "years": "2022",
-      "level": 37,
-      "kind": "Traverse",
-      "widthScreens": 1.0,
+      "id": "ggs-2021",
+      "title": "Goras Games Studio",
+      "years": "2021",
+      "level": 36,
+      "kind": "Counter",
+      "widthScreens": 0.4,
       "founder": false,
       "projects": [
         {
-          "id": "odn-refonte",
-          "title": "CineVR : refonte totale",
-          "description": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, version Pro, plugin Android natif de lecture vidéo, déclinaisons mobiles (Android, iOS, CineVR Plus).",
-          "skills": [
-            "vr",
-            "unity",
-            "csharp",
-            "game-design"
-          ],
-          "platforms": [
-            "Quest",
-            "Android",
-            "iOS"
-          ]
-        },
-        {
-          "id": "odn-quest-rift",
-          "title": "CineVR : adaptation Meta Quest et Rift",
-          "description": "Portage et maintenance sur les casques Meta.",
-          "skills": [
-            "vr",
-            "unity"
-          ],
-          "platforms": [
-            "Quest",
-            "PC"
-          ]
-        },
-        {
           "id": "odn-pico",
-          "title": "CineVR : adaptation Pico",
+          "title": "ODN CineVR : adaptation Pico",
           "description": "Portage sur les casques Pico.",
           "skills": [
             "vr"
@@ -779,7 +816,7 @@
         },
         {
           "id": "odn-vive",
-          "title": "CineVR : adaptation HTC Vive Flow et Focus 3",
+          "title": "ODN CineVR : adaptation HTC Vive Flow et Focus 3",
           "description": "Portage sur les casques HTC.",
           "skills": [
             "vr"
@@ -790,7 +827,7 @@
         },
         {
           "id": "odn-decors",
-          "title": "CineVR : décors",
+          "title": "ODN CineVR : décors",
           "description": "Salles et décors : vaisseau, drive-in, IMAX, manoir, plage, lobby.",
           "skills": [
             "unity",
@@ -799,9 +836,46 @@
           "platforms": [
             "Quest"
           ]
+        },
+        {
+          "id": "k4rant-2021",
+          "title": "K4rant : évolution 2021",
+          "description": "Conception du lobby et des bornes.",
+          "skills": [
+            "game-design"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
         }
       ],
-      "notes": "One Digital Nation, cinéma en réalité virtuelle, 2022 à 2023 : un seul projet décliné en adaptations. Compétences limitées : RV 4, Unity 3, conception 2, C# 1. Composition validée : on passe devant une salle pleine de casques, on entre dans une salle de projection, on en ressort."
+      "notes": "Guichet annuel 2021 : le fil rouge du studio."
+    },
+    {
+      "id": "ggs-2022",
+      "title": "Goras Games Studio",
+      "years": "2022",
+      "level": 37,
+      "kind": "Counter",
+      "widthScreens": 0.4,
+      "founder": false,
+      "projects": [
+        {
+          "id": "k4rant-2022",
+          "title": "K4rant : évolution 2022",
+          "description": "Réseau et parties, conception des mondes.",
+          "skills": [
+            "game-design",
+            "csharp"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
+        }
+      ],
+      "notes": "Guichet annuel 2022 : le fil rouge du studio."
     },
     {
       "id": "lidl",
@@ -825,6 +899,56 @@
         }
       ],
       "notes": "Simple passage : un métier alimentaire pour avoir un salaire, mais un point de Gestion d'entreprise (on y apprend malgré tout). Trait Dépassement de soi en sortant. Façade d'enseigne sans logo."
+    },
+    {
+      "id": "ggs-2023",
+      "title": "Goras Games Studio",
+      "years": "2023",
+      "level": 38,
+      "kind": "Counter",
+      "widthScreens": 0.4,
+      "founder": false,
+      "projects": [
+        {
+          "id": "k4rant-2023",
+          "title": "K4rant : évolution 2023",
+          "description": "Version VR, confort et interactions.",
+          "skills": [
+            "game-design",
+            "vr"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
+        }
+      ],
+      "notes": "Guichet annuel 2023 : le fil rouge du studio."
+    },
+    {
+      "id": "ggs-2024",
+      "title": "Goras Games Studio",
+      "years": "2024",
+      "level": 39,
+      "kind": "Counter",
+      "widthScreens": 0.4,
+      "founder": false,
+      "projects": [
+        {
+          "id": "k4rant-2024",
+          "title": "K4rant : évolution 2024",
+          "description": "Refonte technique sous Unity 6.",
+          "skills": [
+            "game-design",
+            "unity"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
+        }
+      ],
+      "notes": "Guichet annuel 2024 : le fil rouge du studio."
     },
     {
       "id": "cine-sologne",
@@ -856,6 +980,32 @@
       "notes": "Passage anecdotique en façade, sans logo : un point de Maintenance & Support informatique, un point de Gestion d'entreprise. Pas de trait."
     },
     {
+      "id": "ggs-2025",
+      "title": "Goras Games Studio",
+      "years": "2025",
+      "level": 40,
+      "kind": "Counter",
+      "widthScreens": 0.4,
+      "founder": false,
+      "projects": [
+        {
+          "id": "k4rant-2025",
+          "title": "K4rant : évolution 2025",
+          "description": "Multijoueur, avatars, portes d'embarquement.",
+          "skills": [
+            "game-design",
+            "vr",
+            "csharp"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
+        }
+      ],
+      "notes": "Guichet annuel 2025 : le fil rouge du studio."
+    },
+    {
       "id": "crn",
       "title": "Conseil Régional du Numérique Centre-Val de Loire",
       "years": "2026",
@@ -867,6 +1017,68 @@
       "traitsAfter": [
         "engagement-citoyen"
       ]
+    },
+    {
+      "id": "ggs-2026",
+      "title": "Goras Games Studio",
+      "years": "2026",
+      "level": 40,
+      "kind": "Counter",
+      "widthScreens": 0.4,
+      "founder": false,
+      "projects": [
+        {
+          "id": "k4rant-2026",
+          "title": "K4rant : évolution 2026",
+          "description": "Bornes et leaderboards.",
+          "skills": [
+            "game-design"
+          ],
+          "platforms": [
+            "Quest",
+            "PC"
+          ]
+        },
+        {
+          "id": "ggs-ia-core",
+          "title": "IA : outillage du studio (GGS Core, build, versionnage)",
+          "description": "Outils d'éditeur et de build écrits avec des agents d'IA.",
+          "skills": [
+            "ia"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "ggs-ia-resume",
+          "title": "IA : ResuME, ce CV interactif",
+          "description": "Conçu et développé avec des agents d'IA, données et greybox pilotées.",
+          "skills": [
+            "ia"
+          ],
+          "platforms": [
+            "WebGL"
+          ]
+        },
+        {
+          "id": "ggs-ia-agents",
+          "title": "IA : agents et automatisations",
+          "description": "Revue de code, tests, déploiement, mémoire de projet.",
+          "skills": [
+            "ia"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "ggs-ia-contenus",
+          "title": "IA : production de contenus",
+          "description": "Visuels, documents et communication du studio.",
+          "skills": [
+            "ia"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Guichet annuel 2026 : le fil rouge du studio."
     },
     {
       "id": "loire-games",

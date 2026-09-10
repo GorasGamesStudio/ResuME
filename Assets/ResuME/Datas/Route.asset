@@ -510,10 +510,9 @@ MonoBehaviour:
       platforms:
       - Android
       - iOS
-    notes: "2018 : passage en freelance pour rejoindre Game Academy, puis projets
-      clients ext\xE9rieurs. Guichet (cr\xE9ation de la micro-entreprise), puis clich\xE9s
-      d'applications mobiles pour les clients mobiles 2D. ODN CineVR vient plus tard,
-      apr\xE8s Game Academy : lieu \xE0 part."
+    notes: "Guichet 2018 : cr\xE9ation de la micro-entreprise (passif \xE9pingl\xE9)
+      et premiers clients mobiles 2D. Le guichet r\xE9appara\xEEt ensuite chaque
+      ann\xE9e (fil rouge) avec les projets de l'ann\xE9e."
   - id: game-academy
     title: Game Academy
     years: 2018
@@ -581,6 +580,64 @@ MonoBehaviour:
       \xE0 venir), salle vue de derri\xE8re, \xE9tudiants de dos qui l\xE8vent la
       main, \xE9crans visibles, \xC9ric de face ; le personnage passe devant les
       \xE9tudiants, derri\xE8re leurs sprites."
+  - id: ggs-2019
+    title: Goras Games Studio
+    years: 2019
+    level: 34
+    kind: 3
+    widthScreens: 0.4
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: odn-refonte
+      title: 'ODN CineVR : refonte totale'
+      description: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : refonte
+        compl\xE8te de l'application, version Pro, plugin Android natif, d\xE9clinaisons
+        mobiles."
+      skillIds:
+      - vr
+      - unity
+      - csharp
+      - game-design
+      platforms:
+      - Quest
+      - Android
+      - iOS
+    notes: 'Guichet annuel 2019 : le fil rouge du studio.'
+  - id: ggs-2020
+    title: Goras Games Studio
+    years: 2020
+    level: 35
+    kind: 3
+    widthScreens: 0.4
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: odn-quest-rift
+      title: 'ODN CineVR : adaptation Meta Quest et Rift'
+      description: Portage et maintenance sur les casques Meta.
+      skillIds:
+      - vr
+      - unity
+      platforms:
+      - Quest
+      - PC
+    - id: k4rant-2020
+      title: "K4rant : d\xE9but du projet"
+      description: Salle d'arcade sociale en VR, premier prototype.
+      skillIds:
+      - game-design
+      - unity
+      platforms:
+      - Quest
+      - PC
+    notes: 'Guichet annuel 2020 : le fil rouge du studio.'
   - id: rpaint
     title: "R'Paint Games, M\xE9hers"
     years: 2021
@@ -626,57 +683,34 @@ MonoBehaviour:
       pas : le personnage repeint la fa\xE7ade ext\xE9rieure au lanceur, la peinture
       r\xE9v\xE8le la projection par plaques. Pas de mascotte. Trois points de Gestion
       d'entreprise, un par projet, ramass\xE9s en avan\xE7ant devant la fa\xE7ade."
-  - id: odn
-    title: ODN CineVR, client de Goras Games Studio
-    years: 2022
-    level: 37
-    kind: 2
-    widthScreens: 1
+  - id: ggs-2021
+    title: Goras Games Studio
+    years: 2021
+    level: 36
+    kind: 3
+    widthScreens: 0.4
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards: []
     projects:
-    - id: odn-refonte
-      title: 'CineVR : refonte totale'
-      description: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : refonte
-        compl\xE8te de l'application, version Pro, plugin Android natif de lecture
-        vid\xE9o, d\xE9clinaisons mobiles (Android, iOS, CineVR Plus)."
-      skillIds:
-      - vr
-      - unity
-      - csharp
-      - game-design
-      platforms:
-      - Quest
-      - Android
-      - iOS
-    - id: odn-quest-rift
-      title: 'CineVR : adaptation Meta Quest et Rift'
-      description: Portage et maintenance sur les casques Meta.
-      skillIds:
-      - vr
-      - unity
-      platforms:
-      - Quest
-      - PC
     - id: odn-pico
-      title: 'CineVR : adaptation Pico'
+      title: 'ODN CineVR : adaptation Pico'
       description: Portage sur les casques Pico.
       skillIds:
       - vr
       platforms:
       - Pico
     - id: odn-vive
-      title: 'CineVR : adaptation HTC Vive Flow et Focus 3'
+      title: 'ODN CineVR : adaptation HTC Vive Flow et Focus 3'
       description: Portage sur les casques HTC.
       skillIds:
       - vr
       platforms:
       - Vive
     - id: odn-decors
-      title: "CineVR : d\xE9cors"
+      title: "ODN CineVR : d\xE9cors"
       description: "Salles et d\xE9cors : vaisseau, drive-in, IMAX, manoir, plage,
         lobby."
       skillIds:
@@ -684,10 +718,37 @@ MonoBehaviour:
       - game-design
       platforms:
       - Quest
-    notes: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle, 2022 \xE0 2023
-      : un seul projet d\xE9clin\xE9 en adaptations. Comp\xE9tences limit\xE9es :
-      RV 4, Unity 3, conception 2, C# 1. Composition valid\xE9e : on passe devant
-      une salle pleine de casques, on entre dans une salle de projection, on en ressort."
+    - id: k4rant-2021
+      title: "K4rant : \xE9volution 2021"
+      description: Conception du lobby et des bornes.
+      skillIds:
+      - game-design
+      platforms:
+      - Quest
+      - PC
+    notes: 'Guichet annuel 2021 : le fil rouge du studio.'
+  - id: ggs-2022
+    title: Goras Games Studio
+    years: 2022
+    level: 37
+    kind: 3
+    widthScreens: 0.4
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: k4rant-2022
+      title: "K4rant : \xE9volution 2022"
+      description: "R\xE9seau et parties, conception des mondes."
+      skillIds:
+      - game-design
+      - csharp
+      platforms:
+      - Quest
+      - PC
+    notes: 'Guichet annuel 2022 : le fil rouge du studio.'
   - id: lidl
     title: Lidl
     years: "2023 - 2024 \xB7 Employ\xE9 polyvalent"
@@ -716,6 +777,50 @@ MonoBehaviour:
     notes: "Simple passage : un m\xE9tier alimentaire pour avoir un salaire, mais
       un point de Gestion d'entreprise (on y apprend malgr\xE9 tout). Trait D\xE9passement
       de soi en sortant. Fa\xE7ade d'enseigne sans logo."
+  - id: ggs-2023
+    title: Goras Games Studio
+    years: 2023
+    level: 38
+    kind: 3
+    widthScreens: 0.4
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: k4rant-2023
+      title: "K4rant : \xE9volution 2023"
+      description: Version VR, confort et interactions.
+      skillIds:
+      - game-design
+      - vr
+      platforms:
+      - Quest
+      - PC
+    notes: 'Guichet annuel 2023 : le fil rouge du studio.'
+  - id: ggs-2024
+    title: Goras Games Studio
+    years: 2024
+    level: 39
+    kind: 3
+    widthScreens: 0.4
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: k4rant-2024
+      title: "K4rant : \xE9volution 2024"
+      description: Refonte technique sous Unity 6.
+      skillIds:
+      - game-design
+      - unity
+      platforms:
+      - Quest
+      - PC
+    notes: 'Guichet annuel 2024 : le fil rouge du studio.'
   - id: cine-sologne
     title: "Cin\xE9 Sologne"
     years: 2025
@@ -744,6 +849,29 @@ MonoBehaviour:
       platforms: []
     notes: "Passage anecdotique en fa\xE7ade, sans logo : un point de Maintenance
       & Support informatique, un point de Gestion d'entreprise. Pas de trait."
+  - id: ggs-2025
+    title: Goras Games Studio
+    years: 2025
+    level: 40
+    kind: 3
+    widthScreens: 0.4
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: k4rant-2025
+      title: "K4rant : \xE9volution 2025"
+      description: Multijoueur, avatars, portes d'embarquement.
+      skillIds:
+      - game-design
+      - vr
+      - csharp
+      platforms:
+      - Quest
+      - PC
+    notes: 'Guichet annuel 2025 : le fil rouge du studio.'
   - id: crn
     title: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
     years: 2026
@@ -768,6 +896,53 @@ MonoBehaviour:
       qui couvre aussi le mandat de conseiller municipal (\xE9lections municipales
       de mars 2026), sans lieu d\xE9di\xE9. Place publique avec le logo du Conseil
       R\xE9gional."
+  - id: ggs-2026
+    title: Goras Games Studio
+    years: 2026
+    level: 40
+    kind: 3
+    widthScreens: 0.4
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: k4rant-2026
+      title: "K4rant : \xE9volution 2026"
+      description: Bornes et leaderboards.
+      skillIds:
+      - game-design
+      platforms:
+      - Quest
+      - PC
+    - id: ggs-ia-core
+      title: 'IA : outillage du studio (GGS Core, build, versionnage)'
+      description: "Outils d'\xE9diteur et de build \xE9crits avec des agents d'IA."
+      skillIds:
+      - ia
+      platforms: []
+    - id: ggs-ia-resume
+      title: 'IA : ResuME, ce CV interactif'
+      description: "Con\xE7u et d\xE9velopp\xE9 avec des agents d'IA, donn\xE9es
+        et greybox pilot\xE9es."
+      skillIds:
+      - ia
+      platforms:
+      - WebGL
+    - id: ggs-ia-agents
+      title: 'IA : agents et automatisations'
+      description: "Revue de code, tests, d\xE9ploiement, m\xE9moire de projet."
+      skillIds:
+      - ia
+      platforms: []
+    - id: ggs-ia-contenus
+      title: 'IA : production de contenus'
+      description: Visuels, documents et communication du studio.
+      skillIds:
+      - ia
+      platforms: []
+    notes: 'Guichet annuel 2026 : le fil rouge du studio.'
   - id: loire-games
     title: Loire Games
     years: 2025
