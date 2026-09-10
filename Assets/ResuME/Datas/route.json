@@ -880,7 +880,7 @@
         {
           "id": "lg-cofondation",
           "title": "Co-fondation du cluster régional Loire Games",
-          "description": "Fédérer les créateurs de jeux de la région Centre-Val de Loire, au même niveau que les clusters des autres régions.",
+          "description": "Fédérer les créateurs de jeux de la région Centre-Val de Loire, au même niveau que les clusters des autres régions ; événements, scène et intervenants.",
           "skills": [
             "gestion-entreprise"
           ],
@@ -890,15 +890,6 @@
           "id": "lg-tresorerie",
           "title": "Trésorerie et comptabilité de l'association",
           "description": "Comptes, banque, achats et boutique, adhésions, notes de frais, factures, devis.",
-          "skills": [
-            "gestion-entreprise"
-          ],
-          "platforms": []
-        },
-        {
-          "id": "lg-evenements",
-          "title": "Événements : scène, intervenants, joueurs",
-          "description": "Des intervenants qui parlent technique de jeu vidéo sur scène, des écrans où le public joue.",
           "skills": [
             "gestion-entreprise"
           ],
@@ -916,16 +907,34 @@
           ]
         },
         {
-          "id": "lg-ia",
-          "title": "Outils d'intelligence artificielle",
-          "description": "Mise à l'IA sérieuse en 2026 : outillage, automatisation, production.",
+          "id": "lg-ia-gestion",
+          "title": "IA : automatisation de la gestion",
+          "description": "Agents et outils d'IA au service de la trésorerie et de l'administratif.",
+          "skills": [
+            "ia"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "lg-ia-dev",
+          "title": "IA : assistance au développement",
+          "description": "Agents de code, revue et outillage de production.",
+          "skills": [
+            "ia"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "lg-ia-contenus",
+          "title": "IA : production de contenus",
+          "description": "Visuels, documents et communication assistés par IA.",
           "skills": [
             "ia"
           ],
           "platforms": []
         }
       ],
-      "notes": "Association co-fondée par Éric, trésorier : le cluster régional des créateurs de jeux du Centre-Val de Loire. Placée en dernier, avant Aujourd'hui, parce qu'Éric y est toujours. Stand jaune avec le logo et le badge Fondateur : écrans où des gens jouent, scène pour les intervenants. Répartition des points à valider ; compétence IA nouvelle (à valider)."
+      "notes": "Association co-fondée par Éric, trésorier : le cluster régional des créateurs de jeux du Centre-Val de Loire. Placée en dernier, avant Aujourd'hui, parce qu'Éric y est toujours. Stand jaune avec le logo et le badge Fondateur : écrans où des gens jouent, scène pour les intervenants. Points validés : Gestion 2, Développement web 1, IA 3."
     },
     {
       "id": "aujourdhui",

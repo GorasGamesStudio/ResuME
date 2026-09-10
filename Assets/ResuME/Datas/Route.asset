@@ -783,7 +783,8 @@ MonoBehaviour:
     - id: lg-cofondation
       title: "Co-fondation du cluster r\xE9gional Loire Games"
       description: "F\xE9d\xE9rer les cr\xE9ateurs de jeux de la r\xE9gion Centre-Val
-        de Loire, au m\xEAme niveau que les clusters des autres r\xE9gions."
+        de Loire, au m\xEAme niveau que les clusters des autres r\xE9gions ; \xE9v\xE9nements,
+        sc\xE8ne et intervenants."
       skillIds:
       - gestion-entreprise
       platforms: []
@@ -794,13 +795,6 @@ MonoBehaviour:
       skillIds:
       - gestion-entreprise
       platforms: []
-    - id: lg-evenements
-      title: "\xC9v\xE9nements : sc\xE8ne, intervenants, joueurs"
-      description: "Des intervenants qui parlent technique de jeu vid\xE9o sur sc\xE8ne,
-        des \xE9crans o\xF9 le public joue."
-      skillIds:
-      - gestion-entreprise
-      platforms: []
     - id: lg-outil-web
       title: Outil web d'automatisation des processus
       description: "D\xE9veloppement web pour automatiser la gestion de l'association."
@@ -808,10 +802,21 @@ MonoBehaviour:
       - dev-web
       platforms:
       - Web
-    - id: lg-ia
-      title: Outils d'intelligence artificielle
-      description: "Mise \xE0 l'IA s\xE9rieuse en 2026 : outillage, automatisation,
-        production."
+    - id: lg-ia-gestion
+      title: 'IA : automatisation de la gestion'
+      description: "Agents et outils d'IA au service de la tr\xE9sorerie et de l'administratif."
+      skillIds:
+      - ia
+      platforms: []
+    - id: lg-ia-dev
+      title: "IA : assistance au d\xE9veloppement"
+      description: Agents de code, revue et outillage de production.
+      skillIds:
+      - ia
+      platforms: []
+    - id: lg-ia-contenus
+      title: 'IA : production de contenus'
+      description: "Visuels, documents et communication assist\xE9s par IA."
       skillIds:
       - ia
       platforms: []
@@ -819,7 +824,7 @@ MonoBehaviour:
       des cr\xE9ateurs de jeux du Centre-Val de Loire. Plac\xE9e en dernier, avant
       Aujourd'hui, parce qu'\xC9ric y est toujours. Stand jaune avec le logo et le
       badge Fondateur : \xE9crans o\xF9 des gens jouent, sc\xE8ne pour les intervenants.
-      R\xE9partition des points \xE0 valider ; comp\xE9tence IA nouvelle (\xE0 valider)."
+      Points valid\xE9s : Gestion 2, D\xE9veloppement web 1, IA 3."
   - id: aujourdhui
     title: Aujourd'hui
     years: 2026
