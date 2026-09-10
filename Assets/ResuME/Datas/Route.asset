@@ -447,8 +447,8 @@ MonoBehaviour:
       skillIds:
       - unity
       - csharp
-      - game-design
       - vr
+      - game-design
       platforms:
       - PC
     - id: whitequest-labquest-system
@@ -458,13 +458,12 @@ MonoBehaviour:
       skillIds:
       - unity
       - csharp
-      - game-design
       - vr
       platforms:
       - PC
-    notes: "LabQuest, gros projet de R&D en deux versions (Pharma puis System) :
-      Unity, C#, conception, r\xE9alit\xE9 virtuelle. Composition : laboratoire en
-      coupe (fiche)."
+    notes: 'LabQuest, gros projet de R&D en deux versions (Pharma puis System) :
+      deux points Unity, C# et RV, un point de conception. Composition : laboratoire
+      en coupe (fiche).'
   - id: ggs
     title: Goras Games Studio
     years: "2018 - aujourd'hui \xB7 micro-entreprise"

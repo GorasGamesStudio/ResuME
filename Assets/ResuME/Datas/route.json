@@ -529,8 +529,8 @@
           "skills": [
             "unity",
             "csharp",
-            "game-design",
-            "vr"
+            "vr",
+            "game-design"
           ],
           "platforms": [
             "PC"
@@ -543,7 +543,6 @@
           "skills": [
             "unity",
             "csharp",
-            "game-design",
             "vr"
           ],
           "platforms": [
@@ -551,7 +550,7 @@
           ]
         }
       ],
-      "notes": "LabQuest, gros projet de R&D en deux versions (Pharma puis System) : Unity, C#, conception, réalité virtuelle. Composition : laboratoire en coupe (fiche)."
+      "notes": "LabQuest, gros projet de R&D en deux versions (Pharma puis System) : deux points Unity, C# et RV, un point de conception. Composition : laboratoire en coupe (fiche)."
     },
     {
       "id": "ggs",
