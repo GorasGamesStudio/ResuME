@@ -103,6 +103,11 @@
       "id": "polyvalence",
       "label": "Polyvalence",
       "description": "Administratif, comptabilité, urbanisme, nettoyage d'une friche à la main : tout faire soi-même."
+    },
+    {
+      "id": "depassement",
+      "label": "Dépassement de soi",
+      "description": "Un métier alimentaire tenu à fond, le temps qu'il faut."
     }
   ],
   "stops": [
@@ -792,10 +797,13 @@
       "title": "Lidl",
       "years": "2023 - 2024 · Employé polyvalent",
       "level": 38,
-      "kind": "Traverse",
-      "widthScreens": 0.8,
-      "traitsAfter": [],
-      "projects": []
+      "kind": "Facade",
+      "widthScreens": 0.5,
+      "traitsAfter": [
+        "depassement"
+      ],
+      "projects": [],
+      "notes": "Simple passage : un métier alimentaire pour avoir un salaire. Pas de projet, pas de point. Trait Dépassement de soi en sortant (Polyvalence est déjà donnée après R'Paint). Façade d'enseigne sans logo."
     },
     {
       "id": "loire-games",
