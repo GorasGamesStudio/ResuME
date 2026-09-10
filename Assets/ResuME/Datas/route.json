@@ -525,10 +525,12 @@
         {
           "id": "whitequest-labquest-pharma",
           "title": "LabQuest Pharma",
-          "description": "Outil de formation et d'évaluation des laborantins, première version (Unity 5.3, 2017).",
+          "description": "Gros projet de R&D : outil de formation et d'évaluation des laborantins en réalité virtuelle, première version (2017).",
           "skills": [
             "unity",
-            "csharp"
+            "csharp",
+            "game-design",
+            "vr"
           ],
           "platforms": [
             "PC"
@@ -537,17 +539,19 @@
         {
           "id": "whitequest-labquest-system",
           "title": "LabQuest System",
-          "description": "Refonte de l'outil (Unity 5.6, 2017-2018) : gros travail d'outils d'éditeur Unity pour construire les scénarios.",
+          "description": "Refonte de l'outil (2017-2018), conception des scénarios et gros travail d'outils d'éditeur Unity.",
           "skills": [
             "unity",
-            "csharp"
+            "csharp",
+            "game-design",
+            "vr"
           ],
           "platforms": [
             "PC"
           ]
         }
       ],
-      "notes": "Outil de formation et d'évaluation des laborantins ; gros travail d'éditeur Unity. Deux projets proposés (Pharma puis System), à confirmer. Composition à définir."
+      "notes": "LabQuest, gros projet de R&D en deux versions (Pharma puis System) : Unity, C#, conception, réalité virtuelle. Composition : laboratoire en coupe (fiche)."
     },
     {
       "id": "ggs",

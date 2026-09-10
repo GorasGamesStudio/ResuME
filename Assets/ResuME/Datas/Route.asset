@@ -442,25 +442,29 @@ MonoBehaviour:
     projects:
     - id: whitequest-labquest-pharma
       title: LabQuest Pharma
-      description: "Outil de formation et d'\xE9valuation des laborantins, premi\xE8re
-        version (Unity 5.3, 2017)."
+      description: "Gros projet de R&D : outil de formation et d'\xE9valuation des
+        laborantins en r\xE9alit\xE9 virtuelle, premi\xE8re version (2017)."
       skillIds:
       - unity
       - csharp
+      - game-design
+      - vr
       platforms:
       - PC
     - id: whitequest-labquest-system
       title: LabQuest System
-      description: "Refonte de l'outil (Unity 5.6, 2017-2018) : gros travail d'outils
-        d'\xE9diteur Unity pour construire les sc\xE9narios."
+      description: "Refonte de l'outil (2017-2018), conception des sc\xE9narios et
+        gros travail d'outils d'\xE9diteur Unity."
       skillIds:
       - unity
       - csharp
+      - game-design
+      - vr
       platforms:
       - PC
-    notes: "Outil de formation et d'\xE9valuation des laborantins ; gros travail
-      d'\xE9diteur Unity. Deux projets propos\xE9s (Pharma puis System), \xE0 confirmer.
-      Composition \xE0 d\xE9finir."
+    notes: "LabQuest, gros projet de R&D en deux versions (Pharma puis System) :
+      Unity, C#, conception, r\xE9alit\xE9 virtuelle. Composition : laboratoire en
+      coupe (fiche)."
   - id: ggs
     title: Goras Games Studio
     years: "2018 - aujourd'hui \xB7 micro-entreprise"
