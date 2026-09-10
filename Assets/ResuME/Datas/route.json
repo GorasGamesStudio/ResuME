@@ -108,6 +108,11 @@
       "id": "depassement",
       "label": "Dépassement de soi",
       "description": "Un métier alimentaire tenu à fond, le temps qu'il faut."
+    },
+    {
+      "id": "engagement-citoyen",
+      "label": "Engagement citoyen",
+      "description": "Conseil Régional du Numérique et conseil municipal : réfléchir et proposer pour les autres, bénévolement."
     }
   ],
   "stops": [
@@ -875,7 +880,10 @@
       "kind": "Square",
       "widthScreens": 0.8,
       "projects": [],
-      "notes": "Réflexions de groupe sur les enjeux du numérique, rapports et propositions d'actions : étude et recherche de solutions, pas de formation. Aucune compétence du catalogue (décision d'Éric). Comparable au mandat de conseiller municipal d'Éric. Place publique avec le logo du Conseil Régional."
+      "notes": "Réflexions de groupe sur les enjeux du numérique, rapports et propositions d'actions : étude et recherche de solutions, pas de formation. Aucune compétence du catalogue (décision d'Éric). Trait Engagement citoyen en sortant, qui couvre aussi le mandat de conseiller municipal (élections municipales de mars 2026), sans lieu dédié. Place publique avec le logo du Conseil Régional.",
+      "traitsAfter": [
+        "engagement-citoyen"
+      ]
     },
     {
       "id": "aujourdhui",

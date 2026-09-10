@@ -769,13 +769,21 @@ MonoBehaviour:
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
-    traitsAfter: []
+    traitsAfter:
+    - kind: 0
+      id: engagement-citoyen
+      label: Engagement citoyen
+      description: "Conseil R\xE9gional du Num\xE9rique et conseil municipal : r\xE9fl\xE9chir
+        et proposer pour les autres, b\xE9n\xE9volement."
+      category: 3
     rewards: []
     projects: []
     notes: "R\xE9flexions de groupe sur les enjeux du num\xE9rique, rapports et propositions
       d'actions : \xE9tude et recherche de solutions, pas de formation. Aucune comp\xE9tence
-      du catalogue (d\xE9cision d'\xC9ric). Comparable au mandat de conseiller municipal
-      d'\xC9ric. Place publique avec le logo du Conseil R\xE9gional."
+      du catalogue (d\xE9cision d'\xC9ric). Trait Engagement citoyen en sortant,
+      qui couvre aussi le mandat de conseiller municipal (\xE9lections municipales
+      de mars 2026), sans lieu d\xE9di\xE9. Place publique avec le logo du Conseil
+      R\xE9gional."
   - id: aujourdhui
     title: Aujourd'hui
     years: 2026
