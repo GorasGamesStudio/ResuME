@@ -703,7 +703,7 @@
         {
           "id": "odn-refonte",
           "title": "CineVR : refonte totale",
-          "description": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, déclinée ensuite sur chaque casque et sur mobile (Android, iOS, CineVR Plus).",
+          "description": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, version Pro, plugin Android natif de lecture vidéo, déclinaisons mobiles (Android, iOS, CineVR Plus).",
           "skills": [
             "vr",
             "unity",
@@ -756,26 +756,15 @@
           "title": "CineVR : décors",
           "description": "Salles et décors : vaisseau, drive-in, IMAX, manoir, plage, lobby.",
           "skills": [
-            "unity"
+            "unity",
+            "game-design"
           ],
           "platforms": [
             "Quest"
           ]
-        },
-        {
-          "id": "odn-pro-plugin",
-          "title": "CineVR Pro et plugin Android VR",
-          "description": "Version Pro et plugin Android natif pour la lecture vidéo en VR.",
-          "skills": [
-            "vr"
-          ],
-          "platforms": [
-            "Quest",
-            "Android"
-          ]
         }
       ],
-      "notes": "One Digital Nation, cinéma en réalité virtuelle : un seul projet décliné en adaptations, en 2022 (décision d'Éric), après le départ de Game Academy. Compétences limitées : beaucoup de RV (5), moyen en Unity (3), un peu de C# (1) et de conception (1). Composition à définir : salle de cinéma en VR, rangée de casques."
+      "notes": "One Digital Nation, cinéma en réalité virtuelle : un seul projet décliné en adaptations, en 2022 (décision d'Éric), après le départ de Game Academy. Compétences limitées : RV 4, Unity 3, conception 2, C# 1. Composition à définir : salle de cinéma en VR, rangée de casques."
     },
     {
       "id": "lidl",
