@@ -328,7 +328,7 @@ MonoBehaviour:
     title: "Allucyne (ex Num\xE9ri4D), Montb\xE9liard"
     years: 2013
     level: 28
-    kind: 2
+    kind: 5
     widthScreens: 1.2
     founder: 0
     gapAfterScreens: -1
@@ -425,10 +425,10 @@ MonoBehaviour:
       - game-design
       platforms:
       - PC
-    notes: "Rejointe en 2013 sous le nom Num\xE9ri4D, devenue Allucyne. Applications
-      3D pour l'arm\xE9e et le tourisme. Liste tir\xE9e des archives (Allucyne Projects),
-      \xE0 \xE9laguer et \xE0 d\xE9crire par \xC9ric ; les versions 2018 de Colmar,
-      Judo Kodokan et SJS sont peut-\xEAtre des reprises en freelance (GGS)."
+    notes: "Sentier de m\xE9moire en plein air (valid\xE9) : panneaux de bois par
+      projet, cr\xEAte des Vosges, fort, colombages, tranch\xE9e et casque, avion,
+      table d'orientation \xE0 jumelles (vue casque). Versions 2018 de Colmar, Judo
+      Kodokan et SJS \xE0 trancher."
   - id: alsace
     title: "D\xE9veloppement pharmaceutique, Alsace"
     years: 2017
