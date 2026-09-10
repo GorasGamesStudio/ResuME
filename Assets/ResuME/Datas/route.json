@@ -71,6 +71,12 @@
       "label": "Développement web",
       "category": "Technique",
       "description": "Sites et applications web, du HTML/PHP des débuts aux outils web des associations."
+    },
+    {
+      "id": "ia",
+      "label": "Intelligence artificielle",
+      "category": "Technique",
+      "description": "Outils d'IA générative et agents appliqués au développement, à l'outillage et à la production : pratique sérieuse depuis 2026."
     }
   ],
   "traits": [
@@ -821,29 +827,6 @@
       "notes": "Simple passage : un métier alimentaire pour avoir un salaire, mais un point de Gestion d'entreprise (on y apprend malgré tout). Trait Dépassement de soi en sortant. Façade d'enseigne sans logo."
     },
     {
-      "id": "loire-games",
-      "title": "Loire Games",
-      "years": "2025 - aujourd'hui · Co-fondateur & Trésorier",
-      "level": 40,
-      "kind": "Stand",
-      "widthScreens": 0.6,
-      "founder": true,
-      "projects": [
-        {
-          "id": "loire-games-asso",
-          "title": "Association Loire Games (à détailler)",
-          "description": "Trésorerie, boutique, adhésions, outil web d'automatisation.",
-          "skills": [
-            "gestion-entreprise",
-            "csharp",
-            "dev-web"
-          ],
-          "platforms": []
-        }
-      ],
-      "notes": "Stand de salon, jaune bien visible, logo Loire Games."
-    },
-    {
       "id": "cine-sologne",
       "title": "Ciné Sologne",
       "years": "2025",
@@ -884,6 +867,65 @@
       "traitsAfter": [
         "engagement-citoyen"
       ]
+    },
+    {
+      "id": "loire-games",
+      "title": "Loire Games",
+      "years": "2025",
+      "level": 40,
+      "kind": "Stand",
+      "widthScreens": 0.6,
+      "founder": true,
+      "projects": [
+        {
+          "id": "lg-cofondation",
+          "title": "Co-fondation du cluster régional Loire Games",
+          "description": "Fédérer les créateurs de jeux de la région Centre-Val de Loire, au même niveau que les clusters des autres régions.",
+          "skills": [
+            "gestion-entreprise"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "lg-tresorerie",
+          "title": "Trésorerie et comptabilité de l'association",
+          "description": "Comptes, banque, achats et boutique, adhésions, notes de frais, factures, devis.",
+          "skills": [
+            "gestion-entreprise"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "lg-evenements",
+          "title": "Événements : scène, intervenants, joueurs",
+          "description": "Des intervenants qui parlent technique de jeu vidéo sur scène, des écrans où le public joue.",
+          "skills": [
+            "gestion-entreprise"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "lg-outil-web",
+          "title": "Outil web d'automatisation des processus",
+          "description": "Développement web pour automatiser la gestion de l'association.",
+          "skills": [
+            "dev-web"
+          ],
+          "platforms": [
+            "Web"
+          ]
+        },
+        {
+          "id": "lg-ia",
+          "title": "Outils d'intelligence artificielle",
+          "description": "Mise à l'IA sérieuse en 2026 : outillage, automatisation, production.",
+          "skills": [
+            "ia"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Association co-fondée par Éric, trésorier : le cluster régional des créateurs de jeux du Centre-Val de Loire. Placée en dernier, avant Aujourd'hui, parce qu'Éric y est toujours. Stand jaune avec le logo et le badge Fondateur : écrans où des gens jouent, scène pour les intervenants. Répartition des points à valider ; compétence IA nouvelle (à valider)."
     },
     {
       "id": "aujourdhui",

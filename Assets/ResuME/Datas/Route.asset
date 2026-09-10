@@ -67,6 +67,11 @@ MonoBehaviour:
     category: 1
     description: "Sites et applications web, du HTML/PHP des d\xE9buts aux outils
       web des associations."
+  - id: ia
+    label: Intelligence artificielle
+    category: 1
+    description: "Outils d'IA g\xE9n\xE9rative et agents appliqu\xE9s au d\xE9veloppement,
+      \xE0 l'outillage et \xE0 la production : pratique s\xE9rieuse depuis 2026."
   stops:
   - id: chambre
     title: Chambre d'enfant
@@ -711,27 +716,6 @@ MonoBehaviour:
     notes: "Simple passage : un m\xE9tier alimentaire pour avoir un salaire, mais
       un point de Gestion d'entreprise (on y apprend malgr\xE9 tout). Trait D\xE9passement
       de soi en sortant. Fa\xE7ade d'enseigne sans logo."
-  - id: loire-games
-    title: Loire Games
-    years: "2025 - aujourd'hui \xB7 Co-fondateur & Tr\xE9sorier"
-    level: 40
-    kind: 4
-    widthScreens: 0.6
-    founder: 1
-    gapAfterScreens: -1
-    traitsBefore: []
-    traitsAfter: []
-    rewards: []
-    projects:
-    - id: loire-games-asso
-      title: "Association Loire Games (\xE0 d\xE9tailler)"
-      description: "Tr\xE9sorerie, boutique, adh\xE9sions, outil web d'automatisation."
-      skillIds:
-      - gestion-entreprise
-      - csharp
-      - dev-web
-      platforms: []
-    notes: Stand de salon, jaune bien visible, logo Loire Games.
   - id: cine-sologne
     title: "Cin\xE9 Sologne"
     years: 2025
@@ -784,6 +768,58 @@ MonoBehaviour:
       qui couvre aussi le mandat de conseiller municipal (\xE9lections municipales
       de mars 2026), sans lieu d\xE9di\xE9. Place publique avec le logo du Conseil
       R\xE9gional."
+  - id: loire-games
+    title: Loire Games
+    years: 2025
+    level: 40
+    kind: 4
+    widthScreens: 0.6
+    founder: 1
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: lg-cofondation
+      title: "Co-fondation du cluster r\xE9gional Loire Games"
+      description: "F\xE9d\xE9rer les cr\xE9ateurs de jeux de la r\xE9gion Centre-Val
+        de Loire, au m\xEAme niveau que les clusters des autres r\xE9gions."
+      skillIds:
+      - gestion-entreprise
+      platforms: []
+    - id: lg-tresorerie
+      title: "Tr\xE9sorerie et comptabilit\xE9 de l'association"
+      description: "Comptes, banque, achats et boutique, adh\xE9sions, notes de frais,
+        factures, devis."
+      skillIds:
+      - gestion-entreprise
+      platforms: []
+    - id: lg-evenements
+      title: "\xC9v\xE9nements : sc\xE8ne, intervenants, joueurs"
+      description: "Des intervenants qui parlent technique de jeu vid\xE9o sur sc\xE8ne,
+        des \xE9crans o\xF9 le public joue."
+      skillIds:
+      - gestion-entreprise
+      platforms: []
+    - id: lg-outil-web
+      title: Outil web d'automatisation des processus
+      description: "D\xE9veloppement web pour automatiser la gestion de l'association."
+      skillIds:
+      - dev-web
+      platforms:
+      - Web
+    - id: lg-ia
+      title: Outils d'intelligence artificielle
+      description: "Mise \xE0 l'IA s\xE9rieuse en 2026 : outillage, automatisation,
+        production."
+      skillIds:
+      - ia
+      platforms: []
+    notes: "Association co-fond\xE9e par \xC9ric, tr\xE9sorier : le cluster r\xE9gional
+      des cr\xE9ateurs de jeux du Centre-Val de Loire. Plac\xE9e en dernier, avant
+      Aujourd'hui, parce qu'\xC9ric y est toujours. Stand jaune avec le logo et le
+      badge Fondateur : \xE9crans o\xF9 des gens jouent, sc\xE8ne pour les intervenants.
+      R\xE9partition des points \xE0 valider ; comp\xE9tence IA nouvelle (\xE0 valider)."
   - id: aujourdhui
     title: Aujourd'hui
     years: 2026
