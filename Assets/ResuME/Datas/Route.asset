@@ -469,7 +469,7 @@ MonoBehaviour:
     years: "2018 - aujourd'hui \xB7 micro-entreprise"
     level: 33
     kind: 3
-    widthScreens: 1.2
+    widthScreens: 0.8
     founder: 1
     gapAfterScreens: -1
     traitsBefore: []
@@ -505,71 +505,10 @@ MonoBehaviour:
       platforms:
       - Android
       - iOS
-    - id: ggs-odn-refonte
-      title: 'ODN CineVR : refonte totale'
-      description: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : refonte
-        compl\xE8te de l'application, plusieurs ann\xE9es de suivi."
-      skillIds:
-      - unity
-      - csharp
-      - vr
-      - game-design
-      platforms:
-      - Quest
-    - id: ggs-odn-quest-rift
-      title: 'ODN CineVR : portage Meta Quest et Rift'
-      description: Portage et maintenance sur les casques Meta.
-      skillIds:
-      - vr
-      platforms:
-      - Quest
-      - PC
-    - id: ggs-odn-pico
-      title: 'ODN CineVR : portage Pico'
-      description: Portage sur les casques Pico.
-      skillIds:
-      - vr
-      platforms:
-      - Pico
-    - id: ggs-odn-vive
-      title: 'ODN CineVR : portage HTC Vive Flow et Focus 3'
-      description: Portage sur les casques HTC.
-      skillIds:
-      - vr
-      platforms:
-      - Vive
-    - id: ggs-odn-mobile
-      title: 'ODN CineVR : versions Android et iOS'
-      description: "D\xE9clinaisons mobiles, CineVR et CineVR Plus."
-      skillIds:
-      - csharp
-      platforms:
-      - Android
-      - iOS
-    - id: ggs-odn-decors
-      title: "ODN CineVR : d\xE9cors"
-      description: "Salles et d\xE9cors : vaisseau, drive-in, IMAX, manoir, plage,
-        lobby."
-      skillIds:
-      - game-design
-      platforms:
-      - Quest
-    - id: ggs-odn-pro-plugin
-      title: ODN CineVR Pro et plugin Android VR
-      description: "Version Pro et plugin Android natif pour la lecture vid\xE9o
-        en VR."
-      skillIds:
-      - vr
-      - csharp
-      platforms:
-      - Quest
-      - Android
     notes: "2018 : passage en freelance pour rejoindre Game Academy, puis projets
-      clients ext\xE9rieurs. Guichet au d\xE9but du lieu (cr\xE9ation de la micro-entreprise
-      : un point de Gestion d'entreprise), puis en ext\xE9rieur des clich\xE9s d'applications
-      mobiles pour les clients mobiles 2D (un seul projet), puis ODN CineVR (One
-      Digital Nation) en sept projets : gros gain en RV, faible en Unity, moyen en
-      conception. Projets propres du studio ignor\xE9s."
+      clients ext\xE9rieurs. Guichet (cr\xE9ation de la micro-entreprise), puis clich\xE9s
+      d'applications mobiles pour les clients mobiles 2D. ODN CineVR vient plus tard,
+      apr\xE8s Game Academy : lieu \xE0 part."
   - id: game-academy
     title: Game Academy
     years: 2018
@@ -656,6 +595,82 @@ MonoBehaviour:
       - gestion-entreprise
       platforms: []
     notes: "Le b\xE2timent se r\xE9nove pendant la travers\xE9e."
+  - id: odn
+    title: ODN CineVR, client de Goras Games Studio
+    years: 2021
+    level: 36
+    kind: 2
+    widthScreens: 1
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: odn-refonte
+      title: 'ODN CineVR : refonte totale'
+      description: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : refonte
+        compl\xE8te de l'application, plusieurs ann\xE9es de suivi."
+      skillIds:
+      - unity
+      - csharp
+      - vr
+      - game-design
+      platforms:
+      - Quest
+    - id: odn-quest-rift
+      title: 'ODN CineVR : portage Meta Quest et Rift'
+      description: Portage et maintenance sur les casques Meta.
+      skillIds:
+      - vr
+      platforms:
+      - Quest
+      - PC
+    - id: odn-pico
+      title: 'ODN CineVR : portage Pico'
+      description: Portage sur les casques Pico.
+      skillIds:
+      - vr
+      platforms:
+      - Pico
+    - id: odn-vive
+      title: 'ODN CineVR : portage HTC Vive Flow et Focus 3'
+      description: Portage sur les casques HTC.
+      skillIds:
+      - vr
+      platforms:
+      - Vive
+    - id: odn-mobile
+      title: 'ODN CineVR : versions Android et iOS'
+      description: "D\xE9clinaisons mobiles, CineVR et CineVR Plus."
+      skillIds:
+      - csharp
+      platforms:
+      - Android
+      - iOS
+    - id: odn-decors
+      title: "ODN CineVR : d\xE9cors"
+      description: "Salles et d\xE9cors : vaisseau, drive-in, IMAX, manoir, plage,
+        lobby."
+      skillIds:
+      - game-design
+      platforms:
+      - Quest
+    - id: odn-pro-plugin
+      title: ODN CineVR Pro et plugin Android VR
+      description: "Version Pro et plugin Android natif pour la lecture vid\xE9o
+        en VR."
+      skillIds:
+      - vr
+      - csharp
+      platforms:
+      - Quest
+      - Android
+    notes: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : refonte totale
+      de CineVR et portages sur de nombreux casques, plusieurs ann\xE9es apr\xE8s
+      le d\xE9part de Game Academy (2020 ou 2021, \xE0 confirmer). Mission de Goras
+      Games Studio, assez longue pour avoir son propre lieu. Composition \xE0 d\xE9finir
+      : salle de cin\xE9ma en VR, rang\xE9e de casques."
   - id: lidl
     title: Lidl
     years: "2023 - 2024 \xB7 Employ\xE9 polyvalent"
