@@ -102,7 +102,7 @@
     {
       "id": "polyvalence",
       "label": "Polyvalence",
-      "description": "Rayons, boulangerie, inventaire, encaissement."
+      "description": "Administratif, comptabilité, urbanisme, nettoyage d'une friche à la main : tout faire soi-même."
     }
   ],
   "stops": [
@@ -690,24 +690,27 @@
         },
         {
           "id": "rpaint-friche",
-          "title": "Rachat de la friche de Méhers, urbanisme, plans et nettoyage",
-          "description": "Acquisition d'une friche pour 5 400 m² de paintball indoor : urbanisme, expertise, plans et maquette du bâtiment, puis nettoyage intérieur et extérieur à la main.",
+          "title": "Rachat de la friche de Méhers, urbanisme et plans",
+          "description": "Acquisition d'une friche pour 5 400 m² de paintball indoor, un peu d'urbanisme, plans et maquette du bâtiment.",
           "skills": [
             "gestion-entreprise"
           ],
           "platforms": []
         },
         {
-          "id": "rpaint-scenarios",
-          "title": "Scénarios et environnements de jeu",
-          "description": "Terrains immersifs inspirés de l'univers geek, par saisons : Raccoon Centre, La Porte des étoiles ; base spatiale, événements.",
+          "id": "rpaint-nettoyage",
+          "title": "Nettoyage du bâtiment, intérieur et extérieur",
+          "description": "La friche nettoyée à la main ; la rénovation est restée une projection.",
           "skills": [
-            "game-design"
+            "gestion-entreprise"
           ],
           "platforms": []
         }
       ],
-      "notes": "Paintball indoor nouvelle génération sur 5 400 m² dans une friche rachetée à Méhers, nettoyée mais jamais rénovée : la façade verte avec le logo est une projection (dessin dans l'archive RPaintGames.zip). Mascotte : un coq en tenue de paintball. Communication (logo, cartes de fidélité, réseaux) sans point. On ne rentre pas : le personnage repeint la façade extérieure au lanceur, la peinture révèle la projection par plaques. Trait Polyvalence proposé ici plutôt qu'à Lidl."
+      "notes": "Paintball indoor nouvelle génération sur 5 400 m² dans une friche rachetée à Méhers, nettoyée mais jamais rénovée : la façade verte avec le logo est une projection (dessin dans l'archive). On ne rentre pas : le personnage repeint la façade extérieure au lanceur, la peinture révèle la projection par plaques. Pas de mascotte. Trois points de Gestion d'entreprise, un par projet, ramassés en avançant devant la façade.",
+      "traitsAfter": [
+        "polyvalence"
+      ]
     },
     {
       "id": "odn",
@@ -791,9 +794,7 @@
       "level": 38,
       "kind": "Traverse",
       "widthScreens": 0.8,
-      "traitsAfter": [
-        "polyvalence"
-      ],
+      "traitsAfter": [],
       "projects": []
     },
     {

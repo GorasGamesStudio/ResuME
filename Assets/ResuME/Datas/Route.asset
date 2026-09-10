@@ -585,7 +585,13 @@ MonoBehaviour:
     founder: 1
     gapAfterScreens: -1
     traitsBefore: []
-    traitsAfter: []
+    traitsAfter:
+    - kind: 0
+      id: polyvalence
+      label: Polyvalence
+      description: "Administratif, comptabilit\xE9, urbanisme, nettoyage d'une friche
+        \xE0 la main : tout faire soi-m\xEAme."
+      category: 3
     rewards: []
     projects:
     - id: rpaint-creation
@@ -596,27 +602,25 @@ MonoBehaviour:
       - gestion-entreprise
       platforms: []
     - id: rpaint-friche
-      title: "Rachat de la friche de M\xE9hers, urbanisme, plans et nettoyage"
-      description: "Acquisition d'une friche pour 5 400 m\xB2 de paintball indoor
-        : urbanisme, expertise, plans et maquette du b\xE2timent, puis nettoyage
-        int\xE9rieur et ext\xE9rieur \xE0 la main."
+      title: "Rachat de la friche de M\xE9hers, urbanisme et plans"
+      description: "Acquisition d'une friche pour 5 400 m\xB2 de paintball indoor,
+        un peu d'urbanisme, plans et maquette du b\xE2timent."
       skillIds:
       - gestion-entreprise
       platforms: []
-    - id: rpaint-scenarios
-      title: "Sc\xE9narios et environnements de jeu"
-      description: "Terrains immersifs inspir\xE9s de l'univers geek, par saisons
-        : Raccoon Centre, La Porte des \xE9toiles ; base spatiale, \xE9v\xE9nements."
+    - id: rpaint-nettoyage
+      title: "Nettoyage du b\xE2timent, int\xE9rieur et ext\xE9rieur"
+      description: "La friche nettoy\xE9e \xE0 la main ; la r\xE9novation est rest\xE9e
+        une projection."
       skillIds:
-      - game-design
+      - gestion-entreprise
       platforms: []
     notes: "Paintball indoor nouvelle g\xE9n\xE9ration sur 5 400 m\xB2 dans une friche
       rachet\xE9e \xE0 M\xE9hers, nettoy\xE9e mais jamais r\xE9nov\xE9e : la fa\xE7ade
-      verte avec le logo est une projection (dessin dans l'archive RPaintGames.zip).
-      Mascotte : un coq en tenue de paintball. Communication (logo, cartes de fid\xE9lit\xE9,
-      r\xE9seaux) sans point. On ne rentre pas : le personnage repeint la fa\xE7ade
-      ext\xE9rieure au lanceur, la peinture r\xE9v\xE8le la projection par plaques.
-      Trait Polyvalence propos\xE9 ici plut\xF4t qu'\xE0 Lidl."
+      verte avec le logo est une projection (dessin dans l'archive). On ne rentre
+      pas : le personnage repeint la fa\xE7ade ext\xE9rieure au lanceur, la peinture
+      r\xE9v\xE8le la projection par plaques. Pas de mascotte. Trois points de Gestion
+      d'entreprise, un par projet, ramass\xE9s en avan\xE7ant devant la fa\xE7ade."
   - id: odn
     title: ODN CineVR, client de Goras Games Studio
     years: 2022
@@ -689,12 +693,7 @@ MonoBehaviour:
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
-    traitsAfter:
-    - kind: 0
-      id: polyvalence
-      label: Polyvalence
-      description: Rayons, boulangerie, inventaire, encaissement.
-      category: 3
+    traitsAfter: []
     rewards: []
     projects: []
     notes: 
