@@ -702,24 +702,27 @@
       "projects": [
         {
           "id": "odn-refonte",
-          "title": "ODN CineVR : refonte totale",
-          "description": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, plusieurs années de suivi.",
+          "title": "CineVR : refonte totale",
+          "description": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, déclinée ensuite sur chaque casque et sur mobile (Android, iOS, CineVR Plus).",
           "skills": [
+            "vr",
             "unity",
             "csharp",
-            "vr",
             "game-design"
           ],
           "platforms": [
-            "Quest"
+            "Quest",
+            "Android",
+            "iOS"
           ]
         },
         {
           "id": "odn-quest-rift",
-          "title": "ODN CineVR : portage Meta Quest et Rift",
+          "title": "CineVR : adaptation Meta Quest et Rift",
           "description": "Portage et maintenance sur les casques Meta.",
           "skills": [
-            "vr"
+            "vr",
+            "unity"
           ],
           "platforms": [
             "Quest",
@@ -728,7 +731,7 @@
         },
         {
           "id": "odn-pico",
-          "title": "ODN CineVR : portage Pico",
+          "title": "CineVR : adaptation Pico",
           "description": "Portage sur les casques Pico.",
           "skills": [
             "vr"
@@ -739,7 +742,7 @@
         },
         {
           "id": "odn-vive",
-          "title": "ODN CineVR : portage HTC Vive Flow et Focus 3",
+          "title": "CineVR : adaptation HTC Vive Flow et Focus 3",
           "description": "Portage sur les casques HTC.",
           "skills": [
             "vr"
@@ -749,23 +752,11 @@
           ]
         },
         {
-          "id": "odn-mobile",
-          "title": "ODN CineVR : versions Android et iOS",
-          "description": "Déclinaisons mobiles, CineVR et CineVR Plus.",
-          "skills": [
-            "csharp"
-          ],
-          "platforms": [
-            "Android",
-            "iOS"
-          ]
-        },
-        {
           "id": "odn-decors",
-          "title": "ODN CineVR : décors",
+          "title": "CineVR : décors",
           "description": "Salles et décors : vaisseau, drive-in, IMAX, manoir, plage, lobby.",
           "skills": [
-            "game-design"
+            "unity"
           ],
           "platforms": [
             "Quest"
@@ -773,11 +764,10 @@
         },
         {
           "id": "odn-pro-plugin",
-          "title": "ODN CineVR Pro et plugin Android VR",
+          "title": "CineVR Pro et plugin Android VR",
           "description": "Version Pro et plugin Android natif pour la lecture vidéo en VR.",
           "skills": [
-            "vr",
-            "csharp"
+            "vr"
           ],
           "platforms": [
             "Quest",
@@ -785,7 +775,7 @@
           ]
         }
       ],
-      "notes": "One Digital Nation, cinéma en réalité virtuelle : refonte totale de CineVR et portages sur de nombreux casques, plusieurs années après le départ de Game Academy (2020 ou 2021, à confirmer). Mission de Goras Games Studio, assez longue pour avoir son propre lieu. Composition à définir : salle de cinéma en VR, rangée de casques."
+      "notes": "One Digital Nation, cinéma en réalité virtuelle : un seul projet décliné en adaptations, après le départ de Game Academy (2020 ou 2021, à confirmer). Compétences limitées : beaucoup de RV (5), moyen en Unity (3), un peu de C# (1) et de conception (1). Composition à définir : salle de cinéma en VR, rangée de casques."
     },
     {
       "id": "lidl",
