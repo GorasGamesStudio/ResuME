@@ -699,10 +699,18 @@ MonoBehaviour:
       description: "Un m\xE9tier alimentaire tenu \xE0 fond, le temps qu'il faut."
       category: 3
     rewards: []
-    projects: []
-    notes: "Simple passage : un m\xE9tier alimentaire pour avoir un salaire. Pas
-      de projet, pas de point. Trait D\xE9passement de soi en sortant (Polyvalence
-      est d\xE9j\xE0 donn\xE9e apr\xE8s R'Paint). Fa\xE7ade d'enseigne sans logo."
+    projects:
+    - id: lidl-magasin
+      title: "Employ\xE9 polyvalent, ouverture d'un nouveau magasin"
+      description: "Rayons, boulangerie, inventaire, encaissement, proc\xE9dures
+        : un m\xE9tier alimentaire o\xF9 l'on apprend quand m\xEAme des choses sur
+        la marche d'une entreprise."
+      skillIds:
+      - gestion-entreprise
+      platforms: []
+    notes: "Simple passage : un m\xE9tier alimentaire pour avoir un salaire, mais
+      un point de Gestion d'entreprise (on y apprend malgr\xE9 tout). Trait D\xE9passement
+      de soi en sortant. Fa\xE7ade d'enseigne sans logo."
   - id: loire-games
     title: Loire Games
     years: "2025 - aujourd'hui \xB7 Co-fondateur & Tr\xE9sorier"

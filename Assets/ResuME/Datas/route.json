@@ -802,8 +802,18 @@
       "traitsAfter": [
         "depassement"
       ],
-      "projects": [],
-      "notes": "Simple passage : un métier alimentaire pour avoir un salaire. Pas de projet, pas de point. Trait Dépassement de soi en sortant (Polyvalence est déjà donnée après R'Paint). Façade d'enseigne sans logo."
+      "projects": [
+        {
+          "id": "lidl-magasin",
+          "title": "Employé polyvalent, ouverture d'un nouveau magasin",
+          "description": "Rayons, boulangerie, inventaire, encaissement, procédures : un métier alimentaire où l'on apprend quand même des choses sur la marche d'une entreprise.",
+          "skills": [
+            "gestion-entreprise"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Simple passage : un métier alimentaire pour avoir un salaire, mais un point de Gestion d'entreprise (on y apprend malgré tout). Trait Dépassement de soi en sortant. Façade d'enseigne sans logo."
     },
     {
       "id": "loire-games",
