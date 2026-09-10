@@ -36,9 +36,10 @@ MonoBehaviour:
     category: 1
     description: Game design, game jams, projets personnels et professionnels.
   - id: vr
-    label: "R\xE9alit\xE9 virtuelle"
+    label: "R\xE9alit\xE9 virtuelle et augment\xE9e"
     category: 1
-    description: "Applications immersives et exp\xE9riences VR."
+    description: "Casques, lunettes et applications immersives, en r\xE9alit\xE9
+      virtuelle comme augment\xE9e."
   - id: maintenance
     label: Maintenance & Support informatique
     category: 1
@@ -377,10 +378,12 @@ MonoBehaviour:
       - Android
     - id: allucyne-front-des-vosges
       title: "Front des Vosges, tourisme de m\xE9moire"
-      description: "Application Windows 8 de tourisme de m\xE9moire (2015)."
+      description: "Application Windows 8 de tourisme de m\xE9moire, en r\xE9alit\xE9
+        augment\xE9e et virtuelle (2015)."
       skillIds:
       - unity
       - csharp
+      - vr
       platforms:
       - Windows
     - id: allucyne-sjs-hypervisuel

@@ -32,9 +32,9 @@
     },
     {
       "id": "vr",
-      "label": "Réalité virtuelle",
+      "label": "Réalité virtuelle et augmentée",
       "category": "Technique",
-      "description": "Applications immersives et expériences VR."
+      "description": "Casques, lunettes et applications immersives, en réalité virtuelle comme augmentée."
     },
     {
       "id": "maintenance",
@@ -446,10 +446,11 @@
         {
           "id": "allucyne-front-des-vosges",
           "title": "Front des Vosges, tourisme de mémoire",
-          "description": "Application Windows 8 de tourisme de mémoire (2015).",
+          "description": "Application Windows 8 de tourisme de mémoire, en réalité augmentée et virtuelle (2015).",
           "skills": [
             "unity",
-            "csharp"
+            "csharp",
+            "vr"
           ],
           "platforms": [
             "Windows"
