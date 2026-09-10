@@ -394,18 +394,20 @@ MonoBehaviour:
       - Android
     - id: allucyne-fort-lecluse
       title: "Fort L\xE9cluse"
-      description: Application 3D de visite d'un fort (2015-2016).
+      description: "Visite d'un fort en r\xE9alit\xE9 virtuelle (2015-2016)."
       skillIds:
       - unity
       - csharp
+      - vr
       platforms:
       - PC
     - id: allucyne-colmar
       title: Colmar
-      description: Application 3D (2015-2016).
+      description: "Application en r\xE9alit\xE9 virtuelle (2015-2016)."
       skillIds:
       - unity
       - csharp
+      - vr
       platforms:
       - PC
     - id: allucyne-judo-kodokan

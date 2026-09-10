@@ -471,10 +471,11 @@
         {
           "id": "allucyne-fort-lecluse",
           "title": "Fort Lécluse",
-          "description": "Application 3D de visite d'un fort (2015-2016).",
+          "description": "Visite d'un fort en réalité virtuelle (2015-2016).",
           "skills": [
             "unity",
-            "csharp"
+            "csharp",
+            "vr"
           ],
           "platforms": [
             "PC"
@@ -483,10 +484,11 @@
         {
           "id": "allucyne-colmar",
           "title": "Colmar",
-          "description": "Application 3D (2015-2016).",
+          "description": "Application en réalité virtuelle (2015-2016).",
           "skills": [
             "unity",
-            "csharp"
+            "csharp",
+            "vr"
           ],
           "platforms": [
             "PC"
