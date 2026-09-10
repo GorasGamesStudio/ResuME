@@ -28,9 +28,9 @@ MonoBehaviour:
     category: 1
     description: Langage principal, d'Unity aux outils web.
   - id: cpp
-    label: C++
+    label: C / C++
     category: 1
-    description: "Programmation orient\xE9e objet en C++."
+    description: "Les bases du code, de SFML \xE0 DirectX."
   - id: game-design
     label: "Conception de jeux vid\xE9o"
     category: 1
@@ -320,10 +320,40 @@ MonoBehaviour:
       platforms:
       - PC
     notes: "Unity est pass\xE9 largement devant pendant Cr\xE9ajeux : C++ \xE0 2,
-      Unity \xE0 5 \xE0 la sortie (d\xE9cision d'\xC9ric). Stoba (2012) retrouv\xE9
-      dans les archives, \xE0 d\xE9crire. Fa\xE7ade et couleurs de l'\xE9cole \xE0
-      d\xE9finir. Classe d\xE9finitive \xAB D\xE9veloppeur de jeux vid\xE9o \xBB
-      \xE0 la sortie."
+      Unity \xE0 5 \xE0 la sortie. Fa\xE7ade aux couleurs de l'\xE9cole ; sur l'\xE9cran
+      en vitrine, une bataille spatiale ou le logo Unity. Classe d\xE9finitive \xAB
+      D\xE9veloppeur de jeux vid\xE9o \xBB \xE0 la sortie."
+  - id: westimages
+    title: "Westimages, N\xEEmes"
+    years: 2013
+    level: 28
+    kind: 2
+    widthScreens: 0.8
+    founder: 0
+    gapAfterScreens: -1
+    traitsBefore: []
+    traitsAfter: []
+    rewards: []
+    projects:
+    - id: westimages-clients
+      title: Applications 3D clients (Cassidian, Jeanneau, SIRPA, Total, Aloest)
+      description: "Premier emploi de d\xE9veloppeur Unity \xE0 la sortie de Cr\xE9ajeux
+        : applications 3D pour des clients industriels."
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - PC
+    - id: westimages-newsletter
+      title: Newsletter PHP
+      description: Outil d'envoi de newsletter en PHP (juillet 2013).
+      skillIds:
+      - dev-web
+      platforms:
+      - Web
+    notes: "Ajout\xE9 le 2026-09-10 : sortie de Cr\xE9ajeux, \xE0 N\xEEmes (archives
+      dat\xE9es juin-juillet 2013). Projets et comp\xE9tences \xE0 confirmer par
+      \xC9ric ; Montb\xE9liard vient ensuite."
   - id: montbeliard
     title: "D\xE9veloppement Unity, Montb\xE9liard"
     years: 2013 - 2016

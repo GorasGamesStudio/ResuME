@@ -20,9 +20,9 @@
     },
     {
       "id": "cpp",
-      "label": "C++",
+      "label": "C / C++",
       "category": "Technique",
-      "description": "Programmation orientée objet en C++."
+      "description": "Les bases du code, de SFML à DirectX."
     },
     {
       "id": "game-design",
@@ -380,7 +380,41 @@
           ]
         }
       ],
-      "notes": "Unity est passé largement devant pendant Créajeux : C++ à 2, Unity à 5 à la sortie (décision d'Éric). Stoba (2012) retrouvé dans les archives, à décrire. Façade et couleurs de l'école à définir. Classe définitive « Développeur de jeux vidéo » à la sortie."
+      "notes": "Unity est passé largement devant pendant Créajeux : C++ à 2, Unity à 5 à la sortie. Façade aux couleurs de l'école ; sur l'écran en vitrine, une bataille spatiale ou le logo Unity. Classe définitive « Développeur de jeux vidéo » à la sortie."
+    },
+    {
+      "id": "westimages",
+      "title": "Westimages, Nîmes",
+      "years": "2013",
+      "level": 28,
+      "kind": "Traverse",
+      "widthScreens": 0.8,
+      "projects": [
+        {
+          "id": "westimages-clients",
+          "title": "Applications 3D clients (Cassidian, Jeanneau, SIRPA, Total, Aloest)",
+          "description": "Premier emploi de développeur Unity à la sortie de Créajeux : applications 3D pour des clients industriels.",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "westimages-newsletter",
+          "title": "Newsletter PHP",
+          "description": "Outil d'envoi de newsletter en PHP (juillet 2013).",
+          "skills": [
+            "dev-web"
+          ],
+          "platforms": [
+            "Web"
+          ]
+        }
+      ],
+      "notes": "Ajouté le 2026-09-10 : sortie de Créajeux, à Nîmes (archives datées juin-juillet 2013). Projets et compétences à confirmer par Éric ; Montbéliard vient ensuite."
     },
     {
       "id": "montbeliard",
