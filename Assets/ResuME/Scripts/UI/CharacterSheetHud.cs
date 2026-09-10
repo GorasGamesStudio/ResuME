@@ -286,10 +286,20 @@ namespace ResuME.UI
 
         #region Skills
 
-        /// <summary>Every skill the project used activates and gains a point, all at once.</summary>
+        /// <summary>Every skill the project used gains a point, one after the other: never as a group.</summary>
         private void OnProjectCompleted(ProjectDefinition project, Vector3 worldPosition, StopDefinition stop)
         {
-            foreach (string skillId in project.skillIds) StartCoroutine(GainSkill(skillId));
+            StartCoroutine(GainSkillsOneByOne(project));
+        }
+
+        private IEnumerator GainSkillsOneByOne(ProjectDefinition project)
+        {
+            const float stagger = 0.35f;
+            foreach (string skillId in project.skillIds)
+            {
+                StartCoroutine(GainSkill(skillId));
+                yield return new WaitForSeconds(stagger);
+            }
         }
 
         private void OnRewardCollected(RewardDefinition reward, Vector3 worldPosition, StopDefinition stop)
