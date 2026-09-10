@@ -841,23 +841,31 @@
     {
       "id": "cine-sologne",
       "title": "Ciné Sologne",
-      "years": "2025 - 2026 · Assistant directeur",
+      "years": "2025",
       "level": 40,
       "kind": "Facade",
       "widthScreens": 0.5,
       "projects": [
         {
-          "id": "cine-sologne-poste",
-          "title": "Assistant directeur (à détailler)",
-          "description": "Programmation, planification, support technique, organisation.",
+          "id": "cine-support",
+          "title": "Support technique du cinéma",
+          "description": "Informatique, audio, vidéo : la salle qui doit tourner tous les soirs.",
           "skills": [
-            "maintenance",
-            "installation"
+            "maintenance"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "cine-gestion",
+          "title": "Assistant directeur : programmation, planification, commandes",
+          "description": "Accueil, encaissement, programmation, plannings, inventaire et commandes.",
+          "skills": [
+            "gestion-entreprise"
           ],
           "platforms": []
         }
       ],
-      "notes": "Façade seulement, sans logo."
+      "notes": "Passage anecdotique en façade, sans logo : un point de Maintenance & Support informatique, un point de Gestion d'entreprise. Pas de trait."
     },
     {
       "id": "crn",

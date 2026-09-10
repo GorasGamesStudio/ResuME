@@ -734,7 +734,7 @@ MonoBehaviour:
     notes: Stand de salon, jaune bien visible, logo Loire Games.
   - id: cine-sologne
     title: "Cin\xE9 Sologne"
-    years: "2025 - 2026 \xB7 Assistant directeur"
+    years: 2025
     level: 40
     kind: 1
     widthScreens: 0.5
@@ -744,14 +744,22 @@ MonoBehaviour:
     traitsAfter: []
     rewards: []
     projects:
-    - id: cine-sologne-poste
-      title: "Assistant directeur (\xE0 d\xE9tailler)"
-      description: Programmation, planification, support technique, organisation.
+    - id: cine-support
+      title: "Support technique du cin\xE9ma"
+      description: "Informatique, audio, vid\xE9o : la salle qui doit tourner tous
+        les soirs."
       skillIds:
       - maintenance
-      - installation
       platforms: []
-    notes: "Fa\xE7ade seulement, sans logo."
+    - id: cine-gestion
+      title: 'Assistant directeur : programmation, planification, commandes'
+      description: Accueil, encaissement, programmation, plannings, inventaire et
+        commandes.
+      skillIds:
+      - gestion-entreprise
+      platforms: []
+    notes: "Passage anecdotique en fa\xE7ade, sans logo : un point de Maintenance
+      & Support informatique, un point de Gestion d'entreprise. Pas de trait."
   - id: crn
     title: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
     years: "2026 - aujourd'hui \xB7 B\xE9n\xE9volat"
