@@ -323,40 +323,9 @@ MonoBehaviour:
       Unity \xE0 5 \xE0 la sortie. Fa\xE7ade aux couleurs de l'\xE9cole ; sur l'\xE9cran
       en vitrine, une bataille spatiale ou le logo Unity. Classe d\xE9finitive \xAB
       D\xE9veloppeur de jeux vid\xE9o \xBB \xE0 la sortie."
-  - id: westimages
-    title: "Westimages, N\xEEmes"
+  - id: allucyne
+    title: "Allucyne (ex Num\xE9ri4D), Montb\xE9liard"
     years: 2013
-    level: 28
-    kind: 2
-    widthScreens: 0.8
-    founder: 0
-    gapAfterScreens: -1
-    traitsBefore: []
-    traitsAfter: []
-    rewards: []
-    projects:
-    - id: westimages-clients
-      title: Applications 3D clients (Cassidian, Jeanneau, SIRPA, Total, Aloest)
-      description: "Premier emploi de d\xE9veloppeur Unity \xE0 la sortie de Cr\xE9ajeux
-        : applications 3D pour des clients industriels."
-      skillIds:
-      - unity
-      - csharp
-      platforms:
-      - PC
-    - id: westimages-newsletter
-      title: Newsletter PHP
-      description: Outil d'envoi de newsletter en PHP (juillet 2013).
-      skillIds:
-      - dev-web
-      platforms:
-      - Web
-    notes: "Ajout\xE9 le 2026-09-10 : sortie de Cr\xE9ajeux, \xE0 N\xEEmes (archives
-      dat\xE9es juin-juillet 2013). Projets et comp\xE9tences \xE0 confirmer par
-      \xC9ric ; Montb\xE9liard vient ensuite."
-  - id: montbeliard
-    title: "D\xE9veloppement Unity, Montb\xE9liard"
-    years: 2013 - 2016
     level: 28
     kind: 2
     widthScreens: 1.2
@@ -371,16 +340,86 @@ MonoBehaviour:
       category: 3
     rewards: []
     projects:
-    - id: montbeliard-projets
-      title: "Applications 3D arm\xE9e et tourisme (\xE0 d\xE9tailler)"
-      description: "Applications p\xE9dagogiques, culturelles et immersives."
+    - id: allucyne-musee-air-france
+      title: "Mus\xE9e Air France (iOS et web)"
+      description: Application 3D de visite, versions iOS et web (2013-2014).
       skillIds:
       - unity
       - csharp
-      - game-design
+      platforms:
+      - iOS
+      - Web
+    - id: allucyne-selinda
+      title: Selinda 3D
+      description: Application 3D, versions successives (2014-2015).
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - PC
+    - id: allucyne-bluetooth-android
+      title: Plugin Bluetooth Android pour Unity
+      description: Plugin Java et package Unity, Eclipse et OpenCV (2014-2016).
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - Android
+    - id: allucyne-maestro-optinvent
+      title: Maestro sur lunettes Optinvent ORA
+      description: "Application pour lunettes de r\xE9alit\xE9 augment\xE9e, gyroscope
+        et d\xE9mos (2015)."
+      skillIds:
+      - unity
+      - csharp
       - vr
-      platforms: []
-    notes: 
+      platforms:
+      - Android
+    - id: allucyne-front-des-vosges
+      title: "Front des Vosges, tourisme de m\xE9moire"
+      description: "Application Windows 8 de tourisme de m\xE9moire (2015)."
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - Windows
+    - id: allucyne-sjs-hypervisuel
+      title: SJS HyperVisuel et DistanceRA
+      description: "Modules de r\xE9alit\xE9 augment\xE9e (2015)."
+      skillIds:
+      - unity
+      - csharp
+      - vr
+      platforms:
+      - Android
+    - id: allucyne-fort-lecluse
+      title: "Fort L\xE9cluse"
+      description: Application 3D de visite d'un fort (2015-2016).
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - PC
+    - id: allucyne-colmar
+      title: Colmar
+      description: Application 3D (2015-2016).
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - PC
+    - id: allucyne-judo-kodokan
+      title: Judo Kodokan
+      description: Application avec asset bundles (2015-2016).
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - PC
+    notes: "Rejointe en 2013 sous le nom Num\xE9ri4D, devenue Allucyne. Applications
+      3D pour l'arm\xE9e et le tourisme. Liste tir\xE9e des archives (Allucyne Projects),
+      \xE0 \xE9laguer et \xE0 d\xE9crire par \xC9ric ; les versions 2018 de Colmar,
+      Judo Kodokan et SJS sont peut-\xEAtre des reprises en freelance (GGS)."
   - id: alsace
     title: "D\xE9veloppement pharmaceutique, Alsace"
     years: 2017

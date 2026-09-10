@@ -383,17 +383,33 @@
       "notes": "Unity est passé largement devant pendant Créajeux : C++ à 2, Unity à 5 à la sortie. Façade aux couleurs de l'école ; sur l'écran en vitrine, une bataille spatiale ou le logo Unity. Classe définitive « Développeur de jeux vidéo » à la sortie."
     },
     {
-      "id": "westimages",
-      "title": "Westimages, Nîmes",
+      "id": "allucyne",
+      "title": "Allucyne (ex Numéri4D), Montbéliard",
       "years": "2013",
       "level": 28,
       "kind": "Traverse",
-      "widthScreens": 0.8,
+      "widthScreens": 1.2,
+      "traitsAfter": [
+        "esprit-equipe"
+      ],
       "projects": [
         {
-          "id": "westimages-clients",
-          "title": "Applications 3D clients (Cassidian, Jeanneau, SIRPA, Total, Aloest)",
-          "description": "Premier emploi de développeur Unity à la sortie de Créajeux : applications 3D pour des clients industriels.",
+          "id": "allucyne-musee-air-france",
+          "title": "Musée Air France (iOS et web)",
+          "description": "Application 3D de visite, versions iOS et web (2013-2014).",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "iOS",
+            "Web"
+          ]
+        },
+        {
+          "id": "allucyne-selinda",
+          "title": "Selinda 3D",
+          "description": "Application 3D, versions successives (2014-2015).",
           "skills": [
             "unity",
             "csharp"
@@ -403,43 +419,93 @@
           ]
         },
         {
-          "id": "westimages-newsletter",
-          "title": "Newsletter PHP",
-          "description": "Outil d'envoi de newsletter en PHP (juillet 2013).",
+          "id": "allucyne-bluetooth-android",
+          "title": "Plugin Bluetooth Android pour Unity",
+          "description": "Plugin Java et package Unity, Eclipse et OpenCV (2014-2016).",
           "skills": [
-            "dev-web"
+            "unity",
+            "csharp"
           ],
           "platforms": [
-            "Web"
+            "Android"
           ]
-        }
-      ],
-      "notes": "Ajouté le 2026-09-10 : sortie de Créajeux, à Nîmes (archives datées juin-juillet 2013). Projets et compétences à confirmer par Éric ; Montbéliard vient ensuite."
-    },
-    {
-      "id": "montbeliard",
-      "title": "Développement Unity, Montbéliard",
-      "years": "2013 - 2016",
-      "level": 28,
-      "kind": "Traverse",
-      "widthScreens": 1.2,
-      "traitsAfter": [
-        "esprit-equipe"
-      ],
-      "projects": [
+        },
         {
-          "id": "montbeliard-projets",
-          "title": "Applications 3D armée et tourisme (à détailler)",
-          "description": "Applications pédagogiques, culturelles et immersives.",
+          "id": "allucyne-maestro-optinvent",
+          "title": "Maestro sur lunettes Optinvent ORA",
+          "description": "Application pour lunettes de réalité augmentée, gyroscope et démos (2015).",
           "skills": [
             "unity",
             "csharp",
-            "game-design",
             "vr"
           ],
-          "platforms": []
+          "platforms": [
+            "Android"
+          ]
+        },
+        {
+          "id": "allucyne-front-des-vosges",
+          "title": "Front des Vosges, tourisme de mémoire",
+          "description": "Application Windows 8 de tourisme de mémoire (2015).",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "Windows"
+          ]
+        },
+        {
+          "id": "allucyne-sjs-hypervisuel",
+          "title": "SJS HyperVisuel et DistanceRA",
+          "description": "Modules de réalité augmentée (2015).",
+          "skills": [
+            "unity",
+            "csharp",
+            "vr"
+          ],
+          "platforms": [
+            "Android"
+          ]
+        },
+        {
+          "id": "allucyne-fort-lecluse",
+          "title": "Fort Lécluse",
+          "description": "Application 3D de visite d'un fort (2015-2016).",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "allucyne-colmar",
+          "title": "Colmar",
+          "description": "Application 3D (2015-2016).",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "allucyne-judo-kodokan",
+          "title": "Judo Kodokan",
+          "description": "Application avec asset bundles (2015-2016).",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "PC"
+          ]
         }
-      ]
+      ],
+      "notes": "Rejointe en 2013 sous le nom Numéri4D, devenue Allucyne. Applications 3D pour l'armée et le tourisme. Liste tirée des archives (Allucyne Projects), à élaguer et à décrire par Éric ; les versions 2018 de Colmar, Judo Kodokan et SJS sont peut-être des reprises en freelance (GGS)."
     },
     {
       "id": "alsace",
