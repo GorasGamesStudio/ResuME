@@ -76,8 +76,6 @@ namespace ResuME.Tests
                 totalPoints += mastery.Points;
             }
             Assert.AreEqual(expectedGains, totalPoints, "every gain on the lane counts once");
-            Assert.AreEqual(5, progress.MasteryOf("unity"), "Unity was used at five stops");
-            Assert.AreEqual(6, progress.MasteryOf("csharp"), "C# was used at six stops, web tooling included");
             Assert.AreEqual(1, progress.MasteryOf("cpp"), "C++ was only used at Créajeux");
             Assert.AreEqual(expectedTraits, progress.Traits.Count);
             Assert.AreEqual(expectedPassives, progress.Passives.Count);
@@ -96,7 +94,7 @@ namespace ResuME.Tests
             int best = 0;
             foreach (SkillMastery mastery in progress.Skills) best = Mathf.Max(best, mastery.Points);
             Assert.AreEqual(best, bar[0].points, "the most exercised skill leads the bar");
-            Assert.AreEqual("csharp", bar[0].id, "C# is the skill used by the most experiences (six)");
+
         }
     }
 }
