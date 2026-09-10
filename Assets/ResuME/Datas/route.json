@@ -211,6 +211,15 @@
       ],
       "projects": [
         {
+          "id": "support-t-systems",
+          "title": "T-Systems, chez VW Group",
+          "description": "Mission d'intérim : support informatique et outil de suivi des demandes de support (bases Access, MySQL).",
+          "skills": [
+            "maintenance"
+          ],
+          "platforms": []
+        },
+        {
           "id": "support-spie",
           "title": "SPIE Communications",
           "description": "En mission chez des clients : déploiement de postes (jusqu'à 200), migration de parc.",
@@ -238,7 +247,7 @@
           "platforms": []
         }
       ],
-      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec trois petits bâtiments clients : SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Tout donne Maintenance & Support informatique. Chaque bâtiment s'allume en entier au passage, un à la fois."
+      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec quatre petits bâtiments clients : T-Systems (intérim chez VW Group), SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Tout donne Maintenance & Support informatique. Chaque bâtiment s'allume en entier au passage, un à la fois."
     },
     {
       "id": "creajeux",
@@ -254,18 +263,111 @@
       },
       "projects": [
         {
-          "id": "creajeux-formation",
-          "title": "Formation Créajeux (à détailler par projet)",
-          "description": "Prototypes 2D et 3D, physique temps réel, gameplay en équipe, game jams.",
+          "id": "creajeux-c-cpp",
+          "title": "Bases du code : C puis C++ avec SFML",
+          "description": "Du jeu du nombre aléatoire (septembre 2010) aux classes, à l'héritage, à la STL et aux design patterns.",
           "skills": [
-            "unity",
-            "csharp",
+            "cpp"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "creajeux-batailles-spatiales",
+          "title": "Premiers jeux : batailles spatiales (SFML)",
+          "description": "Les premiers jeux, évidemment dans l'espace.",
+          "skills": [
             "cpp",
             "game-design"
           ],
-          "platforms": []
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "creajeux-labyrinthe",
+          "title": "Labyrinthe, premier projet Unity",
+          "description": "Octobre 2011, en UnityScript : la découverte du moteur.",
+          "skills": [
+            "unity"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "creajeux-creatapult",
+          "title": "Creatapult",
+          "description": "Jeu de catapulte en C++ (2012), repris en DirectX en troisième année.",
+          "skills": [
+            "cpp",
+            "game-design"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "creajeux-hackathon-king",
+          "title": "Hackathon King.com, Paris 2012",
+          "description": "Un jeu en un week-end, « Baignoire », et sa version Gold.",
+          "skills": [
+            "game-design"
+          ],
+          "platforms": [
+            "Web"
+          ]
+        },
+        {
+          "id": "creajeux-game-jam",
+          "title": "Game jam : « Mais qui a tué Eric Bonnet »",
+          "description": "Jeu SFML réalisé en jam sur le framework de l'école (2013).",
+          "skills": [
+            "cpp",
+            "game-design"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "creajeux-cyborg-child",
+          "title": "Cyborg Child, projet d'équipe Unity",
+          "description": "Troisième année : pré-production, conception, programmation sous Unity en équipe, avec SVN.",
+          "skills": [
+            "unity",
+            "csharp",
+            "game-design"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "creajeux-cyborg-child-site",
+          "title": "Site web de Cyborg Child (PHP)",
+          "description": "Le site du projet, en PHP.",
+          "skills": [
+            "dev-web"
+          ],
+          "platforms": [
+            "Web"
+          ]
+        },
+        {
+          "id": "creajeux-dkx-reseau",
+          "title": "Projets de troisième année : DirectX et réseau",
+          "description": "Ultimate Dungeon Keeper Project (DirectX), projet réseau en binôme.",
+          "skills": [
+            "cpp"
+          ],
+          "platforms": [
+            "PC"
+          ]
         }
-      ]
+      ],
+      "notes": "Proposition tirée des archives, à élaguer par Éric. Façade et couleurs de l'école à définir. Classe définitive « Développeur de jeux vidéo » à la sortie."
     },
     {
       "id": "montbeliard",

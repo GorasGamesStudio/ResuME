@@ -184,6 +184,13 @@ MonoBehaviour:
       category: 3
     rewards: []
     projects:
+    - id: support-t-systems
+      title: T-Systems, chez VW Group
+      description: "Mission d'int\xE9rim : support informatique et outil de suivi
+        des demandes de support (bases Access, MySQL)."
+      skillIds:
+      - maintenance
+      platforms: []
     - id: support-spie
       title: SPIE Communications
       description: "En mission chez des clients : d\xE9ploiement de postes (jusqu'\xE0
@@ -206,11 +213,12 @@ MonoBehaviour:
       - maintenance
       platforms: []
     notes: "Espace ext\xE9rieur (le c\xF4t\xE9 SSII : en d\xE9placement chez les
-      clients) avec trois petits b\xE2timents clients : SPIE Communications, IRIS
-      Conseil, Computacenter (int\xE9rim, plus petit). Seule l'ann\xE9e de d\xE9but
-      du secteur est affich\xE9e (2005) ; les autres missions de la p\xE9riode n'ont
-      plus de nom. Tout donne Maintenance & Support informatique. Chaque b\xE2timent
-      s'allume en entier au passage, un \xE0 la fois."
+      clients) avec quatre petits b\xE2timents clients : T-Systems (int\xE9rim chez
+      VW Group), SPIE Communications, IRIS Conseil, Computacenter (int\xE9rim, plus
+      petit). Seule l'ann\xE9e de d\xE9but du secteur est affich\xE9e (2005) ; les
+      autres missions de la p\xE9riode n'ont plus de nom. Tout donne Maintenance
+      & Support informatique. Chaque b\xE2timent s'allume en entier au passage, un
+      \xE0 la fois."
   - id: creajeux
     title: "Cr\xE9ajeux, N\xEEmes"
     years: 2010
@@ -228,17 +236,82 @@ MonoBehaviour:
       description: "Cr\xE9ajeux, 2013. Classe d\xE9finitive."
       category: 0
     projects:
-    - id: creajeux-formation
-      title: "Formation Cr\xE9ajeux (\xE0 d\xE9tailler par projet)"
-      description: "Prototypes 2D et 3D, physique temps r\xE9el, gameplay en \xE9quipe,
-        game jams."
+    - id: creajeux-c-cpp
+      title: 'Bases du code : C puis C++ avec SFML'
+      description: "Du jeu du nombre al\xE9atoire (septembre 2010) aux classes, \xE0
+        l'h\xE9ritage, \xE0 la STL et aux design patterns."
+      skillIds:
+      - cpp
+      platforms:
+      - PC
+    - id: creajeux-batailles-spatiales
+      title: 'Premiers jeux : batailles spatiales (SFML)'
+      description: "Les premiers jeux, \xE9videmment dans l'espace."
+      skillIds:
+      - cpp
+      - game-design
+      platforms:
+      - PC
+    - id: creajeux-labyrinthe
+      title: Labyrinthe, premier projet Unity
+      description: "Octobre 2011, en UnityScript : la d\xE9couverte du moteur."
+      skillIds:
+      - unity
+      platforms:
+      - PC
+    - id: creajeux-creatapult
+      title: Creatapult
+      description: "Jeu de catapulte en C++ (2012), repris en DirectX en troisi\xE8me
+        ann\xE9e."
+      skillIds:
+      - cpp
+      - game-design
+      platforms:
+      - PC
+    - id: creajeux-hackathon-king
+      title: Hackathon King.com, Paris 2012
+      description: "Un jeu en un week-end, \xAB Baignoire \xBB, et sa version Gold."
+      skillIds:
+      - game-design
+      platforms:
+      - Web
+    - id: creajeux-game-jam
+      title: "Game jam : \xAB Mais qui a tu\xE9 Eric Bonnet \xBB"
+      description: "Jeu SFML r\xE9alis\xE9 en jam sur le framework de l'\xE9cole
+        (2013)."
+      skillIds:
+      - cpp
+      - game-design
+      platforms:
+      - PC
+    - id: creajeux-cyborg-child
+      title: "Cyborg Child, projet d'\xE9quipe Unity"
+      description: "Troisi\xE8me ann\xE9e : pr\xE9-production, conception, programmation
+        sous Unity en \xE9quipe, avec SVN."
       skillIds:
       - unity
       - csharp
-      - cpp
       - game-design
-      platforms: []
-    notes: 
+      platforms:
+      - PC
+    - id: creajeux-cyborg-child-site
+      title: Site web de Cyborg Child (PHP)
+      description: Le site du projet, en PHP.
+      skillIds:
+      - dev-web
+      platforms:
+      - Web
+    - id: creajeux-dkx-reseau
+      title: "Projets de troisi\xE8me ann\xE9e : DirectX et r\xE9seau"
+      description: "Ultimate Dungeon Keeper Project (DirectX), projet r\xE9seau en
+        bin\xF4me."
+      skillIds:
+      - cpp
+      platforms:
+      - PC
+    notes: "Proposition tir\xE9e des archives, \xE0 \xE9laguer par \xC9ric. Fa\xE7ade
+      et couleurs de l'\xE9cole \xE0 d\xE9finir. Classe d\xE9finitive \xAB D\xE9veloppeur
+      de jeux vid\xE9o \xBB \xE0 la sortie."
   - id: montbeliard
     title: "D\xE9veloppement Unity, Montb\xE9liard"
     years: 2013 - 2016
