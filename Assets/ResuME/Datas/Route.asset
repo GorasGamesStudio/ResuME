@@ -633,8 +633,8 @@ MonoBehaviour:
       - game-design
       - unity
       platforms:
-      - Quest
-      - PC
+      - VR (tous casques)
+      - Steam
     notes: 'Guichet annuel 2020 : le fil rouge du studio.'
   - id: rpaint
     title: "R'Paint Games, M\xE9hers"
@@ -722,8 +722,8 @@ MonoBehaviour:
       skillIds:
       - game-design
       platforms:
-      - Quest
-      - PC
+      - VR (tous casques)
+      - Steam
     notes: 'Guichet annuel 2021 : le fil rouge du studio.'
   - id: ggs-2022
     title: Goras Games Studio
@@ -744,8 +744,8 @@ MonoBehaviour:
       - game-design
       - csharp
       platforms:
-      - Quest
-      - PC
+      - VR (tous casques)
+      - Steam
     notes: 'Guichet annuel 2022 : le fil rouge du studio.'
   - id: lidl
     title: Lidl
@@ -794,8 +794,8 @@ MonoBehaviour:
       - game-design
       - vr
       platforms:
-      - Quest
-      - PC
+      - VR (tous casques)
+      - Steam
     notes: 'Guichet annuel 2023 : le fil rouge du studio.'
   - id: ggs-2024
     title: Goras Games Studio
@@ -816,8 +816,8 @@ MonoBehaviour:
       - game-design
       - unity
       platforms:
-      - Quest
-      - PC
+      - VR (tous casques)
+      - Steam
     notes: 'Guichet annuel 2024 : le fil rouge du studio.'
   - id: cine-sologne
     title: "Cin\xE9 Sologne"
@@ -867,8 +867,8 @@ MonoBehaviour:
       - vr
       - csharp
       platforms:
-      - Quest
-      - PC
+      - VR (tous casques)
+      - Steam
     notes: 'Guichet annuel 2025 : le fil rouge du studio.'
   - id: crn
     title: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
@@ -912,8 +912,8 @@ MonoBehaviour:
       skillIds:
       - game-design
       platforms:
-      - Quest
-      - PC
+      - VR (tous casques)
+      - Steam
     - id: ggs-ia-core
       title: 'IA : outillage du studio (GGS Core, build, versionnage)'
       description: "Outils d'\xE9diteur et de build \xE9crits avec des agents d'IA."
@@ -1015,22 +1015,21 @@ MonoBehaviour:
       description: En cours.
       skillIds: []
       platforms:
-      - Quest
+      - VR (tous casques)
       - Steam
     - id: wip-party-hospital
       title: Party Hospital
       description: En cours.
       skillIds: []
       platforms:
-      - Quest
+      - VR (tous casques)
       - Steam
-      - iOS
     - id: wip-rural-quest
       title: Rural Quest (nom de travail)
       description: En cours.
       skillIds: []
       platforms:
-      - Quest
+      - VR (tous casques)
       - Android
     - id: wip-cities-of-mist
       title: Cities of Mist

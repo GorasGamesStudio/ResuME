@@ -739,8 +739,8 @@
             "unity"
           ],
           "platforms": [
-            "Quest",
-            "PC"
+            "VR (tous casques)",
+            "Steam"
           ]
         }
       ],
@@ -839,8 +839,8 @@
             "game-design"
           ],
           "platforms": [
-            "Quest",
-            "PC"
+            "VR (tous casques)",
+            "Steam"
           ]
         }
       ],
@@ -864,8 +864,8 @@
             "csharp"
           ],
           "platforms": [
-            "Quest",
-            "PC"
+            "VR (tous casques)",
+            "Steam"
           ]
         }
       ],
@@ -912,8 +912,8 @@
             "vr"
           ],
           "platforms": [
-            "Quest",
-            "PC"
+            "VR (tous casques)",
+            "Steam"
           ]
         }
       ],
@@ -937,8 +937,8 @@
             "unity"
           ],
           "platforms": [
-            "Quest",
-            "PC"
+            "VR (tous casques)",
+            "Steam"
           ]
         }
       ],
@@ -992,8 +992,8 @@
             "csharp"
           ],
           "platforms": [
-            "Quest",
-            "PC"
+            "VR (tous casques)",
+            "Steam"
           ]
         }
       ],
@@ -1029,8 +1029,8 @@
             "game-design"
           ],
           "platforms": [
-            "Quest",
-            "PC"
+            "VR (tous casques)",
+            "Steam"
           ]
         },
         {
@@ -1157,7 +1157,7 @@
           "description": "En cours.",
           "skills": [],
           "platforms": [
-            "Quest",
+            "VR (tous casques)",
             "Steam"
           ]
         },
@@ -1167,9 +1167,8 @@
           "description": "En cours.",
           "skills": [],
           "platforms": [
-            "Quest",
-            "Steam",
-            "iOS"
+            "VR (tous casques)",
+            "Steam"
           ]
         },
         {
@@ -1178,7 +1177,7 @@
           "description": "En cours.",
           "skills": [],
           "platforms": [
-            "Quest",
+            "VR (tous casques)",
             "Android"
           ]
         },
