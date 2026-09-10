@@ -289,15 +289,15 @@ namespace ResuME.UI
         /// <summary>Every skill the project used gains a point, one after the other: never as a group.</summary>
         private void OnProjectCompleted(ProjectDefinition project, Vector3 worldPosition, StopDefinition stop)
         {
-            StartCoroutine(GainSkillsOneByOne(project));
+            StartCoroutine(GainSkillsOneByOne(project, worldPosition));
         }
 
-        private IEnumerator GainSkillsOneByOne(ProjectDefinition project)
+        private IEnumerator GainSkillsOneByOne(ProjectDefinition project, Vector3 worldPosition)
         {
             const float stagger = 0.35f;
             foreach (string skillId in project.skillIds)
             {
-                StartCoroutine(GainSkill(skillId));
+                StartCoroutine(GainSkill(skillId, worldPosition));
                 yield return new WaitForSeconds(stagger);
             }
         }
@@ -318,8 +318,11 @@ namespace ResuME.UI
             }
         }
 
-        /// <summary>Activate the square, send a small square to the character, bring a dot back, fill the gauge.</summary>
-        private IEnumerator GainSkill(string skillId)
+        /// <summary>
+        /// The character sends the skill to the project, a small burst of particles pops on it,
+        /// and a dot rises with acceleration up to the skill's square, which fills its gauge.
+        /// </summary>
+        private IEnumerator GainSkill(string skillId, Vector3 projectPosition)
         {
             // Let PlayerProgress apply the gain first (handler order is not guaranteed), then read it back.
             yield return null;
@@ -337,18 +340,66 @@ namespace ResuME.UI
 
             Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
             square.Inner.color = WithAlpha(color, 1f);
-            StartCoroutine(Punch(square.Rect, 0.15f, 0.15f));
 
-            Vector2 from = SquareCentre(square);
-            Vector2 to = CharacterCanvasPosition();
-            yield return Travel("Spark " + skillId, from, to, new Vector2(14f, 14f), color, 0.3f);
-            yield return Travel("Dot " + skillId, CharacterCanvasPosition(), SquareCentre(square), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), 0.3f);
+            // 1. From the character to the project.
+            yield return Travel("Send " + skillId, CharacterCanvasPosition(), WorldToCanvas(projectPosition), new Vector2(12f, 12f), color, 0.25f, arc: 25f);
+
+            // 2. Burst on the project.
+            Vector2 origin = WorldToCanvas(projectPosition);
+            StartCoroutine(Burst(origin, color));
+            yield return new WaitForSeconds(0.12f);
+
+            // 3. Rise, accelerating, up to the skill square.
+            yield return Travel("Rise " + skillId, origin, SquareCentre(square), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), 0.45f, arc: 0f, accelerate: true);
 
             square.ShownPoints = Mathf.Min(square.ShownPoints + 1, mastery.Points);
             RefreshSquare(square);
             StartCoroutine(Punch(square.Fill.rectTransform, 0.15f, 0.3f));
+            StartCoroutine(Punch(square.Rect, 0.1f, 0.2f));
             square.Inner.color = WithAlpha(color, InnerIdleAlpha);
             Resort();
+        }
+
+        /// <summary>Eight small squares thrown outward from a point, shrinking as they go.</summary>
+        private IEnumerator Burst(Vector2 origin, Color color)
+        {
+            const int count = 8;
+            const float duration = 0.3f;
+            var pieces = new RectTransform[count];
+            for (int i = 0; i < count; i++)
+            {
+                GameObject go = new GameObject("Burst", typeof(RectTransform), typeof(Image));
+                RectTransform rect = (RectTransform)go.transform;
+                rect.SetParent(canvasRect, false);
+                rect.sizeDelta = new Vector2(6f, 6f);
+                rect.anchoredPosition = origin;
+                Image image = go.GetComponent<Image>();
+                image.color = color;
+                image.raycastTarget = false;
+                pieces[i] = rect;
+            }
+            float t = 0f;
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+                float k = Mathf.Clamp01(t / duration);
+                for (int i = 0; i < count; i++)
+                {
+                    float angle = i * Mathf.PI * 2f / count;
+                    pieces[i].anchoredPosition = origin + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (k * 28f);
+                    pieces[i].localScale = Vector3.one * (1f - k);
+                }
+                yield return null;
+            }
+            foreach (RectTransform piece in pieces) Destroy(piece.gameObject);
+        }
+
+        private Vector2 WorldToCanvas(Vector3 worldPosition)
+        {
+            Camera cam = Camera.main;
+            if (cam == null) return Vector2.zero;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, cam.WorldToScreenPoint(worldPosition), null, out Vector2 local);
+            return local;
         }
 
         private SkillMastery FindMastery(string id)
@@ -442,7 +493,7 @@ namespace ResuME.UI
             }
         }
 
-        private IEnumerator Travel(string name, Vector2 from, Vector2 to, Vector2 size, Color color, float duration, float arc = 20f)
+        private IEnumerator Travel(string name, Vector2 from, Vector2 to, Vector2 size, Color color, float duration, float arc = 20f, bool accelerate = false)
         {
             GameObject go = new GameObject(name, typeof(RectTransform), typeof(Image));
             RectTransform rect = (RectTransform)go.transform;
@@ -457,7 +508,8 @@ namespace ResuME.UI
             while (t < duration)
             {
                 t += Time.deltaTime;
-                float k = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / duration));
+                float linear = Mathf.Clamp01(t / duration);
+                float k = accelerate ? linear * linear : Mathf.SmoothStep(0f, 1f, linear);
                 rect.anchoredPosition = Vector2.Lerp(from, to, k) + Vector2.up * (Mathf.Sin(k * Mathf.PI) * arc);
                 yield return null;
             }
