@@ -762,7 +762,7 @@ MonoBehaviour:
       & Support informatique, un point de Gestion d'entreprise. Pas de trait."
   - id: crn
     title: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
-    years: "2026 - aujourd'hui \xB7 B\xE9n\xE9volat"
+    years: 2026
     level: 40
     kind: 5
     widthScreens: 0.8
@@ -771,14 +771,11 @@ MonoBehaviour:
     traitsBefore: []
     traitsAfter: []
     rewards: []
-    projects:
-    - id: crn-conseil
-      title: "Conseil et gamification (\xE0 d\xE9tailler)"
-      description: "\xC9tude des besoins num\xE9riques, p\xE9dagogie."
-      skillIds:
-      - formation
-      platforms: []
-    notes: "Place publique, logo du Conseil R\xE9gional."
+    projects: []
+    notes: "R\xE9flexions de groupe sur les enjeux du num\xE9rique, rapports et propositions
+      d'actions : \xE9tude et recherche de solutions, pas de formation. Aucune comp\xE9tence
+      du catalogue (d\xE9cision d'\xC9ric). Comparable au mandat de conseiller municipal
+      d'\xC9ric. Place publique avec le logo du Conseil R\xE9gional."
   - id: aujourdhui
     title: Aujourd'hui
     years: 2026

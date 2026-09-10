@@ -870,22 +870,12 @@
     {
       "id": "crn",
       "title": "Conseil Régional du Numérique Centre-Val de Loire",
-      "years": "2026 - aujourd'hui · Bénévolat",
+      "years": "2026",
       "level": 40,
       "kind": "Square",
       "widthScreens": 0.8,
-      "projects": [
-        {
-          "id": "crn-conseil",
-          "title": "Conseil et gamification (à détailler)",
-          "description": "Étude des besoins numériques, pédagogie.",
-          "skills": [
-            "formation"
-          ],
-          "platforms": []
-        }
-      ],
-      "notes": "Place publique, logo du Conseil Régional."
+      "projects": [],
+      "notes": "Réflexions de groupe sur les enjeux du numérique, rapports et propositions d'actions : étude et recherche de solutions, pas de formation. Aucune compétence du catalogue (décision d'Éric). Comparable au mandat de conseiller municipal d'Éric. Place publique avec le logo du Conseil Régional."
     },
     {
       "id": "aujourdhui",
