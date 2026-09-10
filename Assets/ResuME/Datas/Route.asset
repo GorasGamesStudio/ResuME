@@ -1033,26 +1033,31 @@ MonoBehaviour:
       - Android
     - id: wip-cities-of-mist
       title: Cities of Mist
-      description: "En cours. Plateforme \xE0 pr\xE9ciser."
+      description: En cours.
       skillIds: []
-      platforms: []
+      platforms:
+      - Steam
     - id: wip-commercialst
       title: CommercialSt
-      description: "En cours. Plateforme \xE0 pr\xE9ciser."
+      description: En cours.
       skillIds: []
-      platforms: []
+      platforms:
+      - Steam
     - id: wip-insecticide
       title: Insecticide
-      description: "En cours. Plateforme \xE0 pr\xE9ciser."
+      description: En cours.
       skillIds: []
-      platforms: []
+      platforms:
+      - Steam
     - id: wip-skai
       title: SkAI
-      description: "En cours. Plateforme \xE0 pr\xE9ciser."
+      description: En cours.
       skillIds: []
-      platforms: []
+      platforms:
+      - Steam
     notes: "Fin : chantier des projets en cours sous b\xE2che (nom, plateforme, \xAB
       en cours \xBB, aucun point), puis pluie de comp\xE9tences, pouce, carte de
       contact, une ligne de texte. Liste tir\xE9e de Projects/Games le 2026-09-11,
-      hors archives et ResuME. Contact : alias sur le domaine gorasgames.fr \xE0
-      confirmer, LinkedIn \xE0 fournir."
+      hors archives et ResuME ; plateformes confirm\xE9es par \xC9ric. Les concepts
+      restent hors du jeu (teaser sans spoil). Contact : alias sur le domaine gorasgames.fr
+      \xE0 confirmer, LinkedIn \xE0 fournir."
