@@ -590,9 +590,10 @@ MonoBehaviour:
     - id: ga-programme
       title: Conception du programme de formation sur trois ans
       description: "De la pr\xE9pa \xE0 la troisi\xE8me ann\xE9e : progression, mati\xE8res,
-        projets."
+        projets ; et la gestion d'une activit\xE9 de formation en freelance."
       skillIds:
       - formation
+      - gestion-entreprise
       platforms: []
     - id: ga-cours-programmation
       title: Cours de programmation de jeux (Unity, C#)
@@ -630,19 +631,12 @@ MonoBehaviour:
       skillIds:
       - formation
       platforms: []
-    - id: ga-pointage
-      title: "Logiciel de pointage et de planning des \xE9tudiants"
-      description: "Outil interne de suivi des pr\xE9sences et des plannings (Visual
-        Basic, de m\xE9moire)."
-      skillIds:
-      - bases-donnees
-      platforms:
-      - Windows
     notes: "Deux ans et demi comme formateur (trois ann\xE9es de formation). Dossier
-      retrouv\xE9 : Autres/Entreprenariat/LevelUp/Game Academy (programmes pr\xE9pa,
-      ann\xE9e 1, ann\xE9e 2, Game Camp, projets \xE9tudiants Android VR, EscapeGA,
-      MultiBoats, tests d'admission, plannings). Logiciel de pointage non retrouv\xE9
-      : comp\xE9tence provisoire Bases de donn\xE9es."
+      : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste
+      anecdotique (pas de projet). Composition : b\xE2timent avec logo (photos d'\xC9ric
+      \xE0 venir), salle vue de derri\xE8re, \xE9tudiants de dos qui l\xE8vent la
+      main, \xE9crans visibles, \xC9ric de face ; le personnage passe devant les
+      \xE9tudiants, derri\xE8re leurs sprites."
   - id: rpaint
     title: R'Paint Games
     years: "2020 - 2023 \xB7 Co-fondateur & Pr\xE9sident"

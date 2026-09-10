@@ -693,9 +693,10 @@
         {
           "id": "ga-programme",
           "title": "Conception du programme de formation sur trois ans",
-          "description": "De la prépa à la troisième année : progression, matières, projets.",
+          "description": "De la prépa à la troisième année : progression, matières, projets ; et la gestion d'une activité de formation en freelance.",
           "skills": [
-            "formation"
+            "formation",
+            "gestion-entreprise"
           ],
           "platforms": []
         },
@@ -749,20 +750,9 @@
             "formation"
           ],
           "platforms": []
-        },
-        {
-          "id": "ga-pointage",
-          "title": "Logiciel de pointage et de planning des étudiants",
-          "description": "Outil interne de suivi des présences et des plannings (Visual Basic, de mémoire).",
-          "skills": [
-            "bases-donnees"
-          ],
-          "platforms": [
-            "Windows"
-          ]
         }
       ],
-      "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier retrouvé : Autres/Entreprenariat/LevelUp/Game Academy (programmes prépa, année 1, année 2, Game Camp, projets étudiants Android VR, EscapeGA, MultiBoats, tests d'admission, plannings). Logiciel de pointage non retrouvé : compétence provisoire Bases de données."
+      "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste anecdotique (pas de projet). Composition : bâtiment avec logo (photos d'Éric à venir), salle vue de derrière, étudiants de dos qui lèvent la main, écrans visibles, Éric de face ; le personnage passe devant les étudiants, derrière leurs sprites."
     },
     {
       "id": "rpaint",
