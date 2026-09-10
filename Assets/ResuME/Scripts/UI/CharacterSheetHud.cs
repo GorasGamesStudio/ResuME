@@ -23,9 +23,9 @@ namespace ResuME.UI
             public SkillMastery Mastery;
             public RectTransform Rect;
             public Image Inner;
-            public Text Points;
+            public Image Fill;
+            public float FillWidth;
             public Text Label;
-            public Image[] Segments;
             public float TargetX;
             public int ShownPoints;
         }
@@ -265,25 +265,19 @@ namespace ResuME.UI
             RectTransform inner = MakeImage(rect, "Inner", new Vector2(4f, -4f), new Vector2(SquareSize - 8f, SquareSize - 8f), WithAlpha(color, InnerIdleAlpha));
             inner.GetComponent<Image>().raycastTarget = false;
 
-            var segments = new Image[masteryScale];
-            float segmentWidth = (SquareSize - 8f - (masteryScale - 1) * 2f) / masteryScale;
-            for (int i = 0; i < masteryScale; i++)
-            {
-                RectTransform segment = MakeImage(rect, $"Segment {i + 1}", new Vector2(4f + i * (segmentWidth + 2f), -(SquareSize - 4f - 8f)), new Vector2(segmentWidth, 8f), SlotEmpty);
-                segments[i] = segment.GetComponent<Image>();
-                segments[i].raycastTarget = false;
-            }
-
-            Text points = MakeText(rect, "Points", "0", 14, FontStyle.Bold, new Vector2(0f, -2f), new Vector2(SquareSize - 6f, 18f));
-            points.alignment = TextAnchor.MiddleRight;
-            points.color = Color.white;
+            // Continuous gauge along the bottom edge: fills from empty to masteryScaleMax projects.
+            float gaugeWidth = SquareSize - 8f;
+            MakeImage(rect, "GaugeBack", new Vector2(4f, -(SquareSize - 4f - 8f)), new Vector2(gaugeWidth, 8f), SlotEmpty).GetComponent<Image>().raycastTarget = false;
+            RectTransform fillRect = MakeImage(rect, "GaugeFill", new Vector2(4f, -(SquareSize - 4f - 8f)), new Vector2(0f, 8f), color);
+            Image fill = fillRect.GetComponent<Image>();
+            fill.raycastTarget = false;
 
             Text label = MakeText(rect, "Label", mastery.Definition.label, 10, FontStyle.Normal, new Vector2(-14f, -SquareSize - 2f), new Vector2(SquareSize + 28f, LabelHeight));
             label.alignment = TextAnchor.UpperCenter;
             label.horizontalOverflow = HorizontalWrapMode.Wrap;
             label.verticalOverflow = VerticalWrapMode.Truncate;
 
-            SkillSquare square = new SkillSquare { Mastery = mastery, Rect = rect, Inner = inner.GetComponent<Image>(), Points = points, Label = label, Segments = segments };
+            SkillSquare square = new SkillSquare { Mastery = mastery, Rect = rect, Inner = inner.GetComponent<Image>(), Fill = fill, FillWidth = gaugeWidth, Label = label };
             AddHover(rect.gameObject, () => TooltipFor(square.Mastery), rect, TooltipSide.Above);
             return square;
         }
@@ -342,7 +336,7 @@ namespace ResuME.UI
 
             square.ShownPoints = Mathf.Min(square.ShownPoints + 1, mastery.Points);
             RefreshSquare(square);
-            StartCoroutine(Punch(square.Points.rectTransform, 0.3f, 0.35f));
+            StartCoroutine(Punch(square.Fill.rectTransform, 0.15f, 0.3f));
             square.Inner.color = WithAlpha(color, InnerIdleAlpha);
             Resort();
         }
@@ -356,11 +350,9 @@ namespace ResuME.UI
 
         private void RefreshSquare(SkillSquare square)
         {
-            int points = square.ShownPoints;
-            Color color = GreyboxPalette.ForSkill(square.Mastery.Definition.category);
-            for (int i = 0; i < square.Segments.Length; i++)
-                square.Segments[i].color = i < points ? color : SlotEmpty;
-            square.Points.text = points.ToString();
+            // No number on the square (decision of 2026-09-10): the gauge alone tells the mastery.
+            float ratio = Mathf.Clamp01(square.ShownPoints / (float)masteryScale);
+            square.Fill.rectTransform.sizeDelta = new Vector2(square.FillWidth * ratio, 8f);
         }
 
         /// <summary>Stable sort by shown points: on a tie the previous order is kept, so only real overtakes move.</summary>

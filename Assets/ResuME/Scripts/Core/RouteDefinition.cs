@@ -125,8 +125,8 @@ namespace ResuME.Data
         public float gapScreens = 0.5f;
 
         [Header("Mastery")]
-        [Tooltip("Segments of the mastery bar. Points beyond it still count and are shown as a number.")]
-        public int masteryScaleMax = 5;
+        [Tooltip("Projects needed to fill the mastery gauge completely.")]
+        public int masteryScaleMax = 20;
 
         [Header("Content")]
         public List<SkillDefinition> skills = new List<SkillDefinition>();
