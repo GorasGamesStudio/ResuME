@@ -124,8 +124,8 @@ MonoBehaviour:
       platforms: []
     - id: bac-montage-pc
       title: Montage de PC (perso)
-      description: "Composants, assemblage, mises \xE0 niveau, en parall\xE8le du
-        lyc\xE9e."
+      description: "Composants, assemblage, mises \xE0 niveau, pendant les ann\xE9es
+        de lyc\xE9e."
       skillIds:
       - installation
       platforms: []
@@ -163,13 +163,6 @@ MonoBehaviour:
       - dev-web
       platforms:
       - Web
-    - id: bts-montage-pc
-      title: "Montage et mise \xE0 niveau de PC (perso, suite)"
-      description: "Composants, assemblage, mises \xE0 niveau, pendant les ann\xE9es
-        de BTS."
-      skillIds:
-      - installation
-      platforms: []
     notes: "Second b\xE2timent coll\xE9 \xE0 droite du premier, m\xEAme style, m\xEAme
       domaine ; il s'\xE9claire fen\xEAtre par fen\xEAtre \xE0 l'approche. Le sprite
       devient adulte \xE0 la sortie."
@@ -196,6 +189,7 @@ MonoBehaviour:
         des demandes de support (bases Access, MySQL)."
       skillIds:
       - maintenance
+      - installation
       platforms: []
     - id: support-spie
       title: SPIE Communications
@@ -203,6 +197,7 @@ MonoBehaviour:
         200), migration de parc."
       skillIds:
       - maintenance
+      - installation
       platforms: []
     - id: support-iris-conseil
       title: IRIS Conseil
@@ -210,6 +205,7 @@ MonoBehaviour:
         suivi de tickets, support utilisateurs."
       skillIds:
       - maintenance
+      - installation
       platforms: []
     - id: support-computacenter
       title: Computacenter
@@ -222,9 +218,10 @@ MonoBehaviour:
       clients) avec quatre petits b\xE2timents clients : T-Systems (int\xE9rim chez
       VW Group), SPIE Communications, IRIS Conseil, Computacenter (int\xE9rim, plus
       petit). Seule l'ann\xE9e de d\xE9but du secteur est affich\xE9e (2005) ; les
-      autres missions de la p\xE9riode n'ont plus de nom. Tout donne Maintenance
-      & Support informatique. Chaque b\xE2timent s'allume en entier au passage, un
-      \xE0 la fois."
+      autres missions de la p\xE9riode n'ont plus de nom. Chaque b\xE2timent donne
+      Maintenance & Support informatique ; trois d'entre eux donnent aussi Installation
+      mat\xE9riel informatique (d\xE9ploiement de postes, migration de parc). Chaque
+      b\xE2timent s'allume en entier au passage, un \xE0 la fois."
   - id: creajeux
     title: "Cr\xE9ajeux, N\xEEmes"
     years: 2010

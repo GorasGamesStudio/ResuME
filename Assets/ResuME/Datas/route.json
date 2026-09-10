@@ -160,7 +160,7 @@
         {
           "id": "bac-montage-pc",
           "title": "Montage de PC (perso)",
-          "description": "Composants, assemblage, mises à niveau, en parallèle du lycée.",
+          "description": "Composants, assemblage, mises à niveau, pendant les années de lycée.",
           "skills": [
             "installation"
           ],
@@ -202,15 +202,6 @@
           "platforms": [
             "Web"
           ]
-        },
-        {
-          "id": "bts-montage-pc",
-          "title": "Montage et mise à niveau de PC (perso, suite)",
-          "description": "Composants, assemblage, mises à niveau, pendant les années de BTS.",
-          "skills": [
-            "installation"
-          ],
-          "platforms": []
         }
       ],
       "notes": "Second bâtiment collé à droite du premier, même style, même domaine ; il s'éclaire fenêtre par fenêtre à l'approche. Le sprite devient adulte à la sortie."
@@ -231,7 +222,8 @@
           "title": "T-Systems, chez VW Group",
           "description": "Mission d'intérim : support informatique et outil de suivi des demandes de support (bases Access, MySQL).",
           "skills": [
-            "maintenance"
+            "maintenance",
+            "installation"
           ],
           "platforms": []
         },
@@ -240,7 +232,8 @@
           "title": "SPIE Communications",
           "description": "En mission chez des clients : déploiement de postes (jusqu'à 200), migration de parc.",
           "skills": [
-            "maintenance"
+            "maintenance",
+            "installation"
           ],
           "platforms": []
         },
@@ -249,7 +242,8 @@
           "title": "IRIS Conseil",
           "description": "En mission chez des clients : développement d'un outil de suivi de tickets, support utilisateurs.",
           "skills": [
-            "maintenance"
+            "maintenance",
+            "installation"
           ],
           "platforms": []
         },
@@ -263,7 +257,7 @@
           "platforms": []
         }
       ],
-      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec quatre petits bâtiments clients : T-Systems (intérim chez VW Group), SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Tout donne Maintenance & Support informatique. Chaque bâtiment s'allume en entier au passage, un à la fois."
+      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec quatre petits bâtiments clients : T-Systems (intérim chez VW Group), SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Chaque bâtiment donne Maintenance & Support informatique ; trois d'entre eux donnent aussi Installation matériel informatique (déploiement de postes, migration de parc). Chaque bâtiment s'allume en entier au passage, un à la fois."
     },
     {
       "id": "creajeux",
