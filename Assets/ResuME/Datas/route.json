@@ -1148,9 +1148,69 @@
       "years": "2026",
       "level": 40,
       "kind": "End",
-      "widthScreens": 1.0,
-      "notes": "Le PNJ regarde la caméra, pluie de compétences, pouce, carte de contact.",
-      "projects": []
+      "widthScreens": 1.4,
+      "notes": "Fin : chantier des projets en cours sous bâche (nom, plateforme, « en cours », aucun point), puis pluie de compétences, pouce, carte de contact, une ligne de texte. Liste tirée de Projects/Games le 2026-09-11, hors archives et ResuME. Contact : alias sur le domaine gorasgames.fr à confirmer, LinkedIn à fournir.",
+      "projects": [
+        {
+          "id": "wip-k4rant",
+          "title": "K4rant : Arcade Worlds",
+          "description": "En cours.",
+          "skills": [],
+          "platforms": [
+            "Quest",
+            "Steam"
+          ]
+        },
+        {
+          "id": "wip-party-hospital",
+          "title": "Party Hospital",
+          "description": "En cours.",
+          "skills": [],
+          "platforms": [
+            "Quest",
+            "Steam",
+            "iOS"
+          ]
+        },
+        {
+          "id": "wip-rural-quest",
+          "title": "Rural Quest (nom de travail)",
+          "description": "En cours.",
+          "skills": [],
+          "platforms": [
+            "Quest",
+            "Android"
+          ]
+        },
+        {
+          "id": "wip-cities-of-mist",
+          "title": "Cities of Mist",
+          "description": "En cours. Plateforme à préciser.",
+          "skills": [],
+          "platforms": []
+        },
+        {
+          "id": "wip-commercialst",
+          "title": "CommercialSt",
+          "description": "En cours. Plateforme à préciser.",
+          "skills": [],
+          "platforms": []
+        },
+        {
+          "id": "wip-insecticide",
+          "title": "Insecticide",
+          "description": "En cours. Plateforme à préciser.",
+          "skills": [],
+          "platforms": []
+        },
+        {
+          "id": "wip-skai",
+          "title": "SkAI",
+          "description": "En cours. Plateforme à préciser.",
+          "skills": [],
+          "platforms": []
+        }
+      ]
     }
   ]
 }

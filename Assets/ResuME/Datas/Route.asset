@@ -1003,12 +1003,57 @@ MonoBehaviour:
     years: 2026
     level: 40
     kind: 7
-    widthScreens: 1
+    widthScreens: 1.4
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
     traitsAfter: []
     rewards: []
-    projects: []
-    notes: "Le PNJ regarde la cam\xE9ra, pluie de comp\xE9tences, pouce, carte de
-      contact."
+    projects:
+    - id: wip-k4rant
+      title: 'K4rant : Arcade Worlds'
+      description: En cours.
+      skillIds: []
+      platforms:
+      - Quest
+      - Steam
+    - id: wip-party-hospital
+      title: Party Hospital
+      description: En cours.
+      skillIds: []
+      platforms:
+      - Quest
+      - Steam
+      - iOS
+    - id: wip-rural-quest
+      title: Rural Quest (nom de travail)
+      description: En cours.
+      skillIds: []
+      platforms:
+      - Quest
+      - Android
+    - id: wip-cities-of-mist
+      title: Cities of Mist
+      description: "En cours. Plateforme \xE0 pr\xE9ciser."
+      skillIds: []
+      platforms: []
+    - id: wip-commercialst
+      title: CommercialSt
+      description: "En cours. Plateforme \xE0 pr\xE9ciser."
+      skillIds: []
+      platforms: []
+    - id: wip-insecticide
+      title: Insecticide
+      description: "En cours. Plateforme \xE0 pr\xE9ciser."
+      skillIds: []
+      platforms: []
+    - id: wip-skai
+      title: SkAI
+      description: "En cours. Plateforme \xE0 pr\xE9ciser."
+      skillIds: []
+      platforms: []
+    notes: "Fin : chantier des projets en cours sous b\xE2che (nom, plateforme, \xAB
+      en cours \xBB, aucun point), puis pluie de comp\xE9tences, pouce, carte de
+      contact, une ligne de texte. Liste tir\xE9e de Projects/Games le 2026-09-11,
+      hors archives et ResuME. Contact : alias sur le domaine gorasgames.fr \xE0
+      confirmer, LinkedIn \xE0 fournir."
