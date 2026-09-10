@@ -672,7 +672,7 @@
     },
     {
       "id": "rpaint",
-      "title": "R'Paint Games",
+      "title": "R'Paint Games, Méhers",
       "years": "2021",
       "level": 36,
       "kind": "Traverse",
@@ -680,16 +680,34 @@
       "founder": true,
       "projects": [
         {
-          "id": "rpaint-societe",
-          "title": "Création et gestion de R'Paint Games (à détailler)",
-          "description": "Loisirs sportifs et activités récréatives.",
+          "id": "rpaint-creation",
+          "title": "Création de la société et financement",
+          "description": "Co-fondateur et président : statuts, business plan, banque, dossiers de financement, comptabilité.",
           "skills": [
             "gestion-entreprise"
           ],
           "platforms": []
+        },
+        {
+          "id": "rpaint-friche",
+          "title": "Rachat de la friche de Méhers, urbanisme, plans et nettoyage",
+          "description": "Acquisition d'une friche pour 5 400 m² de paintball indoor : urbanisme, expertise, plans et maquette du bâtiment, puis nettoyage intérieur et extérieur à la main.",
+          "skills": [
+            "gestion-entreprise"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "rpaint-scenarios",
+          "title": "Scénarios et environnements de jeu",
+          "description": "Terrains immersifs inspirés de l'univers geek, par saisons : Raccoon Centre, La Porte des étoiles ; base spatiale, événements.",
+          "skills": [
+            "game-design"
+          ],
+          "platforms": []
         }
       ],
-      "notes": "Le bâtiment se rénove pendant la traversée."
+      "notes": "Paintball indoor nouvelle génération sur 5 400 m² dans une friche rachetée à Méhers, nettoyée mais jamais rénovée : la façade verte avec le logo est une projection (dessin dans l'archive RPaintGames.zip). Mascotte : un coq en tenue de paintball. Communication (logo, cartes de fidélité, réseaux) sans point. Trait Polyvalence proposé ici plutôt qu'à Lidl."
     },
     {
       "id": "odn",

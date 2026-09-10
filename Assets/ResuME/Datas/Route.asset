@@ -577,7 +577,7 @@ MonoBehaviour:
       main, \xE9crans visibles, \xC9ric de face ; le personnage passe devant les
       \xE9tudiants, derri\xE8re leurs sprites."
   - id: rpaint
-    title: R'Paint Games
+    title: "R'Paint Games, M\xE9hers"
     years: 2021
     level: 36
     kind: 2
@@ -588,13 +588,34 @@ MonoBehaviour:
     traitsAfter: []
     rewards: []
     projects:
-    - id: rpaint-societe
-      title: "Cr\xE9ation et gestion de R'Paint Games (\xE0 d\xE9tailler)"
-      description: "Loisirs sportifs et activit\xE9s r\xE9cr\xE9atives."
+    - id: rpaint-creation
+      title: "Cr\xE9ation de la soci\xE9t\xE9 et financement"
+      description: "Co-fondateur et pr\xE9sident : statuts, business plan, banque,
+        dossiers de financement, comptabilit\xE9."
       skillIds:
       - gestion-entreprise
       platforms: []
-    notes: "Le b\xE2timent se r\xE9nove pendant la travers\xE9e."
+    - id: rpaint-friche
+      title: "Rachat de la friche de M\xE9hers, urbanisme, plans et nettoyage"
+      description: "Acquisition d'une friche pour 5 400 m\xB2 de paintball indoor
+        : urbanisme, expertise, plans et maquette du b\xE2timent, puis nettoyage
+        int\xE9rieur et ext\xE9rieur \xE0 la main."
+      skillIds:
+      - gestion-entreprise
+      platforms: []
+    - id: rpaint-scenarios
+      title: "Sc\xE9narios et environnements de jeu"
+      description: "Terrains immersifs inspir\xE9s de l'univers geek, par saisons
+        : Raccoon Centre, La Porte des \xE9toiles ; base spatiale, \xE9v\xE9nements."
+      skillIds:
+      - game-design
+      platforms: []
+    notes: "Paintball indoor nouvelle g\xE9n\xE9ration sur 5 400 m\xB2 dans une friche
+      rachet\xE9e \xE0 M\xE9hers, nettoy\xE9e mais jamais r\xE9nov\xE9e : la fa\xE7ade
+      verte avec le logo est une projection (dessin dans l'archive RPaintGames.zip).
+      Mascotte : un coq en tenue de paintball. Communication (logo, cartes de fid\xE9lit\xE9,
+      r\xE9seaux) sans point. Trait Polyvalence propos\xE9 ici plut\xF4t qu'\xE0
+      Lidl."
   - id: odn
     title: ODN CineVR, client de Goras Games Studio
     years: 2022
