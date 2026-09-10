@@ -570,52 +570,22 @@
       },
       "projects": [
         {
-          "id": "ggs-goodapp",
-          "title": "GoodApp (client, mobile 2D)",
-          "description": "Projet client mobile en 2D. À décrire.",
+          "id": "ggs-creation",
+          "title": "Création de la micro-entreprise",
+          "description": "Le guichet : Goras Games Studio naît en 2018, freelance pour rejoindre Game Academy.",
           "skills": [
-            "unity",
-            "csharp"
+            "gestion-entreprise"
           ],
-          "platforms": [
-            "Android",
-            "iOS"
-          ]
+          "platforms": []
         },
         {
-          "id": "ggs-goodtime",
-          "title": "GoodTime (client, mobile 2D)",
-          "description": "Projet client mobile en 2D. À décrire.",
-          "skills": [
-            "unity",
-            "csharp"
-          ],
-          "platforms": [
-            "Android",
-            "iOS"
-          ]
-        },
-        {
-          "id": "ggs-heartbeatgames",
-          "title": "HeartBeat Games (client, mobile 2D)",
-          "description": "Projet client mobile en 2D pour un studio de jeux. À décrire.",
+          "id": "ggs-clients-mobiles",
+          "title": "Clients mobiles 2D",
+          "description": "Projets clients extérieurs, mobiles et en 2D pour la plupart (GoodApp, GoodTime, HeartBeat Games, Studio Stark).",
           "skills": [
             "unity",
             "csharp",
             "game-design"
-          ],
-          "platforms": [
-            "Android",
-            "iOS"
-          ]
-        },
-        {
-          "id": "ggs-studiostark",
-          "title": "Studio Stark (client, mobile 2D)",
-          "description": "Projet client mobile en 2D. À décrire.",
-          "skills": [
-            "unity",
-            "csharp"
           ],
           "platforms": [
             "Android",
@@ -707,7 +677,7 @@
           ]
         }
       ],
-      "notes": "2018 : passage en freelance pour rejoindre Game Academy, puis projets clients extérieurs. Mobiles 2D pour la plupart (GoodApp, GoodTime, HeartBeat Games, Studio Stark d'après les archives clients, à confirmer). ODN (One Digital Nation, CineVR) sur plusieurs années : refonte totale et portages sur de nombreux casques, gros gain en RV, faible en Unity, moyen en conception. Les projets propres du studio, jamais sortis, sont ignorés. Guichet au début du lieu, puis les projets."
+      "notes": "2018 : passage en freelance pour rejoindre Game Academy, puis projets clients extérieurs. Guichet au début du lieu (création de la micro-entreprise : un point de Gestion d'entreprise), puis en extérieur des clichés d'applications mobiles pour les clients mobiles 2D (un seul projet), puis ODN CineVR (One Digital Nation) en sept projets : gros gain en RV, faible en Unity, moyen en conception. Projets propres du studio ignorés."
     },
     {
       "id": "game-academy",
@@ -772,6 +742,15 @@
           "platforms": []
         },
         {
+          "id": "ga-evenements",
+          "title": "Game Camp, salons et événements",
+          "description": "Game Camp, journée au Capitole (décembre 2018), salons jeux vidéo, tests d'admission.",
+          "skills": [
+            "formation"
+          ],
+          "platforms": []
+        },
+        {
           "id": "ga-pointage",
           "title": "Logiciel de pointage et de planning des étudiants",
           "description": "Outil interne de suivi des présences et des plannings (Visual Basic, de mémoire).",
@@ -783,7 +762,7 @@
           ]
         }
       ],
-      "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier Game Academy introuvable sur les disques. Compétence du logiciel de pointage à confirmer (Bases de données ?)."
+      "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier retrouvé : Autres/Entreprenariat/LevelUp/Game Academy (programmes prépa, année 1, année 2, Game Camp, projets étudiants Android VR, EscapeGA, MultiBoats, tests d'admission, plannings). Logiciel de pointage non retrouvé : compétence provisoire Bases de données."
     },
     {
       "id": "rpaint",
