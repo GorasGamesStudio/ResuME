@@ -712,7 +712,7 @@
     {
       "id": "game-academy",
       "title": "Game Academy",
-      "years": "2018 - 2020 · Formateur",
+      "years": "2018",
       "level": 33,
       "kind": "Traverse",
       "widthScreens": 1.2,
@@ -722,17 +722,68 @@
       "projects": [
         {
           "id": "ga-programme",
-          "title": "Programme pédagogique sur quatre ans (à détailler)",
-          "description": "De la prépa à la 3e année, événements et salons.",
+          "title": "Conception du programme de formation sur trois ans",
+          "description": "De la prépa à la troisième année : progression, matières, projets.",
+          "skills": [
+            "formation"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "ga-cours-programmation",
+          "title": "Cours de programmation de jeux (Unity, C#)",
+          "description": "Dispense des cours de programmation aux étudiants.",
           "skills": [
             "formation",
             "unity",
-            "csharp",
+            "csharp"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "ga-game-designs",
+          "title": "Game designs créés pour les étudiants",
+          "description": "Des concepts de jeux conçus pour servir de sujets aux promotions.",
+          "skills": [
+            "formation",
             "game-design"
           ],
           "platforms": []
+        },
+        {
+          "id": "ga-histoire-jv",
+          "title": "Cours d'histoire du jeu vidéo",
+          "description": "Des origines aux jeux d'aujourd'hui.",
+          "skills": [
+            "formation"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "ga-cours-game-design",
+          "title": "Cours de game design",
+          "description": "Mécaniques, boucles, équilibrage, documents de conception.",
+          "skills": [
+            "formation",
+            "game-design"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "ga-pointage",
+          "title": "Logiciel de pointage et de planning des étudiants",
+          "description": "Outil interne de suivi des présences et des plannings (Visual Basic, de mémoire).",
+          "skills": [
+            "bases-donnees"
+          ],
+          "platforms": [
+            "Windows"
+          ]
         }
-      ]
+      ],
+      "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier Game Academy introuvable sur les disques. Compétence du logiciel de pointage à confirmer (Bases de données ?)."
     },
     {
       "id": "rpaint",

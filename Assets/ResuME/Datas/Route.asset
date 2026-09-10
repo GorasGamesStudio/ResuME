@@ -592,7 +592,7 @@ MonoBehaviour:
       du lieu, puis les projets."
   - id: game-academy
     title: Game Academy
-    years: "2018 - 2020 \xB7 Formateur"
+    years: 2018
     level: 33
     kind: 2
     widthScreens: 1.2
@@ -608,15 +608,52 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: ga-programme
-      title: "Programme p\xE9dagogique sur quatre ans (\xE0 d\xE9tailler)"
-      description: "De la pr\xE9pa \xE0 la 3e ann\xE9e, \xE9v\xE9nements et salons."
+      title: Conception du programme de formation sur trois ans
+      description: "De la pr\xE9pa \xE0 la troisi\xE8me ann\xE9e : progression, mati\xE8res,
+        projets."
+      skillIds:
+      - formation
+      platforms: []
+    - id: ga-cours-programmation
+      title: Cours de programmation de jeux (Unity, C#)
+      description: "Dispense des cours de programmation aux \xE9tudiants."
       skillIds:
       - formation
       - unity
       - csharp
+      platforms:
+      - PC
+    - id: ga-game-designs
+      title: "Game designs cr\xE9\xE9s pour les \xE9tudiants"
+      description: "Des concepts de jeux con\xE7us pour servir de sujets aux promotions."
+      skillIds:
+      - formation
       - game-design
       platforms: []
-    notes: 
+    - id: ga-histoire-jv
+      title: "Cours d'histoire du jeu vid\xE9o"
+      description: Des origines aux jeux d'aujourd'hui.
+      skillIds:
+      - formation
+      platforms: []
+    - id: ga-cours-game-design
+      title: Cours de game design
+      description: "M\xE9caniques, boucles, \xE9quilibrage, documents de conception."
+      skillIds:
+      - formation
+      - game-design
+      platforms: []
+    - id: ga-pointage
+      title: "Logiciel de pointage et de planning des \xE9tudiants"
+      description: "Outil interne de suivi des pr\xE9sences et des plannings (Visual
+        Basic, de m\xE9moire)."
+      skillIds:
+      - bases-donnees
+      platforms:
+      - Windows
+    notes: "Deux ans et demi comme formateur (trois ann\xE9es de formation). Dossier
+      Game Academy introuvable sur les disques. Comp\xE9tence du logiciel de pointage
+      \xE0 confirmer (Bases de donn\xE9es ?)."
   - id: rpaint
     title: R'Paint Games
     years: "2020 - 2023 \xB7 Co-fondateur & Pr\xE9sident"
