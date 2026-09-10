@@ -671,27 +671,6 @@
       "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste anecdotique (pas de projet). Composition : bâtiment avec logo (photos d'Éric à venir), salle vue de derrière, étudiants de dos qui lèvent la main, écrans visibles, Éric de face ; le personnage passe devant les étudiants, derrière leurs sprites."
     },
     {
-      "id": "rpaint",
-      "title": "R'Paint Games",
-      "years": "2020 - 2023 · Co-fondateur & Président",
-      "level": 35,
-      "kind": "Traverse",
-      "widthScreens": 1.2,
-      "founder": true,
-      "projects": [
-        {
-          "id": "rpaint-societe",
-          "title": "Création et gestion de R'Paint Games (à détailler)",
-          "description": "Loisirs sportifs et activités récréatives.",
-          "skills": [
-            "gestion-entreprise"
-          ],
-          "platforms": []
-        }
-      ],
-      "notes": "Le bâtiment se rénove pendant la traversée."
-    },
-    {
       "id": "odn",
       "title": "ODN CineVR, client de Goras Games Studio",
       "years": "2021",
@@ -776,6 +755,27 @@
         }
       ],
       "notes": "One Digital Nation, cinéma en réalité virtuelle : un seul projet décliné en adaptations, en 2021 (décision d'Éric), après le départ de Game Academy. Compétences limitées : beaucoup de RV (5), moyen en Unity (3), un peu de C# (1) et de conception (1). Composition à définir : salle de cinéma en VR, rangée de casques."
+    },
+    {
+      "id": "rpaint",
+      "title": "R'Paint Games",
+      "years": "2022",
+      "level": 37,
+      "kind": "Traverse",
+      "widthScreens": 1.2,
+      "founder": true,
+      "projects": [
+        {
+          "id": "rpaint-societe",
+          "title": "Création et gestion de R'Paint Games (à détailler)",
+          "description": "Loisirs sportifs et activités récréatives.",
+          "skills": [
+            "gestion-entreprise"
+          ],
+          "platforms": []
+        }
+      ],
+      "notes": "Le bâtiment se rénove pendant la traversée."
     },
     {
       "id": "lidl",
