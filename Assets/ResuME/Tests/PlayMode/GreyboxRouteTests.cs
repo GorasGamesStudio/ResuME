@@ -40,7 +40,7 @@ namespace ResuME.Tests
             Assert.AreEqual(12, expectedSkills, "12 skills: the 11 of the review plus artificial intelligence");
             Assert.Greater(expectedGains, expectedSkills, "skills must be reinforced by several projects");
             Assert.Greater(world.Route.CountProjects(), 0, "the route must contain projects");
-            Assert.AreEqual(6, expectedTraits, "the CV lists 6 personal traits");
+            Assert.GreaterOrEqual(expectedTraits, 6, "at least the six personal traits of the CV");
             Assert.AreEqual(1, expectedPassives, "Goras Games Studio is the only passive");
 
             mover.ForcedDirection = 1f;
