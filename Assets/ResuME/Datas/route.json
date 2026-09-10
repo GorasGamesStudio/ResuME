@@ -450,7 +450,8 @@
           "skills": [
             "unity",
             "csharp",
-            "vr"
+            "vr",
+            "game-design"
           ],
           "platforms": [
             "Windows"
@@ -476,7 +477,8 @@
           "skills": [
             "unity",
             "csharp",
-            "vr"
+            "vr",
+            "game-design"
           ],
           "platforms": [
             "PC"
@@ -489,7 +491,8 @@
           "skills": [
             "unity",
             "csharp",
-            "vr"
+            "vr",
+            "game-design"
           ],
           "platforms": [
             "PC"
@@ -501,7 +504,8 @@
           "description": "Application avec asset bundles (2015-2016).",
           "skills": [
             "unity",
-            "csharp"
+            "csharp",
+            "game-design"
           ],
           "platforms": [
             "PC"

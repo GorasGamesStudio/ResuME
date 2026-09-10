@@ -384,6 +384,7 @@ MonoBehaviour:
       - unity
       - csharp
       - vr
+      - game-design
       platforms:
       - Windows
     - id: allucyne-sjs-hypervisuel
@@ -402,6 +403,7 @@ MonoBehaviour:
       - unity
       - csharp
       - vr
+      - game-design
       platforms:
       - PC
     - id: allucyne-colmar
@@ -411,6 +413,7 @@ MonoBehaviour:
       - unity
       - csharp
       - vr
+      - game-design
       platforms:
       - PC
     - id: allucyne-judo-kodokan
@@ -419,6 +422,7 @@ MonoBehaviour:
       skillIds:
       - unity
       - csharp
+      - game-design
       platforms:
       - PC
     notes: "Rejointe en 2013 sous le nom Num\xE9ri4D, devenue Allucyne. Applications
