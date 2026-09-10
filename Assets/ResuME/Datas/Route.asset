@@ -580,7 +580,7 @@ MonoBehaviour:
     title: "R'Paint Games, M\xE9hers"
     years: 2021
     level: 36
-    kind: 2
+    kind: 1
     widthScreens: 1.2
     founder: 1
     gapAfterScreens: -1
@@ -614,8 +614,9 @@ MonoBehaviour:
       rachet\xE9e \xE0 M\xE9hers, nettoy\xE9e mais jamais r\xE9nov\xE9e : la fa\xE7ade
       verte avec le logo est une projection (dessin dans l'archive RPaintGames.zip).
       Mascotte : un coq en tenue de paintball. Communication (logo, cartes de fid\xE9lit\xE9,
-      r\xE9seaux) sans point. Trait Polyvalence propos\xE9 ici plut\xF4t qu'\xE0
-      Lidl."
+      r\xE9seaux) sans point. On ne rentre pas : le personnage repeint la fa\xE7ade
+      ext\xE9rieure au lanceur, la peinture r\xE9v\xE8le la projection par plaques.
+      Trait Polyvalence propos\xE9 ici plut\xF4t qu'\xE0 Lidl."
   - id: odn
     title: ODN CineVR, client de Goras Games Studio
     years: 2022
