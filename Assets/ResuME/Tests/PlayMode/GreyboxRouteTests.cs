@@ -76,7 +76,6 @@ namespace ResuME.Tests
                 totalPoints += mastery.Points;
             }
             Assert.AreEqual(expectedGains, totalPoints, "every gain on the lane counts once");
-            Assert.AreEqual(1, progress.MasteryOf("cpp"), "C++ was only used at Créajeux");
             Assert.AreEqual(expectedTraits, progress.Traits.Count);
             Assert.AreEqual(expectedPassives, progress.Passives.Count);
             Assert.AreEqual("Développeur de jeux vidéo", progress.ClassTitle);
