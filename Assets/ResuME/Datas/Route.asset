@@ -17,7 +17,7 @@ MonoBehaviour:
   roadHeightUnits: 2
   secondsPerScreen: 3
   gapScreens: 0.5
-  masteryScaleMax: 5
+  masteryScaleMax: 20
   skills:
   - id: unity
     label: Unity 3D
