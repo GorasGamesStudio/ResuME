@@ -245,8 +245,9 @@ MonoBehaviour:
       platforms:
       - PC
     - id: creajeux-batailles-spatiales
-      title: 'Premiers jeux : batailles spatiales (SFML)'
-      description: "Les premiers jeux, \xE9videmment dans l'espace."
+      title: Batailles spatiales et Creatapult (C++, SFML)
+      description: "Les premiers jeux, \xE9videmment dans l'espace, puis un jeu de
+        catapulte repris en DirectX en troisi\xE8me ann\xE9e."
       skillIds:
       - cpp
       - game-design
@@ -259,12 +260,12 @@ MonoBehaviour:
       - unity
       platforms:
       - PC
-    - id: creajeux-creatapult
-      title: Creatapult
-      description: "Jeu de catapulte en C++ (2012), repris en DirectX en troisi\xE8me
-        ann\xE9e."
+    - id: creajeux-stoba
+      title: Stoba (Unity)
+      description: "Projet Unity de 2012, \xE0 d\xE9crire."
       skillIds:
-      - cpp
+      - unity
+      - csharp
       - game-design
       platforms:
       - PC
@@ -275,12 +276,20 @@ MonoBehaviour:
       - game-design
       platforms:
       - Web
+    - id: creajeux-prototypes-unity
+      title: "Prototypes Unity de deuxi\xE8me ann\xE9e"
+      description: Les projets dont les noms se sont perdus, toujours sur le disque
+        dur.
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - PC
     - id: creajeux-game-jam
       title: "Game jam : \xAB Mais qui a tu\xE9 Eric Bonnet \xBB"
-      description: "Jeu SFML r\xE9alis\xE9 en jam sur le framework de l'\xE9cole
+      description: "Jeu r\xE9alis\xE9 en jam sur le framework SFML de l'\xE9cole
         (2013)."
       skillIds:
-      - cpp
       - game-design
       platforms:
       - PC
@@ -301,17 +310,20 @@ MonoBehaviour:
       - dev-web
       platforms:
       - Web
-    - id: creajeux-dkx-reseau
-      title: "Projets de troisi\xE8me ann\xE9e : DirectX et r\xE9seau"
-      description: "Ultimate Dungeon Keeper Project (DirectX), projet r\xE9seau en
-        bin\xF4me."
+    - id: creajeux-unity-3e-annee
+      title: "Projets Unity de troisi\xE8me ann\xE9e"
+      description: "Unity devient l'outil principal ; le C++ reste pour DirectX et
+        le r\xE9seau."
       skillIds:
-      - cpp
+      - unity
+      - csharp
       platforms:
       - PC
-    notes: "Proposition tir\xE9e des archives, \xE0 \xE9laguer par \xC9ric. Fa\xE7ade
-      et couleurs de l'\xE9cole \xE0 d\xE9finir. Classe d\xE9finitive \xAB D\xE9veloppeur
-      de jeux vid\xE9o \xBB \xE0 la sortie."
+    notes: "Unity est pass\xE9 largement devant pendant Cr\xE9ajeux : C++ \xE0 2,
+      Unity \xE0 5 \xE0 la sortie (d\xE9cision d'\xC9ric). Stoba (2012) retrouv\xE9
+      dans les archives, \xE0 d\xE9crire. Fa\xE7ade et couleurs de l'\xE9cole \xE0
+      d\xE9finir. Classe d\xE9finitive \xAB D\xE9veloppeur de jeux vid\xE9o \xBB
+      \xE0 la sortie."
   - id: montbeliard
     title: "D\xE9veloppement Unity, Montb\xE9liard"
     years: 2013 - 2016

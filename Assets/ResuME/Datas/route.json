@@ -275,8 +275,8 @@
         },
         {
           "id": "creajeux-batailles-spatiales",
-          "title": "Premiers jeux : batailles spatiales (SFML)",
-          "description": "Les premiers jeux, évidemment dans l'espace.",
+          "title": "Batailles spatiales et Creatapult (C++, SFML)",
+          "description": "Les premiers jeux, évidemment dans l'espace, puis un jeu de catapulte repris en DirectX en troisième année.",
           "skills": [
             "cpp",
             "game-design"
@@ -297,11 +297,12 @@
           ]
         },
         {
-          "id": "creajeux-creatapult",
-          "title": "Creatapult",
-          "description": "Jeu de catapulte en C++ (2012), repris en DirectX en troisième année.",
+          "id": "creajeux-stoba",
+          "title": "Stoba (Unity)",
+          "description": "Projet Unity de 2012, à décrire.",
           "skills": [
-            "cpp",
+            "unity",
+            "csharp",
             "game-design"
           ],
           "platforms": [
@@ -320,11 +321,22 @@
           ]
         },
         {
+          "id": "creajeux-prototypes-unity",
+          "title": "Prototypes Unity de deuxième année",
+          "description": "Les projets dont les noms se sont perdus, toujours sur le disque dur.",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
           "id": "creajeux-game-jam",
           "title": "Game jam : « Mais qui a tué Eric Bonnet »",
-          "description": "Jeu SFML réalisé en jam sur le framework de l'école (2013).",
+          "description": "Jeu réalisé en jam sur le framework SFML de l'école (2013).",
           "skills": [
-            "cpp",
             "game-design"
           ],
           "platforms": [
@@ -356,18 +368,19 @@
           ]
         },
         {
-          "id": "creajeux-dkx-reseau",
-          "title": "Projets de troisième année : DirectX et réseau",
-          "description": "Ultimate Dungeon Keeper Project (DirectX), projet réseau en binôme.",
+          "id": "creajeux-unity-3e-annee",
+          "title": "Projets Unity de troisième année",
+          "description": "Unity devient l'outil principal ; le C++ reste pour DirectX et le réseau.",
           "skills": [
-            "cpp"
+            "unity",
+            "csharp"
           ],
           "platforms": [
             "PC"
           ]
         }
       ],
-      "notes": "Proposition tirée des archives, à élaguer par Éric. Façade et couleurs de l'école à définir. Classe définitive « Développeur de jeux vidéo » à la sortie."
+      "notes": "Unity est passé largement devant pendant Créajeux : C++ à 2, Unity à 5 à la sortie (décision d'Éric). Stoba (2012) retrouvé dans les archives, à décrire. Façade et couleurs de l'école à définir. Classe définitive « Développeur de jeux vidéo » à la sortie."
     },
     {
       "id": "montbeliard",
