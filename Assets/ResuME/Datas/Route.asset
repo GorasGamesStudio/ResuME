@@ -427,10 +427,9 @@ MonoBehaviour:
       - PC
     notes: "Sentier de m\xE9moire en plein air (valid\xE9) : panneaux de bois par
       projet, cr\xEAte des Vosges, fort, colombages, tranch\xE9e et casque, avion,
-      table d'orientation \xE0 jumelles (vue casque). Versions 2018 de Colmar, Judo
-      Kodokan et SJS \xE0 trancher."
-  - id: alsace
-    title: "D\xE9veloppement pharmaceutique, Alsace"
+      table d'orientation \xE0 jumelles (vue casque). Lieu clos le 2026-09-11."
+  - id: whitequest
+    title: WhiteQuest, Alsace
     years: 2017
     level: 32
     kind: 2
@@ -441,14 +440,27 @@ MonoBehaviour:
     traitsAfter: []
     rewards: []
     projects:
-    - id: alsace-projets
-      title: "Serious games pharmaceutiques (\xE0 d\xE9tailler)"
-      description: Simulation et apprentissage.
+    - id: whitequest-labquest-pharma
+      title: LabQuest Pharma
+      description: "Outil de formation et d'\xE9valuation des laborantins, premi\xE8re
+        version (Unity 5.3, 2017)."
       skillIds:
       - unity
       - csharp
-      platforms: []
-    notes: 
+      platforms:
+      - PC
+    - id: whitequest-labquest-system
+      title: LabQuest System
+      description: "Refonte de l'outil (Unity 5.6, 2017-2018) : gros travail d'outils
+        d'\xE9diteur Unity pour construire les sc\xE9narios."
+      skillIds:
+      - unity
+      - csharp
+      platforms:
+      - PC
+    notes: "Outil de formation et d'\xE9valuation des laborantins ; gros travail
+      d'\xE9diteur Unity. Deux projets propos\xE9s (Pharma puis System), \xE0 confirmer.
+      Composition \xE0 d\xE9finir."
   - id: ggs
     title: Goras Games Studio
     years: "2018 - aujourd'hui \xB7 micro-entreprise"

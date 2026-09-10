@@ -512,27 +512,42 @@
           ]
         }
       ],
-      "notes": "Sentier de mémoire en plein air (validé) : panneaux de bois par projet, crête des Vosges, fort, colombages, tranchée et casque, avion, table d'orientation à jumelles (vue casque). Versions 2018 de Colmar, Judo Kodokan et SJS à trancher."
+      "notes": "Sentier de mémoire en plein air (validé) : panneaux de bois par projet, crête des Vosges, fort, colombages, tranchée et casque, avion, table d'orientation à jumelles (vue casque). Lieu clos le 2026-09-11."
     },
     {
-      "id": "alsace",
-      "title": "Développement pharmaceutique, Alsace",
+      "id": "whitequest",
+      "title": "WhiteQuest, Alsace",
       "years": "2017",
       "level": 32,
       "kind": "Traverse",
       "widthScreens": 0.8,
       "projects": [
         {
-          "id": "alsace-projets",
-          "title": "Serious games pharmaceutiques (à détailler)",
-          "description": "Simulation et apprentissage.",
+          "id": "whitequest-labquest-pharma",
+          "title": "LabQuest Pharma",
+          "description": "Outil de formation et d'évaluation des laborantins, première version (Unity 5.3, 2017).",
           "skills": [
             "unity",
             "csharp"
           ],
-          "platforms": []
+          "platforms": [
+            "PC"
+          ]
+        },
+        {
+          "id": "whitequest-labquest-system",
+          "title": "LabQuest System",
+          "description": "Refonte de l'outil (Unity 5.6, 2017-2018) : gros travail d'outils d'éditeur Unity pour construire les scénarios.",
+          "skills": [
+            "unity",
+            "csharp"
+          ],
+          "platforms": [
+            "PC"
+          ]
         }
-      ]
+      ],
+      "notes": "Outil de formation et d'évaluation des laborantins ; gros travail d'éditeur Unity. Deux projets proposés (Pharma puis System), à confirmer. Composition à définir."
     },
     {
       "id": "ggs",
