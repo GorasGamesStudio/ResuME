@@ -15,6 +15,53 @@ MonoBehaviour:
   screenWidthUnits: 32
   buildingHeightUnits: 6
   roadHeightUnits: 2
+  verticalSpanScreens: 2.5
+  places:
+  - id: senlis
+    label: Senlis (Oise)
+    x: 0.55
+    y: 0.82
+    groundColor: '#6E6A5A'
+  - id: idf
+    label: "\xCEle-de-France, en mission"
+    x: 0.52
+    y: 0.78
+    groundColor: '#5C5C66'
+  - id: nimes
+    label: "N\xEEmes (Gard)"
+    x: 0.62
+    y: 0.2
+    groundColor: '#8A7A55'
+  - id: montbeliard
+    label: "Montb\xE9liard (Doubs)"
+    x: 0.86
+    y: 0.62
+    groundColor: '#4F6B4A'
+  - id: alsace
+    label: Alsace
+    x: 0.9
+    y: 0.72
+    groundColor: '#5E7A4E'
+  - id: centre
+    label: Centre-Val de Loire
+    x: 0.48
+    y: 0.58
+    groundColor: '#6B6E52'
+  - id: mehers
+    label: "M\xE9hers (Loir-et-Cher)"
+    x: 0.47
+    y: 0.56
+    groundColor: '#6B6E52'
+  - id: sologne
+    label: Sologne (Loir-et-Cher)
+    x: 0.5
+    y: 0.55
+    groundColor: '#5F6A48'
+  - id: orleans
+    label: "Orl\xE9ans (Loiret)"
+    x: 0.53
+    y: 0.62
+    groundColor: '#6B6E52'
   secondsPerScreen: 3
   gapScreens: 0.3
   masteryScaleMax: 20
@@ -92,6 +139,7 @@ MonoBehaviour:
   - id: chambre
     title: Chambre d'enfant
     years: "vers 2000 \xB7 entr\xE9e en seconde"
+    place: senlis
     level: 15
     kind: 0
     widthScreens: 0.5
@@ -117,6 +165,7 @@ MonoBehaviour:
   - id: bac
     title: "Lyc\xE9e Saint Vincent, Senlis"
     years: "2003 \xB7 BAC STT Comptabilit\xE9 & Gestion"
+    place: senlis
     level: 18
     kind: 2
     widthScreens: 0.4
@@ -152,6 +201,7 @@ MonoBehaviour:
   - id: bts
     title: "Lyc\xE9e Saint Vincent, Senlis"
     years: "2005 \xB7 BTS Informatique de Gestion"
+    place: senlis
     level: 20
     kind: 2
     widthScreens: 0.4
@@ -185,6 +235,7 @@ MonoBehaviour:
   - id: support
     title: "Missions SSII : support et d\xE9ploiement"
     years: 2005
+    place: idf
     level: 20
     kind: 6
     widthScreens: 0.4
@@ -241,6 +292,7 @@ MonoBehaviour:
   - id: creajeux
     title: "Cr\xE9ajeux, N\xEEmes"
     years: 2010
+    place: nimes
     level: 25
     kind: 1
     widthScreens: 0.4
@@ -345,6 +397,7 @@ MonoBehaviour:
   - id: allucyne
     title: "Allucyne (ex Num\xE9ri4D), Montb\xE9liard"
     years: 2013
+    place: montbeliard
     level: 28
     kind: 5
     widthScreens: 0.6
@@ -449,6 +502,7 @@ MonoBehaviour:
   - id: whitequest
     title: WhiteQuest, Alsace
     years: 2017
+    place: alsace
     level: 32
     kind: 2
     widthScreens: 0.4
@@ -485,6 +539,7 @@ MonoBehaviour:
   - id: ggs
     title: Goras Games Studio
     years: "2018 - aujourd'hui \xB7 micro-entreprise"
+    place: centre
     level: 33
     kind: 3
     widthScreens: 0.4
@@ -530,6 +585,7 @@ MonoBehaviour:
   - id: game-academy
     title: Game Academy
     years: 2018
+    place: centre
     level: 33
     kind: 2
     widthScreens: 0.6
@@ -597,6 +653,7 @@ MonoBehaviour:
   - id: ggs-2019
     title: Goras Games Studio
     years: 2019
+    place: centre
     level: 34
     kind: 3
     widthScreens: 0.2
@@ -624,6 +681,7 @@ MonoBehaviour:
   - id: ggs-2020
     title: Goras Games Studio
     years: 2020
+    place: centre
     level: 35
     kind: 3
     widthScreens: 0.2
@@ -655,6 +713,7 @@ MonoBehaviour:
   - id: rpaint
     title: "R'Paint Games, M\xE9hers"
     years: 2021
+    place: mehers
     level: 36
     kind: 1
     widthScreens: 0.6
@@ -700,6 +759,7 @@ MonoBehaviour:
   - id: ggs-2021
     title: Goras Games Studio
     years: 2021
+    place: centre
     level: 36
     kind: 3
     widthScreens: 0.2
@@ -744,6 +804,7 @@ MonoBehaviour:
   - id: ggs-2022
     title: Goras Games Studio
     years: 2022
+    place: centre
     level: 37
     kind: 3
     widthScreens: 0.2
@@ -766,6 +827,7 @@ MonoBehaviour:
   - id: lidl
     title: Lidl
     years: "2023 - 2024 \xB7 Employ\xE9 polyvalent"
+    place: sologne
     level: 38
     kind: 1
     widthScreens: 0.25
@@ -794,6 +856,7 @@ MonoBehaviour:
   - id: ggs-2023
     title: Goras Games Studio
     years: 2023
+    place: centre
     level: 38
     kind: 3
     widthScreens: 0.2
@@ -816,6 +879,7 @@ MonoBehaviour:
   - id: ggs-2024
     title: Goras Games Studio
     years: 2024
+    place: centre
     level: 39
     kind: 3
     widthScreens: 0.2
@@ -838,6 +902,7 @@ MonoBehaviour:
   - id: cine-sologne
     title: "Cin\xE9 Sologne"
     years: 2025
+    place: sologne
     level: 40
     kind: 1
     widthScreens: 0.25
@@ -866,6 +931,7 @@ MonoBehaviour:
   - id: ggs-2025
     title: Goras Games Studio
     years: 2025
+    place: centre
     level: 40
     kind: 3
     widthScreens: 0.2
@@ -889,6 +955,7 @@ MonoBehaviour:
   - id: crn
     title: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
     years: 2026
+    place: orleans
     level: 40
     kind: 5
     widthScreens: 0.4
@@ -913,6 +980,7 @@ MonoBehaviour:
   - id: ggs-2026
     title: Goras Games Studio
     years: 2026
+    place: centre
     level: 40
     kind: 3
     widthScreens: 0.2
@@ -960,6 +1028,7 @@ MonoBehaviour:
   - id: loire-games
     title: Loire Games
     years: 2025
+    place: centre
     level: 40
     kind: 4
     widthScreens: 0.3
@@ -1017,6 +1086,7 @@ MonoBehaviour:
   - id: aujourdhui
     title: Aujourd'hui
     years: 2026
+    place: centre
     level: 40
     kind: 7
     widthScreens: 0.7

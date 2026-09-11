@@ -32,11 +32,14 @@ namespace GGS.Resume.Editor
             public float gapScreens = 0.5f;
             public int masteryScaleMax = 5;
             public ContactFile contact = new ContactFile();
+            public float verticalSpanScreens = 2.5f;
+            public List<PlaceFile> places = new List<PlaceFile>();
             public List<SkillFile> skills = new List<SkillFile>();
             public List<TraitFile> traits = new List<TraitFile>();
             public List<StopFile> stops = new List<StopFile>();
         }
 
+        [Serializable] private class PlaceFile { public string id; public string label; public float x; public float y; public string groundColor; }
         [Serializable] private class ContactFile { public string email; public string linkedin; public string cvUrl; public string closingLine; }
         [Serializable] private class SkillFile { public string id; public string label; public string @short; public string category; public string description; }
         [Serializable] private class TraitFile { public string id; public string label; public string description; }
@@ -48,6 +51,7 @@ namespace GGS.Resume.Editor
             public string id;
             public string title;
             public string years;
+            public string place;
             public int level;
             public string kind;
             public float widthScreens = 1f;
@@ -117,6 +121,16 @@ namespace GGS.Resume.Editor
                 skills.Add(new SkillDefinition { id = skill.id, label = skill.label, shortLabel = string.IsNullOrEmpty(skill.@short) ? skill.label : skill.@short, category = category, description = skill.description });
             }
 
+            // Places of the map: ids must be unique and every stop must point to one of them.
+            List<PlaceDefinition> places = new List<PlaceDefinition>();
+            HashSet<string> placeIds = new HashSet<string>();
+            foreach (PlaceFile place in file.places)
+            {
+                if (string.IsNullOrEmpty(place.id)) { errors.Add("a place has no id"); continue; }
+                if (!placeIds.Add(place.id)) { errors.Add($"duplicate place id '{place.id}'"); continue; }
+                places.Add(new PlaceDefinition { id = place.id, label = place.label, x = Mathf.Clamp01(place.x), y = Mathf.Clamp01(place.y), groundColor = place.groundColor });
+            }
+
             List<StopDefinition> stops = new List<StopDefinition>();
             HashSet<string> stopIds = new HashSet<string>();
             foreach (StopFile s in file.stops)
@@ -129,9 +143,10 @@ namespace GGS.Resume.Editor
                     kind = StopKind.Traverse;
                 }
 
+                if (!string.IsNullOrEmpty(s.place) && !placeIds.Contains(s.place)) errors.Add($"stop '{s.id}': unknown place '{s.place}'");
                 StopDefinition stop = new StopDefinition
                 {
-                    id = s.id, title = s.title, years = s.years, level = s.level, kind = kind,
+                    id = s.id, title = s.title, years = s.years, place = s.place, level = s.level, kind = kind,
                     widthScreens = s.widthScreens <= 0f ? 1f : s.widthScreens, gapAfterScreens = s.gapAfterScreens, founder = s.founder, notes = s.notes
                 };
 
@@ -178,6 +193,8 @@ namespace GGS.Resume.Editor
             route.secondsPerScreen = file.secondsPerScreen;
             route.gapScreens = file.gapScreens;
             route.masteryScaleMax = file.masteryScaleMax;
+            route.verticalSpanScreens = file.verticalSpanScreens;
+            route.places = places;
             route.contactEmail = file.contact != null ? file.contact.email : "";
             route.contactLinkedIn = file.contact != null ? file.contact.linkedin : "";
             route.contactCvUrl = file.contact != null ? file.contact.cvUrl : "";

@@ -93,6 +93,21 @@ namespace GGS.Resume.Data
     }
 
     /// <summary>
+    /// A geographic place on the stylised map of France (x west to east, y south to north, both 0 to 1).
+    /// The route turns north or south when consecutive stops belong to different places.
+    /// </summary>
+    [Serializable]
+    public class PlaceDefinition
+    {
+        public string id;
+        public string label;
+        [Range(0f, 1f)] public float x;
+        [Range(0f, 1f)] public float y;
+        [Tooltip("Greybox tint of the ground in this region (HTML colour), until the art brings the real environment.")]
+        public string groundColor;
+    }
+
+    /// <summary>
     /// A stop of the route: a place of the timeline with its rewards and projects.
     /// </summary>
     [Serializable]
@@ -101,6 +116,8 @@ namespace GGS.Resume.Data
         public string id;
         public string title;
         public string years;
+        [Tooltip("Id of the geographic place (see RouteDefinition.places).")]
+        public string place;
         [Tooltip("Displayed level = Éric's age when reaching this stop.")]
         public int level;
         public StopKind kind;
@@ -140,6 +157,11 @@ namespace GGS.Resume.Data
         public float buildingHeightUnits = 6f;
         [Tooltip("Height of the road band the character walks on, in world units.")]
         public float roadHeightUnits = 2f;
+
+        [Header("Map")]
+        [Tooltip("Length in screens of a vertical leg spanning the whole map, north to south.")]
+        public float verticalSpanScreens = 2.5f;
+        public List<PlaceDefinition> places = new List<PlaceDefinition>();
 
         [Header("Pacing")]
         [Tooltip("Seconds needed to walk across one screen.")]
@@ -192,6 +214,20 @@ namespace GGS.Resume.Data
         /// <param name="stop">The stop whose following road is measured.</param>
         /// <returns>Its own override when set, otherwise the route default.</returns>
         public float GapAfter(StopDefinition stop) => stop.gapAfterScreens >= 0f ? stop.gapAfterScreens : gapScreens;
+
+        /// <summary>
+        /// Finds a place of the map by id.
+        /// </summary>
+        /// <param name="id">Place id as written on the stops.</param>
+        /// <returns>The place, or null when unknown.</returns>
+        public PlaceDefinition FindPlace(string id)
+        {
+            foreach (PlaceDefinition place in places)
+            {
+                if (place.id == id) return place;
+            }
+            return null;
+        }
 
         /// <summary>
         /// Finds a skill of the catalogue by id.

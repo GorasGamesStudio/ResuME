@@ -147,6 +147,8 @@ namespace GGS.Resume.Editor
             hud.Configure(world, progress, font);
             GreyboxDebugOverlay overlay = hudGo.AddComponent<GreyboxDebugOverlay>();
             overlay.Configure(world, mover);
+            MiniMapHud miniMap = hudGo.AddComponent<MiniMapHud>();
+            miniMap.Configure(world, font);
 
             // Event system for the tooltips
             GameObject eventsGo = new GameObject("EventSystem");

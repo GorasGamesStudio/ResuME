@@ -11,6 +11,71 @@
     "cvUrl": "",
     "closingLine": "Rencontrons-nous, on n'en sortira, au pire, que plus vieux."
   },
+  "places": [
+    {
+      "id": "senlis",
+      "label": "Senlis (Oise)",
+      "x": 0.55,
+      "y": 0.82,
+      "groundColor": "#6E6A5A"
+    },
+    {
+      "id": "idf",
+      "label": "Île-de-France, en mission",
+      "x": 0.52,
+      "y": 0.78,
+      "groundColor": "#5C5C66"
+    },
+    {
+      "id": "nimes",
+      "label": "Nîmes (Gard)",
+      "x": 0.62,
+      "y": 0.2,
+      "groundColor": "#8A7A55"
+    },
+    {
+      "id": "montbeliard",
+      "label": "Montbéliard (Doubs)",
+      "x": 0.86,
+      "y": 0.62,
+      "groundColor": "#4F6B4A"
+    },
+    {
+      "id": "alsace",
+      "label": "Alsace",
+      "x": 0.9,
+      "y": 0.72,
+      "groundColor": "#5E7A4E"
+    },
+    {
+      "id": "centre",
+      "label": "Centre-Val de Loire",
+      "x": 0.48,
+      "y": 0.58,
+      "groundColor": "#6B6E52"
+    },
+    {
+      "id": "mehers",
+      "label": "Méhers (Loir-et-Cher)",
+      "x": 0.47,
+      "y": 0.56,
+      "groundColor": "#6B6E52"
+    },
+    {
+      "id": "sologne",
+      "label": "Sologne (Loir-et-Cher)",
+      "x": 0.5,
+      "y": 0.55,
+      "groundColor": "#5F6A48"
+    },
+    {
+      "id": "orleans",
+      "label": "Orléans (Loiret)",
+      "x": 0.53,
+      "y": 0.62,
+      "groundColor": "#6B6E52"
+    }
+  ],
   "skills": [
     {
       "id": "unity",
@@ -151,7 +216,8 @@
         "curiosite"
       ],
       "notes": "Nostalgie et rétro. PC Celeron 433 MHz avec lecteur CD et disquette, écran cathodique (sert d'écran de chargement), boîte de Dark Age of Camelot, N64 avec Mario 64, Ocarina of Time et GoldenEye, NES et pistolet en objets de collection, premiers pas curieux sur internet. Niveau 15 : là où Éric devient accro. Carton : « Quelque part au début du millénaire, un lycée, un ordinateur et une connexion 56k. » Sprite adolescent jusqu'à la sortie du BTS. Son du modem 56k.",
-      "projects": []
+      "projects": [],
+      "place": "senlis"
     },
     {
       "id": "bac",
@@ -186,7 +252,8 @@
         }
       ],
       "notes": "Lycée catholique de Senlis (Oise) : cour pavée, grand cèdre, chapelle à clocher, façade classique en pierre blonde à fronton cintré, armoiries au-dessus du portail. On entre par la gauche et on traverse. Pas de PNJ ni de quête.",
-      "gapAfterScreens": 0.05
+      "gapAfterScreens": 0.05,
+      "place": "senlis"
     },
     {
       "id": "bts",
@@ -222,7 +289,8 @@
           ]
         }
       ],
-      "notes": "Second bâtiment collé à droite du premier, même style, même domaine ; il s'éclaire fenêtre par fenêtre à l'approche. Le sprite devient adulte à la sortie."
+      "notes": "Second bâtiment collé à droite du premier, même style, même domaine ; il s'éclaire fenêtre par fenêtre à l'approche. Le sprite devient adulte à la sortie.",
+      "place": "senlis"
     },
     {
       "id": "support",
@@ -275,7 +343,8 @@
           "platforms": []
         }
       ],
-      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec quatre petits bâtiments clients : T-Systems (intérim chez VW Group), SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Chaque bâtiment donne Maintenance & Support informatique ; trois d'entre eux donnent aussi Installation matériel informatique (déploiement de postes, migration de parc). Chaque bâtiment s'allume en entier au passage, un à la fois."
+      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec quatre petits bâtiments clients : T-Systems (intérim chez VW Group), SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Chaque bâtiment donne Maintenance & Support informatique ; trois d'entre eux donnent aussi Installation matériel informatique (déploiement de postes, migration de parc). Chaque bâtiment s'allume en entier au passage, un à la fois.",
+      "place": "idf"
     },
     {
       "id": "creajeux",
@@ -408,7 +477,8 @@
           ]
         }
       ],
-      "notes": "Unity est passé largement devant pendant Créajeux : C++ à 2, Unity à 5 à la sortie. Façade aux couleurs de l'école ; sur l'écran en vitrine, une bataille spatiale ou le logo Unity. Classe définitive « Développeur de jeux vidéo » à la sortie."
+      "notes": "Unity est passé largement devant pendant Créajeux : C++ à 2, Unity à 5 à la sortie. Façade aux couleurs de l'école ; sur l'écran en vitrine, une bataille spatiale ou le logo Unity. Classe définitive « Développeur de jeux vidéo » à la sortie.",
+      "place": "nimes"
     },
     {
       "id": "allucyne",
@@ -540,7 +610,8 @@
           ]
         }
       ],
-      "notes": "Sentier de mémoire en plein air (validé) : panneaux de bois par projet, crête des Vosges, fort, colombages, tranchée et casque, avion, table d'orientation à jumelles (vue casque). Lieu clos le 2026-09-11."
+      "notes": "Sentier de mémoire en plein air (validé) : panneaux de bois par projet, crête des Vosges, fort, colombages, tranchée et casque, avion, table d'orientation à jumelles (vue casque). Lieu clos le 2026-09-11.",
+      "place": "montbeliard"
     },
     {
       "id": "whitequest",
@@ -578,7 +649,8 @@
           ]
         }
       ],
-      "notes": "LabQuest, gros projet de R&D en deux versions (Pharma puis System) : deux points Unity, C# et RV, un point de conception. Composition : laboratoire en coupe (fiche)."
+      "notes": "LabQuest, gros projet de R&D en deux versions (Pharma puis System) : deux points Unity, C# et RV, un point de conception. Composition : laboratoire en coupe (fiche).",
+      "place": "alsace"
     },
     {
       "id": "ggs",
@@ -621,7 +693,8 @@
           ]
         }
       ],
-      "notes": "Guichet 2018 : création de la micro-entreprise (passif épinglé) et premiers clients mobiles 2D. Le guichet réapparaît ensuite chaque année (fil rouge) avec les projets de l'année."
+      "notes": "Guichet 2018 : création de la micro-entreprise (passif épinglé) et premiers clients mobiles 2D. Le guichet réapparaît ensuite chaque année (fil rouge) avec les projets de l'année.",
+      "place": "centre"
     },
     {
       "id": "game-academy",
@@ -696,7 +769,8 @@
           "platforms": []
         }
       ],
-      "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste anecdotique (pas de projet). Composition : bâtiment avec logo (photos d'Éric à venir), salle vue de derrière, étudiants de dos qui lèvent la main, écrans visibles, Éric de face ; le personnage passe devant les étudiants, derrière leurs sprites."
+      "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste anecdotique (pas de projet). Composition : bâtiment avec logo (photos d'Éric à venir), salle vue de derrière, étudiants de dos qui lèvent la main, écrans visibles, Éric de face ; le personnage passe devant les étudiants, derrière leurs sprites.",
+      "place": "centre"
     },
     {
       "id": "ggs-2019",
@@ -724,7 +798,8 @@
           ]
         }
       ],
-      "notes": "Guichet annuel 2019 : le fil rouge du studio."
+      "notes": "Guichet annuel 2019 : le fil rouge du studio.",
+      "place": "centre"
     },
     {
       "id": "ggs-2020",
@@ -762,7 +837,8 @@
           ]
         }
       ],
-      "notes": "Guichet annuel 2020 : le fil rouge du studio."
+      "notes": "Guichet annuel 2020 : le fil rouge du studio.",
+      "place": "centre"
     },
     {
       "id": "rpaint",
@@ -804,7 +880,8 @@
       "notes": "Paintball indoor nouvelle génération sur 5 400 m² dans une friche rachetée à Méhers, nettoyée mais jamais rénovée : la façade verte avec le logo est une projection (dessin dans l'archive). On ne rentre pas : le personnage repeint la façade extérieure au lanceur, la peinture révèle la projection par plaques. Pas de mascotte. Trois points de Gestion d'entreprise, un par projet, ramassés en avançant devant la façade.",
       "traitsAfter": [
         "polyvalence"
-      ]
+      ],
+      "place": "mehers"
     },
     {
       "id": "ggs-2021",
@@ -862,7 +939,8 @@
           ]
         }
       ],
-      "notes": "Guichet annuel 2021 : le fil rouge du studio."
+      "notes": "Guichet annuel 2021 : le fil rouge du studio.",
+      "place": "centre"
     },
     {
       "id": "ggs-2022",
@@ -887,7 +965,8 @@
           ]
         }
       ],
-      "notes": "Guichet annuel 2022 : le fil rouge du studio."
+      "notes": "Guichet annuel 2022 : le fil rouge du studio.",
+      "place": "centre"
     },
     {
       "id": "lidl",
@@ -910,7 +989,8 @@
           "platforms": []
         }
       ],
-      "notes": "Simple passage : un métier alimentaire pour avoir un salaire, mais un point de Gestion d'entreprise (on y apprend malgré tout). Trait Dépassement de soi en sortant. Façade d'enseigne sans logo."
+      "notes": "Simple passage : un métier alimentaire pour avoir un salaire, mais un point de Gestion d'entreprise (on y apprend malgré tout). Trait Dépassement de soi en sortant. Façade d'enseigne sans logo.",
+      "place": "sologne"
     },
     {
       "id": "ggs-2023",
@@ -935,7 +1015,8 @@
           ]
         }
       ],
-      "notes": "Guichet annuel 2023 : le fil rouge du studio."
+      "notes": "Guichet annuel 2023 : le fil rouge du studio.",
+      "place": "centre"
     },
     {
       "id": "ggs-2024",
@@ -960,7 +1041,8 @@
           ]
         }
       ],
-      "notes": "Guichet annuel 2024 : le fil rouge du studio."
+      "notes": "Guichet annuel 2024 : le fil rouge du studio.",
+      "place": "centre"
     },
     {
       "id": "cine-sologne",
@@ -989,7 +1071,8 @@
           "platforms": []
         }
       ],
-      "notes": "Passage anecdotique en façade, sans logo : un point de Maintenance & Support informatique, un point de Gestion d'entreprise. Pas de trait."
+      "notes": "Passage anecdotique en façade, sans logo : un point de Maintenance & Support informatique, un point de Gestion d'entreprise. Pas de trait.",
+      "place": "sologne"
     },
     {
       "id": "ggs-2025",
@@ -1015,7 +1098,8 @@
           ]
         }
       ],
-      "notes": "Guichet annuel 2025 : le fil rouge du studio."
+      "notes": "Guichet annuel 2025 : le fil rouge du studio.",
+      "place": "centre"
     },
     {
       "id": "crn",
@@ -1028,7 +1112,8 @@
       "notes": "Réflexions de groupe sur les enjeux du numérique, rapports et propositions d'actions : étude et recherche de solutions, pas de formation. Aucune compétence du catalogue (décision d'Éric). Trait Engagement citoyen en sortant, qui couvre aussi le mandat de conseiller municipal (élections municipales de mars 2026), sans lieu dédié. Place publique avec le logo du Conseil Régional.",
       "traitsAfter": [
         "engagement-citoyen"
-      ]
+      ],
+      "place": "orleans"
     },
     {
       "id": "ggs-2026",
@@ -1090,7 +1175,8 @@
           "platforms": []
         }
       ],
-      "notes": "Guichet annuel 2026 : le fil rouge du studio."
+      "notes": "Guichet annuel 2026 : le fil rouge du studio.",
+      "place": "centre"
     },
     {
       "id": "loire-games",
@@ -1158,7 +1244,8 @@
           "platforms": []
         }
       ],
-      "notes": "Association co-fondée par Éric, trésorier : le cluster régional des créateurs de jeux du Centre-Val de Loire. Placée en dernier, avant Aujourd'hui, parce qu'Éric y est toujours. Stand jaune avec le logo et le badge Fondateur : écrans où des gens jouent, scène pour les intervenants. Points validés : Gestion 2, Développement web 1, IA 3."
+      "notes": "Association co-fondée par Éric, trésorier : le cluster régional des créateurs de jeux du Centre-Val de Loire. Placée en dernier, avant Aujourd'hui, parce qu'Éric y est toujours. Stand jaune avec le logo et le badge Fondateur : écrans où des gens jouent, scène pour les intervenants. Points validés : Gestion 2, Développement web 1, IA 3.",
+      "place": "centre"
     },
     {
       "id": "aujourdhui",
@@ -1235,7 +1322,8 @@
             "Steam"
           ]
         }
-      ]
+      ],
+      "place": "centre"
     }
   ]
 }

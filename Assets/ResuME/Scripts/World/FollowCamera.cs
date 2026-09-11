@@ -18,8 +18,11 @@ namespace GGS.Resume.World
         [SerializeField] private WorldBuilder world;
         [Tooltip("Camera centre height: raised so the bottom of the screen stays free for the skill bar.")]
         [SerializeField] private float verticalOffset = 3.4f;
+        [Tooltip("Smoothing of the follow, higher is tighter.")]
+        [SerializeField] private float followSpeed = 8f;
 
         private Camera _camera;
+        private bool _snapped;
 
         #endregion
 
@@ -46,11 +49,13 @@ namespace GGS.Resume.World
             float halfWidth = world.Route.screenWidthUnits * 0.5f;
             _camera.orthographicSize = halfWidth / aspect;
 
-            // Follow the player horizontally, clamped so the camera never shows beyond the route ends.
-            float minX = world.StartX - 1f + halfWidth;
-            float maxX = world.EndX + 1f - halfWidth;
-            float x = maxX > minX ? Mathf.Clamp(world.Player.position.x, minX, maxX) : world.Player.position.x;
-            transform.position = new Vector3(x, verticalOffset, CAMERA_DEPTH);
+            // Follow the road position of the player (not its depth offset), raised by the vertical offset,
+            // smoothed so the turns of the path read as camera pans.
+            Vector2 onRoad = world.Path.Position(world.PlayerDistance);
+            Vector3 target = new Vector3(onRoad.x, onRoad.y + verticalOffset, CAMERA_DEPTH);
+            float k = 1f - Mathf.Exp(-followSpeed * Time.deltaTime);
+            transform.position = _snapped ? Vector3.Lerp(transform.position, target, k) : target;
+            _snapped = true;
         }
 
         #endregion

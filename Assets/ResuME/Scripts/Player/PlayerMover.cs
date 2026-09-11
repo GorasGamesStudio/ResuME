@@ -39,6 +39,9 @@ namespace GGS.Resume.Player
 
         private InputAction _move;
         private InputAction _jump;
+        private float _distance;
+        private float _depth;
+        private bool _placed;
         private float _dragAccumulated;
         private float _dragDirection;
         private float _flickVelocity;
@@ -46,6 +49,8 @@ namespace GGS.Resume.Player
 
         /// <summary>Non-zero to override inputs (automated tests, cutscenes).</summary>
         public float ForcedDirection { get; set; }
+        /// <summary>Distance of the character along the path.</summary>
+        public float Distance => _distance;
         /// <summary>Direction of the frame, between -1 and 1.</summary>
         public float Direction { get; private set; }
         /// <summary>Walking speed in world units per second, from the route pacing.</summary>
@@ -105,16 +110,23 @@ namespace GGS.Resume.Player
 
             if (world != null)
             {
-                // Horizontal move, clamped to the route bounds.
-                Vector3 position = transform.position;
-                if (Direction != 0f)
-                    position.x = Mathf.Clamp(position.x + Direction * Speed * Time.deltaTime, world.StartX, world.EndX);
+                // First frame: pick up the start distance the world chose.
+                if (!_placed)
+                {
+                    _distance = world.PlayerDistance;
+                    _placed = true;
+                }
 
                 // Depth: walk up into a traversed building, back down to the road elsewhere.
                 bool inBuilding = world.CurrentStop != null && world.CurrentStop.Definition.kind == StopKind.Traverse;
-                float targetY = inBuilding ? buildingFloorY : -world.Route.roadHeightUnits * 0.5f;
-                position.y = Mathf.MoveTowards(position.y, targetY, depthSpeed * Time.deltaTime);
-                transform.position = position;
+                float targetDepth = inBuilding ? buildingFloorY + world.Route.roadHeightUnits * 0.5f : 0f;
+                bool steppingInDepth = Mathf.Abs(_depth - targetDepth) > 0.01f;
+                _depth = Mathf.MoveTowards(_depth, targetDepth, depthSpeed * Time.deltaTime);
+
+                // No diagonal: while the character steps up or down in depth, it does not advance along the path.
+                if (Direction != 0f && !steppingInDepth) _distance += Direction * Speed * Time.deltaTime;
+                _distance = Mathf.Clamp(_distance, world.StartX, world.EndX);
+                world.SetPlayerDistance(_distance, _depth);
             }
 
             // Cosmetic hop on the jump action.

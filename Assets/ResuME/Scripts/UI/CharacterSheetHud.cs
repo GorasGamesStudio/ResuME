@@ -197,12 +197,14 @@ namespace GGS.Resume.UI
             float k = 1f - Mathf.Exp(-SLIDE_SPEED * Time.deltaTime);
             foreach (SkillRow row in _rows)
             {
+                if (row.Rect == null) continue;
                 Vector2 position = row.Rect.anchoredPosition;
                 position.y = Mathf.Lerp(position.y, row.TargetY, k);
                 row.Rect.anchoredPosition = position;
             }
             foreach (HotbarSquare square in _squares)
             {
+                if (square.Rect == null) continue;
                 Vector2 position = square.Rect.anchoredPosition;
                 position.x = Mathf.Lerp(position.x, square.TargetX, k);
                 square.Rect.anchoredPosition = position;
@@ -214,14 +216,14 @@ namespace GGS.Resume.UI
                 _ultimateInner.color = Color.Lerp(WithAlpha(UltimateColor, 0.55f), UltimateColor, pulse);
             foreach (SkillRow row in _rows)
             {
-                if (!row.Full) continue;
+                if (!row.Full || row.Fill == null) continue;
                 row.Fill.color = Color.Lerp(FullDark, FullLight, pulse);
                 row.Glow.color = WithAlpha(FullLight, 0.25f + 0.45f * pulse);
                 row.Label.color = Color.Lerp(Color.white, FullLight, 0.5f);
             }
             foreach (HotbarSquare square in _squares)
             {
-                if (square.Mastery.Points < _masteryScale) continue;
+                if (square.Mastery.Points < _masteryScale || square.Frame == null) continue;
                 square.Frame.color = Color.Lerp(FullDark, FullLight, pulse);
             }
         }
@@ -627,6 +629,7 @@ namespace GGS.Resume.UI
         {
             Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
             yield return TravelTracking("Point " + mastery.Definition.id, WorldToCanvas(projectPosition), () => RowCentre(row), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), POINT_SPEED);
+            if (row.Rect == null) yield break; // removed by a walk back while the point was in flight
             row.ShownPoints = Mathf.Min(row.ShownPoints + 1, mastery.Points);
             RefreshRow(row);
             StartCoroutine(Punch(row.Fill.rectTransform, 0.12f, 0.25f));
@@ -664,8 +667,10 @@ namespace GGS.Resume.UI
             RefreshRow(row);
             yield return TravelTracking("Return " + skillId, RowCentre(row), () => WorldToCanvas(projectPosition), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), POINT_SPEED);
 
-            // A skill back to zero leaves the sheet entirely.
-            if (row.ShownPoints == 0)
+            // A skill back to zero leaves the sheet entirely. Two undo flights of the same skill can overlap
+            // (two projects undone in a row): only the first one still registered removes the row.
+            bool stillRegistered = _rowsById.TryGetValue(skillId, out SkillRow registered) && registered == row;
+            if (row.ShownPoints == 0 && stillRegistered && row.Rect != null)
             {
                 _rows.Remove(row);
                 _rowsById.Remove(skillId);
@@ -917,10 +922,11 @@ namespace GGS.Resume.UI
             while (t < duration)
             {
                 t += Time.deltaTime;
+                if (rect == null) yield break; // the element may have been removed by a walk back
                 rect.localScale = Vector3.one * (1f + amount * Mathf.Sin(Mathf.Clamp01(t / duration) * Mathf.PI));
                 yield return null;
             }
-            rect.localScale = Vector3.one;
+            if (rect != null) rect.localScale = Vector3.one;
         }
 
         /// <summary>
@@ -932,10 +938,11 @@ namespace GGS.Resume.UI
             while (t < duration)
             {
                 t += Time.deltaTime;
+                if (rect == null) yield break;
                 rect.localScale = Vector3.one * Mathf.Lerp(from, to, Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / duration)));
                 yield return null;
             }
-            rect.localScale = Vector3.one * to;
+            if (rect != null) rect.localScale = Vector3.one * to;
         }
 
         /// <summary>

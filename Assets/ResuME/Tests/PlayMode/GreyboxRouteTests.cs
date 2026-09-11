@@ -60,7 +60,7 @@ namespace GGS.Resume.Tests
             float realDeadline = Time.realtimeSinceStartup + REAL_TIMEOUT_SECONDS;
             try
             {
-                while (mover.transform.position.x < world.EndX - 0.01f)
+                while (world.PlayerDistance < world.EndX - 0.01f)
                 {
                     Assert.Less(Time.realtimeSinceStartup, realDeadline, "the character never reached the end of the route");
                     yield return null;
@@ -101,6 +101,9 @@ namespace GGS.Resume.Tests
                 Assert.GreaterOrEqual(bar[i - 1].points, bar[i].points, $"bar must be sorted by mastery at index {i}");
             foreach ((string id, int points) in bar)
                 Assert.AreEqual(progress.MasteryOf(id), points, $"row of {id} shows its mastery");
+            int best = 0;
+            foreach (SkillMastery mastery in progress.Skills) best = Mathf.Max(best, mastery.Points);
+            Assert.AreEqual(best, bar[0].points, "the most exercised skill leads the bar");
 
             // Walking all the way back must give everything back.
             mover.ForcedDirection = -1f;
@@ -108,7 +111,7 @@ namespace GGS.Resume.Tests
             realDeadline = Time.realtimeSinceStartup + REAL_TIMEOUT_SECONDS;
             try
             {
-                while (mover.transform.position.x > world.StartX + 0.01f)
+                while (world.PlayerDistance > world.StartX + 0.01f)
                 {
                     Assert.Less(Time.realtimeSinceStartup, realDeadline, "the character never got back to the start");
                     yield return null;
@@ -126,9 +129,6 @@ namespace GGS.Resume.Tests
             Assert.AreEqual(0, progress.Passives.Count, "no passive left after walking back");
             Assert.AreEqual(PlayerProgress.NoClass, progress.ClassTitle, "class reverted after walking back");
             Assert.AreEqual(0, hud.BarOrder().Count, "the progression list is empty again");
-            int best = 0;
-            foreach (SkillMastery mastery in progress.Skills) best = Mathf.Max(best, mastery.Points);
-            Assert.AreEqual(best, bar[0].points, "the most exercised skill leads the bar");
 
         }
 
