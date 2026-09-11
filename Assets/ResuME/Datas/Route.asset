@@ -22,11 +22,11 @@ MonoBehaviour:
     x: 0.55
     y: 0.82
     groundColor: '#6E6A5A'
-  - id: idf
-    label: "\xCEle-de-France, en mission"
-    x: 0.52
-    y: 0.78
-    groundColor: '#5C5C66'
+  - id: picardie
+    label: Picardie, en mission
+    x: 0.55
+    y: 0.86
+    groundColor: '#5E6658'
   - id: nimes
     label: "N\xEEmes (Gard)"
     x: 0.62
@@ -235,7 +235,7 @@ MonoBehaviour:
   - id: support
     title: "Missions SSII : support et d\xE9ploiement"
     years: 2005
-    place: idf
+    place: picardie
     level: 20
     kind: 6
     widthScreens: 0.4
@@ -709,7 +709,9 @@ MonoBehaviour:
       platforms:
       - VR (tous casques)
       - Steam
-    notes: 'Guichet annuel 2020 : le fil rouge du studio.'
+    notes: "Guichet annuel 2020 : le fil rouge du studio. D\xE9part d'Avignon en
+      juin 2020, installation en Centre-Val de Loire : le guichet 2020 est pos\xE9
+      apr\xE8s le d\xE9m\xE9nagement."
   - id: rpaint
     title: "R'Paint Games, M\xE9hers"
     years: 2021

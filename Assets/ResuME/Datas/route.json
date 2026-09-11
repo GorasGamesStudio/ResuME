@@ -20,11 +20,11 @@
       "groundColor": "#6E6A5A"
     },
     {
-      "id": "idf",
-      "label": "Île-de-France, en mission",
-      "x": 0.52,
-      "y": 0.78,
-      "groundColor": "#5C5C66"
+      "id": "picardie",
+      "label": "Picardie, en mission",
+      "x": 0.55,
+      "y": 0.86,
+      "groundColor": "#5E6658"
     },
     {
       "id": "nimes",
@@ -344,7 +344,7 @@
         }
       ],
       "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec quatre petits bâtiments clients : T-Systems (intérim chez VW Group), SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Chaque bâtiment donne Maintenance & Support informatique ; trois d'entre eux donnent aussi Installation matériel informatique (déploiement de postes, migration de parc). Chaque bâtiment s'allume en entier au passage, un à la fois.",
-      "place": "idf"
+      "place": "picardie"
     },
     {
       "id": "creajeux",
