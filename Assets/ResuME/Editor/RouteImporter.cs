@@ -32,7 +32,7 @@ namespace GGS.Resume.Editor
             public float gapScreens = 0.5f;
             public int masteryScaleMax = 5;
             public ContactFile contact = new ContactFile();
-            public float verticalSpanScreens = 2.5f;
+            public float verticalSpanScreens = 1.2f;
             public List<PlaceFile> places = new List<PlaceFile>();
             public List<SkillFile> skills = new List<SkillFile>();
             public List<TraitFile> traits = new List<TraitFile>();

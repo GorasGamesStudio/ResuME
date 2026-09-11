@@ -190,9 +190,13 @@ namespace GGS.Resume.World
                 BuildStop(stop);
                 _stops.Add(stop);
 
+                // The projects of the final stop are not pickups: the ending shows them around the character.
                 List<PickupInstance> inside = new List<PickupInstance>();
-                foreach (ProjectDefinition project in definition.projects)
-                    inside.Add(new PickupInstance { Project = project, Stop = definition });
+                if (definition.kind != StopKind.End)
+                {
+                    foreach (ProjectDefinition project in definition.projects)
+                        inside.Add(new PickupInstance { Project = project, Stop = definition });
+                }
                 foreach (RewardDefinition reward in definition.rewards)
                     inside.Add(new PickupInstance { Reward = reward, Stop = definition });
                 PlacePickups(inside, stop.StartX, stop.EndX, stop.Root.transform);
@@ -202,7 +206,8 @@ namespace GGS.Resume.World
 
             // The character starts one unit inside the first stop and stops one unit before the end of the last.
             StartX = _stops.Count > 0 ? _stops[0].StartX + 1f : 0f;
-            EndX = _stops.Count > 0 ? _stops[_stops.Count - 1].EndX - 1f : _path.Length;
+            StopInstance last = _stops.Count > 0 ? _stops[_stops.Count - 1] : null;
+            EndX = last == null ? _path.Length : last.Definition.kind == StopKind.End ? (last.StartX + last.EndX) * 0.5f : last.EndX - 1f;
 
             // One road block per leg, horizontal or vertical, tinted by the region it runs through.
             foreach (RoutePath.Leg leg in _path.Legs)
@@ -214,6 +219,21 @@ namespace GGS.Resume.World
                     MakeBlock("Road", transform, centre.x, centre.y, road, leg.Length + road, color, SORT_FLOOR - 1);
                 else
                     MakeBlock("Road", transform, centre.x, centre.y - road * 0.5f, leg.Length + road, road, color, SORT_FLOOR - 1);
+            }
+        }
+
+        /// <summary>
+        /// Pops and hides a completed project right away (called by the HUD once its last point has left).
+        /// </summary>
+        /// <param name="project">The project whose pickup can disappear.</param>
+        public void ReleaseProject(ProjectDefinition project)
+        {
+            foreach (PickupInstance pickup in _pickups)
+            {
+                if (pickup.Project != project || !pickup.Collected || !pickup.Root.activeSelf) continue;
+                if (pickup.Hiding != null) StopCoroutine(pickup.Hiding);
+                pickup.Hiding = StartCoroutine(PopAndHide(pickup, 0f));
+                return;
             }
         }
 
@@ -501,7 +521,8 @@ namespace GGS.Resume.World
                     CollectedRewards++;
                     if (pickup.Project != null) ProjectCompleted?.Invoke(pickup.Project, position, pickup.Stop);
                     else RewardCollected?.Invoke(pickup.Reward, position, pickup.Stop);
-                    float delay = pickup.Project != null ? 0.8f + 0.5f * pickup.Project.skillIds.Count : 0.1f;
+                    // A project waits for the HUD to release it (after its last point left); a safety delay covers a missing HUD.
+                    float delay = pickup.Project != null ? 2f + 0.6f * pickup.Project.skillIds.Count : 0.1f;
                     pickup.Hiding = StartCoroutine(PopAndHide(pickup, delay));
                 }
                 else if (!forward && pickup.Collected)

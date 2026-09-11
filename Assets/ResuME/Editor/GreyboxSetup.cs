@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using GGS.Resume.Data;
 using GGS.Resume.DevTools;
+using GGS.Resume.Gameplay;
 using GGS.Resume.Player;
 using GGS.Resume.UI;
 using GGS.Resume.World;
@@ -149,6 +150,12 @@ namespace GGS.Resume.Editor
             overlay.Configure(world, mover);
             MiniMapHud miniMap = hudGo.AddComponent<MiniMapHud>();
             miniMap.Configure(world, font);
+            ContactCardHud card = hudGo.AddComponent<ContactCardHud>();
+            card.Configure(font);
+
+            // Ending
+            EndSequence ending = worldGo.AddComponent<EndSequence>();
+            ending.Configure(world, mover, progress, card, square, font);
 
             // Event system for the tooltips
             GameObject eventsGo = new GameObject("EventSystem");

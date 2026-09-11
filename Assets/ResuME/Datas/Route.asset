@@ -15,7 +15,7 @@ MonoBehaviour:
   screenWidthUnits: 32
   buildingHeightUnits: 6
   roadHeightUnits: 2
-  verticalSpanScreens: 2.5
+  verticalSpanScreens: 1.2
   places:
   - id: senlis
     label: Senlis (Oise)

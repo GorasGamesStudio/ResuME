@@ -160,7 +160,7 @@ namespace GGS.Resume.Data
 
         [Header("Map")]
         [Tooltip("Length in screens of a vertical leg spanning the whole map, north to south.")]
-        public float verticalSpanScreens = 2.5f;
+        public float verticalSpanScreens = 1.2f;
         public List<PlaceDefinition> places = new List<PlaceDefinition>();
 
         [Header("Pacing")]

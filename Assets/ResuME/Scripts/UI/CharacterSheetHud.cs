@@ -218,7 +218,7 @@ namespace GGS.Resume.UI
             {
                 if (!row.Full || row.Fill == null) continue;
                 row.Fill.color = Color.Lerp(FullDark, FullLight, pulse);
-                row.Glow.color = WithAlpha(FullLight, 0.25f + 0.45f * pulse);
+                row.Glow.color = WithAlpha(FullLight, 0.08f + 0.14f * pulse);
                 row.Label.color = Color.Lerp(Color.white, FullLight, 0.5f);
             }
             foreach (HotbarSquare square in _squares)
@@ -415,7 +415,7 @@ namespace GGS.Resume.UI
             hit.color = Transparent;
 
             Text label = MakeText(rect, "Label", mastery.Definition.label, 12, FontStyle.Normal, new Vector2(0f, 0f), new Vector2(rowWidth, 16f));
-            RectTransform glow = MakeImage(rect, "GaugeGlow", new Vector2(-4f, -14f), new Vector2(rowWidth + 8f, GAUGE_HEIGHT + 8f), Transparent);
+            RectTransform glow = MakeImage(rect, "GaugeGlow", new Vector2(-2f, -16f), new Vector2(rowWidth + 4f, GAUGE_HEIGHT + 4f), Transparent);
             glow.GetComponent<Image>().raycastTarget = false;
             RectTransform back = MakeImage(rect, "GaugeBack", new Vector2(0f, -18f), new Vector2(rowWidth, GAUGE_HEIGHT), SlotEmpty);
             back.GetComponent<Image>().raycastTarget = false;
@@ -599,12 +599,13 @@ namespace GGS.Resume.UI
             }
             while (landed < involved.Count) yield return null;
 
-            // Phase 2: the points, one by one, from the project to their rows.
+            // Phase 2: the points, one by one, from the project to their rows; the project pops as soon as the last one left.
             foreach ((SkillMastery mastery, HotbarSquare _, SkillRow row) in involved)
             {
                 StartCoroutine(DeliverPoint(mastery, row, projectPosition));
                 yield return new WaitForSeconds(POINT_STAGGER);
             }
+            world.ReleaseProject(project);
         }
 
         /// <summary>

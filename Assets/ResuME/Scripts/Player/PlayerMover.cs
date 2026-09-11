@@ -51,6 +51,8 @@ namespace GGS.Resume.Player
         public float ForcedDirection { get; set; }
         /// <summary>Distance of the character along the path.</summary>
         public float Distance => _distance;
+        /// <summary>True while the ending plays: player inputs are ignored (a forced direction still applies).</summary>
+        public bool InputLocked { get; set; }
         /// <summary>Direction of the frame, between -1 and 1.</summary>
         public float Direction { get; private set; }
         /// <summary>Walking speed in world units per second, from the route pacing.</summary>
@@ -100,6 +102,10 @@ namespace GGS.Resume.Player
             if (ForcedDirection != 0f)
             {
                 direction = ForcedDirection;
+            }
+            else if (InputLocked)
+            {
+                direction = 0f;
             }
             else
             {
