@@ -41,9 +41,10 @@ namespace ResuME.UI
                 $"objets = {world.CollectedRewards}/{world.TotalRewards}   fps = {1f / Mathf.Max(0.0001f, Time.unscaledDeltaTime):F0}\n" +
                 "Flèches / glisser pour marcher, Espace pour sauter";
 
-            // Top right, under the stop banner: the bottom of the screen belongs to the skill bar.
-            GUI.Box(new Rect(Screen.width - 568f, 96f, 560f, 76f), GUIContent.none);
-            GUI.Label(new Rect(Screen.width - 562f, 98f, 550f, 74f), text, style);
+            // Left side, just above the hotbar band: the top belongs to the profile and the stop titles.
+            float y = Screen.height * 0.72f;
+            GUI.Box(new Rect(8f, y, 560f, 76f), GUIContent.none);
+            GUI.Label(new Rect(14f, y + 2f, 550f, 74f), text, style);
         }
     }
 }
