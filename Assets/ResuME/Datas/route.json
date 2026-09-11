@@ -5,6 +5,12 @@
   "secondsPerScreen": 3,
   "gapScreens": 0.5,
   "masteryScaleMax": 20,
+  "contact": {
+    "email": "eric.dovergne@gmx.fr",
+    "linkedin": "",
+    "cvUrl": "",
+    "closingLine": "Rencontrons-nous, on n'en sortira, au pire, que plus vieux."
+  },
   "skills": [
     {
       "id": "unity",

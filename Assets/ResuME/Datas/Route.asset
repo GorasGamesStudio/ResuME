@@ -18,6 +18,10 @@ MonoBehaviour:
   secondsPerScreen: 3
   gapScreens: 0.5
   masteryScaleMax: 20
+  contactEmail: eric.dovergne@gmx.fr
+  contactLinkedIn: 
+  contactCvUrl: 
+  closingLine: Rencontrons-nous, on n'en sortira, au pire, que plus vieux.
   skills:
   - id: unity
     label: Unity 3D
