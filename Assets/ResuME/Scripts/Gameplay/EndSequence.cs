@@ -23,7 +23,9 @@ namespace GGS.Resume.Gameplay
         private const float RAIN_STAGGER = 0.03f;
         private const float RAIN_HEIGHT = 12f;
         private const float BLOCK_SIZE = 0.55f;
-        private const float PILE_WIDTH = 3.6f;
+        private const float MOUND_HALF_WIDTH = 2.2f;
+        private const float MOUND_TOP = 1.7f;
+        private const int PROJECTS_DROP_AFTER = 8;
         private const int SORT_PILE = 8;
 
         [SerializeField] private WorldBuilder world;
@@ -36,6 +38,8 @@ namespace GGS.Resume.Gameplay
         private readonly List<Transform> _orbit = new List<Transform>();
         private bool _started;
         private int _piled;
+        private int _totalToPile;
+        private bool _projectsDropped;
 
         /// <summary>True once the ending has started.</summary>
         public bool Started => _started;
@@ -114,32 +118,29 @@ namespace GGS.Resume.Gameplay
             }
             yield return new WaitForSeconds(0.6f);
 
-            // Step 1: every mastery point acquired falls from the sky and piles up over the character.
+            // Step 1: every mastery point acquired falls from the sky; the blocks overlap and form a mound over
+            // the character, up to its head. The projects are crushed and fall in as soon as the rain hits them.
             List<SkillMastery> skills = new List<SkillMastery>(progress.Skills);
+            _totalToPile = _orbit.Count;
+            foreach (SkillMastery mastery in skills) _totalToPile += mastery.Points;
             foreach (SkillMastery mastery in skills)
             {
                 Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
                 for (int i = 0; i < mastery.Points; i++)
                 {
-                    StartCoroutine(Drop(MakeBlock("Point " + mastery.Definition.id, Vector3.zero, BLOCK_SIZE, color, null)));
+                    StartCoroutine(Drop(MakeBlock("Point " + mastery.Definition.id, Vector3.zero, BLOCK_SIZE, color, null), true));
+                    if (!_projectsDropped && _piled >= PROJECTS_DROP_AFTER) StartCoroutine(DropProjects());
                     yield return new WaitForSeconds(RAIN_STAGGER);
                 }
             }
+            if (!_projectsDropped) StartCoroutine(DropProjects());
+            yield return new WaitForSeconds(1.2f);
 
-            // The projects drop into the pile too.
-            foreach (Transform block in _orbit)
-            {
-                StartCoroutine(Drop(block));
-                yield return new WaitForSeconds(RAIN_STAGGER * 3f);
-            }
-            yield return new WaitForSeconds(1.0f);
-
-            // Step 2: the thumb rises from the pile.
-            float pileTop = PileTop();
-            Vector3 buried = world.Player.position + Vector3.up * (pileTop - 1.6f);
+            // Step 2: the thumb rises from the top of the mound.
+            Vector3 buried = world.Player.position + Vector3.up * (MOUND_TOP - 1.6f);
             Transform thumb = MakeBlock("Thumb", buried, 1f, GreyboxPalette.Player, "pouce");
             thumb.localScale = new Vector3(0.6f, 1.4f, 1f);
-            yield return MoveTo(thumb, world.Player.position + Vector3.up * (pileTop + 0.4f), 0.8f);
+            yield return MoveTo(thumb, world.Player.position + Vector3.up * (MOUND_TOP + 0.5f), 0.8f);
 
             // Step 3: the contact card.
             yield return new WaitForSeconds(0.8f);
@@ -147,15 +148,39 @@ namespace GGS.Resume.Gameplay
         }
 
         /// <summary>
-        /// A block falls from above the character, accelerating, and lands on the pile.
+        /// The crushed projects fall from their circle into the mound, one after the other.
         /// </summary>
-        private IEnumerator Drop(Transform block)
+        private IEnumerator DropProjects()
+        {
+            _projectsDropped = true;
+            foreach (Transform block in _orbit)
+            {
+                StartCoroutine(Drop(block, false));
+                yield return new WaitForSeconds(RAIN_STAGGER * 4f);
+            }
+        }
+
+        /// <summary>
+        /// A block falls, accelerating, and lands somewhere inside the mound: the mound is a bell whose height
+        /// grows with the number of blocks already landed, and the blocks overlap instead of stacking.
+        /// </summary>
+        /// <param name="block">Block to drop.</param>
+        /// <param name="fromSky">True to start high above the character; false to fall from where it is.</param>
+        private IEnumerator Drop(Transform block, bool fromSky)
         {
             Vector3 centre = world.Player.position;
-            float x = centre.x + Random.Range(-PILE_WIDTH * 0.5f, PILE_WIDTH * 0.5f);
-            float landing = centre.y - 0.8f + (_piled / (PILE_WIDTH / BLOCK_SIZE)) * BLOCK_SIZE * 0.8f;
+            float feet = centre.y - 0.8f;
+            float x = fromSky ? centre.x + Random.Range(-MOUND_HALF_WIDTH, MOUND_HALF_WIDTH) : block.position.x;
+            x = Mathf.Clamp(x, centre.x - MOUND_HALF_WIDTH, centre.x + MOUND_HALF_WIDTH);
+
+            // Mound profile: a bell centred on the character, growing up to the head as blocks arrive.
+            float progress = Mathf.Clamp01((_piled + 1f) / Mathf.Max(1, _totalToPile));
+            float bell = 1f - Mathf.Pow((x - centre.x) / MOUND_HALF_WIDTH, 2f);
+            float height = Mathf.Max(0.15f, progress * (MOUND_TOP + 0.8f) * bell);
+            float landing = feet + Random.Range(0f, height);
             _piled++;
-            block.position = new Vector3(x, centre.y + RAIN_HEIGHT + Random.Range(0f, 3f), 0f);
+
+            if (fromSky) block.position = new Vector3(x, centre.y + RAIN_HEIGHT + Random.Range(0f, 3f), 0f);
             float speed = 0f;
             while (block.position.y > landing)
             {
@@ -164,14 +189,6 @@ namespace GGS.Resume.Gameplay
                 yield return null;
             }
             block.position = new Vector3(x, landing, 0f);
-        }
-
-        /// <summary>
-        /// Height of the pile above the character's feet.
-        /// </summary>
-        private float PileTop()
-        {
-            return -0.8f + (_piled / (PILE_WIDTH / BLOCK_SIZE)) * BLOCK_SIZE * 0.8f;
         }
 
         /// <summary>
