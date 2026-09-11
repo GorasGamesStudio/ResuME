@@ -27,11 +27,13 @@ namespace ResuME.Editor
             public float secondsPerScreen = 3f;
             public float gapScreens = 0.5f;
             public int masteryScaleMax = 5;
+            public ContactFile contact = new ContactFile();
             public List<SkillFile> skills = new List<SkillFile>();
             public List<TraitFile> traits = new List<TraitFile>();
             public List<StopFile> stops = new List<StopFile>();
         }
 
+        [Serializable] private class ContactFile { public string email; public string linkedin; public string cvUrl; public string closingLine; }
         [Serializable] private class SkillFile { public string id; public string label; public string category; public string description; }
         [Serializable] private class TraitFile { public string id; public string label; public string description; }
         [Serializable] private class RewardFile { public string id; public string title; public string description; }
@@ -167,6 +169,10 @@ namespace ResuME.Editor
             route.secondsPerScreen = file.secondsPerScreen;
             route.gapScreens = file.gapScreens;
             route.masteryScaleMax = file.masteryScaleMax;
+            route.contactEmail = file.contact != null ? file.contact.email : "";
+            route.contactLinkedIn = file.contact != null ? file.contact.linkedin : "";
+            route.contactCvUrl = file.contact != null ? file.contact.cvUrl : "";
+            route.closingLine = file.contact != null ? file.contact.closingLine : "";
             route.skills = skills;
             route.stops = stops;
             EditorUtility.SetDirty(route);

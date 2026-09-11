@@ -128,6 +128,14 @@ namespace ResuME.Data
         [Tooltip("Projects needed to fill the mastery gauge completely.")]
         public int masteryScaleMax = 20;
 
+        [Header("Contact card (end of the route)")]
+        public string contactEmail;
+        public string contactLinkedIn;
+        [Tooltip("Path or URL of the classic CV (PDF).")]
+        public string contactCvUrl;
+        [Tooltip("The only line of text of the ending.")]
+        public string closingLine;
+
         [Header("Content")]
         public List<SkillDefinition> skills = new List<SkillDefinition>();
         public List<StopDefinition> stops = new List<StopDefinition>();
