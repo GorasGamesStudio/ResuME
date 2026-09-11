@@ -69,11 +69,11 @@
       "groundColor": "#5F6A48"
     },
     {
-      "id": "orleans",
-      "label": "Orléans (Loiret)",
-      "x": 0.53,
-      "y": 0.62,
-      "groundColor": "#6B6E52"
+      "id": "avignon",
+      "label": "Avignon (Vaucluse)",
+      "x": 0.66,
+      "y": 0.24,
+      "groundColor": "#8C7E58"
     }
   ],
   "skills": [
@@ -694,7 +694,7 @@
         }
       ],
       "notes": "Guichet 2018 : création de la micro-entreprise (passif épinglé) et premiers clients mobiles 2D. Le guichet réapparaît ensuite chaque année (fil rouge) avec les projets de l'année.",
-      "place": "centre"
+      "place": "avignon"
     },
     {
       "id": "game-academy",
@@ -770,7 +770,7 @@
         }
       ],
       "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste anecdotique (pas de projet). Composition : bâtiment avec logo (photos d'Éric à venir), salle vue de derrière, étudiants de dos qui lèvent la main, écrans visibles, Éric de face ; le personnage passe devant les étudiants, derrière leurs sprites.",
-      "place": "centre"
+      "place": "avignon"
     },
     {
       "id": "ggs-2019",
@@ -799,7 +799,7 @@
         }
       ],
       "notes": "Guichet annuel 2019 : le fil rouge du studio.",
-      "place": "centre"
+      "place": "avignon"
     },
     {
       "id": "ggs-2020",
@@ -838,7 +838,7 @@
         }
       ],
       "notes": "Guichet annuel 2020 : le fil rouge du studio.",
-      "place": "centre"
+      "place": "avignon"
     },
     {
       "id": "rpaint",
@@ -1113,7 +1113,7 @@
       "traitsAfter": [
         "engagement-citoyen"
       ],
-      "place": "orleans"
+      "place": "centre"
     },
     {
       "id": "ggs-2026",

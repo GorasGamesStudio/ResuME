@@ -57,11 +57,11 @@ MonoBehaviour:
     x: 0.5
     y: 0.55
     groundColor: '#5F6A48'
-  - id: orleans
-    label: "Orl\xE9ans (Loiret)"
-    x: 0.53
-    y: 0.62
-    groundColor: '#6B6E52'
+  - id: avignon
+    label: Avignon (Vaucluse)
+    x: 0.66
+    y: 0.24
+    groundColor: '#8C7E58'
   secondsPerScreen: 3
   gapScreens: 0.3
   masteryScaleMax: 20
@@ -539,7 +539,7 @@ MonoBehaviour:
   - id: ggs
     title: Goras Games Studio
     years: "2018 - aujourd'hui \xB7 micro-entreprise"
-    place: centre
+    place: avignon
     level: 33
     kind: 3
     widthScreens: 0.4
@@ -585,7 +585,7 @@ MonoBehaviour:
   - id: game-academy
     title: Game Academy
     years: 2018
-    place: centre
+    place: avignon
     level: 33
     kind: 2
     widthScreens: 0.6
@@ -653,7 +653,7 @@ MonoBehaviour:
   - id: ggs-2019
     title: Goras Games Studio
     years: 2019
-    place: centre
+    place: avignon
     level: 34
     kind: 3
     widthScreens: 0.2
@@ -681,7 +681,7 @@ MonoBehaviour:
   - id: ggs-2020
     title: Goras Games Studio
     years: 2020
-    place: centre
+    place: avignon
     level: 35
     kind: 3
     widthScreens: 0.2
@@ -955,7 +955,7 @@ MonoBehaviour:
   - id: crn
     title: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
     years: 2026
-    place: orleans
+    place: centre
     level: 40
     kind: 5
     widthScreens: 0.4
