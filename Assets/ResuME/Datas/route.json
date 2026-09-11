@@ -1,9 +1,9 @@
 {
-  "screenWidthUnits": 20,
+  "screenWidthUnits": 32,
   "buildingHeightUnits": 6,
   "roadHeightUnits": 2,
   "secondsPerScreen": 3,
-  "gapScreens": 0.5,
+  "gapScreens": 0.3,
   "masteryScaleMax": 20,
   "contact": {
     "email": "eric.dovergne@gmx.fr",
@@ -134,7 +134,7 @@
       "years": "vers 2000 · entrée en seconde",
       "level": 15,
       "kind": "Intro",
-      "widthScreens": 1.0,
+      "widthScreens": 0.5,
       "traitsAfter": [
         "curiosite"
       ],
@@ -147,7 +147,7 @@
       "years": "2003 · BAC STT Comptabilité & Gestion",
       "level": 18,
       "kind": "Traverse",
-      "widthScreens": 0.8,
+      "widthScreens": 0.4,
       "classChange": {
         "id": "classe-gestionnaire",
         "title": "Gestionnaire",
@@ -174,7 +174,7 @@
         }
       ],
       "notes": "Lycée catholique de Senlis (Oise) : cour pavée, grand cèdre, chapelle à clocher, façade classique en pierre blonde à fronton cintré, armoiries au-dessus du portail. On entre par la gauche et on traverse. Pas de PNJ ni de quête.",
-      "gapAfterScreens": 0.1
+      "gapAfterScreens": 0.05
     },
     {
       "id": "bts",
@@ -182,7 +182,7 @@
       "years": "2005 · BTS Informatique de Gestion",
       "level": 20,
       "kind": "Traverse",
-      "widthScreens": 0.8,
+      "widthScreens": 0.4,
       "classChange": {
         "id": "classe-dev-app",
         "title": "Développeur d'applications",
@@ -218,7 +218,7 @@
       "years": "2005",
       "level": 20,
       "kind": "Cluster",
-      "widthScreens": 0.8,
+      "widthScreens": 0.4,
       "traitsAfter": [
         "sens-service"
       ],
@@ -271,7 +271,7 @@
       "years": "2010",
       "level": 25,
       "kind": "Facade",
-      "widthScreens": 0.8,
+      "widthScreens": 0.4,
       "classChange": {
         "id": "classe-dev-jeux",
         "title": "Développeur de jeux vidéo",
@@ -404,7 +404,7 @@
       "years": "2013",
       "level": 28,
       "kind": "Square",
-      "widthScreens": 1.2,
+      "widthScreens": 0.6,
       "traitsAfter": [
         "esprit-equipe"
       ],
@@ -536,7 +536,7 @@
       "years": "2017",
       "level": 32,
       "kind": "Traverse",
-      "widthScreens": 0.8,
+      "widthScreens": 0.4,
       "projects": [
         {
           "id": "whitequest-labquest-pharma",
@@ -574,7 +574,7 @@
       "years": "2018 - aujourd'hui · micro-entreprise",
       "level": 33,
       "kind": "Counter",
-      "widthScreens": 0.8,
+      "widthScreens": 0.4,
       "founder": true,
       "traitsAfter": [
         "autonomie"
@@ -617,7 +617,7 @@
       "years": "2018",
       "level": 33,
       "kind": "Traverse",
-      "widthScreens": 1.2,
+      "widthScreens": 0.6,
       "traitsAfter": [
         "force-proposition"
       ],
@@ -692,7 +692,7 @@
       "years": "2019",
       "level": 34,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 0.2,
       "founder": false,
       "projects": [
         {
@@ -720,7 +720,7 @@
       "years": "2020",
       "level": 35,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 0.2,
       "founder": false,
       "projects": [
         {
@@ -758,7 +758,7 @@
       "years": "2021",
       "level": 36,
       "kind": "Facade",
-      "widthScreens": 1.2,
+      "widthScreens": 0.6,
       "founder": true,
       "projects": [
         {
@@ -800,7 +800,7 @@
       "years": "2021",
       "level": 36,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 0.2,
       "founder": false,
       "projects": [
         {
@@ -858,7 +858,7 @@
       "years": "2022",
       "level": 37,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 0.2,
       "founder": false,
       "projects": [
         {
@@ -883,7 +883,7 @@
       "years": "2023 - 2024 · Employé polyvalent",
       "level": 38,
       "kind": "Facade",
-      "widthScreens": 0.5,
+      "widthScreens": 0.25,
       "traitsAfter": [
         "depassement"
       ],
@@ -906,7 +906,7 @@
       "years": "2023",
       "level": 38,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 0.2,
       "founder": false,
       "projects": [
         {
@@ -931,7 +931,7 @@
       "years": "2024",
       "level": 39,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 0.2,
       "founder": false,
       "projects": [
         {
@@ -956,7 +956,7 @@
       "years": "2025",
       "level": 40,
       "kind": "Facade",
-      "widthScreens": 0.5,
+      "widthScreens": 0.25,
       "projects": [
         {
           "id": "cine-support",
@@ -985,7 +985,7 @@
       "years": "2025",
       "level": 40,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 0.2,
       "founder": false,
       "projects": [
         {
@@ -1011,7 +1011,7 @@
       "years": "2026",
       "level": 40,
       "kind": "Square",
-      "widthScreens": 0.8,
+      "widthScreens": 0.4,
       "projects": [],
       "notes": "Réflexions de groupe sur les enjeux du numérique, rapports et propositions d'actions : étude et recherche de solutions, pas de formation. Aucune compétence du catalogue (décision d'Éric). Trait Engagement citoyen en sortant, qui couvre aussi le mandat de conseiller municipal (élections municipales de mars 2026), sans lieu dédié. Place publique avec le logo du Conseil Régional.",
       "traitsAfter": [
@@ -1024,7 +1024,7 @@
       "years": "2026",
       "level": 40,
       "kind": "Counter",
-      "widthScreens": 0.4,
+      "widthScreens": 0.2,
       "founder": false,
       "projects": [
         {
@@ -1086,7 +1086,7 @@
       "years": "2025",
       "level": 40,
       "kind": "Stand",
-      "widthScreens": 0.6,
+      "widthScreens": 0.3,
       "founder": true,
       "projects": [
         {
@@ -1154,7 +1154,7 @@
       "years": "2026",
       "level": 40,
       "kind": "End",
-      "widthScreens": 1.4,
+      "widthScreens": 0.7,
       "notes": "Fin : chantier des projets en cours sous bâche (nom, plateforme, « en cours », aucun point), puis pluie de compétences, pouce, carte de contact, une ligne de texte. Liste tirée de Projects/Games le 2026-09-11, hors archives et ResuME ; plateformes confirmées par Éric. Les concepts restent hors du jeu (teaser sans spoil). Contact : alias sur le domaine gorasgames.fr à confirmer, LinkedIn à fournir.",
       "projects": [
         {

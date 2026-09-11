@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921395d58fc00c5679d3dde1809130f4, type: 3}
   m_Name: Route
   m_EditorClassIdentifier: ResuME.Runtime::ResuME.Data.RouteDefinition
-  screenWidthUnits: 20
+  screenWidthUnits: 32
   buildingHeightUnits: 6
   roadHeightUnits: 2
   secondsPerScreen: 3
-  gapScreens: 0.5
+  gapScreens: 0.3
   masteryScaleMax: 20
   contactEmail: eric.dovergne@gmx.fr
   contactLinkedIn: https://www.linkedin.com/in/ericdovergne/
@@ -82,7 +82,7 @@ MonoBehaviour:
     years: "vers 2000 \xB7 entr\xE9e en seconde"
     level: 15
     kind: 0
-    widthScreens: 1
+    widthScreens: 0.5
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -107,9 +107,9 @@ MonoBehaviour:
     years: "2003 \xB7 BAC STT Comptabilit\xE9 & Gestion"
     level: 18
     kind: 2
-    widthScreens: 0.8
+    widthScreens: 0.4
     founder: 0
-    gapAfterScreens: 0.1
+    gapAfterScreens: 0.05
     traitsBefore: []
     traitsAfter: []
     rewards:
@@ -142,7 +142,7 @@ MonoBehaviour:
     years: "2005 \xB7 BTS Informatique de Gestion"
     level: 20
     kind: 2
-    widthScreens: 0.8
+    widthScreens: 0.4
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -175,7 +175,7 @@ MonoBehaviour:
     years: 2005
     level: 20
     kind: 6
-    widthScreens: 0.8
+    widthScreens: 0.4
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -231,7 +231,7 @@ MonoBehaviour:
     years: 2010
     level: 25
     kind: 1
-    widthScreens: 0.8
+    widthScreens: 0.4
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -335,7 +335,7 @@ MonoBehaviour:
     years: 2013
     level: 28
     kind: 5
-    widthScreens: 1.2
+    widthScreens: 0.6
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -439,7 +439,7 @@ MonoBehaviour:
     years: 2017
     level: 32
     kind: 2
-    widthScreens: 0.8
+    widthScreens: 0.4
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -475,7 +475,7 @@ MonoBehaviour:
     years: "2018 - aujourd'hui \xB7 micro-entreprise"
     level: 33
     kind: 3
-    widthScreens: 0.8
+    widthScreens: 0.4
     founder: 1
     gapAfterScreens: -1
     traitsBefore: []
@@ -520,7 +520,7 @@ MonoBehaviour:
     years: 2018
     level: 33
     kind: 2
-    widthScreens: 1.2
+    widthScreens: 0.6
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -587,7 +587,7 @@ MonoBehaviour:
     years: 2019
     level: 34
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 0.2
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -614,7 +614,7 @@ MonoBehaviour:
     years: 2020
     level: 35
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 0.2
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -645,7 +645,7 @@ MonoBehaviour:
     years: 2021
     level: 36
     kind: 1
-    widthScreens: 1.2
+    widthScreens: 0.6
     founder: 1
     gapAfterScreens: -1
     traitsBefore: []
@@ -690,7 +690,7 @@ MonoBehaviour:
     years: 2021
     level: 36
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 0.2
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -734,7 +734,7 @@ MonoBehaviour:
     years: 2022
     level: 37
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 0.2
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -756,7 +756,7 @@ MonoBehaviour:
     years: "2023 - 2024 \xB7 Employ\xE9 polyvalent"
     level: 38
     kind: 1
-    widthScreens: 0.5
+    widthScreens: 0.25
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -784,7 +784,7 @@ MonoBehaviour:
     years: 2023
     level: 38
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 0.2
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -806,7 +806,7 @@ MonoBehaviour:
     years: 2024
     level: 39
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 0.2
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -828,7 +828,7 @@ MonoBehaviour:
     years: 2025
     level: 40
     kind: 1
-    widthScreens: 0.5
+    widthScreens: 0.25
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -856,7 +856,7 @@ MonoBehaviour:
     years: 2025
     level: 40
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 0.2
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -879,7 +879,7 @@ MonoBehaviour:
     years: 2026
     level: 40
     kind: 5
-    widthScreens: 0.8
+    widthScreens: 0.4
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -903,7 +903,7 @@ MonoBehaviour:
     years: 2026
     level: 40
     kind: 3
-    widthScreens: 0.4
+    widthScreens: 0.2
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
@@ -950,7 +950,7 @@ MonoBehaviour:
     years: 2025
     level: 40
     kind: 4
-    widthScreens: 0.6
+    widthScreens: 0.3
     founder: 1
     gapAfterScreens: -1
     traitsBefore: []
@@ -1007,7 +1007,7 @@ MonoBehaviour:
     years: 2026
     level: 40
     kind: 7
-    widthScreens: 1.4
+    widthScreens: 0.7
     founder: 0
     gapAfterScreens: -1
     traitsBefore: []
