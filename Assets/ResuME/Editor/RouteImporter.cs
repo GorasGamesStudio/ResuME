@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using ResuME.Data;
+using GGS.Resume.Data;
 using UnityEditor;
 using UnityEngine;
 
-namespace ResuME.Editor
+namespace GGS.Resume.Editor
 {
     /// <summary>
     /// Turns <c>Datas/route.json</c> (hand-edited, no compilation needed) into the Route asset the
@@ -14,10 +14,14 @@ namespace ResuME.Editor
     /// </summary>
     public static class RouteImporter
     {
-        public const string JsonPath = "Assets/ResuME/Datas/route.json";
-        public const string AssetPath = "Assets/ResuME/Datas/Route.asset";
+        #region Fields
 
-        #region JSON shape (JsonUtility: arrays, no dictionaries, enums as strings)
+        public const string JSON_PATH = "Assets/ResuME/Datas/route.json";
+        public const string ASSET_PATH = "Assets/ResuME/Datas/Route.asset";
+
+        #endregion
+
+        #region Data Structures
 
         [Serializable] private class RouteFile
         {
@@ -34,7 +38,7 @@ namespace ResuME.Editor
         }
 
         [Serializable] private class ContactFile { public string email; public string linkedin; public string cvUrl; public string closingLine; }
-        [Serializable] private class SkillFile { public string id; public string label; public string category; public string description; }
+        [Serializable] private class SkillFile { public string id; public string label; public string @short; public string category; public string description; }
         [Serializable] private class TraitFile { public string id; public string label; public string description; }
         [Serializable] private class RewardFile { public string id; public string title; public string description; }
         [Serializable] private class ProjectFile { public string id; public string title; public string description; public List<string> skills = new List<string>(); public List<string> platforms = new List<string>(); }
@@ -59,6 +63,11 @@ namespace ResuME.Editor
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Menu entry: imports the JSON and saves the asset.
+        /// </summary>
         [MenuItem("ResuME/Route/Import route.json")]
         public static void ImportFromMenu()
         {
@@ -69,33 +78,33 @@ namespace ResuME.Editor
         /// <summary>Imports the JSON into the Route asset (created if missing). Returns null on error.</summary>
         public static RouteDefinition Import()
         {
-            if (!File.Exists(JsonPath))
+            if (!File.Exists(JSON_PATH))
             {
-                Debug.LogError($"[RouteImporter] {JsonPath} not found.");
+                Debug.LogError($"[RouteImporter] {JSON_PATH} not found.");
                 return null;
             }
 
             RouteFile file;
             try
             {
-                file = JsonUtility.FromJson<RouteFile>(File.ReadAllText(JsonPath));
+                file = JsonUtility.FromJson<RouteFile>(File.ReadAllText(JSON_PATH));
             }
             catch (Exception e)
             {
-                Debug.LogError($"[RouteImporter] {JsonPath} is not valid JSON: {e.Message}");
+                Debug.LogError($"[RouteImporter] {JSON_PATH} is not valid JSON: {e.Message}");
                 return null;
             }
 
-            var errors = new List<string>();
-            var traits = new Dictionary<string, TraitFile>();
+            List<string> errors = new List<string>();
+            Dictionary<string, TraitFile> traits = new Dictionary<string, TraitFile>();
             foreach (TraitFile trait in file.traits)
             {
                 if (string.IsNullOrEmpty(trait.id)) errors.Add("a trait has no id");
                 else if (!traits.TryAdd(trait.id, trait)) errors.Add($"duplicate trait id '{trait.id}'");
             }
 
-            var skills = new List<SkillDefinition>();
-            var skillIds = new HashSet<string>();
+            List<SkillDefinition> skills = new List<SkillDefinition>();
+            HashSet<string> skillIds = new HashSet<string>();
             foreach (SkillFile skill in file.skills)
             {
                 if (string.IsNullOrEmpty(skill.id)) { errors.Add("a skill has no id"); continue; }
@@ -105,11 +114,11 @@ namespace ResuME.Editor
                     errors.Add($"skill '{skill.id}': unknown category '{skill.category}'");
                     category = SkillCategory.None;
                 }
-                skills.Add(new SkillDefinition { id = skill.id, label = skill.label, category = category, description = skill.description });
+                skills.Add(new SkillDefinition { id = skill.id, label = skill.label, shortLabel = string.IsNullOrEmpty(skill.@short) ? skill.label : skill.@short, category = category, description = skill.description });
             }
 
-            var stops = new List<StopDefinition>();
-            var stopIds = new HashSet<string>();
+            List<StopDefinition> stops = new List<StopDefinition>();
+            HashSet<string> stopIds = new HashSet<string>();
             foreach (StopFile s in file.stops)
             {
                 if (string.IsNullOrEmpty(s.id)) { errors.Add("a stop has no id"); continue; }
@@ -151,16 +160,16 @@ namespace ResuME.Editor
 
             if (errors.Count > 0)
             {
-                Debug.LogError($"[RouteImporter] {errors.Count} error(s) in {JsonPath}, asset not updated:\n- " + string.Join("\n- ", errors));
+                Debug.LogError($"[RouteImporter] {errors.Count} error(s) in {JSON_PATH}, asset not updated:\n- " + string.Join("\n- ", errors));
                 return null;
             }
 
-            RouteDefinition route = AssetDatabase.LoadAssetAtPath<RouteDefinition>(AssetPath);
+            RouteDefinition route = AssetDatabase.LoadAssetAtPath<RouteDefinition>(ASSET_PATH);
             if (route == null)
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(AssetPath));
+                Directory.CreateDirectory(Path.GetDirectoryName(ASSET_PATH));
                 route = ScriptableObject.CreateInstance<RouteDefinition>();
-                AssetDatabase.CreateAsset(route, AssetPath);
+                AssetDatabase.CreateAsset(route, ASSET_PATH);
             }
 
             route.screenWidthUnits = file.screenWidthUnits;
@@ -177,11 +186,18 @@ namespace ResuME.Editor
             route.stops = stops;
             EditorUtility.SetDirty(route);
 
-            Debug.Log($"[RouteImporter] {AssetPath} updated from {JsonPath}: {stops.Count} stops, {route.CountProjects()} projects, " +
+            Debug.Log($"[RouteImporter] {ASSET_PATH} updated from {JSON_PATH}: {stops.Count} stops, {route.CountProjects()} projects, " +
                       $"{route.CountGains()} mastery points over {route.CountDistinctSkills()} skills, {route.CountRewards(RewardKind.Trait)} traits.");
             return route;
         }
 
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Resolves a trait id against the catalogue and appends it as a reward, or records an error.
+        /// </summary>
         private static void AddTrait(List<RewardDefinition> list, string traitId, Dictionary<string, TraitFile> traits, string stopId, List<string> errors)
         {
             if (!traits.TryGetValue(traitId, out TraitFile trait))
@@ -191,16 +207,21 @@ namespace ResuME.Editor
             }
             list.Add(new RewardDefinition { kind = RewardKind.Trait, id = trait.id, label = trait.label, description = trait.description, category = SkillCategory.Relationnel });
         }
+
+        #endregion
     }
 
     /// <summary>Re-imports the Route asset every time route.json is saved, so content changes need no compilation.</summary>
     public sealed class RouteJsonWatcher : AssetPostprocessor
     {
+        /// <summary>
+        /// Re-imports the route when route.json is among the imported assets.
+        /// </summary>
         private static void OnPostprocessAllAssets(string[] imported, string[] deleted, string[] moved, string[] movedFrom)
         {
             foreach (string path in imported)
             {
-                if (path != RouteImporter.JsonPath) continue;
+                if (path != RouteImporter.JSON_PATH) continue;
                 RouteDefinition route = RouteImporter.Import();
                 if (route != null) AssetDatabase.SaveAssetIfDirty(route);
                 return;

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ResuME.Data;
-using ResuME.Player;
-using ResuME.UI;
-using ResuME.World;
+using GGS.Resume.Data;
+using GGS.Resume.DevTools;
+using GGS.Resume.Player;
+using GGS.Resume.UI;
+using GGS.Resume.World;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -14,20 +15,30 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
-namespace ResuME.Editor
+namespace GGS.Resume.Editor
 {
     /// <summary>
     /// Builds everything the greybox needs from code, inside the GGS Core project layout: the
     /// square sprite, the Route asset and the GA_GreyboxScene scene. Safe to run again: assets are overwritten, the scene is recreated.
-    /// Also callable in batch mode: <c>-executeMethod ResuME.Editor.GreyboxSetup.BuildAll</c>.
+    /// Also callable in batch mode: <c>-executeMethod GGS.Resume.Editor.GreyboxSetup.BuildAll</c>.
     /// </summary>
     public static class GreyboxSetup
     {
-        private const string Root = "Assets/ResuME";
-        private const string SpritePath = Root + "/Graphics/Sprites/Greybox/square.png";
-                private const string ScenePath = Root + "/Scenes/GA_GreyboxScene.unity";
-        private const string InputActionsPath = "Assets/Settings/InputSystem_Actions.inputactions";
+        #region Fields
 
+        private const string ROOT = "Assets/ResuME";
+        private const string SPRITE_PATH = ROOT + "/Graphics/Sprites/Greybox/square.png";
+        private const string SCENE_PATH = ROOT + "/Scenes/GA_GreyboxScene.unity";
+        private const string INPUT_ACTIONS_PATH = "Assets/Settings/InputSystem_Actions.inputactions";
+        private const int SPRITE_SIZE = 32;
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Rebuilds sprite, route asset and scene, then registers the scene first in the Build Settings.
+        /// </summary>
         [MenuItem("ResuME/Greybox/Rebuild everything")]
         public static void BuildAll()
         {
@@ -46,39 +57,51 @@ namespace ResuME.Editor
                       $"{route.CountProjects()} projects, {route.CountGains()} mastery points over {route.CountDistinctSkills()} skills, {route.CountRewards(RewardKind.Trait)} traits.");
         }
 
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Creates the white square sprite once and enforces its import settings (point filter, 32 pixels per unit).
+        /// </summary>
+        /// <returns>The imported sprite.</returns>
         private static Sprite CreateSquareSprite()
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(SpritePath));
-            if (!File.Exists(SpritePath))
+            Directory.CreateDirectory(Path.GetDirectoryName(SPRITE_PATH));
+            if (!File.Exists(SPRITE_PATH))
             {
-                const int size = 32;
-                Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
-                Color[] pixels = new Color[size * size];
+                Texture2D texture = new Texture2D(SPRITE_SIZE, SPRITE_SIZE, TextureFormat.RGBA32, false);
+                Color[] pixels = new Color[SPRITE_SIZE * SPRITE_SIZE];
                 for (int i = 0; i < pixels.Length; i++) pixels[i] = Color.white;
                 texture.SetPixels(pixels);
                 texture.Apply();
-                File.WriteAllBytes(SpritePath, texture.EncodeToPNG());
+                File.WriteAllBytes(SPRITE_PATH, texture.EncodeToPNG());
                 Object.DestroyImmediate(texture);
-                AssetDatabase.ImportAsset(SpritePath, ImportAssetOptions.ForceUpdate);
+                AssetDatabase.ImportAsset(SPRITE_PATH, ImportAssetOptions.ForceUpdate);
             }
 
-            TextureImporter importer = (TextureImporter)AssetImporter.GetAtPath(SpritePath);
+            TextureImporter importer = (TextureImporter)AssetImporter.GetAtPath(SPRITE_PATH);
             importer.textureType = TextureImporterType.Sprite;
             importer.spriteImportMode = SpriteImportMode.Single;
-            importer.spritePixelsPerUnit = 32;
+            importer.spritePixelsPerUnit = SPRITE_SIZE;
             importer.filterMode = FilterMode.Point;
             importer.mipmapEnabled = false;
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.SaveAndReimport();
-            return AssetDatabase.LoadAssetAtPath<Sprite>(SpritePath);
+            return AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_PATH);
         }
 
+        /// <summary>
+        /// Recreates the greybox scene from scratch: camera, global light, player, world, HUD and event system.
+        /// </summary>
+        /// <param name="route">Route asset the world reads.</param>
+        /// <param name="square">White square used by every block.</param>
         private static void CreateScene(RouteDefinition route, Sprite square)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(ScenePath));
+            Directory.CreateDirectory(Path.GetDirectoryName(SCENE_PATH));
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            InputActionAsset actions = AssetDatabase.LoadAssetAtPath<InputActionAsset>(InputActionsPath);
+            InputActionAsset actions = AssetDatabase.LoadAssetAtPath<InputActionAsset>(INPUT_ACTIONS_PATH);
 
             // Camera
             GameObject cameraGo = new GameObject("Main Camera");
@@ -131,21 +154,22 @@ namespace ResuME.Editor
             InputSystemUIInputModule module = eventsGo.AddComponent<InputSystemUIInputModule>();
             if (actions != null) module.actionsAsset = actions;
 
-            EditorSceneManager.SaveScene(scene, ScenePath);
+            EditorSceneManager.SaveScene(scene, SCENE_PATH);
         }
 
         /// <summary>
-        /// Keeps the GGS Core base scenes and puts the greybox first so a build starts on it,
-        /// until the Bootstrap → Loading → Gameplay flow is wired through the AppSceneMap.
-        /// Entries whose file no longer exists are dropped.
+        /// Keeps the GGS Core base scenes and puts the greybox first so a build starts on it, until the
+        /// Bootstrap → Loading → Gameplay flow is wired. Entries whose file no longer exists are dropped.
         /// </summary>
         private static void RegisterScene()
         {
             List<EditorBuildSettingsScene> scenes = EditorBuildSettings.scenes
-                .Where(s => File.Exists(s.path) && s.path != ScenePath)
+                .Where(s => File.Exists(s.path) && s.path != SCENE_PATH)
                 .ToList();
-            scenes.Insert(0, new EditorBuildSettingsScene(ScenePath, true));
+            scenes.Insert(0, new EditorBuildSettingsScene(SCENE_PATH, true));
             EditorBuildSettings.scenes = scenes.ToArray();
         }
+
+        #endregion
     }
 }

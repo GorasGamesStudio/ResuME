@@ -1,13 +1,14 @@
 using System.Collections;
 using NUnit.Framework;
-using ResuME.Player;
-using ResuME.UI;
-using ResuME.World;
+using GGS.Resume.Data;
+using GGS.Resume.Player;
+using GGS.Resume.UI;
+using GGS.Resume.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace ResuME.Tests
+namespace GGS.Resume.Tests
 {
     /// <summary>
     /// Walks the greybox from start to end with a forced direction and checks that the route
@@ -16,9 +17,18 @@ namespace ResuME.Tests
     /// </summary>
     public class GreyboxRouteTests
     {
-        private const float TimeScale = 8f;
-        private const float RealTimeoutSeconds = 120f;
+        #region Fields
 
+        private const float TIME_SCALE = 8f;
+        private const float REAL_TIMEOUT_SECONDS = 120f;
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Walks forward to the end, checks the sheet, then walks back to the start and checks it is empty again.
+        /// </summary>
         [UnityTest]
         public IEnumerator WalkingTheWholeRoute_FillsTheCharacterSheet()
         {
@@ -26,6 +36,7 @@ namespace ResuME.Tests
             yield return null;
             yield return null;
 
+            // Scene lookups are only tolerated in tests: the runtime wires its references at build time.
             WorldBuilder world = Object.FindFirstObjectByType<WorldBuilder>();
             PlayerMover mover = Object.FindFirstObjectByType<PlayerMover>();
             PlayerProgress progress = Object.FindFirstObjectByType<PlayerProgress>();
@@ -35,8 +46,8 @@ namespace ResuME.Tests
 
             int expectedSkills = world.Route.CountDistinctSkills();
             int expectedGains = world.Route.CountGains();
-            int expectedTraits = world.Route.CountRewards(Data.RewardKind.Trait);
-            int expectedPassives = world.Route.CountRewards(Data.RewardKind.Passive);
+            int expectedTraits = world.Route.CountRewards(RewardKind.Trait);
+            int expectedPassives = world.Route.CountRewards(RewardKind.Passive);
             Assert.AreEqual(12, expectedSkills, "12 skills: the 11 of the review plus artificial intelligence");
             Assert.Greater(expectedGains, expectedSkills, "skills must be reinforced by several projects");
             Assert.Greater(world.Route.CountProjects(), 0, "the route must contain projects");
@@ -44,9 +55,9 @@ namespace ResuME.Tests
             Assert.AreEqual(1, expectedPassives, "Goras Games Studio is the only passive");
 
             mover.ForcedDirection = 1f;
-            Time.timeScale = TimeScale;
+            Time.timeScale = TIME_SCALE;
             float gameStart = Time.time;
-            float realDeadline = Time.realtimeSinceStartup + RealTimeoutSeconds;
+            float realDeadline = Time.realtimeSinceStartup + REAL_TIMEOUT_SECONDS;
             try
             {
                 while (mover.transform.position.x < world.EndX - 0.01f)
@@ -85,15 +96,42 @@ namespace ResuME.Tests
             CharacterSheetHud hud = Object.FindFirstObjectByType<CharacterSheetHud>();
             Assert.IsNotNull(hud, "CharacterSheetHud missing in GA_GreyboxScene");
             var bar = hud.BarOrder();
-            Assert.AreEqual(expectedSkills, bar.Count, "every distinct skill has a square in the bar");
+            Assert.AreEqual(expectedSkills, bar.Count, "every distinct skill has a row in the list");
             for (int i = 1; i < bar.Count; i++)
                 Assert.GreaterOrEqual(bar[i - 1].points, bar[i].points, $"bar must be sorted by mastery at index {i}");
             foreach ((string id, int points) in bar)
-                Assert.AreEqual(progress.MasteryOf(id), points, $"square of {id} shows its mastery");
+                Assert.AreEqual(progress.MasteryOf(id), points, $"row of {id} shows its mastery");
+
+            // Walking all the way back must give everything back.
+            mover.ForcedDirection = -1f;
+            Time.timeScale = TIME_SCALE;
+            realDeadline = Time.realtimeSinceStartup + REAL_TIMEOUT_SECONDS;
+            try
+            {
+                while (mover.transform.position.x > world.StartX + 0.01f)
+                {
+                    Assert.Less(Time.realtimeSinceStartup, realDeadline, "the character never got back to the start");
+                    yield return null;
+                }
+                float settleBack = Time.time + 3f;
+                while (Time.time < settleBack) yield return null;
+            }
+            finally
+            {
+                Time.timeScale = 1f;
+            }
+            Assert.AreEqual(0, world.CollectedRewards, "every pickup is back on the lane after walking back");
+            Assert.AreEqual(0, progress.Skills.Count, "no skill left after walking back");
+            Assert.AreEqual(0, progress.Traits.Count, "no trait left after walking back");
+            Assert.AreEqual(0, progress.Passives.Count, "no passive left after walking back");
+            Assert.AreEqual(PlayerProgress.NoClass, progress.ClassTitle, "class reverted after walking back");
+            Assert.AreEqual(0, hud.BarOrder().Count, "the progression list is empty again");
             int best = 0;
             foreach (SkillMastery mastery in progress.Skills) best = Mathf.Max(best, mastery.Points);
             Assert.AreEqual(best, bar[0].points, "the most exercised skill leads the bar");
 
         }
+
+        #endregion
     }
 }

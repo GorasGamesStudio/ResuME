@@ -16,73 +16,85 @@
       "id": "unity",
       "label": "Unity 3D",
       "category": "Technique",
-      "description": "Jeux et applications 3D, VR, prototypes 2D et 3D."
+      "description": "Jeux et applications 3D, VR, prototypes 2D et 3D.",
+      "short": "Unity"
     },
     {
       "id": "csharp",
       "label": "C#",
       "category": "Technique",
-      "description": "Langage principal, d'Unity aux outils web."
+      "description": "Langage principal, d'Unity aux outils web.",
+      "short": "C#"
     },
     {
       "id": "cpp",
       "label": "C / C++",
       "category": "Technique",
-      "description": "Les bases du code, de SFML à DirectX."
+      "description": "Les bases du code, de SFML à DirectX.",
+      "short": "C / C++"
     },
     {
       "id": "game-design",
       "label": "Conception de jeux vidéo",
       "category": "Technique",
-      "description": "Game design, game jams, projets personnels et professionnels."
+      "description": "Game design, game jams, projets personnels et professionnels.",
+      "short": "Game design"
     },
     {
       "id": "vr",
       "label": "Réalité virtuelle et augmentée",
       "category": "Technique",
-      "description": "Casques, lunettes et applications immersives, en réalité virtuelle comme augmentée."
+      "description": "Casques, lunettes et applications immersives, en réalité virtuelle comme augmentée.",
+      "short": "VR / AR"
     },
     {
       "id": "maintenance",
       "label": "Maintenance & Support informatique",
       "category": "Technique",
-      "description": "Support utilisateurs, configuration de postes, maintenance réseau."
+      "description": "Support utilisateurs, configuration de postes, maintenance réseau.",
+      "short": "Support"
     },
     {
       "id": "installation",
       "label": "Installation matériel informatique",
       "category": "Technique",
-      "description": "Installation et migration de parcs, support technique sur site."
+      "description": "Installation et migration de parcs, support technique sur site.",
+      "short": "Matériel"
     },
     {
       "id": "formation",
       "label": "Formation & Accompagnement",
       "category": "Gestion",
-      "description": "Pédagogie, programmes de formation, transmission."
+      "description": "Pédagogie, programmes de formation, transmission.",
+      "short": "Formation"
     },
     {
       "id": "gestion-entreprise",
       "label": "Gestion d'entreprise",
       "category": "Gestion",
-      "description": "Création, administration, comptabilité et trésorerie de structures : micro-entreprise, société, association."
+      "description": "Création, administration, comptabilité et trésorerie de structures : micro-entreprise, société, association.",
+      "short": "Gestion"
     },
     {
       "id": "bases-donnees",
       "label": "Bases de données",
       "category": "Technique",
-      "description": "Modélisation (MCD, Merise), schémas, requêtes, données applicatives."
+      "description": "Modélisation (MCD, Merise), schémas, requêtes, données applicatives.",
+      "short": "BDD"
     },
     {
       "id": "dev-web",
       "label": "Développement web",
       "category": "Technique",
-      "description": "Sites et applications web, du HTML/PHP des débuts aux outils web des associations."
+      "description": "Sites et applications web, du HTML/PHP des débuts aux outils web des associations.",
+      "short": "Web"
     },
     {
       "id": "ia",
       "label": "Intelligence artificielle",
       "category": "Technique",
-      "description": "Outils d'IA générative et agents appliqués au développement, à l'outillage et à la production : pratique sérieuse depuis 2026."
+      "description": "Outils d'IA générative et agents appliqués au développement, à l'outillage et à la production : pratique sérieuse depuis 2026.",
+      "short": "IA"
     }
   ],
   "traits": [

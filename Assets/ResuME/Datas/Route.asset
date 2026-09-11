@@ -25,54 +25,66 @@ MonoBehaviour:
   skills:
   - id: unity
     label: Unity 3D
+    shortLabel: Unity
     category: 1
     description: Jeux et applications 3D, VR, prototypes 2D et 3D.
   - id: csharp
     label: C#
+    shortLabel: C#
     category: 1
     description: Langage principal, d'Unity aux outils web.
   - id: cpp
     label: C / C++
+    shortLabel: C / C++
     category: 1
     description: "Les bases du code, de SFML \xE0 DirectX."
   - id: game-design
     label: "Conception de jeux vid\xE9o"
+    shortLabel: Game design
     category: 1
     description: Game design, game jams, projets personnels et professionnels.
   - id: vr
     label: "R\xE9alit\xE9 virtuelle et augment\xE9e"
+    shortLabel: VR / AR
     category: 1
     description: "Casques, lunettes et applications immersives, en r\xE9alit\xE9
       virtuelle comme augment\xE9e."
   - id: maintenance
     label: Maintenance & Support informatique
+    shortLabel: Support
     category: 1
     description: "Support utilisateurs, configuration de postes, maintenance r\xE9seau."
   - id: installation
     label: "Installation mat\xE9riel informatique"
+    shortLabel: "Mat\xE9riel"
     category: 1
     description: Installation et migration de parcs, support technique sur site.
   - id: formation
     label: Formation & Accompagnement
+    shortLabel: Formation
     category: 2
     description: "P\xE9dagogie, programmes de formation, transmission."
   - id: gestion-entreprise
     label: Gestion d'entreprise
+    shortLabel: Gestion
     category: 2
     description: "Cr\xE9ation, administration, comptabilit\xE9 et tr\xE9sorerie de
       structures : micro-entreprise, soci\xE9t\xE9, association."
   - id: bases-donnees
     label: "Bases de donn\xE9es"
+    shortLabel: BDD
     category: 1
     description: "Mod\xE9lisation (MCD, Merise), sch\xE9mas, requ\xEAtes, donn\xE9es
       applicatives."
   - id: dev-web
     label: "D\xE9veloppement web"
+    shortLabel: Web
     category: 1
     description: "Sites et applications web, du HTML/PHP des d\xE9buts aux outils
       web des associations."
   - id: ia
     label: Intelligence artificielle
+    shortLabel: IA
     category: 1
     description: "Outils d'IA g\xE9n\xE9rative et agents appliqu\xE9s au d\xE9veloppement,
       \xE0 l'outillage et \xE0 la production : pratique s\xE9rieuse depuis 2026."
@@ -83,8 +95,8 @@ MonoBehaviour:
     level: 15
     kind: 0
     widthScreens: 0.5
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -108,8 +120,8 @@ MonoBehaviour:
     level: 18
     kind: 2
     widthScreens: 0.4
-    founder: 0
     gapAfterScreens: 0.05
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards:
@@ -143,8 +155,8 @@ MonoBehaviour:
     level: 20
     kind: 2
     widthScreens: 0.4
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards:
@@ -176,8 +188,8 @@ MonoBehaviour:
     level: 20
     kind: 6
     widthScreens: 0.4
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -232,8 +244,8 @@ MonoBehaviour:
     level: 25
     kind: 1
     widthScreens: 0.4
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards:
@@ -336,8 +348,8 @@ MonoBehaviour:
     level: 28
     kind: 5
     widthScreens: 0.6
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -440,8 +452,8 @@ MonoBehaviour:
     level: 32
     kind: 2
     widthScreens: 0.4
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -476,8 +488,8 @@ MonoBehaviour:
     level: 33
     kind: 3
     widthScreens: 0.4
-    founder: 1
     gapAfterScreens: -1
+    founder: 1
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -521,8 +533,8 @@ MonoBehaviour:
     level: 33
     kind: 2
     widthScreens: 0.6
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -588,8 +600,8 @@ MonoBehaviour:
     level: 34
     kind: 3
     widthScreens: 0.2
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -615,8 +627,8 @@ MonoBehaviour:
     level: 35
     kind: 3
     widthScreens: 0.2
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -646,8 +658,8 @@ MonoBehaviour:
     level: 36
     kind: 1
     widthScreens: 0.6
-    founder: 1
     gapAfterScreens: -1
+    founder: 1
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -691,8 +703,8 @@ MonoBehaviour:
     level: 36
     kind: 3
     widthScreens: 0.2
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -735,8 +747,8 @@ MonoBehaviour:
     level: 37
     kind: 3
     widthScreens: 0.2
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -757,8 +769,8 @@ MonoBehaviour:
     level: 38
     kind: 1
     widthScreens: 0.25
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -785,8 +797,8 @@ MonoBehaviour:
     level: 38
     kind: 3
     widthScreens: 0.2
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -807,8 +819,8 @@ MonoBehaviour:
     level: 39
     kind: 3
     widthScreens: 0.2
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -829,8 +841,8 @@ MonoBehaviour:
     level: 40
     kind: 1
     widthScreens: 0.25
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -857,8 +869,8 @@ MonoBehaviour:
     level: 40
     kind: 3
     widthScreens: 0.2
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -880,8 +892,8 @@ MonoBehaviour:
     level: 40
     kind: 5
     widthScreens: 0.4
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter:
     - kind: 0
@@ -904,8 +916,8 @@ MonoBehaviour:
     level: 40
     kind: 3
     widthScreens: 0.2
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -951,8 +963,8 @@ MonoBehaviour:
     level: 40
     kind: 4
     widthScreens: 0.3
-    founder: 1
     gapAfterScreens: -1
+    founder: 1
     traitsBefore: []
     traitsAfter: []
     rewards: []
@@ -1008,8 +1020,8 @@ MonoBehaviour:
     level: 40
     kind: 7
     widthScreens: 0.7
-    founder: 0
     gapAfterScreens: -1
+    founder: 0
     traitsBefore: []
     traitsAfter: []
     rewards: []

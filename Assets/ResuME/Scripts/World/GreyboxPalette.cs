@@ -1,11 +1,15 @@
-using ResuME.Data;
+using GGS.Resume.Data;
 using UnityEngine;
 
-namespace ResuME.World
+namespace GGS.Resume.World
 {
-    /// <summary>Flat greys with a hint of tint, so kinds stay readable without any art.</summary>
+    /// <summary>
+    /// Flat greys with a hint of tint, so every kind of block stays readable without any art.
+    /// </summary>
     public static class GreyboxPalette
     {
+        #region Fields
+
         public static readonly Color Background = new Color(0.16f, 0.17f, 0.19f);
         public static readonly Color Road = new Color(0.30f, 0.30f, 0.32f);
         public static readonly Color Floor = new Color(0.36f, 0.37f, 0.40f);
@@ -13,7 +17,17 @@ namespace ResuME.World
         public static readonly Color Player = new Color(0.92f, 0.92f, 0.92f);
         public static readonly Color Label = new Color(0.95f, 0.95f, 0.95f);
         public static readonly Color Founder = new Color(0.85f, 0.70f, 0.25f);
+        public static readonly Color Project = new Color(0.90f, 0.90f, 0.92f);
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Tint of a stop block according to its kind.
+        /// </summary>
+        /// <param name="kind">Kind of the stop.</param>
+        /// <returns>A grey with a slight tint.</returns>
         public static Color ForStop(StopKind kind)
         {
             switch (kind)
@@ -30,8 +44,12 @@ namespace ResuME.World
             }
         }
 
-        public static readonly Color Project = new Color(0.90f, 0.90f, 0.92f);
-
+        /// <summary>
+        /// Colour of a non-skill reward (class change, passive, trait).
+        /// </summary>
+        /// <param name="kind">Reward kind.</param>
+        /// <param name="category">Category, used for the fallback.</param>
+        /// <returns>The reward colour.</returns>
         public static Color ForReward(RewardKind kind, SkillCategory category)
         {
             switch (kind)
@@ -43,11 +61,18 @@ namespace ResuME.World
             }
         }
 
+        /// <summary>
+        /// Colour of a skill: green-ish for management, blue-ish for technique.
+        /// </summary>
+        /// <param name="category">Skill category.</param>
+        /// <returns>The skill colour.</returns>
         public static Color ForSkill(SkillCategory category)
         {
             return category == SkillCategory.Gestion
                 ? new Color(0.60f, 0.85f, 0.60f)
                 : new Color(0.60f, 0.75f, 0.95f);
         }
+
+        #endregion
     }
 }

@@ -2,22 +2,26 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ResuME.Data
+namespace GGS.Resume.Data
 {
-    /// <summary>How a stop of the route is represented in the world.</summary>
+    #region Data Structures
+
+    /// <summary>
+    /// How a stop of the route is represented in the world.
+    /// </summary>
     public enum StopKind
     {
         /// <summary>Opening scene (the childhood bedroom).</summary>
         Intro,
-        /// <summary>A school: the player walks in front of it and leaves with a diploma.</summary>
+        /// <summary>A school or a plain passage: the player walks in front of it.</summary>
         Facade,
         /// <summary>A company: the player walks through it, the front wall disappears inside.</summary>
         Traverse,
-        /// <summary>An administrative counter on the road (micro-company registration).</summary>
+        /// <summary>An administrative counter on the road (the studio's yearly appearances).</summary>
         Counter,
         /// <summary>An open-air fair stand (association).</summary>
         Stand,
-        /// <summary>A public square (public volunteering).</summary>
+        /// <summary>A public square or an open-air trail.</summary>
         Square,
         /// <summary>Several small buildings side by side, one per project (scattered short missions).</summary>
         Cluster,
@@ -25,7 +29,9 @@ namespace ResuME.Data
         End
     }
 
-    /// <summary>What a non-skill pickup adds to the character sheet.</summary>
+    /// <summary>
+    /// What a non-skill pickup adds to the character sheet.
+    /// </summary>
     public enum RewardKind
     {
         Trait,
@@ -33,7 +39,9 @@ namespace ResuME.Data
         Passive
     }
 
-    /// <summary>Resume category of a skill, mirrored from the classic CV.</summary>
+    /// <summary>
+    /// Resume category of a skill, mirrored from the classic CV.
+    /// </summary>
     public enum SkillCategory
     {
         None,
@@ -42,17 +50,23 @@ namespace ResuME.Data
         Relationnel
     }
 
-    /// <summary>A skill of the catalogue. Mastery is the number of projects that used it.</summary>
+    /// <summary>
+    /// A skill of the catalogue. Mastery is the number of projects that used it.
+    /// </summary>
     [Serializable]
     public class SkillDefinition
     {
         public string id;
         public string label;
+        [Tooltip("Short label for the hotbar square, until the logos arrive.")]
+        public string shortLabel;
         public SkillCategory category;
         [TextArea] public string description;
     }
 
-    /// <summary>A trait, a class change or a passive, picked up on the road or inside a stop.</summary>
+    /// <summary>
+    /// A trait, a class change or a passive, picked up on the road or inside a stop.
+    /// </summary>
     [Serializable]
     public class RewardDefinition
     {
@@ -63,7 +77,9 @@ namespace ResuME.Data
         public SkillCategory category;
     }
 
-    /// <summary>A project or experience inside a stop: grants one mastery point to each skill it used.</summary>
+    /// <summary>
+    /// A project or experience inside a stop: grants one mastery point to each skill it used.
+    /// </summary>
     [Serializable]
     public class ProjectDefinition
     {
@@ -72,10 +88,13 @@ namespace ResuME.Data
         [TextArea] public string description;
         [Tooltip("Ids of the skills this project used (one mastery point each).")]
         public List<string> skillIds = new List<string>();
-        [Tooltip("Target platforms shipped (PC, Android, iOS, WebGL, Quest...): badges, not skills.")]
+        [Tooltip("Target platforms shipped (PC, Android, iOS, WebGL, VR...): badges, not skills.")]
         public List<string> platforms = new List<string>();
     }
 
+    /// <summary>
+    /// A stop of the route: a place of the timeline with its rewards and projects.
+    /// </summary>
     [Serializable]
     public class StopDefinition
     {
@@ -87,10 +106,10 @@ namespace ResuME.Data
         public StopKind kind;
         [Tooltip("Width of the stop, in screens (one screen = RouteDefinition.screenWidthUnits).")]
         public float widthScreens = 1f;
-        [Tooltip("Structure founded by Éric: shows the Fondateur badge.")]
-        public bool founder;
         [Tooltip("Road after this stop, in screens. Negative = the route's default gap. 0 glues the next stop to this one.")]
         public float gapAfterScreens = -1f;
+        [Tooltip("Structure founded by Éric: shows the Fondateur badge.")]
+        public bool founder;
         [Tooltip("Traits picked up on the road just before entering the stop.")]
         public List<RewardDefinition> traitsBefore = new List<RewardDefinition>();
         [Tooltip("Traits picked up on the road just after leaving the stop.")]
@@ -102,17 +121,21 @@ namespace ResuME.Data
         [TextArea] public string notes;
     }
 
+    #endregion
+
     /// <summary>
-    /// Single source of truth at runtime for the route: sizes, pacing, skill catalogue and the
-    /// ordered stops. Generated from Datas/route.json by the editor importer; every distance is
-    /// expressed in screens so the greybox can be tuned from the inspector.
+    /// Single source of truth at runtime for the route: sizes, pacing, contact card, skill catalogue
+    /// and the ordered stops. Generated from Datas/route.json by the editor importer; every distance
+    /// is expressed in screens so the greybox can be tuned from the inspector.
     /// </summary>
     [CreateAssetMenu(menuName = "ResuME/Route Definition", fileName = "Route")]
     public class RouteDefinition : ScriptableObject
     {
+        #region Fields
+
         [Header("Sizes")]
         [Tooltip("World units visible horizontally on a 16:9 screen.")]
-        public float screenWidthUnits = 20f;
+        public float screenWidthUnits = 32f;
         [Tooltip("Height of building blocks, in world units.")]
         public float buildingHeightUnits = 6f;
         [Tooltip("Height of the road band the character walks on, in world units.")]
@@ -122,7 +145,7 @@ namespace ResuME.Data
         [Tooltip("Seconds needed to walk across one screen.")]
         public float secondsPerScreen = 3f;
         [Tooltip("Empty road between two stops, in screens.")]
-        public float gapScreens = 0.5f;
+        public float gapScreens = 0.3f;
 
         [Header("Mastery")]
         [Tooltip("Projects needed to fill the mastery gauge completely.")]
@@ -140,13 +163,16 @@ namespace ResuME.Data
         public List<SkillDefinition> skills = new List<SkillDefinition>();
         public List<StopDefinition> stops = new List<StopDefinition>();
 
+        /// <summary>Walking speed in world units per second, derived from the pacing.</summary>
         public float WalkSpeed => secondsPerScreen > 0f ? screenWidthUnits / secondsPerScreen : screenWidthUnits;
 
+        /// <summary>Total length of the route in screens, stops and gaps included.</summary>
         public float TotalScreens
         {
             get
             {
                 float total = 0f;
+                // Sum every stop width plus the road that follows it (except after the last one).
                 for (int i = 0; i < stops.Count; i++)
                 {
                     total += stops[i].widthScreens;
@@ -156,34 +182,67 @@ namespace ResuME.Data
             }
         }
 
-        /// <summary>Road length after a stop, in screens: its own override or the route default.</summary>
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Road length after a stop, in screens.
+        /// </summary>
+        /// <param name="stop">The stop whose following road is measured.</param>
+        /// <returns>Its own override when set, otherwise the route default.</returns>
         public float GapAfter(StopDefinition stop) => stop.gapAfterScreens >= 0f ? stop.gapAfterScreens : gapScreens;
 
+        /// <summary>
+        /// Finds a skill of the catalogue by id.
+        /// </summary>
+        /// <param name="id">Skill id as written in the projects.</param>
+        /// <returns>The skill, or null when the id is unknown.</returns>
         public SkillDefinition FindSkill(string id)
         {
-            foreach (SkillDefinition skill in skills) if (skill.id == id) return skill;
+            foreach (SkillDefinition skill in skills)
+            {
+                if (skill.id == id) return skill;
+            }
             return null;
         }
 
-        /// <summary>Number of distinct skills used by at least one project.</summary>
+        /// <summary>
+        /// Counts the distinct skills used by at least one project.
+        /// </summary>
+        /// <returns>Number of distinct skill ids across all projects.</returns>
         public int CountDistinctSkills()
         {
-            var ids = new HashSet<string>();
+            HashSet<string> ids = new HashSet<string>();
+            // Collect every skill id mentioned by any project of any stop.
             foreach (StopDefinition stop in stops)
+            {
                 foreach (ProjectDefinition project in stop.projects)
+                {
                     foreach (string id in project.skillIds) ids.Add(id);
+                }
+            }
             return ids.Count;
         }
 
-        /// <summary>Total mastery points handed out on the route (one per skill per project).</summary>
+        /// <summary>
+        /// Counts the mastery points handed out on the whole route (one per skill per project).
+        /// </summary>
+        /// <returns>Total number of gains.</returns>
         public int CountGains()
         {
             int total = 0;
             foreach (StopDefinition stop in stops)
+            {
                 foreach (ProjectDefinition project in stop.projects) total += project.skillIds.Count;
+            }
             return total;
         }
 
+        /// <summary>
+        /// Counts the projects of the whole route.
+        /// </summary>
+        /// <returns>Number of projects, teasers without skills included.</returns>
         public int CountProjects()
         {
             int total = 0;
@@ -191,16 +250,29 @@ namespace ResuME.Data
             return total;
         }
 
-        /// <summary>Mastery a skill reaches at the end of the route: the number of projects that used it.</summary>
+        /// <summary>
+        /// Mastery a skill reaches at the end of the route.
+        /// </summary>
+        /// <param name="skillId">Skill id.</param>
+        /// <returns>Number of projects that used the skill.</returns>
         public int TotalPoints(string skillId)
         {
             int total = 0;
             foreach (StopDefinition stop in stops)
+            {
                 foreach (ProjectDefinition project in stop.projects)
+                {
                     if (project.skillIds.Contains(skillId)) total++;
+                }
+            }
             return total;
         }
 
+        /// <summary>
+        /// Counts the rewards of a kind over the whole route (traits before and after, class changes, passives).
+        /// </summary>
+        /// <param name="kind">Reward kind to count.</param>
+        /// <returns>Number of rewards of that kind.</returns>
         public int CountRewards(RewardKind kind)
         {
             int count = 0;
@@ -212,5 +284,7 @@ namespace ResuME.Data
             }
             return count;
         }
+
+        #endregion
     }
 }

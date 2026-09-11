@@ -1,6 +1,6 @@
 {
     "name": "ResuME.Tests.PlayMode",
-    "rootNamespace": "ResuME.Tests",
+    "rootNamespace": "GGS.Resume.Tests",
     "references": [
         "ResuME.Runtime",
         "UnityEngine.TestRunner",

@@ -1,6 +1,6 @@
 {
     "name": "ResuME.Editor",
-    "rootNamespace": "ResuME.Editor",
+    "rootNamespace": "GGS.Resume.Editor",
     "references": [
         "ResuME.Runtime",
         "Unity.InputSystem",
