@@ -221,7 +221,7 @@ namespace ResuME.World
                 PickupInstance pickup = list[i];
                 float t = (i + 1f) / (list.Count + 1f);
                 float x = Mathf.Lerp(fromX, toX, t);
-                float y = -route.roadHeightUnits * 0.5f;
+                float y = pickup.Stop != null && pickup.Stop.kind == StopKind.Traverse && parent != transform ? 0.9f : -route.roadHeightUnits * 0.5f;
 
                 string id = pickup.Project != null ? pickup.Project.id : pickup.Reward.id;
                 string caption = pickup.Project != null ? pickup.Project.title : pickup.Reward.label;

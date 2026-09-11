@@ -20,6 +20,11 @@ namespace ResuME.Player
         [SerializeField] private float jumpHeight = 0.8f;
         [SerializeField] private float jumpDuration = 0.45f;
 
+        [Header("Depth")]
+        [Tooltip("Height of the floor inside a traversed building, above the road (3/4 view).")]
+        [SerializeField] private float buildingFloorY = 0.9f;
+        [SerializeField] private float depthSpeed = 6f;
+
         [Header("Swipe")]
         [SerializeField] private float dragDeadZonePixels = 8f;
         [SerializeField] private float flickDecayPerSecond = 2.5f;
@@ -78,10 +83,16 @@ namespace ResuME.Player
             }
 
             Direction = Mathf.Clamp(direction, -1f, 1f);
-            if (Direction != 0f && world != null)
+            if (world != null)
             {
                 Vector3 position = transform.position;
-                position.x = Mathf.Clamp(position.x + Direction * Speed * Time.deltaTime, world.StartX, world.EndX);
+                if (Direction != 0f)
+                    position.x = Mathf.Clamp(position.x + Direction * Speed * Time.deltaTime, world.StartX, world.EndX);
+                // Inside a traversed building the character walks up into it (depth), then back down to the road.
+                float targetY = world.CurrentStop != null && world.CurrentStop.Definition.kind == ResuME.Data.StopKind.Traverse
+                    ? buildingFloorY
+                    : -world.Route.roadHeightUnits * 0.5f;
+                position.y = Mathf.MoveTowards(position.y, targetY, depthSpeed * Time.deltaTime);
                 transform.position = position;
             }
 

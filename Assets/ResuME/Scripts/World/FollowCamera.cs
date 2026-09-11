@@ -11,7 +11,8 @@ namespace ResuME.World
     public class FollowCamera : MonoBehaviour
     {
         [SerializeField] private WorldBuilder world;
-        [SerializeField] private float verticalOffset = 2.6f;
+        [Tooltip("Camera centre height: raised so the bottom of the screen stays free for the skill bar.")]
+        [SerializeField] private float verticalOffset = 3.4f;
 
         private Camera cam;
 
