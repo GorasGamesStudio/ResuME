@@ -10,7 +10,8 @@ namespace GGS.Resume.Player
     /// Moves the character along the single lane. Arrow keys and gamepad come from the Input
     /// Actions asset; a horizontal pointer drag (touch swipe or mouse) walks in the drag direction
     /// and keeps a short momentum after release. Inside a traversed building the character walks
-    /// up into it (depth of the 3/4 view). The jump is purely cosmetic.
+    /// up into it (depth of the 3/4 view). On a vehicle ride the same input drives faster and the
+    /// jump is off. The jump is purely cosmetic.
     /// </summary>
     public class PlayerMover : MonoBehaviour
     {
@@ -55,8 +56,10 @@ namespace GGS.Resume.Player
         public bool InputLocked { get; set; }
         /// <summary>Direction of the frame, between -1 and 1.</summary>
         public float Direction { get; private set; }
-        /// <summary>Walking speed in world units per second, from the route pacing.</summary>
-        public float Speed => world != null && world.Route != null ? world.Route.WalkSpeed : 5f;
+        /// <summary>Travel mode at the character's distance: on foot, or the vehicle of the current ride.</summary>
+        public TravelMode Riding => world != null ? world.RideAt(_distance) : TravelMode.Walk;
+        /// <summary>Speed in world units per second: the route pacing, multiplied by the vehicle factor on a ride.</summary>
+        public float Speed => world != null && world.Route != null ? world.Route.WalkSpeed * world.Route.SpeedFactor(Riding) : 5f;
 
         #endregion
 
@@ -135,8 +138,8 @@ namespace GGS.Resume.Player
                 world.SetPlayerDistance(_distance, _depth);
             }
 
-            // Cosmetic hop on the jump action.
-            if (_jump != null && _jump.WasPressedThisFrame() && !_hopping && visual != null)
+            // Cosmetic hop on the jump action, never from a vehicle.
+            if (_jump != null && _jump.WasPressedThisFrame() && !_hopping && visual != null && Riding == TravelMode.Walk)
                 StartCoroutine(Hop());
         }
 

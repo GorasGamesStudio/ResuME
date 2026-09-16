@@ -30,6 +30,20 @@ namespace GGS.Resume.Data
     }
 
     /// <summary>
+    /// How the character travels on the road after a stop. A vehicle ride is a longer, faster stretch
+    /// of road (a real move on the map of France), still driven by the same one-dimensional input.
+    /// </summary>
+    public enum TravelMode
+    {
+        /// <summary>On foot: the default between two stops.</summary>
+        Walk,
+        /// <summary>By car (the move down to Nîmes).</summary>
+        Car,
+        /// <summary>By motorbike (Alsace to Avignon, Avignon to Loir-et-Cher).</summary>
+        Motorbike
+    }
+
+    /// <summary>
     /// What a non-skill pickup adds to the character sheet.
     /// </summary>
     public enum RewardKind
@@ -125,6 +139,10 @@ namespace GGS.Resume.Data
         public float widthScreens = 1f;
         [Tooltip("Road after this stop, in screens. Negative = the route's default gap. 0 glues the next stop to this one.")]
         public float gapAfterScreens = -1f;
+        [Tooltip("How the character travels to the next stop: on foot, or a vehicle ride inserted in the middle of the gap.")]
+        public TravelMode travelAfter = TravelMode.Walk;
+        [Tooltip("Extra road covered by the vehicle ride, in screens (on top of the vertical leg). Negative = the route's default.")]
+        public float rideScreens = -1f;
         [Tooltip("Structure founded by Éric: shows the Fondateur badge.")]
         public bool founder;
         [Tooltip("Traits picked up on the road just before entering the stop.")]
@@ -169,6 +187,14 @@ namespace GGS.Resume.Data
         [Tooltip("Empty road between two stops, in screens.")]
         public float gapScreens = 0.3f;
 
+        [Header("Travel")]
+        [Tooltip("Extra road of a vehicle ride, in screens, when the stop does not set its own.")]
+        public float rideScreens = 2f;
+        [Tooltip("Speed of the car relative to walking.")]
+        public float carSpeedFactor = 2.5f;
+        [Tooltip("Speed of the motorbike relative to walking.")]
+        public float motorbikeSpeedFactor = 3.5f;
+
         [Header("Mastery")]
         [Tooltip("Projects needed to fill the mastery gauge completely.")]
         public int masteryScaleMax = 20;
@@ -198,7 +224,7 @@ namespace GGS.Resume.Data
                 for (int i = 0; i < stops.Count; i++)
                 {
                     total += stops[i].widthScreens;
-                    if (i < stops.Count - 1) total += GapAfter(stops[i]);
+                    if (i < stops.Count - 1) total += GapAfter(stops[i]) + RideAfter(stops[i]);
                 }
                 return total;
             }
@@ -214,6 +240,32 @@ namespace GGS.Resume.Data
         /// <param name="stop">The stop whose following road is measured.</param>
         /// <returns>Its own override when set, otherwise the route default.</returns>
         public float GapAfter(StopDefinition stop) => stop.gapAfterScreens >= 0f ? stop.gapAfterScreens : gapScreens;
+
+        /// <summary>
+        /// Extra road of the vehicle ride after a stop, in screens.
+        /// </summary>
+        /// <param name="stop">The stop whose following road is measured.</param>
+        /// <returns>0 on foot; otherwise the stop's own ride length, or the route default.</returns>
+        public float RideAfter(StopDefinition stop)
+        {
+            if (stop.travelAfter == TravelMode.Walk) return 0f;
+            return stop.rideScreens >= 0f ? stop.rideScreens : rideScreens;
+        }
+
+        /// <summary>
+        /// Speed of a travel mode relative to walking.
+        /// </summary>
+        /// <param name="mode">Travel mode.</param>
+        /// <returns>1 on foot, the vehicle factor otherwise (never below 1).</returns>
+        public float SpeedFactor(TravelMode mode)
+        {
+            switch (mode)
+            {
+                case TravelMode.Car: return Mathf.Max(1f, carSpeedFactor);
+                case TravelMode.Motorbike: return Mathf.Max(1f, motorbikeSpeedFactor);
+                default: return 1f;
+            }
+        }
 
         /// <summary>
         /// Finds a place of the map by id.

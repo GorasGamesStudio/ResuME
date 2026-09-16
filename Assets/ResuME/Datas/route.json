@@ -4,6 +4,11 @@
   "roadHeightUnits": 2,
   "secondsPerScreen": 3,
   "gapScreens": 0.3,
+  "travel": {
+    "rideScreens": 2,
+    "carSpeedFactor": 2.5,
+    "motorbikeSpeedFactor": 3.5
+  },
   "masteryScaleMax": 20,
   "contact": {
     "email": "eric.dovergne@gmx.fr",
@@ -343,7 +348,8 @@
           "platforms": []
         }
       ],
-      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec quatre petits bâtiments clients : T-Systems (intérim chez VW Group), SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Chaque bâtiment donne Maintenance & Support informatique ; trois d'entre eux donnent aussi Installation matériel informatique (déploiement de postes, migration de parc). Chaque bâtiment s'allume en entier au passage, un à la fois.",
+      "notes": "Espace extérieur (le côté SSII : en déplacement chez les clients) avec quatre petits bâtiments clients : T-Systems (intérim chez VW Group), SPIE Communications, IRIS Conseil, Computacenter (intérim, plus petit). Seule l'année de début du secteur est affichée (2005) ; les autres missions de la période n'ont plus de nom. Chaque bâtiment donne Maintenance & Support informatique ; trois d'entre eux donnent aussi Installation matériel informatique (déploiement de postes, migration de parc). Chaque bâtiment s'allume en entier au passage, un à la fois. Départ en voiture vers Nîmes : la voiture attend au bout de la route, le trajet est plus long et plus rapide.",
+      "travelAfter": "Car",
       "place": "picardie"
     },
     {
@@ -649,7 +655,8 @@
           ]
         }
       ],
-      "notes": "LabQuest, gros projet de R&D en deux versions (Pharma puis System) : deux points Unity, C# et RV, un point de conception. Composition : laboratoire en coupe (fiche).",
+      "notes": "LabQuest, gros projet de R&D en deux versions (Pharma puis System) : deux points Unity, C# et RV, un point de conception. Composition : laboratoire en coupe (fiche). Départ à moto vers Avignon : la moto attend au bout de la route.",
+      "travelAfter": "Motorbike",
       "place": "alsace"
     },
     {
@@ -798,7 +805,8 @@
           ]
         }
       ],
-      "notes": "Guichet annuel 2019 : le fil rouge du studio.",
+      "notes": "Guichet annuel 2019 : le fil rouge du studio. Départ à moto d'Avignon vers le Loir-et-Cher, en juin 2020.",
+      "travelAfter": "Motorbike",
       "place": "avignon"
     },
     {

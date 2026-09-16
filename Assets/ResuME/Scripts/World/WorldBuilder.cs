@@ -35,6 +35,26 @@ namespace GGS.Resume.World
         }
 
         /// <summary>
+        /// A vehicle ride between two stops: the vehicle waits where the ride starts, carries the
+        /// character along the ride (faster), and stays parked where the character leaves it, so
+        /// walking back climbs in again.
+        /// </summary>
+        public sealed class RideInstance
+        {
+            public TravelMode Mode;
+            public StopDefinition From;
+            public StopDefinition To;
+            /// <summary>Distance along the path where the character climbs in.</summary>
+            public float StartX;
+            /// <summary>Distance along the path where the character climbs out.</summary>
+            public float EndX;
+            public GameObject Root;
+            public GameObject Vehicle;
+            public GameObject Label;
+            public float Length => EndX - StartX;
+        }
+
+        /// <summary>
         /// A pickup placed on the lane: either a project or a reward.
         /// </summary>
         private sealed class PickupInstance
@@ -58,8 +78,16 @@ namespace GGS.Resume.World
         private const int SORT_PICKUP = 4;
         private const int SORT_LABEL = 6;
         private const int SORT_FRONT_WALL = 10;
+        private const int SORT_VEHICLE = 4;
         private const float BUILDING_FLOOR_Y = 0.9f;
         private const float LABEL_NEAR_SCREENS = 0.22f;
+        private const float CAR_WIDTH = 2.6f;
+        private const float CAR_HEIGHT = 1.1f;
+        private const float MOTORBIKE_WIDTH = 1.7f;
+        private const float MOTORBIKE_HEIGHT = 0.8f;
+        /// <summary>Vertical offset of the vehicle block under the character (its feet are 0.8 below the pivot).</summary>
+        private const float VEHICLE_OFFSET_Y = -0.45f;
+        private const float VEHICLE_LABEL_OFFSET_Y = -1.3f;
 
         [SerializeField] private RouteDefinition route;
         [SerializeField] private Sprite square;
@@ -68,6 +96,7 @@ namespace GGS.Resume.World
 
         private readonly List<StopInstance> _stops = new List<StopInstance>();
         private readonly List<PickupInstance> _pickups = new List<PickupInstance>();
+        private readonly List<RideInstance> _rides = new List<RideInstance>();
         private readonly RoutePath _path = new RoutePath();
         private float _previousPlayerX;
         private float _playerDistance;
@@ -85,6 +114,8 @@ namespace GGS.Resume.World
         /// <summary>Current distance of the character along the path.</summary>
         public float PlayerDistance => _playerDistance;
         public IReadOnlyList<StopInstance> Stops => _stops;
+        /// <summary>Vehicle rides of the route, in path order.</summary>
+        public IReadOnlyList<RideInstance> Rides => _rides;
         public StopInstance CurrentStop { get; private set; }
         public int TotalRewards => _pickups.Count;
         public int CollectedRewards { get; private set; }
@@ -131,6 +162,7 @@ namespace GGS.Resume.World
             if (player == null) return;
             UpdateStops(_playerDistance);
             UpdatePickups(_previousPlayerX, _playerDistance);
+            UpdateRides(_playerDistance);
             _previousPlayerX = _playerDistance;
         }
 
@@ -170,15 +202,16 @@ namespace GGS.Resume.World
             {
                 StopDefinition definition = route.stops[i];
 
-                // The gap before a stop carries the previous stop's "after" traits, then a vertical leg when the
-                // place changes (north or south on the map), then this stop's "before" traits.
+                // The gap before a stop carries the previous stop's "after" traits, then the turn (a vertical leg when
+                // the place changes, wrapped in a vehicle ride when the previous stop asks for one), then this stop's
+                // "before" traits.
                 if (i > 0)
                 {
                     StopDefinition previous = route.stops[i - 1];
                     float gapHere = route.GapAfter(previous) * screen;
                     float afterStart = _path.AddHorizontal(gapHere * 0.5f);
                     PlaceRewards(previous, previous.traitsAfter, afterStart, afterStart + gapHere * 0.5f, transform);
-                    AddVerticalLegIfPlaceChanges(previous, definition);
+                    AddTurn(previous, definition);
                     float beforeStart = _path.AddHorizontal(gapHere * 0.5f);
                     PlaceRewards(definition, definition.traitsBefore, beforeStart, beforeStart + gapHere * 0.5f, transform);
                 }
@@ -209,12 +242,15 @@ namespace GGS.Resume.World
             StopInstance last = _stops.Count > 0 ? _stops[_stops.Count - 1] : null;
             EndX = last == null ? _path.Length : last.Definition.kind == StopKind.End ? (last.StartX + last.EndX) * 0.5f : last.EndX - 1f;
 
-            // One road block per leg, horizontal or vertical, tinted by the region it runs through.
+            // One road block per leg, horizontal or vertical, tinted by the region it runs through; the legs of a
+            // vehicle ride are darker, like a main road between two regions.
             foreach (RoutePath.Leg leg in _path.Legs)
             {
                 Vector2 centre = leg.Start + leg.Direction * (leg.Length * 0.5f);
                 float road = route.roadHeightUnits;
-                Color color = RegionTint(leg.StartDistance + leg.Length * 0.5f);
+                float middle = leg.StartDistance + leg.Length * 0.5f;
+                Color color = RegionTint(middle);
+                if (RideAt(middle) != TravelMode.Walk) color = Color.Lerp(color, GreyboxPalette.Asphalt, 0.5f);
                 if (leg.Vertical)
                     MakeBlock("Road", transform, centre.x, centre.y, road, leg.Length + road, color, SORT_FLOOR - 1);
                 else
@@ -247,18 +283,103 @@ namespace GGS.Resume.World
             _playerDistance = Mathf.Clamp(distance, StartX, EndX);
             _playerDepth = depth;
             if (player == null) return;
-            RoutePath.Leg leg = _path.LegAt(_playerDistance);
-            Vector2 onRoad = _path.Position(_playerDistance);
-            Vector2 lateral = _path.Depth(_playerDistance);
-            // On a horizontal leg the character stands in the middle of the road band; depth lifts it into the building.
-            float roadCentre = leg != null && !leg.Vertical ? -route.roadHeightUnits * 0.5f : 0f;
-            Vector2 position = onRoad + Vector2.up * roadCentre + lateral * depth;
+            // Depth lifts the character from the road into the building.
+            Vector2 position = RoadAnchor(_playerDistance) + _path.Depth(_playerDistance) * depth;
             player.position = new Vector3(position.x, position.y, 0f);
+        }
+
+        /// <summary>
+        /// Travel mode at a distance along the path.
+        /// </summary>
+        /// <param name="distance">Distance along the path.</param>
+        /// <returns>The vehicle of the ride containing the distance, or on foot.</returns>
+        public TravelMode RideAt(float distance)
+        {
+            foreach (RideInstance ride in _rides)
+            {
+                if (distance >= ride.StartX && distance <= ride.EndX) return ride.Mode;
+            }
+            return TravelMode.Walk;
         }
 
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// World position of the road at a distance: the middle of the road band on a horizontal leg, the
+        /// centre line on a vertical one. Both the character and the vehicles stand on it.
+        /// </summary>
+        /// <param name="distance">Distance along the path.</param>
+        /// <returns>The anchor position.</returns>
+        private Vector2 RoadAnchor(float distance)
+        {
+            RoutePath.Leg leg = _path.LegAt(distance);
+            Vector2 onRoad = _path.Position(distance);
+            float roadCentre = leg != null && !leg.Vertical ? -route.roadHeightUnits * 0.5f : 0f;
+            return onRoad + Vector2.up * roadCentre;
+        }
+
+        /// <summary>
+        /// Lays the turn between two stops: the vertical leg alone on foot, or a vehicle ride that wraps it with
+        /// extra road on both sides. The vehicle waits at the end of the walked half-gap.
+        /// </summary>
+        /// <param name="previous">Stop just left.</param>
+        /// <param name="next">Stop to reach.</param>
+        private void AddTurn(StopDefinition previous, StopDefinition next)
+        {
+            float ride = route.RideAfter(previous) * route.screenWidthUnits;
+            if (previous.travelAfter == TravelMode.Walk || ride <= 0f)
+            {
+                AddVerticalLegIfPlaceChanges(previous, next);
+                return;
+            }
+
+            float mount = _path.AddHorizontal(ride * 0.5f);
+            AddVerticalLegIfPlaceChanges(previous, next);
+            float dismount = _path.AddHorizontal(ride * 0.5f) + ride * 0.5f;
+            RideInstance instance = new RideInstance { Mode = previous.travelAfter, From = previous, To = next, StartX = mount, EndX = dismount };
+            BuildRide(instance);
+            _rides.Add(instance);
+        }
+
+        /// <summary>
+        /// Spawns the greybox vehicle of a ride, parked where the ride starts.
+        /// </summary>
+        /// <param name="ride">The ride; its root, vehicle and label are created here.</param>
+        private void BuildRide(RideInstance ride)
+        {
+            bool car = ride.Mode == TravelMode.Car;
+            GameObject root = new GameObject($"Ride {ride.Mode} {ride.From.id} -> {ride.To.id}");
+            root.transform.SetParent(transform, false);
+            ride.Root = root;
+            ride.Vehicle = MakeBlock("Vehicle", root.transform, 0f, 0f, car ? CAR_WIDTH : MOTORBIKE_WIDTH, car ? CAR_HEIGHT : MOTORBIKE_HEIGHT,
+                GreyboxPalette.ForTravel(ride.Mode), SORT_VEHICLE);
+            ride.Label = MakeLabel("Label", root.transform, 0f, 0f, car ? "voiture" : "moto", 0.2f, SORT_LABEL);
+            PlaceVehicle(ride, ride.StartX);
+        }
+
+        /// <summary>
+        /// Puts the vehicle of a ride on the road at a distance.
+        /// </summary>
+        /// <param name="ride">The ride whose vehicle moves.</param>
+        /// <param name="distance">Distance along the path.</param>
+        private void PlaceVehicle(RideInstance ride, float distance)
+        {
+            Vector2 anchor = RoadAnchor(distance);
+            ride.Vehicle.transform.position = new Vector3(anchor.x, anchor.y + VEHICLE_OFFSET_Y, 0f);
+            ride.Label.transform.position = new Vector3(anchor.x, anchor.y + VEHICLE_LABEL_OFFSET_Y, 0f);
+        }
+
+        /// <summary>
+        /// Keeps each vehicle with the character while it is on its ride, parked at the ride ends otherwise.
+        /// </summary>
+        /// <param name="x">Current player distance along the path.</param>
+        private void UpdateRides(float x)
+        {
+            foreach (RideInstance ride in _rides)
+                PlaceVehicle(ride, Mathf.Clamp(x, ride.StartX, ride.EndX));
+        }
 
         /// <summary>
         /// Inserts a vertical leg when two consecutive stops belong to different places: up when the next

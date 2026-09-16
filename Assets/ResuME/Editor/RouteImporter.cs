@@ -32,6 +32,7 @@ namespace GGS.Resume.Editor
             public float gapScreens = 0.5f;
             public int masteryScaleMax = 5;
             public ContactFile contact = new ContactFile();
+            public TravelFile travel = new TravelFile();
             public float verticalSpanScreens = 1.2f;
             public List<PlaceFile> places = new List<PlaceFile>();
             public List<SkillFile> skills = new List<SkillFile>();
@@ -41,6 +42,7 @@ namespace GGS.Resume.Editor
 
         [Serializable] private class PlaceFile { public string id; public string label; public float x; public float y; public string groundColor; }
         [Serializable] private class ContactFile { public string email; public string linkedin; public string cvUrl; public string closingLine; }
+        [Serializable] private class TravelFile { public float rideScreens = 2f; public float carSpeedFactor = 2.5f; public float motorbikeSpeedFactor = 3.5f; }
         [Serializable] private class SkillFile { public string id; public string label; public string @short; public string category; public string description; }
         [Serializable] private class TraitFile { public string id; public string label; public string description; }
         [Serializable] private class RewardFile { public string id; public string title; public string description; }
@@ -56,6 +58,8 @@ namespace GGS.Resume.Editor
             public string kind;
             public float widthScreens = 1f;
             public float gapAfterScreens = -1f;
+            public string travelAfter;
+            public float rideScreens = -1f;
             public bool founder;
             public List<string> traitsBefore = new List<string>();
             public List<string> traitsAfter = new List<string>();
@@ -144,10 +148,20 @@ namespace GGS.Resume.Editor
                 }
 
                 if (!string.IsNullOrEmpty(s.place) && !placeIds.Contains(s.place)) errors.Add($"stop '{s.id}': unknown place '{s.place}'");
+
+                // Travel mode to the next stop: on foot unless the JSON names a vehicle.
+                TravelMode travel = TravelMode.Walk;
+                if (!string.IsNullOrEmpty(s.travelAfter) && !Enum.TryParse(s.travelAfter, true, out travel))
+                {
+                    errors.Add($"stop '{s.id}': unknown travel mode '{s.travelAfter}'");
+                    travel = TravelMode.Walk;
+                }
+
                 StopDefinition stop = new StopDefinition
                 {
                     id = s.id, title = s.title, years = s.years, place = s.place, level = s.level, kind = kind,
-                    widthScreens = s.widthScreens <= 0f ? 1f : s.widthScreens, gapAfterScreens = s.gapAfterScreens, founder = s.founder, notes = s.notes
+                    widthScreens = s.widthScreens <= 0f ? 1f : s.widthScreens, gapAfterScreens = s.gapAfterScreens,
+                    travelAfter = travel, rideScreens = s.rideScreens, founder = s.founder, notes = s.notes
                 };
 
                 foreach (string traitId in s.traitsBefore) AddTrait(stop.traitsBefore, traitId, traits, s.id, errors);
@@ -192,6 +206,9 @@ namespace GGS.Resume.Editor
             route.roadHeightUnits = file.roadHeightUnits;
             route.secondsPerScreen = file.secondsPerScreen;
             route.gapScreens = file.gapScreens;
+            route.rideScreens = file.travel != null ? file.travel.rideScreens : 2f;
+            route.carSpeedFactor = file.travel != null ? file.travel.carSpeedFactor : 2.5f;
+            route.motorbikeSpeedFactor = file.travel != null ? file.travel.motorbikeSpeedFactor : 3.5f;
             route.masteryScaleMax = file.masteryScaleMax;
             route.verticalSpanScreens = file.verticalSpanScreens;
             route.places = places;

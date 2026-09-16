@@ -18,6 +18,8 @@ namespace GGS.Resume.World
         public static readonly Color Label = new Color(0.95f, 0.95f, 0.95f);
         public static readonly Color Founder = new Color(0.85f, 0.70f, 0.25f);
         public static readonly Color Project = new Color(0.90f, 0.90f, 0.92f);
+        /// <summary>Darker road of a vehicle ride (a main road between two regions).</summary>
+        public static readonly Color Asphalt = new Color(0.22f, 0.22f, 0.25f);
 
         #endregion
 
@@ -41,6 +43,21 @@ namespace GGS.Resume.World
                 case StopKind.Cluster: return new Color(0.44f, 0.42f, 0.40f);
                 case StopKind.End: return new Color(0.46f, 0.40f, 0.40f);
                 default: return Floor;
+            }
+        }
+
+        /// <summary>
+        /// Colour of a vehicle block.
+        /// </summary>
+        /// <param name="mode">Travel mode of the ride.</param>
+        /// <returns>Red-ish for the car, orange-ish for the motorbike, road grey on foot.</returns>
+        public static Color ForTravel(TravelMode mode)
+        {
+            switch (mode)
+            {
+                case TravelMode.Car: return new Color(0.75f, 0.35f, 0.32f);
+                case TravelMode.Motorbike: return new Color(0.85f, 0.55f, 0.25f);
+                default: return Road;
             }
         }
 

@@ -54,6 +54,22 @@ namespace GGS.Resume.Tests
             Assert.GreaterOrEqual(expectedTraits, 6, "at least the six personal traits of the CV");
             Assert.AreEqual(1, expectedPassives, "Goras Games Studio is the only passive");
 
+            // Vehicle rides: one per stop that names a vehicle, each with a vehicle parked at its start and off the stops.
+            int expectedRides = 0;
+            foreach (StopDefinition stop in world.Route.stops) if (stop.travelAfter != TravelMode.Walk) expectedRides++;
+            Assert.AreEqual(expectedRides, world.Rides.Count, "one ride per stop that names a vehicle");
+            Assert.GreaterOrEqual(expectedRides, 1, "the route holds at least the car ride down to Nîmes");
+            foreach (WorldBuilder.RideInstance ride in world.Rides)
+            {
+                Assert.Greater(ride.Length, 0f, $"ride {ride.From.id} -> {ride.To.id} covers some road");
+                Assert.IsNotNull(ride.Vehicle, $"ride {ride.From.id} -> {ride.To.id} has a vehicle");
+                Assert.AreEqual(TravelMode.Walk, world.RideAt(ride.StartX - 0.01f), "the road before a ride is walked");
+                Assert.AreEqual(ride.Mode, world.RideAt((ride.StartX + ride.EndX) * 0.5f), "the middle of a ride is ridden");
+                foreach (WorldBuilder.StopInstance stop in world.Stops)
+                    Assert.IsTrue(stop.EndX <= ride.StartX || stop.StartX >= ride.EndX, $"stop {stop.Definition.id} must not overlap ride {ride.From.id} -> {ride.To.id}");
+            }
+            Assert.AreEqual(TravelMode.Walk, mover.Riding, "the character starts on foot");
+
             mover.ForcedDirection = 1f;
             Time.timeScale = TIME_SCALE;
             float gameStart = Time.time;

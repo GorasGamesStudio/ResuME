@@ -1,3 +1,4 @@
+using GGS.Resume.Data;
 using GGS.Resume.Player;
 using GGS.Resume.World;
 using UnityEngine;
@@ -49,7 +50,9 @@ namespace GGS.Resume.DevTools
             // Compose the four lines of the readout.
             float x = mover.transform.position.x;
             float screens = (x - world.StartX) / world.Route.screenWidthUnits;
-            string stop = world.CurrentStop != null ? world.CurrentStop.Definition.title : "route";
+            // Off the stops, the line names the vehicle of the current ride, if any.
+            string travel = mover.Riding == TravelMode.Car ? "route, en voiture" : mover.Riding == TravelMode.Motorbike ? "route, à moto" : "route";
+            string stop = world.CurrentStop != null ? world.CurrentStop.Definition.title : travel;
             string text =
                 $"t = {Time.time - _startTime:F1} s   x = {x:F1}   écrans = {screens:F2} / {world.Route.TotalScreens:F2}\n" +
                 $"vitesse = {mover.Speed:F2} u/s ({world.Route.secondsPerScreen:F1} s/écran)   arrêt : {stop}\n" +
