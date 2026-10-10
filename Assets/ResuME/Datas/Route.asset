@@ -64,6 +64,9 @@ MonoBehaviour:
     groundColor: '#8C7E58'
   secondsPerScreen: 3
   gapScreens: 0.3
+  rideScreens: 2
+  carSpeedFactor: 2.5
+  motorbikeSpeedFactor: 3.5
   masteryScaleMax: 20
   contactEmail: eric.dovergne@gmx.fr
   contactLinkedIn: https://www.linkedin.com/in/ericdovergne/
@@ -144,6 +147,8 @@ MonoBehaviour:
     kind: 0
     widthScreens: 0.5
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter:
@@ -170,6 +175,8 @@ MonoBehaviour:
     kind: 2
     widthScreens: 0.4
     gapAfterScreens: 0.05
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -206,6 +213,8 @@ MonoBehaviour:
     kind: 2
     widthScreens: 0.4
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -240,6 +249,8 @@ MonoBehaviour:
     kind: 6
     widthScreens: 0.4
     gapAfterScreens: -1
+    travelAfter: 1
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter:
@@ -288,7 +299,9 @@ MonoBehaviour:
       autres missions de la p\xE9riode n'ont plus de nom. Chaque b\xE2timent donne
       Maintenance & Support informatique ; trois d'entre eux donnent aussi Installation
       mat\xE9riel informatique (d\xE9ploiement de postes, migration de parc). Chaque
-      b\xE2timent s'allume en entier au passage, un \xE0 la fois."
+      b\xE2timent s'allume en entier au passage, un \xE0 la fois. D\xE9part en voiture
+      vers N\xEEmes : la voiture attend au bout de la route, le trajet est plus long
+      et plus rapide."
   - id: creajeux
     title: "Cr\xE9ajeux, N\xEEmes"
     years: 2010
@@ -297,6 +310,8 @@ MonoBehaviour:
     kind: 1
     widthScreens: 0.4
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -402,6 +417,8 @@ MonoBehaviour:
     kind: 5
     widthScreens: 0.6
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter:
@@ -507,6 +524,8 @@ MonoBehaviour:
     kind: 2
     widthScreens: 0.4
     gapAfterScreens: -1
+    travelAfter: 2
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -533,9 +552,10 @@ MonoBehaviour:
       - vr
       platforms:
       - PC
-    notes: 'LabQuest, gros projet de R&D en deux versions (Pharma puis System) :
+    notes: "LabQuest, gros projet de R&D en deux versions (Pharma puis System) :
       deux points Unity, C# et RV, un point de conception. Composition : laboratoire
-      en coupe (fiche).'
+      en coupe (fiche). D\xE9part \xE0 moto vers Avignon : la moto attend au bout
+      de la route."
   - id: ggs
     title: Goras Games Studio
     years: "2018 - aujourd'hui \xB7 micro-entreprise"
@@ -544,6 +564,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.4
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 1
     traitsBefore: []
     traitsAfter:
@@ -590,6 +612,8 @@ MonoBehaviour:
     kind: 2
     widthScreens: 0.6
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter:
@@ -658,6 +682,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.2
     gapAfterScreens: -1
+    travelAfter: 2
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -677,7 +703,8 @@ MonoBehaviour:
       - Quest
       - Android
       - iOS
-    notes: 'Guichet annuel 2019 : le fil rouge du studio.'
+    notes: "Guichet annuel 2019 : le fil rouge du studio. D\xE9part \xE0 moto d'Avignon
+      vers le Loir-et-Cher, en juin 2020."
   - id: ggs-2020
     title: Goras Games Studio
     years: 2020
@@ -686,6 +713,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.2
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -720,6 +749,8 @@ MonoBehaviour:
     kind: 1
     widthScreens: 0.6
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 1
     traitsBefore: []
     traitsAfter:
@@ -766,6 +797,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.2
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -811,6 +844,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.2
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -834,6 +869,8 @@ MonoBehaviour:
     kind: 1
     widthScreens: 0.25
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter:
@@ -863,6 +900,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.2
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -886,6 +925,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.2
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -909,6 +950,8 @@ MonoBehaviour:
     kind: 1
     widthScreens: 0.25
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -938,6 +981,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.2
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -962,6 +1007,8 @@ MonoBehaviour:
     kind: 5
     widthScreens: 0.4
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter:
@@ -987,6 +1034,8 @@ MonoBehaviour:
     kind: 3
     widthScreens: 0.2
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []
@@ -1035,6 +1084,8 @@ MonoBehaviour:
     kind: 4
     widthScreens: 0.3
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 1
     traitsBefore: []
     traitsAfter: []
@@ -1093,6 +1144,8 @@ MonoBehaviour:
     kind: 7
     widthScreens: 0.7
     gapAfterScreens: -1
+    travelAfter: 0
+    rideScreens: -1
     founder: 0
     traitsBefore: []
     traitsAfter: []

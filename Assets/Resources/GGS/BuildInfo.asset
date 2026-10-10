@@ -16,9 +16,9 @@ MonoBehaviour:
     Major: 0
     Minor: 1
     Patch: 0
-    Build: 7
+    Build: 8
   gitHash: unknown
   gitBranch: unknown
-  buildDateUtc: 2026-09-11 21:28 UTC
+  buildDateUtc: 2026-10-10 21:59 UTC
   platform: WebGL
   developmentBuild: 0
