@@ -125,7 +125,7 @@ namespace GGS.Resume.UI
             labelRect.sizeDelta = new Vector2(-8f, 18f);
             _placeLabel = labelGo.GetComponent<Text>();
             _placeLabel.font = font;
-            _placeLabel.fontSize = 11;
+            _placeLabel.fontSize = 12;
             _placeLabel.alignment = TextAnchor.MiddleCenter;
             _placeLabel.color = Color.white;
             _placeLabel.raycastTarget = false;

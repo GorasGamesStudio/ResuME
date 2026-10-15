@@ -6,7 +6,8 @@
         "Unity.InputSystem",
         "Unity.RenderPipelines.Universal.Runtime",
         "UnityEngine.UI",
-        "Unity.RenderPipelines.Universal.2D.Runtime"
+        "Unity.RenderPipelines.Universal.2D.Runtime",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [
         "Editor"

@@ -78,6 +78,9 @@ namespace GGS.Resume.UI
         private const float INNER_IDLE_ALPHA = 0.35f;
         private const float GAUGE_HEIGHT = 10f;
         private const float TOOLTIP_WIDTH = 320f;
+        /// <summary>Distance walked from the start, in world units, after which the controls hint fades out.</summary>
+        private const float HINT_HIDE_DISTANCE = 3f;
+        private const float HINT_FADE_SPEED = 1.5f;
 
         private static readonly Color SlotEmpty = new Color(0.22f, 0.22f, 0.25f, 0.9f);
         private static readonly Color PanelColor = new Color(0.08f, 0.08f, 0.10f, 0.78f);
@@ -112,6 +115,7 @@ namespace GGS.Resume.UI
         private RectTransform _tooltip;
         private Text _tooltipText;
         private Coroutine _bannerRoutine;
+        private CanvasGroup _hintGroup;
 
         private readonly List<HotbarSquare> _squares = new List<HotbarSquare>();
         private readonly Dictionary<string, HotbarSquare> _squaresById = new Dictionary<string, HotbarSquare>();
@@ -145,6 +149,7 @@ namespace GGS.Resume.UI
             BuildHotbar();
             BuildList();
             BuildBannerAndTooltip();
+            BuildHint();
             Refresh();
         }
 
@@ -193,6 +198,17 @@ namespace GGS.Resume.UI
         /// </summary>
         private void Update()
         {
+            // The controls hint fades out once the character has walked a few units.
+            if (_hintGroup != null && world != null && Mathf.Abs(world.PlayerDistance - world.StartX) > HINT_HIDE_DISTANCE)
+            {
+                _hintGroup.alpha = Mathf.MoveTowards(_hintGroup.alpha, 0f, HINT_FADE_SPEED * Time.deltaTime);
+                if (_hintGroup.alpha <= 0f)
+                {
+                    _hintGroup.gameObject.SetActive(false);
+                    _hintGroup = null;
+                }
+            }
+
             // Rows and squares slide towards their sorted slot: this is the swap animation.
             float k = 1f - Mathf.Exp(-SLIDE_SPEED * Time.deltaTime);
             foreach (SkillRow row in _rows)
@@ -295,13 +311,13 @@ namespace GGS.Resume.UI
             // Portrait, identity and level bubble.
             RectTransform panel = MakePanel(_safeArea, "Profile", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -16f), new Vector2(240f, 96f));
             RectTransform portrait = MakeImage(panel, "Portrait", new Vector2(8f, -8f), new Vector2(80f, 80f), SquareBack);
-            MakeText(portrait, "PortraitLabel", "portrait", 9, FontStyle.Italic, Vector2.zero, new Vector2(80f, 80f)).alignment = TextAnchor.MiddleCenter;
+            MakeText(portrait, "PortraitLabel", "portrait", 12, FontStyle.Italic, Vector2.zero, new Vector2(80f, 80f)).alignment = TextAnchor.MiddleCenter;
             MakeText(panel, "Name", "Éric Dovergne", 17, FontStyle.Bold, new Vector2(96f, -8f), new Vector2(140f, 22f));
             _classText = MakeText(panel, "Class", PlayerProgress.NoClass, 12, FontStyle.Normal, new Vector2(96f, -32f), new Vector2(140f, 18f));
             RectTransform bubble = MakeImage(panel, "LevelBubble", new Vector2(96f, -54f), new Vector2(34f, 34f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
             _levelText = MakeText(bubble, "Level", "-", 15, FontStyle.Bold, Vector2.zero, new Vector2(34f, 34f));
             _levelText.alignment = TextAnchor.MiddleCenter;
-            MakeText(panel, "LevelCaption", "niveau", 10, FontStyle.Italic, new Vector2(134f, -54f), new Vector2(60f, 34f));
+            MakeText(panel, "LevelCaption", "niveau", 12, FontStyle.Italic, new Vector2(134f, -54f), new Vector2(60f, 34f));
 
             // The ultimate: the passive, always on, pulsing once unlocked.
             _ultimate = MakePanel(_safeArea, "Ultimate", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -120f), new Vector2(240f, 56f));
@@ -309,7 +325,7 @@ namespace GGS.Resume.UI
             RectTransform inner = MakeImage(ultimateSquare, "Inner", new Vector2(4f, -4f), new Vector2(32f, 32f), SlotEmpty);
             _ultimateInner = inner.GetComponent<Image>();
             _ultimateInner.raycastTarget = false;
-            Text caption = MakeText(_ultimate, "Caption", "ULTIME", 10, FontStyle.Bold, new Vector2(56f, -8f), new Vector2(170f, 16f));
+            Text caption = MakeText(_ultimate, "Caption", "ULTIME", 12, FontStyle.Bold, new Vector2(56f, -8f), new Vector2(170f, 16f));
             caption.color = SectionColor;
             _ultimateLabel = MakeText(_ultimate, "Label", "à débloquer", 13, FontStyle.Italic, new Vector2(56f, -26f), new Vector2(170f, 22f));
             _ultimateLabel.color = SectionColor;
@@ -318,9 +334,22 @@ namespace GGS.Resume.UI
 
             // Traits: a vertical list of names under the ultimate, growing along the route.
             _traitsPanel = MakePanel(_safeArea, "Traits", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -184f), new Vector2(240f, 30f));
-            Text traitsCaption = MakeText(_traitsPanel, "Caption", "TRAITS", 10, FontStyle.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
+            Text traitsCaption = MakeText(_traitsPanel, "Caption", "TRAITS", 12, FontStyle.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
             traitsCaption.color = SectionColor;
             _traitsContent = MakeContainer(_traitsPanel, "Rows", new Vector2(8f, -24f), new Vector2(224f, 0f));
+        }
+
+        /// <summary>
+        /// Builds the one-line controls hint above the hotbar, for the visitors who never played a game.
+        /// It fades out as soon as the character walks.
+        /// </summary>
+        private void BuildHint()
+        {
+            RectTransform hint = MakePanel(_safeArea, "Hint", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 10f + HOTBAR_HEIGHT + 8f), new Vector2(420f, 28f));
+            _hintGroup = hint.gameObject.AddComponent<CanvasGroup>();
+            _hintGroup.blocksRaycasts = false;
+            Text text = MakeText(hint, "Text", "Flèches du clavier ou glisser du doigt pour avancer", 13, FontStyle.Italic, Vector2.zero, new Vector2(420f, 28f));
+            text.alignment = TextAnchor.MiddleCenter;
         }
 
         /// <summary>
@@ -350,7 +379,7 @@ namespace GGS.Resume.UI
         private void BuildList()
         {
             RectTransform list = MakePanel(_safeArea, "SkillList", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -96f), new Vector2(LIST_WIDTH, 30f + _expectedSkills * ROW_HEIGHT + 8f));
-            Text caption = MakeText(list, "Caption", "COMPÉTENCES", 10, FontStyle.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
+            Text caption = MakeText(list, "Caption", "COMPÉTENCES", 12, FontStyle.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
             caption.color = SectionColor;
             _listContent = MakeContainer(list, "Rows", new Vector2(8f, -28f), new Vector2(LIST_WIDTH - 16f, _expectedSkills * ROW_HEIGHT));
         }
@@ -367,7 +396,7 @@ namespace GGS.Resume.UI
             _bannerTitle.alignment = TextAnchor.MiddleCenter;
             _bannerTitle.horizontalOverflow = HorizontalWrapMode.Wrap;
             SetStretch(_bannerTitle.rectTransform, -6f, 30f);
-            _bannerYears = MakeText(banner, "Years", "", 11, FontStyle.Normal, new Vector2(0f, -38f), new Vector2(LIST_WIDTH - 10f, 20f));
+            _bannerYears = MakeText(banner, "Years", "", 12, FontStyle.Normal, new Vector2(0f, -38f), new Vector2(LIST_WIDTH - 10f, 20f));
             _bannerYears.alignment = TextAnchor.MiddleCenter;
             SetStretch(_bannerYears.rectTransform, -38f, 20f);
 

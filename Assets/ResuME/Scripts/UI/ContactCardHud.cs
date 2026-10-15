@@ -77,7 +77,7 @@ namespace GGS.Resume.UI
             // The single closing line, and a feedback line for the clipboard.
             Text closing = MakeText(_card, "Closing", route.closingLine, 12, FontStyle.Italic, new Vector2(16f, -CARD_HEIGHT + 34f), new Vector2(CARD_WIDTH - 32f, 20f));
             closing.alignment = TextAnchor.MiddleCenter;
-            _feedback = MakeText(_card, "Feedback", "", 10, FontStyle.Normal, new Vector2(16f, -CARD_HEIGHT + 16f), new Vector2(CARD_WIDTH - 32f, 14f));
+            _feedback = MakeText(_card, "Feedback", "", 12, FontStyle.Normal, new Vector2(16f, -CARD_HEIGHT + 16f), new Vector2(CARD_WIDTH - 32f, 14f));
             _feedback.alignment = TextAnchor.MiddleCenter;
         }
 

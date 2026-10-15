@@ -4,6 +4,7 @@ using GGS.Resume.Data;
 using GGS.Resume.Player;
 using GGS.Resume.UI;
 using GGS.Resume.World;
+using TMPro;
 using UnityEngine;
 
 namespace GGS.Resume.Gameplay
@@ -27,13 +28,16 @@ namespace GGS.Resume.Gameplay
         private const float MOUND_TOP = 1.7f;
         private const int PROJECTS_DROP_AFTER = 8;
         private const int SORT_PILE = 8;
+        private const float LABEL_TEXT_HEIGHT = 0.35f;
+        private const float LABEL_WIDTH = 3.2f;
 
         [SerializeField] private WorldBuilder world;
         [SerializeField] private PlayerMover mover;
         [SerializeField] private PlayerProgress progress;
         [SerializeField] private ContactCardHud contactCard;
         [SerializeField] private Sprite square;
-        [SerializeField] private Font labelFont;
+        [Tooltip("SDF font of the block labels (TextMeshPro).")]
+        [SerializeField] private TMP_FontAsset labelFont;
 
         private readonly List<Transform> _orbit = new List<Transform>();
         private bool _started;
@@ -71,7 +75,7 @@ namespace GGS.Resume.Gameplay
         /// <summary>
         /// Wires the ending (called by the scene builder).
         /// </summary>
-        public void Configure(WorldBuilder worldBuilder, PlayerMover playerMover, PlayerProgress playerProgress, ContactCardHud card, Sprite squareSprite, Font font)
+        public void Configure(WorldBuilder worldBuilder, PlayerMover playerMover, PlayerProgress playerProgress, ContactCardHud card, Sprite squareSprite, TMP_FontAsset font)
         {
             world = worldBuilder;
             mover = playerMover;
@@ -225,17 +229,17 @@ namespace GGS.Resume.Gameplay
                 GameObject labelGo = new GameObject("Label");
                 labelGo.transform.SetParent(go.transform, false);
                 labelGo.transform.localScale = new Vector3(1f / size, 1f / size, 1f);
-                TextMesh mesh = labelGo.AddComponent<TextMesh>();
+                // SDF text, black on the light block, a third of a unit high, wrapped over the block width.
+                TextMeshPro mesh = labelGo.AddComponent<TextMeshPro>();
                 mesh.text = label;
                 mesh.font = labelFont;
-                mesh.fontSize = 48;
-                mesh.characterSize = 0.04f;
-                mesh.anchor = TextAnchor.MiddleCenter;
-                mesh.alignment = TextAlignment.Center;
+                mesh.fontSize = LABEL_TEXT_HEIGHT * 10f;
+                mesh.alignment = TextAlignmentOptions.Center;
+                mesh.textWrappingMode = TextWrappingModes.Normal;
+                mesh.overflowMode = TextOverflowModes.Overflow;
+                mesh.rectTransform.sizeDelta = new Vector2(LABEL_WIDTH, LABEL_TEXT_HEIGHT * 1.4f);
                 mesh.color = Color.black;
-                MeshRenderer meshRenderer = labelGo.GetComponent<MeshRenderer>();
-                meshRenderer.sharedMaterial = labelFont.material;
-                meshRenderer.sortingOrder = SORT_PILE + 1;
+                mesh.sortingOrder = SORT_PILE + 1;
             }
             return go.transform;
         }

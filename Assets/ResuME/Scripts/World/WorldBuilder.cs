@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GGS.Resume.Data;
+using TMPro;
 using UnityEngine;
 
 namespace GGS.Resume.World
@@ -81,6 +82,14 @@ namespace GGS.Resume.World
         private const int SORT_VEHICLE = 4;
         private const float BUILDING_FLOOR_Y = 0.9f;
         private const float LABEL_NEAR_SCREENS = 0.22f;
+        /// <summary>Heights of the world texts in world units (about 24, 18, 16 and 14 pixels on a 1280 px wide screen).</summary>
+        private const float TITLE_TEXT_HEIGHT = 0.6f;
+        private const float SIGN_TEXT_HEIGHT = 0.45f;
+        private const float PICKUP_TEXT_HEIGHT = 0.4f;
+        private const float SMALL_TEXT_HEIGHT = 0.35f;
+        /// <summary>Wrap width of a pickup label, in world units.</summary>
+        private const float PICKUP_LABEL_WIDTH = 7f;
+        private const float PICKUP_LABEL_OFFSET_Y = -1.05f;
         private const float CAR_WIDTH = 2.6f;
         private const float CAR_HEIGHT = 1.1f;
         private const float MOTORBIKE_WIDTH = 1.7f;
@@ -91,7 +100,10 @@ namespace GGS.Resume.World
 
         [SerializeField] private RouteDefinition route;
         [SerializeField] private Sprite square;
-        [SerializeField] private Font labelFont;
+        [Tooltip("SDF font of the world texts (TextMeshPro).")]
+        [SerializeField] private TMP_FontAsset labelFont;
+        [Tooltip("Shared material of the world texts: the font material with a dark outline. Optional.")]
+        [SerializeField] private Material labelMaterial;
         [SerializeField] private Transform player;
 
         private readonly List<StopInstance> _stops = new List<StopInstance>();
@@ -175,13 +187,15 @@ namespace GGS.Resume.World
         /// </summary>
         /// <param name="routeDefinition">The route to build.</param>
         /// <param name="squareSprite">White square used for every block.</param>
-        /// <param name="font">Font of the world labels.</param>
+        /// <param name="font">SDF font of the world labels.</param>
+        /// <param name="material">Outlined material of the world labels, or null for the font material.</param>
         /// <param name="playerTransform">The character to track.</param>
-        public void Configure(RouteDefinition routeDefinition, Sprite squareSprite, Font font, Transform playerTransform)
+        public void Configure(RouteDefinition routeDefinition, Sprite squareSprite, TMP_FontAsset font, Material material, Transform playerTransform)
         {
             route = routeDefinition;
             square = squareSprite;
             labelFont = font;
+            labelMaterial = material;
             player = playerTransform;
         }
 
@@ -355,7 +369,7 @@ namespace GGS.Resume.World
             ride.Root = root;
             ride.Vehicle = MakeBlock("Vehicle", root.transform, 0f, 0f, car ? CAR_WIDTH : MOTORBIKE_WIDTH, car ? CAR_HEIGHT : MOTORBIKE_HEIGHT,
                 GreyboxPalette.ForTravel(ride.Mode), SORT_VEHICLE);
-            ride.Label = MakeLabel("Label", root.transform, 0f, 0f, car ? "voiture" : "moto", 0.2f, SORT_LABEL);
+            ride.Label = MakeLabel("Label", root.transform, 0f, 0f, car ? "voiture" : "moto", SMALL_TEXT_HEIGHT, SORT_LABEL);
             PlaceVehicle(ride, ride.StartX);
         }
 
@@ -446,18 +460,18 @@ namespace GGS.Resume.World
                     break;
                 case StopKind.Traverse:
                     MakeBlock("Floor", root.transform, centerX, baseY + height * 0.5f, width, height, tint, SORT_FLOOR);
-                    MakeLabel("Interior", root.transform, centerX, baseY + height * 0.5f, "intérieur", 0.35f, SORT_LABEL);
+                    MakeLabel("Interior", root.transform, centerX, baseY + height * 0.5f, "intérieur", SIGN_TEXT_HEIGHT, SORT_LABEL);
                     // The front wall straddles the road and hides the interior until the player walks in.
                     stop.FrontWall = MakeBlock("FrontWall", root.transform, centerX, baseY + (height * 0.65f - road) * 0.5f,
                         width, height * 0.65f + road, GreyboxPalette.FrontWall, SORT_FRONT_WALL);
                     break;
                 case StopKind.Counter:
                     MakeBlock("Booth", root.transform, centerX, baseY + height * 0.25f, width * 0.6f, height * 0.5f, tint, SORT_FLOOR);
-                    MakeLabel("Sign", root.transform, centerX, baseY + height * 0.55f, "guichet", 0.35f, SORT_LABEL);
+                    MakeLabel("Sign", root.transform, centerX, baseY + height * 0.55f, "guichet", SIGN_TEXT_HEIGHT, SORT_LABEL);
                     break;
                 case StopKind.Stand:
                     MakeBlock("Tent", root.transform, centerX, baseY + height * 0.35f, width, height * 0.7f, tint, SORT_FLOOR);
-                    MakeLabel("Sign", root.transform, centerX, baseY + height * 0.75f, "stand", 0.35f, SORT_LABEL);
+                    MakeLabel("Sign", root.transform, centerX, baseY + height * 0.75f, "stand", SIGN_TEXT_HEIGHT, SORT_LABEL);
                     break;
                 case StopKind.Cluster:
                 {
@@ -483,11 +497,11 @@ namespace GGS.Resume.World
 
             // Title and years above the stop, founder badge when Éric created the structure.
             string caption = string.IsNullOrEmpty(d.years) ? d.title : $"{d.title}\n{d.years}";
-            MakeLabel("Title", root.transform, centerX, baseY + height + 0.6f, caption, 0.4f, SORT_LABEL);
+            MakeLabel("Title", root.transform, centerX, baseY + height + 0.9f, caption, TITLE_TEXT_HEIGHT, SORT_LABEL, Mathf.Max(width, 8f));
             if (d.founder)
             {
-                MakeBlock("FounderBadge", root.transform, endX - 0.8f, baseY + height + 1.6f, 1.2f, 0.5f, GreyboxPalette.Founder, SORT_LABEL);
-                MakeLabel("FounderLabel", root.transform, endX - 0.8f, baseY + height + 1.6f, "Fondateur", 0.22f, SORT_LABEL + 1);
+                MakeBlock("FounderBadge", root.transform, endX - 1.2f, baseY + height + 2.4f, 2.6f, 0.6f, GreyboxPalette.Founder, SORT_LABEL);
+                MakeLabel("FounderLabel", root.transform, endX - 1.2f, baseY + height + 2.4f, "Fondateur", SMALL_TEXT_HEIGHT, SORT_LABEL + 1);
             }
         }
 
@@ -540,9 +554,8 @@ namespace GGS.Resume.World
                 root.transform.position = new Vector3(x, y, 0f);
                 MakeBlock("Icon", root.transform, x, y, size, size, color, SORT_PICKUP);
 
-                // Labels alternate between two rows so neighbours never overlap, and only show near the character.
-                float labelY = y - 0.75f - (i % 2) * 0.55f;
-                pickup.Label = MakeLabel("Label", root.transform, x, labelY, caption, 0.2f, SORT_LABEL);
+                // Only the label of the nearest pickup shows, so neighbours never overlap.
+                pickup.Label = MakeLabel("Label", root.transform, x, y + PICKUP_LABEL_OFFSET_Y, caption, PICKUP_TEXT_HEIGHT, SORT_LABEL, PICKUP_LABEL_WIDTH);
                 pickup.Label.SetActive(false);
 
                 pickup.X = distance;
@@ -569,25 +582,34 @@ namespace GGS.Resume.World
         }
 
         /// <summary>
-        /// Spawns a world-space text label (greybox only: TextMesh is provisional).
+        /// Spawns a world-space SDF text, centred on a point, crisp at any zoom and outlined for contrast.
         /// </summary>
+        /// <param name="name">Game object name.</param>
+        /// <param name="parent">Parent transform.</param>
+        /// <param name="x">World X of the centre.</param>
+        /// <param name="y">World Y of the centre.</param>
+        /// <param name="text">Text to show.</param>
+        /// <param name="height">Height of a text line in world units.</param>
+        /// <param name="order">Sorting order.</param>
+        /// <param name="width">Wrap width in world units; 0 keeps the text on one line.</param>
         /// <returns>The label game object.</returns>
-        private GameObject MakeLabel(string name, Transform parent, float x, float y, string text, float size, int order)
+        private GameObject MakeLabel(string name, Transform parent, float x, float y, string text, float height, int order, float width = 0f)
         {
             GameObject go = new GameObject(name);
             go.transform.SetParent(parent, false);
             go.transform.position = new Vector3(x, y, 0f);
-            TextMesh mesh = go.AddComponent<TextMesh>();
-            mesh.text = text;
-            mesh.font = labelFont;
-            mesh.fontSize = 48;
-            mesh.characterSize = size * 0.2f;
-            mesh.anchor = TextAnchor.MiddleCenter;
-            mesh.alignment = TextAlignment.Center;
-            mesh.color = GreyboxPalette.Label;
-            MeshRenderer renderer = go.GetComponent<MeshRenderer>();
-            if (labelFont != null) renderer.sharedMaterial = labelFont.material;
-            renderer.sortingOrder = order;
+            TextMeshPro label = go.AddComponent<TextMeshPro>();
+            label.text = text;
+            if (labelFont != null) label.font = labelFont;
+            if (labelMaterial != null) label.fontSharedMaterial = labelMaterial;
+            // A 3D TextMeshPro point is a tenth of a world unit: the font size is the line height times ten.
+            label.fontSize = height * 10f;
+            label.color = GreyboxPalette.Label;
+            label.alignment = TextAlignmentOptions.Center;
+            label.textWrappingMode = width > 0f ? TextWrappingModes.Normal : TextWrappingModes.NoWrap;
+            label.overflowMode = TextOverflowModes.Overflow;
+            label.rectTransform.sizeDelta = new Vector2(width > 0f ? width : 20f, height * 1.4f);
+            label.sortingOrder = order;
             return go;
         }
 
@@ -623,12 +645,18 @@ namespace GGS.Resume.World
         /// <param name="toX">Player X of this frame.</param>
         private void UpdatePickups(float fromX, float toX)
         {
+            // Only the nearest uncollected pickup shows its label, and only near the character: one readable text at a time.
             float near = route.screenWidthUnits * LABEL_NEAR_SCREENS;
+            PickupInstance nearest = null;
             foreach (PickupInstance pickup in _pickups)
             {
-                // Labels are only readable when few are visible: show them near the character.
-                if (pickup.Label != null && !pickup.Collected)
-                    pickup.Label.SetActive(Mathf.Abs(toX - pickup.X) < near);
+                if (pickup.Collected || pickup.Label == null) continue;
+                float gap = Mathf.Abs(toX - pickup.X);
+                if (gap < near && (nearest == null || gap < Mathf.Abs(toX - nearest.X))) nearest = pickup;
+            }
+            foreach (PickupInstance pickup in _pickups)
+            {
+                if (pickup.Label != null) pickup.Label.SetActive(pickup == nearest);
 
                 bool crossed = (fromX - pickup.X) * (toX - pickup.X) <= 0f && fromX != toX;
                 if (!crossed) continue;
