@@ -17,8 +17,9 @@ First install, once, on the server, in this order:
 2. `deploy/deploy.sh <X.Y.Z.B>` from the project folder: it creates the folders, links `current`
    before starting the container (never start the container first: Docker would create `current/`
    as a root-owned folder) and starts `resume-web` on `127.0.0.1:8090`.
-3. Copy `nginx/host-site.conf` to `/etc/nginx/sites-available/resume.conf`, link it into
-   `sites-enabled`, create the password file (see the comment in the file), `nginx -t`, reload.
+3. With sudo, from the server: copy `~/resume/nginx/host-site.conf` (shipped by the script) to
+   `/etc/nginx/sites-available/resume.conf`, link it into `sites-enabled`, create the password file
+   (see the comment in the file), `nginx -t`, reload.
 4. `sudo certbot --nginx -d cv.gorasgames.fr -d resume.gorasgames.fr` once the DNS answers.
 
 Then every delivery is `deploy/deploy.sh <X.Y.Z.B>`. Server requirements: Docker with the compose

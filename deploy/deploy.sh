@@ -34,6 +34,8 @@ echo "==> ResuME $VERSION -> $VPS:$REMOTE_DIR"
 ssh "$VPS" "mkdir -p '$REMOTE_DIR/nginx' '$REMOTE_DIR/releases/$VERSION'"
 rsync -az "$HERE/docker-compose.yml" "$VPS:$REMOTE_DIR/docker-compose.yml"
 rsync -az "$HERE/nginx/site.conf" "$VPS:$REMOTE_DIR/nginx/site.conf"
+# The host nginx site is only copied next to the rest: installing it needs sudo and is done by hand (README).
+rsync -az "$HERE/nginx/host-site.conf" "$VPS:$REMOTE_DIR/nginx/host-site.conf"
 rsync -az --delete "$BUILD_DIR/" "$VPS:$REMOTE_DIR/releases/$VERSION/"
 
 # 2. Switch the served version and (re)start the container. The bind mount follows the symlink
