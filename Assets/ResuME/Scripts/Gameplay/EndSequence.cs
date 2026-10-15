@@ -40,6 +40,7 @@ namespace GGS.Resume.Gameplay
         [SerializeField] private TMP_FontAsset labelFont;
 
         private readonly List<Transform> _orbit = new List<Transform>();
+        private bool _armed;
         private bool _started;
         private int _piled;
         private int _totalToPile;
@@ -94,7 +95,9 @@ namespace GGS.Resume.Gameplay
         /// </summary>
         private void OnStopEntered(StopDefinition stop)
         {
-            if (_started || stop.kind != StopKind.End) return;
+            // Armed once: leaving and re-entering the final stop must not start a second ending.
+            if (_armed || stop.kind != StopKind.End) return;
+            _armed = true;
             StartCoroutine(Play(stop));
         }
 

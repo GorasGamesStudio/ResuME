@@ -200,6 +200,8 @@ namespace GGS.Resume.Data
         public int masteryScaleMax = 20;
 
         [Header("Contact card (end of the route)")]
+        [Tooltip("Name shown on the profile and the contact card.")]
+        public string contactName;
         public string contactEmail;
         public string contactLinkedIn;
         [Tooltip("Path or URL of the classic CV (PDF).")]

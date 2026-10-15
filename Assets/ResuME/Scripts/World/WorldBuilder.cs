@@ -65,6 +65,8 @@ namespace GGS.Resume.World
             public StopDefinition Stop;
             /// <summary>Distance along the path.</summary>
             public float X;
+            /// <summary>World position of the block, restored after a pop or a walk back.</summary>
+            public Vector3 Origin;
             public GameObject Root;
             public GameObject Label;
             public bool Collected;
@@ -559,6 +561,7 @@ namespace GGS.Resume.World
                 pickup.Label.SetActive(false);
 
                 pickup.X = distance;
+                pickup.Origin = root.transform.position;
                 pickup.Root = root;
                 _pickups.Add(pickup);
             }
@@ -683,6 +686,7 @@ namespace GGS.Resume.World
                     pickup.Hiding = null;
                     pickup.Root.SetActive(true);
                     pickup.Root.transform.localScale = Vector3.one;
+                    pickup.Root.transform.position = pickup.Origin;
                     if (pickup.Project != null) ProjectUndone?.Invoke(pickup.Project, position, pickup.Stop);
                     else RewardLost?.Invoke(pickup.Reward, position, pickup.Stop);
                 }
@@ -698,7 +702,7 @@ namespace GGS.Resume.World
         {
             GameObject root = pickup.Root;
             if (pickup.Label != null) pickup.Label.SetActive(false);
-            Vector3 start = root.transform.position;
+            Vector3 start = pickup.Origin;
             yield return new WaitForSeconds(delay);
 
             // Short pop: scale up and rise, then disappear.

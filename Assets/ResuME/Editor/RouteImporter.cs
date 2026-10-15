@@ -23,6 +23,8 @@ namespace GGS.Resume.Editor
 
         #region Data Structures
 
+        /// <summary>Root of route.json: sizes, pacing, travel, contact, places, catalogues and stops.</summary>
+
         [Serializable] private class RouteFile
         {
             public float screenWidthUnits = 20f;
@@ -40,13 +42,23 @@ namespace GGS.Resume.Editor
             public List<StopFile> stops = new List<StopFile>();
         }
 
+        /// <summary>A place of the map of France, with its ground tint.</summary>
+
         [Serializable] private class PlaceFile { public string id; public string label; public float x; public float y; public string groundColor; }
-        [Serializable] private class ContactFile { public string email; public string linkedin; public string cvUrl; public string closingLine; }
+        /// <summary>The contact card: name, e-mail, LinkedIn, CV link, closing line.</summary>
+        [Serializable] private class ContactFile { public string name; public string email; public string linkedin; public string cvUrl; public string closingLine; }
+        /// <summary>Vehicle rides: extra road and speed factors.</summary>
         [Serializable] private class TravelFile { public float rideScreens = 2f; public float carSpeedFactor = 2.5f; public float motorbikeSpeedFactor = 3.5f; }
+        /// <summary>A skill of the catalogue, with its short label and category.</summary>
         [Serializable] private class SkillFile { public string id; public string label; public string @short; public string category; public string description; }
+        /// <summary>A trait of the catalogue.</summary>
         [Serializable] private class TraitFile { public string id; public string label; public string description; }
+        /// <summary>A class change or a passive granted by a stop.</summary>
         [Serializable] private class RewardFile { public string id; public string title; public string description; }
+        /// <summary>A project of a stop: the skills it used and its platforms.</summary>
         [Serializable] private class ProjectFile { public string id; public string title; public string description; public List<string> skills = new List<string>(); public List<string> platforms = new List<string>(); }
+
+        /// <summary>A stop of the timeline with its rewards and projects.</summary>
 
         [Serializable] private class StopFile
         {
@@ -212,6 +224,7 @@ namespace GGS.Resume.Editor
             route.masteryScaleMax = file.masteryScaleMax;
             route.verticalSpanScreens = file.verticalSpanScreens;
             route.places = places;
+            route.contactName = file.contact != null ? file.contact.name : "";
             route.contactEmail = file.contact != null ? file.contact.email : "";
             route.contactLinkedIn = file.contact != null ? file.contact.linkedin : "";
             route.contactCvUrl = file.contact != null ? file.contact.cvUrl : "";

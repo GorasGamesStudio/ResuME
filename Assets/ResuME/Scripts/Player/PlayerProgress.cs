@@ -30,7 +30,7 @@ namespace GGS.Resume.Player
     {
         #region Fields
 
-        public const string NoClass = "Sans classe";
+        public const string NO_CLASS = "Sans classe";
         private const int BURST_COUNT = 12;
         private const float BURST_DURATION = 0.6f;
         private const float REINFORCE_DURATION = 0.5f;
@@ -47,7 +47,7 @@ namespace GGS.Resume.Player
         private readonly Stack<string> _classHistory = new Stack<string>();
 
         public int Level { get; private set; }
-        public string ClassTitle { get; private set; } = NoClass;
+        public string ClassTitle { get; private set; } = NO_CLASS;
         /// <summary>Distinct skills, in order of first acquisition.</summary>
         public IReadOnlyList<SkillMastery> Skills => _skills;
         public IReadOnlyList<RewardDefinition> Traits => _traits;
@@ -163,7 +163,7 @@ namespace GGS.Resume.Player
             switch (reward.kind)
             {
                 case RewardKind.ClassChange:
-                    ClassTitle = _classHistory.Count > 0 ? _classHistory.Pop() : NoClass;
+                    ClassTitle = _classHistory.Count > 0 ? _classHistory.Pop() : NO_CLASS;
                     ClassChanged?.Invoke(ClassTitle);
                     break;
                 case RewardKind.Trait:

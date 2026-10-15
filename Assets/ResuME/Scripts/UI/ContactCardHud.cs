@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using GGS.Resume.Data;
 using TMPro;
 using UnityEngine;
@@ -48,7 +49,7 @@ namespace GGS.Resume.UI
 
             // Centred panel.
             _card = MakeRect(parent, "ContactCard", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 40f), new Vector2(CARD_WIDTH, CARD_HEIGHT), PanelColor);
-            MakeText(_card, "Title", "Éric Dovergne", 20, FontStyles.Bold, new Vector2(16f, -12f), new Vector2(CARD_WIDTH - 32f, 26f));
+            MakeText(_card, "Title", route.contactName, 20, FontStyles.Bold, new Vector2(16f, -12f), new Vector2(CARD_WIDTH - 32f, 26f));
 
             // One button per contact channel.
             float y = -46f;
@@ -57,7 +58,7 @@ namespace GGS.Resume.UI
                 string email = route.contactEmail;
                 MakeButton(_card, "Email", "Écrire : " + email, new Vector2(16f, y), () =>
                 {
-                    GUIUtility.systemCopyBuffer = email;
+                    CopyToClipboard(email);
                     Application.OpenURL("mailto:" + email);
                     _feedback.text = "adresse copiée";
                 });
@@ -86,6 +87,25 @@ namespace GGS.Resume.UI
         #endregion
 
         #region Private Methods
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern void ResumeCopyToClipboard(string text);
+#endif
+
+        /// <summary>
+        /// Copies a text to the clipboard: through the browser API in a WebGL build (Unity's buffer does
+        /// nothing there), through Unity elsewhere.
+        /// </summary>
+        /// <param name="text">Text to copy.</param>
+        private static void CopyToClipboard(string text)
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            ResumeCopyToClipboard(text);
+#else
+            GUIUtility.systemCopyBuffer = text;
+#endif
+        }
 
         /// <summary>
         /// Creates a clickable row.

@@ -68,6 +68,7 @@ MonoBehaviour:
   carSpeedFactor: 2.5
   motorbikeSpeedFactor: 3.5
   masteryScaleMax: 20
+  contactName: "\xC9ric Dovergne"
   contactEmail: eric.dovergne@gmx.fr
   contactLinkedIn: https://www.linkedin.com/in/ericdovergne/
   contactCvUrl: 

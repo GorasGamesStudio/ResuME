@@ -143,7 +143,7 @@ namespace GGS.Resume.Tests
             Assert.AreEqual(0, progress.Skills.Count, "no skill left after walking back");
             Assert.AreEqual(0, progress.Traits.Count, "no trait left after walking back");
             Assert.AreEqual(0, progress.Passives.Count, "no passive left after walking back");
-            Assert.AreEqual(PlayerProgress.NoClass, progress.ClassTitle, "class reverted after walking back");
+            Assert.AreEqual(PlayerProgress.NO_CLASS, progress.ClassTitle, "class reverted after walking back");
             Assert.AreEqual(0, hud.BarOrder().Count, "the progression list is empty again");
 
         }

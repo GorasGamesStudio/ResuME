@@ -54,6 +54,7 @@ namespace GGS.Resume.UI
         /// <summary>A line of the trait list.</summary>
         private sealed class TraitRow
         {
+            public string Id;
             public RectTransform Rect;
             public TMP_Text Label;
         }
@@ -109,6 +110,8 @@ namespace GGS.Resume.UI
         private Image _ultimateInner;
         private TMP_Text _ultimateLabel;
         private string _ultimateTooltip = "";
+        /// <summary>Id of the passive whose flight is in progress or landed; cleared when it is taken back.</summary>
+        private string _ultimateId;
         private TMP_Text _classText;
         private TMP_Text _levelText;
         private TMP_Text _bannerTitle;
@@ -314,8 +317,8 @@ namespace GGS.Resume.UI
             RectTransform panel = MakePanel(_safeArea, "Profile", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -16f), new Vector2(240f, 96f));
             RectTransform portrait = MakeImage(panel, "Portrait", new Vector2(8f, -8f), new Vector2(80f, 80f), SquareBack);
             MakeText(portrait, "PortraitLabel", "portrait", 12, FontStyles.Italic, Vector2.zero, new Vector2(80f, 80f)).alignment = TextAlignmentOptions.Center;
-            MakeText(panel, "Name", "Éric Dovergne", 17, FontStyles.Bold, new Vector2(96f, -8f), new Vector2(140f, 22f));
-            _classText = MakeText(panel, "Class", PlayerProgress.NoClass, 12, FontStyles.Normal, new Vector2(96f, -32f), new Vector2(140f, 18f));
+            MakeText(panel, "Name", world != null && world.Route != null ? world.Route.contactName : "", 17, FontStyles.Bold, new Vector2(96f, -8f), new Vector2(140f, 22f));
+            _classText = MakeText(panel, "Class", PlayerProgress.NO_CLASS, 12, FontStyles.Normal, new Vector2(96f, -32f), new Vector2(140f, 18f));
             RectTransform bubble = MakeImage(panel, "LevelBubble", new Vector2(96f, -54f), new Vector2(34f, 34f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
             _levelText = MakeText(bubble, "Level", "-", 15, FontStyles.Bold, Vector2.zero, new Vector2(34f, 34f));
             _levelText.alignment = TextAlignmentOptions.Center;
@@ -749,7 +752,7 @@ namespace GGS.Resume.UI
                     // Remove the matching line(s) and close the gap.
                     for (int i = _traits.Count - 1; i >= 0; i--)
                     {
-                        if (_traits[i].Label.text != reward.label) continue;
+                        if (_traits[i].Id != reward.id) continue;
                         Destroy(_traits[i].Rect.gameObject);
                         _traits.RemoveAt(i);
                     }
@@ -757,6 +760,7 @@ namespace GGS.Resume.UI
                     _traitsPanel.sizeDelta = new Vector2(240f, 30f + _traits.Count * TRAIT_ROW_HEIGHT);
                     break;
                 case RewardKind.Passive:
+                    _ultimateId = null;
                     _ultimateInner.gameObject.SetActive(false);
                     _ultimateLabel.text = "à débloquer";
                     _ultimateLabel.fontStyle = FontStyles.Italic;
@@ -781,13 +785,14 @@ namespace GGS.Resume.UI
             TMP_Text label = MakeText(rect, "Label", reward.label, 12, FontStyles.Normal, new Vector2(18f, 0f), new Vector2(200f, TRAIT_ROW_HEIGHT));
             MakeImage(rect, "Dot", new Vector2(2f, -5f), new Vector2(10f, 10f), GreyboxPalette.ForReward(RewardKind.Trait, reward.category)).GetComponent<Image>().raycastTarget = false;
             rect.gameObject.SetActive(false);
-            _traits.Add(new TraitRow { Rect = rect, Label = label });
+            _traits.Add(new TraitRow { Id = reward.id, Rect = rect, Label = label });
             _traitsPanel.sizeDelta = new Vector2(240f, 30f + _traits.Count * TRAIT_ROW_HEIGHT);
             AddHover(rect.gameObject, () => TooltipFor(reward), rect, TooltipSide.Below);
 
             Vector3 lineWorld = _traitsContent.TransformPoint(new Vector3(8f, rect.anchoredPosition.y - TRAIT_ROW_HEIGHT * 0.5f, 0f));
             Vector2 end = _canvasRect.InverseTransformPoint(lineWorld);
             yield return Travel("Flying " + reward.id, WorldToCanvas(worldPosition), end, new Vector2(16f, 16f), GreyboxPalette.ForReward(RewardKind.Trait, reward.category), 0.6f, 60f);
+            if (rect == null) yield break; // taken back by a walk back while in flight
             rect.gameObject.SetActive(true);
             StartCoroutine(Punch(rect, 0.1f, 0.25f));
         }
@@ -797,8 +802,10 @@ namespace GGS.Resume.UI
         /// </summary>
         private IEnumerator FlyUltimate(RewardDefinition reward, Vector3 worldPosition)
         {
+            _ultimateId = reward.id;
             Vector2 end = (Vector2)_canvasRect.InverseTransformPoint(_ultimateInner.rectTransform.position) + new Vector2(16f, -16f);
             yield return Travel("Flying " + reward.id, WorldToCanvas(worldPosition), end, new Vector2(22f, 22f), UltimateColor, 0.6f, 60f);
+            if (_ultimateId != reward.id) yield break; // taken back by a walk back while in flight
             _ultimateInner.gameObject.SetActive(true);
             _ultimateLabel.text = reward.label;
             _ultimateLabel.fontStyle = FontStyles.Bold;
