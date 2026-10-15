@@ -1,0 +1,12 @@
+# ResuME - static WebGL build served by a minimal nginx container.
+# The host nginx terminates TLS for cv.gorasgames.fr and resume.gorasgames.fr and proxies here.
+services:
+  resume-web:
+    image: nginx:1.27-alpine
+    container_name: resume-web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8090:80"
+    volumes:
+      - ./nginx/site.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./current:/usr/share/nginx/html:ro
