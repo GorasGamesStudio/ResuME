@@ -8,7 +8,7 @@ studio server. Two names point to the same build and only change the default lan
 |---|---|
 | `docker-compose.yml` | The `resume-web` container (nginx alpine) on `127.0.0.1:8090`, serving `current/` |
 | `nginx/site.conf` | nginx inside the container: Brotli `.unityweb` files, caching |
-| `nginx/host-site.conf` | Host nginx site: both names, TLS by certbot, prototype password, proxy to the container |
+| `nginx/host-site.conf` | Host nginx site: both names, TLS by certbot, proxy to the container (public; password documented in the file) |
 | `deploy.sh` | Ships `Builds/<version>/WebGL`, switches `current`, restarts the container |
 
 First install, once, on the server, in this order:
