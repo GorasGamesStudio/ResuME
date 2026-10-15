@@ -172,7 +172,6 @@ namespace GGS.Resume.Editor
         {
             Directory.CreateDirectory(Path.GetDirectoryName(SCENE_PATH));
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             InputActionAsset actions = AssetDatabase.LoadAssetAtPath<InputActionAsset>(INPUT_ACTIONS_PATH);
 
             // Camera
@@ -216,11 +215,11 @@ namespace GGS.Resume.Editor
             // HUD
             GameObject hudGo = new GameObject("HUD", typeof(RectTransform));
             CharacterSheetHud hud = hudGo.AddComponent<CharacterSheetHud>();
-            hud.Configure(world, progress, font);
+            hud.Configure(world, progress, worldFont);
             MiniMapHud miniMap = hudGo.AddComponent<MiniMapHud>();
-            miniMap.Configure(world, font);
+            miniMap.Configure(world, worldFont);
             ContactCardHud card = hudGo.AddComponent<ContactCardHud>();
-            card.Configure(font);
+            card.Configure(worldFont);
 
             // Ending
             EndSequence ending = worldGo.AddComponent<EndSequence>();

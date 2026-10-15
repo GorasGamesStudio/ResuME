@@ -1,4 +1,5 @@
 using GGS.Resume.Data;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,10 +18,11 @@ namespace GGS.Resume.UI
         private static readonly Color PanelColor = new Color(0.08f, 0.08f, 0.10f, 0.92f);
         private static readonly Color ButtonColor = new Color(0.20f, 0.22f, 0.28f, 1f);
 
-        [SerializeField] private Font font;
+        [Tooltip("SDF font of every text (TextMeshPro).")]
+        [SerializeField] private TMP_FontAsset font;
 
         private RectTransform _card;
-        private Text _feedback;
+        private TMP_Text _feedback;
 
         #endregion
 
@@ -30,7 +32,7 @@ namespace GGS.Resume.UI
         /// Wires the card (called by the scene builder).
         /// </summary>
         /// <param name="uiFont">Font of the texts.</param>
-        public void Configure(Font uiFont)
+        public void Configure(TMP_FontAsset uiFont)
         {
             font = uiFont;
         }
@@ -46,7 +48,7 @@ namespace GGS.Resume.UI
 
             // Centred panel.
             _card = MakeRect(parent, "ContactCard", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 40f), new Vector2(CARD_WIDTH, CARD_HEIGHT), PanelColor);
-            MakeText(_card, "Title", "Éric Dovergne", 20, FontStyle.Bold, new Vector2(16f, -12f), new Vector2(CARD_WIDTH - 32f, 26f));
+            MakeText(_card, "Title", "Éric Dovergne", 20, FontStyles.Bold, new Vector2(16f, -12f), new Vector2(CARD_WIDTH - 32f, 26f));
 
             // One button per contact channel.
             float y = -46f;
@@ -75,10 +77,10 @@ namespace GGS.Resume.UI
             }
 
             // The single closing line, and a feedback line for the clipboard.
-            Text closing = MakeText(_card, "Closing", route.closingLine, 12, FontStyle.Italic, new Vector2(16f, -CARD_HEIGHT + 34f), new Vector2(CARD_WIDTH - 32f, 20f));
-            closing.alignment = TextAnchor.MiddleCenter;
-            _feedback = MakeText(_card, "Feedback", "", 12, FontStyle.Normal, new Vector2(16f, -CARD_HEIGHT + 16f), new Vector2(CARD_WIDTH - 32f, 14f));
-            _feedback.alignment = TextAnchor.MiddleCenter;
+            TMP_Text closing = MakeText(_card, "Closing", route.closingLine, 12, FontStyles.Italic, new Vector2(16f, -CARD_HEIGHT + 34f), new Vector2(CARD_WIDTH - 32f, 20f));
+            closing.alignment = TextAlignmentOptions.Center;
+            _feedback = MakeText(_card, "Feedback", "", 12, FontStyles.Normal, new Vector2(16f, -CARD_HEIGHT + 16f), new Vector2(CARD_WIDTH - 32f, 14f));
+            _feedback.alignment = TextAlignmentOptions.Center;
         }
 
         #endregion
@@ -93,7 +95,7 @@ namespace GGS.Resume.UI
             RectTransform rect = MakeRect(parent, name, new Vector2(0f, 1f), new Vector2(0f, 1f), position, new Vector2(CARD_WIDTH - 32f, 28f), ButtonColor);
             Button button = rect.gameObject.AddComponent<Button>();
             button.onClick.AddListener(onClick);
-            Text text = MakeText(rect, "Caption", caption, 13, FontStyle.Normal, new Vector2(10f, 0f), new Vector2(CARD_WIDTH - 52f, 28f));
+            TMP_Text text = MakeText(rect, "Caption", caption, 13, FontStyles.Normal, new Vector2(10f, 0f), new Vector2(CARD_WIDTH - 52f, 28f));
             text.raycastTarget = false;
         }
 
@@ -116,23 +118,24 @@ namespace GGS.Resume.UI
         /// <summary>
         /// Creates a text anchored top-left of its parent.
         /// </summary>
-        private Text MakeText(RectTransform parent, string name, string value, int size, FontStyle style, Vector2 position, Vector2 box)
+        private TMP_Text MakeText(RectTransform parent, string name, string value, int size, FontStyles style, Vector2 position, Vector2 box)
         {
-            GameObject go = new GameObject(name, typeof(RectTransform), typeof(Text));
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI));
             RectTransform rect = (RectTransform)go.transform;
             rect.SetParent(parent, false);
             rect.anchorMin = rect.anchorMax = new Vector2(0f, 1f);
             rect.pivot = new Vector2(0f, 1f);
             rect.anchoredPosition = position;
             rect.sizeDelta = box;
-            Text text = go.GetComponent<Text>();
+            TextMeshProUGUI text = go.GetComponent<TextMeshProUGUI>();
             text.font = font;
             text.fontSize = size;
             text.fontStyle = style;
             text.text = value;
             text.color = Color.white;
-            text.alignment = TextAnchor.MiddleLeft;
-            text.horizontalOverflow = HorizontalWrapMode.Wrap;
+            text.alignment = TextAlignmentOptions.MidlineLeft;
+            text.textWrappingMode = TextWrappingModes.Normal;
+            text.overflowMode = TextOverflowModes.Overflow;
             return text;
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GGS.Resume.Data;
 using GGS.Resume.Player;
 using GGS.Resume.World;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -31,7 +32,7 @@ namespace GGS.Resume.UI
             public RectTransform Rect;
             public Image Frame;
             public Image Inner;
-            public Text Label;
+            public TMP_Text Label;
             public float TargetX;
         }
 
@@ -40,7 +41,7 @@ namespace GGS.Resume.UI
         {
             public SkillMastery Mastery;
             public RectTransform Rect;
-            public Text Label;
+            public TMP_Text Label;
             public Image Fill;
             public Image Back;
             public Image Glow;
@@ -54,7 +55,7 @@ namespace GGS.Resume.UI
         private sealed class TraitRow
         {
             public RectTransform Rect;
-            public Text Label;
+            public TMP_Text Label;
         }
 
         /// <summary>Where a tooltip opens relative to its anchor.</summary>
@@ -94,7 +95,8 @@ namespace GGS.Resume.UI
 
         [SerializeField] private WorldBuilder world;
         [SerializeField] private PlayerProgress progress;
-        [SerializeField] private Font font;
+        [Tooltip("SDF font of every text (TextMeshPro).")]
+        [SerializeField] private TMP_FontAsset font;
 
         private RectTransform _canvasRect;
         private RectTransform _safeArea;
@@ -105,15 +107,15 @@ namespace GGS.Resume.UI
         private RectTransform _traitsContent;
         private RectTransform _ultimate;
         private Image _ultimateInner;
-        private Text _ultimateLabel;
+        private TMP_Text _ultimateLabel;
         private string _ultimateTooltip = "";
-        private Text _classText;
-        private Text _levelText;
-        private Text _bannerTitle;
-        private Text _bannerYears;
+        private TMP_Text _classText;
+        private TMP_Text _levelText;
+        private TMP_Text _bannerTitle;
+        private TMP_Text _bannerYears;
         private CanvasGroup _bannerGroup;
         private RectTransform _tooltip;
-        private Text _tooltipText;
+        private TMP_Text _tooltipText;
         private Coroutine _bannerRoutine;
         private CanvasGroup _hintGroup;
 
@@ -254,7 +256,7 @@ namespace GGS.Resume.UI
         /// <param name="worldBuilder">Source of the pickup and stop events.</param>
         /// <param name="playerProgress">Character sheet state.</param>
         /// <param name="uiFont">Font of every text.</param>
-        public void Configure(WorldBuilder worldBuilder, PlayerProgress playerProgress, Font uiFont)
+        public void Configure(WorldBuilder worldBuilder, PlayerProgress playerProgress, TMP_FontAsset uiFont)
         {
             world = worldBuilder;
             progress = playerProgress;
@@ -311,13 +313,13 @@ namespace GGS.Resume.UI
             // Portrait, identity and level bubble.
             RectTransform panel = MakePanel(_safeArea, "Profile", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -16f), new Vector2(240f, 96f));
             RectTransform portrait = MakeImage(panel, "Portrait", new Vector2(8f, -8f), new Vector2(80f, 80f), SquareBack);
-            MakeText(portrait, "PortraitLabel", "portrait", 12, FontStyle.Italic, Vector2.zero, new Vector2(80f, 80f)).alignment = TextAnchor.MiddleCenter;
-            MakeText(panel, "Name", "Éric Dovergne", 17, FontStyle.Bold, new Vector2(96f, -8f), new Vector2(140f, 22f));
-            _classText = MakeText(panel, "Class", PlayerProgress.NoClass, 12, FontStyle.Normal, new Vector2(96f, -32f), new Vector2(140f, 18f));
+            MakeText(portrait, "PortraitLabel", "portrait", 12, FontStyles.Italic, Vector2.zero, new Vector2(80f, 80f)).alignment = TextAlignmentOptions.Center;
+            MakeText(panel, "Name", "Éric Dovergne", 17, FontStyles.Bold, new Vector2(96f, -8f), new Vector2(140f, 22f));
+            _classText = MakeText(panel, "Class", PlayerProgress.NoClass, 12, FontStyles.Normal, new Vector2(96f, -32f), new Vector2(140f, 18f));
             RectTransform bubble = MakeImage(panel, "LevelBubble", new Vector2(96f, -54f), new Vector2(34f, 34f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
-            _levelText = MakeText(bubble, "Level", "-", 15, FontStyle.Bold, Vector2.zero, new Vector2(34f, 34f));
-            _levelText.alignment = TextAnchor.MiddleCenter;
-            MakeText(panel, "LevelCaption", "niveau", 12, FontStyle.Italic, new Vector2(134f, -54f), new Vector2(60f, 34f));
+            _levelText = MakeText(bubble, "Level", "-", 15, FontStyles.Bold, Vector2.zero, new Vector2(34f, 34f));
+            _levelText.alignment = TextAlignmentOptions.Center;
+            MakeText(panel, "LevelCaption", "niveau", 12, FontStyles.Italic, new Vector2(134f, -54f), new Vector2(60f, 34f));
 
             // The ultimate: the passive, always on, pulsing once unlocked.
             _ultimate = MakePanel(_safeArea, "Ultimate", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -120f), new Vector2(240f, 56f));
@@ -325,16 +327,16 @@ namespace GGS.Resume.UI
             RectTransform inner = MakeImage(ultimateSquare, "Inner", new Vector2(4f, -4f), new Vector2(32f, 32f), SlotEmpty);
             _ultimateInner = inner.GetComponent<Image>();
             _ultimateInner.raycastTarget = false;
-            Text caption = MakeText(_ultimate, "Caption", "ULTIME", 12, FontStyle.Bold, new Vector2(56f, -8f), new Vector2(170f, 16f));
+            TMP_Text caption = MakeText(_ultimate, "Caption", "ULTIME", 12, FontStyles.Bold, new Vector2(56f, -8f), new Vector2(170f, 16f));
             caption.color = SectionColor;
-            _ultimateLabel = MakeText(_ultimate, "Label", "à débloquer", 13, FontStyle.Italic, new Vector2(56f, -26f), new Vector2(170f, 22f));
+            _ultimateLabel = MakeText(_ultimate, "Label", "à débloquer", 13, FontStyles.Italic, new Vector2(56f, -26f), new Vector2(170f, 22f));
             _ultimateLabel.color = SectionColor;
             inner.gameObject.SetActive(false);
             AddHover(ultimateSquare.gameObject, () => _ultimateInner.gameObject.activeSelf ? _ultimateTooltip : null, ultimateSquare, TooltipSide.Below);
 
             // Traits: a vertical list of names under the ultimate, growing along the route.
             _traitsPanel = MakePanel(_safeArea, "Traits", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -184f), new Vector2(240f, 30f));
-            Text traitsCaption = MakeText(_traitsPanel, "Caption", "TRAITS", 12, FontStyle.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
+            TMP_Text traitsCaption = MakeText(_traitsPanel, "Caption", "TRAITS", 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
             traitsCaption.color = SectionColor;
             _traitsContent = MakeContainer(_traitsPanel, "Rows", new Vector2(8f, -24f), new Vector2(224f, 0f));
         }
@@ -348,8 +350,8 @@ namespace GGS.Resume.UI
             RectTransform hint = MakePanel(_safeArea, "Hint", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 10f + HOTBAR_HEIGHT + 8f), new Vector2(420f, 28f));
             _hintGroup = hint.gameObject.AddComponent<CanvasGroup>();
             _hintGroup.blocksRaycasts = false;
-            Text text = MakeText(hint, "Text", "Flèches du clavier ou glisser du doigt pour avancer", 13, FontStyle.Italic, Vector2.zero, new Vector2(420f, 28f));
-            text.alignment = TextAnchor.MiddleCenter;
+            TMP_Text text = MakeText(hint, "Text", "Flèches du clavier ou glisser du doigt pour avancer", 13, FontStyles.Italic, Vector2.zero, new Vector2(420f, 28f));
+            text.alignment = TextAlignmentOptions.Center;
         }
 
         /// <summary>
@@ -379,7 +381,7 @@ namespace GGS.Resume.UI
         private void BuildList()
         {
             RectTransform list = MakePanel(_safeArea, "SkillList", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -96f), new Vector2(LIST_WIDTH, 30f + _expectedSkills * ROW_HEIGHT + 8f));
-            Text caption = MakeText(list, "Caption", "COMPÉTENCES", 12, FontStyle.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
+            TMP_Text caption = MakeText(list, "Caption", "COMPÉTENCES", 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
             caption.color = SectionColor;
             _listContent = MakeContainer(list, "Rows", new Vector2(8f, -28f), new Vector2(LIST_WIDTH - 16f, _expectedSkills * ROW_HEIGHT));
         }
@@ -392,18 +394,18 @@ namespace GGS.Resume.UI
             RectTransform banner = MakePanel(_safeArea, "Banner", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -16f), new Vector2(LIST_WIDTH, 64f));
             _bannerGroup = banner.gameObject.AddComponent<CanvasGroup>();
             _bannerGroup.alpha = 0f;
-            _bannerTitle = MakeText(banner, "Title", "", 15, FontStyle.Bold, new Vector2(0f, -8f), new Vector2(LIST_WIDTH - 10f, 26f));
-            _bannerTitle.alignment = TextAnchor.MiddleCenter;
-            _bannerTitle.horizontalOverflow = HorizontalWrapMode.Wrap;
+            _bannerTitle = MakeText(banner, "Title", "", 15, FontStyles.Bold, new Vector2(0f, -8f), new Vector2(LIST_WIDTH - 10f, 26f));
+            _bannerTitle.alignment = TextAlignmentOptions.Center;
+            _bannerTitle.textWrappingMode = TextWrappingModes.Normal;
             SetStretch(_bannerTitle.rectTransform, -6f, 30f);
-            _bannerYears = MakeText(banner, "Years", "", 12, FontStyle.Normal, new Vector2(0f, -38f), new Vector2(LIST_WIDTH - 10f, 20f));
-            _bannerYears.alignment = TextAnchor.MiddleCenter;
+            _bannerYears = MakeText(banner, "Years", "", 12, FontStyles.Normal, new Vector2(0f, -38f), new Vector2(LIST_WIDTH - 10f, 20f));
+            _bannerYears.alignment = TextAlignmentOptions.Center;
             SetStretch(_bannerYears.rectTransform, -38f, 20f);
 
             _tooltip = MakePanel(_safeArea, "Tooltip", new Vector2(0f, 0f), new Vector2(0.5f, 0f), Vector2.zero, new Vector2(TOOLTIP_WIDTH, 92f));
-            _tooltipText = MakeText(_tooltip, "Text", "", 13, FontStyle.Normal, new Vector2(8f, -6f), new Vector2(TOOLTIP_WIDTH - 16f, 80f));
-            _tooltipText.horizontalOverflow = HorizontalWrapMode.Wrap;
-            _tooltipText.verticalOverflow = VerticalWrapMode.Overflow;
+            _tooltipText = MakeText(_tooltip, "Text", "", 13, FontStyles.Normal, new Vector2(8f, -6f), new Vector2(TOOLTIP_WIDTH - 16f, 80f));
+            _tooltipText.textWrappingMode = TextWrappingModes.Normal;
+            _tooltipText.overflowMode = TextOverflowModes.Overflow;
             _tooltip.gameObject.SetActive(false);
         }
 
@@ -421,9 +423,9 @@ namespace GGS.Resume.UI
 
             RectTransform inner = MakeImage(rect, "Logo", new Vector2(4f, -4f), new Vector2(SQUARE_SIZE - 8f, SQUARE_SIZE - 8f), WithAlpha(color, INNER_IDLE_ALPHA));
             inner.GetComponent<Image>().raycastTarget = false;
-            Text label = MakeText(rect, "Label", mastery.Definition.shortLabel, 11, FontStyle.Bold, new Vector2(2f, -2f), new Vector2(SQUARE_SIZE - 4f, SQUARE_SIZE - 4f));
-            label.alignment = TextAnchor.MiddleCenter;
-            label.horizontalOverflow = HorizontalWrapMode.Wrap;
+            TMP_Text label = MakeText(rect, "Label", mastery.Definition.shortLabel, 11, FontStyles.Bold, new Vector2(2f, -2f), new Vector2(SQUARE_SIZE - 4f, SQUARE_SIZE - 4f));
+            label.alignment = TextAlignmentOptions.Center;
+            label.textWrappingMode = TextWrappingModes.Normal;
 
             HotbarSquare square = new HotbarSquare { Mastery = mastery, Rect = rect, Frame = rect.GetComponent<Image>(), Inner = inner.GetComponent<Image>(), Label = label };
             AddHover(rect.gameObject, () => TooltipFor(square.Mastery), rect, TooltipSide.Above);
@@ -443,7 +445,7 @@ namespace GGS.Resume.UI
             Image hit = rect.gameObject.AddComponent<Image>();
             hit.color = Transparent;
 
-            Text label = MakeText(rect, "Label", mastery.Definition.label, 12, FontStyle.Normal, new Vector2(0f, 0f), new Vector2(rowWidth, 16f));
+            TMP_Text label = MakeText(rect, "Label", mastery.Definition.label, 12, FontStyles.Normal, new Vector2(0f, 0f), new Vector2(rowWidth, 16f));
             RectTransform glow = MakeImage(rect, "GaugeGlow", new Vector2(-2f, -16f), new Vector2(rowWidth + 4f, GAUGE_HEIGHT + 4f), Transparent);
             glow.GetComponent<Image>().raycastTarget = false;
             RectTransform back = MakeImage(rect, "GaugeBack", new Vector2(0f, -18f), new Vector2(rowWidth, GAUGE_HEIGHT), SlotEmpty);
@@ -757,7 +759,7 @@ namespace GGS.Resume.UI
                 case RewardKind.Passive:
                     _ultimateInner.gameObject.SetActive(false);
                     _ultimateLabel.text = "à débloquer";
-                    _ultimateLabel.fontStyle = FontStyle.Italic;
+                    _ultimateLabel.fontStyle = FontStyles.Italic;
                     _ultimateLabel.color = SectionColor;
                     _ultimateTooltip = "";
                     break;
@@ -776,7 +778,7 @@ namespace GGS.Resume.UI
             RectTransform rect = MakeContainer(_traitsContent, "Trait " + reward.id, new Vector2(0f, -_traits.Count * TRAIT_ROW_HEIGHT), new Vector2(224f, TRAIT_ROW_HEIGHT));
             Image hit = rect.gameObject.AddComponent<Image>();
             hit.color = Transparent;
-            Text label = MakeText(rect, "Label", reward.label, 12, FontStyle.Normal, new Vector2(18f, 0f), new Vector2(200f, TRAIT_ROW_HEIGHT));
+            TMP_Text label = MakeText(rect, "Label", reward.label, 12, FontStyles.Normal, new Vector2(18f, 0f), new Vector2(200f, TRAIT_ROW_HEIGHT));
             MakeImage(rect, "Dot", new Vector2(2f, -5f), new Vector2(10f, 10f), GreyboxPalette.ForReward(RewardKind.Trait, reward.category)).GetComponent<Image>().raycastTarget = false;
             rect.gameObject.SetActive(false);
             _traits.Add(new TraitRow { Rect = rect, Label = label });
@@ -799,7 +801,7 @@ namespace GGS.Resume.UI
             yield return Travel("Flying " + reward.id, WorldToCanvas(worldPosition), end, new Vector2(22f, 22f), UltimateColor, 0.6f, 60f);
             _ultimateInner.gameObject.SetActive(true);
             _ultimateLabel.text = reward.label;
-            _ultimateLabel.fontStyle = FontStyle.Bold;
+            _ultimateLabel.fontStyle = FontStyles.Bold;
             _ultimateLabel.color = Color.white;
             _ultimateTooltip = TooltipFor(reward);
             StartCoroutine(Punch(_ultimate, 0.15f, 0.4f));
@@ -1102,24 +1104,25 @@ namespace GGS.Resume.UI
         /// <summary>
         /// Creates a text anchored top-left of its parent.
         /// </summary>
-        private Text MakeText(RectTransform parent, string name, string value, int size, FontStyle style, Vector2 position, Vector2 box)
+        private TMP_Text MakeText(RectTransform parent, string name, string value, int size, FontStyles style, Vector2 position, Vector2 box)
         {
-            GameObject go = new GameObject(name, typeof(RectTransform), typeof(Text));
+            GameObject go = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI));
             RectTransform rect = (RectTransform)go.transform;
             rect.SetParent(parent, false);
             rect.anchorMin = rect.anchorMax = new Vector2(0f, 1f);
             rect.pivot = new Vector2(0f, 1f);
             rect.anchoredPosition = position;
             rect.sizeDelta = box;
-            Text text = go.GetComponent<Text>();
+            TextMeshProUGUI text = go.GetComponent<TextMeshProUGUI>();
             text.font = font;
             text.fontSize = size;
             text.fontStyle = style;
             text.text = value;
             text.color = Color.white;
-            text.supportRichText = true;
-            text.alignment = TextAnchor.MiddleLeft;
-            text.horizontalOverflow = HorizontalWrapMode.Overflow;
+            text.richText = true;
+            text.alignment = TextAlignmentOptions.MidlineLeft;
+            text.textWrappingMode = TextWrappingModes.NoWrap;
+            text.overflowMode = TextOverflowModes.Overflow;
             text.raycastTarget = false;
             return text;
         }

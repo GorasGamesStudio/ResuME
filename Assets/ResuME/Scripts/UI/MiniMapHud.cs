@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GGS.Resume.Data;
 using GGS.Resume.World;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,11 +25,12 @@ namespace GGS.Resume.UI
         private static readonly Color MarkerColor = new Color(0.92f, 0.92f, 0.92f);
 
         [SerializeField] private WorldBuilder world;
-        [SerializeField] private Font font;
+        [Tooltip("SDF font of every text (TextMeshPro).")]
+        [SerializeField] private TMP_FontAsset font;
 
         private RectTransform _panel;
         private RectTransform _marker;
-        private Text _placeLabel;
+        private TMP_Text _placeLabel;
         private readonly Dictionary<string, Vector2> _dots = new Dictionary<string, Vector2>();
 
         #endregion
@@ -65,7 +67,7 @@ namespace GGS.Resume.UI
         /// </summary>
         /// <param name="worldBuilder">World whose route and player are shown.</param>
         /// <param name="uiFont">Font of the place label.</param>
-        public void Configure(WorldBuilder worldBuilder, Font uiFont)
+        public void Configure(WorldBuilder worldBuilder, TMP_FontAsset uiFont)
         {
             world = worldBuilder;
             font = uiFont;
@@ -115,7 +117,7 @@ namespace GGS.Resume.UI
 
             // Marker of the character and the label of the current place.
             _marker = MakeRect(_panel, "Marker", new Vector2(0f, 0f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(DOT_SIZE + 4f, DOT_SIZE + 4f), MarkerColor);
-            GameObject labelGo = new GameObject("Place", typeof(RectTransform), typeof(Text));
+            GameObject labelGo = new GameObject("Place", typeof(RectTransform), typeof(TextMeshProUGUI));
             RectTransform labelRect = (RectTransform)labelGo.transform;
             labelRect.SetParent(_panel, false);
             labelRect.anchorMin = new Vector2(0f, 0f);
@@ -123,10 +125,10 @@ namespace GGS.Resume.UI
             labelRect.pivot = new Vector2(0.5f, 0f);
             labelRect.anchoredPosition = new Vector2(0f, 4f);
             labelRect.sizeDelta = new Vector2(-8f, 18f);
-            _placeLabel = labelGo.GetComponent<Text>();
+            _placeLabel = labelGo.GetComponent<TextMeshProUGUI>();
             _placeLabel.font = font;
             _placeLabel.fontSize = 12;
-            _placeLabel.alignment = TextAnchor.MiddleCenter;
+            _placeLabel.alignment = TextAlignmentOptions.Center;
             _placeLabel.color = Color.white;
             _placeLabel.raycastTarget = false;
         }
