@@ -36,7 +36,8 @@ rsync -az "$HERE/docker-compose.yml" "$VPS:$REMOTE_DIR/docker-compose.yml"
 rsync -az "$HERE/nginx/site.conf" "$VPS:$REMOTE_DIR/nginx/site.conf"
 # The host nginx site is only copied next to the rest: installing it needs sudo and is done by hand (README).
 rsync -az "$HERE/nginx/host-site.conf" "$VPS:$REMOTE_DIR/nginx/host-site.conf"
-rsync -az --delete "$BUILD_DIR/" "$VPS:$REMOTE_DIR/releases/$VERSION/"
+# Unity writes the build files as 600: open them to everyone so nginx, another user inside the container, can read them.
+rsync -az --delete --chmod=D755,F644 "$BUILD_DIR/" "$VPS:$REMOTE_DIR/releases/$VERSION/"
 
 # 2. Switch the served version and (re)start the container. The bind mount follows the symlink
 #    target at container start, so the container is recreated to pick up the new version.
