@@ -216,8 +216,6 @@ namespace GGS.Resume.Editor
             GameObject hudGo = new GameObject("HUD", typeof(RectTransform));
             CharacterSheetHud hud = hudGo.AddComponent<CharacterSheetHud>();
             hud.Configure(world, progress, worldFont);
-            MiniMapHud miniMap = hudGo.AddComponent<MiniMapHud>();
-            miniMap.Configure(world, worldFont);
             ContactCardHud card = hudGo.AddComponent<ContactCardHud>();
             card.Configure(worldFont);
 
