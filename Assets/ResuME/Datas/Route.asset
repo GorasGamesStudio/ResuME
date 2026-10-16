@@ -18,47 +18,65 @@ MonoBehaviour:
   verticalSpanScreens: 1.2
   places:
   - id: senlis
-    label: Senlis (Oise)
+    label:
+      fr: Senlis (Oise)
+      en: Senlis (Oise)
     x: 0.55
     y: 0.82
     groundColor: '#6E6A5A'
   - id: picardie
-    label: Picardie, en mission
+    label:
+      fr: Picardie, en mission
+      en: Picardy, on assignment
     x: 0.55
     y: 0.86
     groundColor: '#5E6658'
   - id: nimes
-    label: "N\xEEmes (Gard)"
+    label:
+      fr: "N\xEEmes (Gard)"
+      en: "N\xEEmes (Gard)"
     x: 0.62
     y: 0.2
     groundColor: '#8A7A55'
   - id: montbeliard
-    label: "Montb\xE9liard (Doubs)"
+    label:
+      fr: "Montb\xE9liard (Doubs)"
+      en: "Montb\xE9liard (Doubs)"
     x: 0.86
     y: 0.62
     groundColor: '#4F6B4A'
   - id: alsace
-    label: Alsace
+    label:
+      fr: Alsace
+      en: Alsace
     x: 0.9
     y: 0.72
     groundColor: '#5E7A4E'
   - id: centre
-    label: Centre-Val de Loire
+    label:
+      fr: Centre-Val de Loire
+      en: Centre-Val de Loire
     x: 0.48
     y: 0.58
     groundColor: '#6B6E52'
   - id: mehers
-    label: "M\xE9hers (Loir-et-Cher)"
+    label:
+      fr: "M\xE9hers (Loir-et-Cher)"
+      en: "M\xE9hers (Loir-et-Cher)"
     x: 0.47
     y: 0.56
     groundColor: '#6B6E52'
   - id: sologne
-    label: Sologne (Loir-et-Cher)
+    label:
+      fr: Sologne (Loir-et-Cher)
+      en: Sologne (Loir-et-Cher)
     x: 0.5
     y: 0.55
     groundColor: '#5F6A48'
   - id: avignon
-    label: Avignon (Vaucluse)
+    label:
+      fr: Avignon (Vaucluse)
+      en: Avignon (Vaucluse)
     x: 0.66
     y: 0.24
     groundColor: '#8C7E58'
@@ -68,81 +86,248 @@ MonoBehaviour:
   carSpeedFactor: 2.5
   motorbikeSpeedFactor: 3.5
   masteryScaleMax: 20
-  contactName: "\xC9ric Dovergne"
+  contactName: Eric Dovergne
   contactEmail: eric.dovergne@gmx.fr
   contactLinkedIn: https://www.linkedin.com/in/ericdovergne/
   contactCvUrl: 
-  closingLine: Rencontrons-nous, on n'en sortira, au pire, que plus vieux.
+  closingLine:
+    fr: Rencontrons-nous, on n'en sortira, au pire, que plus vieux.
+    en: 'Let''s meet: at worst, we''ll only come out of it a little older.'
+  strings:
+  - id: ultimate
+    fr: ULTIME
+    en: ULTIMATE
+  - id: ultimate-locked
+    fr: "\xE0 d\xE9bloquer"
+    en: to unlock
+  - id: traits
+    fr: TRAITS
+    en: TRAITS
+  - id: skills
+    fr: "COMP\xC9TENCES"
+    en: SKILLS
+  - id: level
+    fr: niveau
+    en: level
+  - id: portrait
+    fr: portrait
+    en: portrait
+  - id: no-class
+    fr: Sans classe
+    en: No class
+  - id: hint
+    fr: "Fl\xE8ches du clavier ou glisser du doigt pour avancer"
+    en: Arrow keys or swipe to move forward
+  - id: interior
+    fr: "int\xE9rieur"
+    en: inside
+  - id: counter
+    fr: guichet
+    en: counter
+  - id: stand
+    fr: stand
+    en: stand
+  - id: founder
+    fr: Fondateur
+    en: Founder
+  - id: car
+    fr: voiture
+    en: car
+  - id: motorbike
+    fr: moto
+    en: motorbike
+  - id: thumb
+    fr: pouce
+    en: thumbs up
+  - id: write
+    fr: "\xC9crire :"
+    en: 'Write to:'
+  - id: linkedin
+    fr: LinkedIn
+    en: LinkedIn
+  - id: cv
+    fr: CV classique (PDF)
+    en: Classic CV (PDF)
+  - id: copied
+    fr: "adresse copi\xE9e"
+    en: address copied
+  - id: project-one
+    fr: projet
+    en: project
+  - id: project-many
+    fr: projets
+    en: projects
+  - id: category-technique
+    fr: Technique
+    en: Technical
+  - id: category-gestion
+    fr: Gestion
+    en: Management
+  - id: category-relationnel
+    fr: Relationnel
+    en: Interpersonal
+  - id: language-title
+    fr: Choisissez votre langue
+    en: Choose your language
+  - id: language-fr
+    fr: "Fran\xE7ais"
+    en: "Fran\xE7ais"
+  - id: language-en
+    fr: English
+    en: English
+  - id: language-go
+    fr: Commencer
+    en: Start
   skills:
   - id: unity
-    label: Unity 3D
-    shortLabel: Unity
+    label:
+      fr: Unity 3D
+      en: Unity 3D
+    shortLabel:
+      fr: Unity
+      en: Unity
     category: 1
-    description: Jeux et applications 3D, VR, prototypes 2D et 3D.
+    description:
+      fr: Jeux et applications 3D, VR, prototypes 2D et 3D.
+      en: 3D games and applications, VR, 2D and 3D prototypes.
   - id: csharp
-    label: C#
-    shortLabel: C#
+    label:
+      fr: C#
+      en: C#
+    shortLabel:
+      fr: C#
+      en: C#
     category: 1
-    description: Langage principal, d'Unity aux outils web.
+    description:
+      fr: Langage principal, d'Unity aux outils web.
+      en: Main language, from Unity to web tools.
   - id: cpp
-    label: C / C++
-    shortLabel: C / C++
+    label:
+      fr: C / C++
+      en: C / C++
+    shortLabel:
+      fr: C / C++
+      en: C / C++
     category: 1
-    description: "Les bases du code, de SFML \xE0 DirectX."
+    description:
+      fr: "Les bases du code, de SFML \xE0 DirectX."
+      en: The foundations of code, from SFML to DirectX.
   - id: game-design
-    label: "Conception de jeux vid\xE9o"
-    shortLabel: Game design
+    label:
+      fr: "Conception de jeux vid\xE9o"
+      en: Game design
+    shortLabel:
+      fr: Game design
+      en: Game design
     category: 1
-    description: Game design, game jams, projets personnels et professionnels.
+    description:
+      fr: Game design, game jams, projets personnels et professionnels.
+      en: Game design, game jams, personal and professional projects.
   - id: vr
-    label: "R\xE9alit\xE9 virtuelle et augment\xE9e"
-    shortLabel: VR / AR
+    label:
+      fr: "R\xE9alit\xE9 virtuelle et augment\xE9e"
+      en: Virtual and augmented reality
+    shortLabel:
+      fr: VR / AR
+      en: VR / AR
     category: 1
-    description: "Casques, lunettes et applications immersives, en r\xE9alit\xE9
-      virtuelle comme augment\xE9e."
+    description:
+      fr: "Casques, lunettes et applications immersives, en r\xE9alit\xE9 virtuelle
+        comme augment\xE9e."
+      en: Headsets, smart glasses and immersive applications, in virtual as in augmented
+        reality.
   - id: maintenance
-    label: Maintenance & Support informatique
-    shortLabel: Support
+    label:
+      fr: Maintenance & Support informatique
+      en: IT maintenance & support
+    shortLabel:
+      fr: Support
+      en: Support
     category: 1
-    description: "Support utilisateurs, configuration de postes, maintenance r\xE9seau."
+    description:
+      fr: "Support utilisateurs, configuration de postes, maintenance r\xE9seau."
+      en: User support, workstation set-up, network maintenance.
   - id: installation
-    label: "Installation mat\xE9riel informatique"
-    shortLabel: "Mat\xE9riel"
+    label:
+      fr: "Installation mat\xE9riel informatique"
+      en: Hardware installation
+    shortLabel:
+      fr: "Mat\xE9riel"
+      en: Hardware
     category: 1
-    description: Installation et migration de parcs, support technique sur site.
+    description:
+      fr: Installation et migration de parcs, support technique sur site.
+      en: Fleet installation and migration, on-site technical support.
   - id: formation
-    label: Formation & Accompagnement
-    shortLabel: Formation
+    label:
+      fr: Formation & Accompagnement
+      en: Training & coaching
+    shortLabel:
+      fr: Formation
+      en: Training
     category: 2
-    description: "P\xE9dagogie, programmes de formation, transmission."
+    description:
+      fr: "P\xE9dagogie, programmes de formation, transmission."
+      en: Teaching, training programmes, passing knowledge on.
   - id: gestion-entreprise
-    label: Gestion d'entreprise
-    shortLabel: Gestion
+    label:
+      fr: Gestion d'entreprise
+      en: Business management
+    shortLabel:
+      fr: Gestion
+      en: Business
     category: 2
-    description: "Cr\xE9ation, administration, comptabilit\xE9 et tr\xE9sorerie de
-      structures : micro-entreprise, soci\xE9t\xE9, association."
+    description:
+      fr: "Cr\xE9ation, administration, comptabilit\xE9 et tr\xE9sorerie de structures
+        : micro-entreprise, soci\xE9t\xE9, association."
+      en: 'Founding, administering and keeping the books and cash of organisations:
+        sole proprietorship, company, non-profit.'
   - id: bases-donnees
-    label: "Bases de donn\xE9es"
-    shortLabel: BDD
+    label:
+      fr: "Bases de donn\xE9es"
+      en: Databases
+    shortLabel:
+      fr: BDD
+      en: DB
     category: 1
-    description: "Mod\xE9lisation (MCD, Merise), sch\xE9mas, requ\xEAtes, donn\xE9es
-      applicatives."
+    description:
+      fr: "Mod\xE9lisation (MCD, Merise), sch\xE9mas, requ\xEAtes, donn\xE9es applicatives."
+      en: Modelling (conceptual data models, Merise), schemas, queries, application
+        data.
   - id: dev-web
-    label: "D\xE9veloppement web"
-    shortLabel: Web
+    label:
+      fr: "D\xE9veloppement web"
+      en: Web development
+    shortLabel:
+      fr: Web
+      en: Web
     category: 1
-    description: "Sites et applications web, du HTML/PHP des d\xE9buts aux outils
-      web des associations."
+    description:
+      fr: "Sites et applications web, du HTML/PHP des d\xE9buts aux outils web des
+        associations."
+      en: Websites and web applications, from the early HTML/PHP to the web tools
+        of non-profits.
   - id: ia
-    label: Intelligence artificielle
-    shortLabel: IA
+    label:
+      fr: Intelligence artificielle
+      en: Artificial intelligence
+    shortLabel:
+      fr: IA
+      en: AI
     category: 1
-    description: "Outils d'IA g\xE9n\xE9rative et agents appliqu\xE9s au d\xE9veloppement,
-      \xE0 l'outillage et \xE0 la production : pratique s\xE9rieuse depuis 2026."
+    description:
+      fr: "Outils d'IA g\xE9n\xE9rative et agents appliqu\xE9s au d\xE9veloppement,
+        \xE0 l'outillage et \xE0 la production : pratique s\xE9rieuse depuis 2026."
+      en: 'Generative AI tools and agents applied to development, tooling and production:
+        serious practice since 2026.'
   stops:
   - id: chambre
-    title: Chambre d'enfant
-    years: "vers 2000 \xB7 entr\xE9e en seconde"
+    title:
+      fr: Chambre d'enfant
+      en: Childhood bedroom
+    years:
+      fr: "vers 2000 \xB7 entr\xE9e en seconde"
+      en: "around 2000 \xB7 starting high school"
     place: senlis
     level: 15
     kind: 0
@@ -155,9 +340,14 @@ MonoBehaviour:
     traitsAfter:
     - kind: 0
       id: curiosite
-      label: "Curiosit\xE9"
-      description: "Premiers pas sur internet au son du modem, un Celeron 433 et
-        une N64 : tout a commenc\xE9 dans cette chambre."
+      label:
+        fr: "Curiosit\xE9"
+        en: Curiosity
+      description:
+        fr: "Premiers pas sur internet au son du modem, un Celeron 433 et une N64
+          : tout a commenc\xE9 dans cette chambre."
+        en: 'First steps on the internet to the sound of a modem, a Celeron 433 and
+          an N64: it all started in this bedroom.'
       category: 3
     rewards: []
     projects: []
@@ -169,8 +359,12 @@ MonoBehaviour:
       un lyc\xE9e, un ordinateur et une connexion 56k. \xBB Sprite adolescent jusqu'\xE0
       la sortie du BTS. Son du modem 56k."
   - id: bac
-    title: "Lyc\xE9e Saint Vincent, Senlis"
-    years: "2003 \xB7 BAC STT Comptabilit\xE9 & Gestion"
+    title:
+      fr: "Lyc\xE9e Saint Vincent, Senlis"
+      en: "Lyc\xE9e Saint Vincent, Senlis"
+    years:
+      fr: "2003 \xB7 BAC STT Comptabilit\xE9 & Gestion"
+      en: "2003 \xB7 Baccalaur\xE9at in Accounting & Management"
     place: senlis
     level: 18
     kind: 2
@@ -184,21 +378,33 @@ MonoBehaviour:
     rewards:
     - kind: 1
       id: classe-gestionnaire
-      label: Gestionnaire
-      description: "BAC STT Comptabilit\xE9 & Gestion, 2003."
+      label:
+        fr: Gestionnaire
+        en: Manager
+      description:
+        fr: "BAC STT Comptabilit\xE9 & Gestion, 2003."
+        en: "Baccalaur\xE9at in Accounting & Management, 2003."
       category: 0
     projects:
     - id: bac-plan-comptable
-      title: Plan comptable et gestion
-      description: "Le plan comptable, la gestion administrative, la rigueur des
-        \xE9critures."
+      title:
+        fr: Plan comptable et gestion
+        en: Chart of accounts and management
+      description:
+        fr: "Le plan comptable, la gestion administrative, la rigueur des \xE9critures."
+        en: The chart of accounts, administrative management, the rigour of bookkeeping
+          entries.
       skillIds:
       - gestion-entreprise
       platforms: []
     - id: bac-montage-pc
-      title: Montage de PC (perso)
-      description: "Composants, assemblage, mises \xE0 niveau, pendant les ann\xE9es
-        de lyc\xE9e."
+      title:
+        fr: Montage de PC (perso)
+        en: PC building (personal)
+      description:
+        fr: "Composants, assemblage, mises \xE0 niveau, pendant les ann\xE9es de
+          lyc\xE9e."
+        en: Parts, assembly, upgrades, during the high school years.
       skillIds:
       - installation
       platforms: []
@@ -207,8 +413,12 @@ MonoBehaviour:
       armoiries au-dessus du portail. On entre par la gauche et on traverse. Pas
       de PNJ ni de qu\xEAte."
   - id: bts
-    title: "Lyc\xE9e Saint Vincent, Senlis"
-    years: "2005 \xB7 BTS Informatique de Gestion"
+    title:
+      fr: "Lyc\xE9e Saint Vincent, Senlis"
+      en: "Lyc\xE9e Saint Vincent, Senlis"
+    years:
+      fr: "2005 \xB7 BTS Informatique de Gestion"
+      en: "2005 \xB7 Higher diploma in Business IT"
     place: senlis
     level: 20
     kind: 2
@@ -222,19 +432,31 @@ MonoBehaviour:
     rewards:
     - kind: 1
       id: classe-dev-app
-      label: "D\xE9veloppeur d'applications"
-      description: BTS Informatique de Gestion, 2005.
+      label:
+        fr: "D\xE9veloppeur d'applications"
+        en: Application developer
+      description:
+        fr: BTS Informatique de Gestion, 2005.
+        en: Higher diploma in Business IT, 2005.
       category: 0
     projects:
     - id: bts-bdd-mcd
-      title: "Bases de donn\xE9es et MCD (Merise)"
-      description: "Mod\xE9lisation conceptuelle des donn\xE9es, requ\xEAtes, sch\xE9mas."
+      title:
+        fr: "Bases de donn\xE9es et MCD (Merise)"
+        en: Databases and conceptual data models (Merise)
+      description:
+        fr: "Mod\xE9lisation conceptuelle des donn\xE9es, requ\xEAtes, sch\xE9mas."
+        en: Conceptual data modelling, queries, schemas.
       skillIds:
       - bases-donnees
       platforms: []
     - id: bts-sites-web
-      title: Sites HTML et PHP (perso)
-      description: "Premiers sites dynamiques, en parall\xE8le du BTS."
+      title:
+        fr: Sites HTML et PHP (perso)
+        en: HTML and PHP websites (personal)
+      description:
+        fr: "Premiers sites dynamiques, en parall\xE8le du BTS."
+        en: First dynamic websites, alongside the diploma.
       skillIds:
       - dev-web
       platforms:
@@ -243,8 +465,12 @@ MonoBehaviour:
       domaine ; il s'\xE9claire fen\xEAtre par fen\xEAtre \xE0 l'approche. Le sprite
       devient adulte \xE0 la sortie."
   - id: support
-    title: "Missions SSII : support et d\xE9ploiement"
-    years: 2005
+    title:
+      fr: "Missions SSII : support et d\xE9ploiement"
+      en: 'IT services assignments: support and deployment'
+    years:
+      fr: 2005
+      en: 2005
     place: picardie
     level: 20
     kind: 6
@@ -257,39 +483,63 @@ MonoBehaviour:
     traitsAfter:
     - kind: 0
       id: sens-service
-      label: Sens du service
-      description: Support technique sur site, au contact des utilisateurs.
+      label:
+        fr: Sens du service
+        en: Service-minded
+      description:
+        fr: Support technique sur site, au contact des utilisateurs.
+        en: On-site technical support, in contact with users.
       category: 3
     rewards: []
     projects:
     - id: support-t-systems
-      title: T-Systems, chez VW Group
-      description: "Mission d'int\xE9rim : support informatique et outil de suivi
-        des demandes de support (bases Access, MySQL)."
+      title:
+        fr: T-Systems, chez VW Group
+        en: T-Systems, at VW Group
+      description:
+        fr: "Mission d'int\xE9rim : support informatique et outil de suivi des demandes
+          de support (bases Access, MySQL)."
+        en: 'Temp assignment: IT support and a support-request tracking tool (Access
+          and MySQL databases).'
       skillIds:
       - maintenance
       - installation
       platforms: []
     - id: support-spie
-      title: SPIE Communications
-      description: "En mission chez des clients : d\xE9ploiement de postes (jusqu'\xE0
-        200), migration de parc."
+      title:
+        fr: SPIE Communications
+        en: SPIE Communications
+      description:
+        fr: "En mission chez des clients : d\xE9ploiement de postes (jusqu'\xE0 200),
+          migration de parc."
+        en: 'On assignment at client sites: workstation deployment (up to 200), fleet
+          migration.'
       skillIds:
       - maintenance
       - installation
       platforms: []
     - id: support-iris-conseil
-      title: IRIS Conseil
-      description: "En mission chez des clients : d\xE9veloppement d'un outil de
-        suivi de tickets, support utilisateurs."
+      title:
+        fr: IRIS Conseil
+        en: IRIS Conseil
+      description:
+        fr: "En mission chez des clients : d\xE9veloppement d'un outil de suivi de
+          tickets, support utilisateurs."
+        en: 'On assignment at client sites: development of a ticket tracking tool,
+          user support.'
       skillIds:
       - maintenance
       - installation
       platforms: []
     - id: support-computacenter
-      title: Computacenter
-      description: "Mission d'int\xE9rim, repr\xE9sentative des autres missions de
-        la p\xE9riode dont les noms sont perdus."
+      title:
+        fr: Computacenter
+        en: Computacenter
+      description:
+        fr: "Mission d'int\xE9rim, repr\xE9sentative des autres missions de la p\xE9riode
+          dont les noms sont perdus."
+        en: Temp assignment, standing for the other assignments of the period whose
+          names are lost.
       skillIds:
       - maintenance
       platforms: []
@@ -304,8 +554,12 @@ MonoBehaviour:
       vers N\xEEmes : la voiture attend au bout de la route, le trajet est plus long
       et plus rapide."
   - id: creajeux
-    title: "Cr\xE9ajeux, N\xEEmes"
-    years: 2010
+    title:
+      fr: "Cr\xE9ajeux, N\xEEmes"
+      en: "Cr\xE9ajeux, N\xEEmes"
+    years:
+      fr: 2010
+      en: 2010
     place: nimes
     level: 25
     kind: 1
@@ -319,37 +573,59 @@ MonoBehaviour:
     rewards:
     - kind: 1
       id: classe-dev-jeux
-      label: "D\xE9veloppeur de jeux vid\xE9o"
-      description: "Cr\xE9ajeux, 2013. Classe d\xE9finitive."
+      label:
+        fr: "D\xE9veloppeur de jeux vid\xE9o"
+        en: Video game developer
+      description:
+        fr: "Cr\xE9ajeux, 2013. Classe d\xE9finitive."
+        en: "Cr\xE9ajeux, 2013. Final class."
       category: 0
     projects:
     - id: creajeux-c-cpp
-      title: 'Bases du code : C puis C++ avec SFML'
-      description: "Du jeu du nombre al\xE9atoire (septembre 2010) aux classes, \xE0
-        l'h\xE9ritage, \xE0 la STL et aux design patterns."
+      title:
+        fr: 'Bases du code : C puis C++ avec SFML'
+        en: 'Foundations of code: C, then C++ with SFML'
+      description:
+        fr: "Du jeu du nombre al\xE9atoire (septembre 2010) aux classes, \xE0 l'h\xE9ritage,
+          \xE0 la STL et aux design patterns."
+        en: From the random number game (September 2010) to classes, inheritance,
+          the STL and design patterns.
       skillIds:
       - cpp
       platforms:
       - PC
     - id: creajeux-batailles-spatiales
-      title: Batailles spatiales et Creatapult (C++, SFML)
-      description: "Les premiers jeux, \xE9videmment dans l'espace, puis un jeu de
-        catapulte repris en DirectX en troisi\xE8me ann\xE9e."
+      title:
+        fr: Batailles spatiales et Creatapult (C++, SFML)
+        en: Space battles and Creatapult (C++, SFML)
+      description:
+        fr: "Les premiers jeux, \xE9videmment dans l'espace, puis un jeu de catapulte
+          repris en DirectX en troisi\xE8me ann\xE9e."
+        en: The first games, in space of course, then a catapult game redone in DirectX
+          in the third year.
       skillIds:
       - cpp
       - game-design
       platforms:
       - PC
     - id: creajeux-labyrinthe
-      title: Labyrinthe, premier projet Unity
-      description: "Octobre 2011, en UnityScript : la d\xE9couverte du moteur."
+      title:
+        fr: Labyrinthe, premier projet Unity
+        en: Maze, first Unity project
+      description:
+        fr: "Octobre 2011, en UnityScript : la d\xE9couverte du moteur."
+        en: 'October 2011, in UnityScript: discovering the engine.'
       skillIds:
       - unity
       platforms:
       - PC
     - id: creajeux-stoba
-      title: Stoba (Unity)
-      description: "Projet Unity de 2012, \xE0 d\xE9crire."
+      title:
+        fr: Stoba (Unity)
+        en: Stoba (Unity)
+      description:
+        fr: "Projet Unity de 2012, \xE0 d\xE9crire."
+        en: Unity project from 2012, to be described.
       skillIds:
       - unity
       - csharp
@@ -357,33 +633,48 @@ MonoBehaviour:
       platforms:
       - PC
     - id: creajeux-hackathon-king
-      title: Hackathon King.com, Paris 2012
-      description: "Un jeu en un week-end, \xAB Baignoire \xBB, et sa version Gold."
+      title:
+        fr: Hackathon King.com, Paris 2012
+        en: King.com hackathon, Paris 2012
+      description:
+        fr: "Un jeu en un week-end, \xAB Baignoire \xBB, et sa version Gold."
+        en: A game in one weekend, "Bathtub", and its Gold version.
       skillIds:
       - game-design
       platforms:
       - Web
     - id: creajeux-prototypes-unity
-      title: "Prototypes Unity de deuxi\xE8me ann\xE9e"
-      description: Les projets dont les noms se sont perdus, toujours sur le disque
-        dur.
+      title:
+        fr: "Prototypes Unity de deuxi\xE8me ann\xE9e"
+        en: Second-year Unity prototypes
+      description:
+        fr: Les projets dont les noms se sont perdus, toujours sur le disque dur.
+        en: The projects whose names got lost, still on the hard drive.
       skillIds:
       - unity
       - csharp
       platforms:
       - PC
     - id: creajeux-game-jam
-      title: "Game jam : \xAB Mais qui a tu\xE9 Eric Bonnet \xBB"
-      description: "Jeu r\xE9alis\xE9 en jam sur le framework SFML de l'\xE9cole
-        (2013)."
+      title:
+        fr: "Game jam : \xAB Mais qui a tu\xE9 Eric Bonnet \xBB"
+        en: 'Game jam: "Who killed Eric Bonnet?"'
+      description:
+        fr: "Jeu r\xE9alis\xE9 en jam sur le framework SFML de l'\xE9cole (2013)."
+        en: Game made during a jam on the school's SFML framework (2013).
       skillIds:
       - game-design
       platforms:
       - PC
     - id: creajeux-cyborg-child
-      title: "Cyborg Child, projet d'\xE9quipe Unity"
-      description: "Troisi\xE8me ann\xE9e : pr\xE9-production, conception, programmation
-        sous Unity en \xE9quipe, avec SVN."
+      title:
+        fr: "Cyborg Child, projet d'\xE9quipe Unity"
+        en: Cyborg Child, Unity team project
+      description:
+        fr: "Troisi\xE8me ann\xE9e : pr\xE9-production, conception, programmation
+          sous Unity en \xE9quipe, avec SVN."
+        en: 'Third year: pre-production, design, Unity programming as a team, with
+          SVN.'
       skillIds:
       - unity
       - csharp
@@ -391,16 +682,23 @@ MonoBehaviour:
       platforms:
       - PC
     - id: creajeux-cyborg-child-site
-      title: Site web de Cyborg Child (PHP)
-      description: Le site du projet, en PHP.
+      title:
+        fr: Site web de Cyborg Child (PHP)
+        en: Cyborg Child website (PHP)
+      description:
+        fr: Le site du projet, en PHP.
+        en: The project's website, in PHP.
       skillIds:
       - dev-web
       platforms:
       - Web
     - id: creajeux-unity-3e-annee
-      title: "Projets Unity de troisi\xE8me ann\xE9e"
-      description: "Unity devient l'outil principal ; le C++ reste pour DirectX et
-        le r\xE9seau."
+      title:
+        fr: "Projets Unity de troisi\xE8me ann\xE9e"
+        en: Third-year Unity projects
+      description:
+        fr: "Unity devient l'outil principal ; le C++ reste pour DirectX et le r\xE9seau."
+        en: Unity becomes the main tool; C++ stays for DirectX and networking.
       skillIds:
       - unity
       - csharp
@@ -411,8 +709,12 @@ MonoBehaviour:
       en vitrine, une bataille spatiale ou le logo Unity. Classe d\xE9finitive \xAB
       D\xE9veloppeur de jeux vid\xE9o \xBB \xE0 la sortie."
   - id: allucyne
-    title: "Allucyne (ex Num\xE9ri4D), Montb\xE9liard"
-    years: 2013
+    title:
+      fr: "Allucyne (ex Num\xE9ri4D), Montb\xE9liard"
+      en: "Allucyne (formerly Num\xE9ri4D), Montb\xE9liard"
+    years:
+      fr: 2013
+      en: 2013
     place: montbeliard
     level: 28
     kind: 5
@@ -425,14 +727,22 @@ MonoBehaviour:
     traitsAfter:
     - kind: 0
       id: esprit-equipe
-      label: "Esprit d'\xE9quipe"
-      description: "Premiers projets professionnels, en \xE9quipe."
+      label:
+        fr: "Esprit d'\xE9quipe"
+        en: Team spirit
+      description:
+        fr: "Premiers projets professionnels, en \xE9quipe."
+        en: First professional projects, as a team.
       category: 3
     rewards: []
     projects:
     - id: allucyne-musee-air-france
-      title: "Mus\xE9e Air France (iOS et web)"
-      description: Application 3D de visite, versions iOS et web (2013-2014).
+      title:
+        fr: "Mus\xE9e Air France (iOS et web)"
+        en: Air France Museum (iOS and web)
+      description:
+        fr: Application 3D de visite, versions iOS et web (2013-2014).
+        en: 3D tour application, iOS and web versions (2013-2014).
       skillIds:
       - unity
       - csharp
@@ -440,25 +750,37 @@ MonoBehaviour:
       - iOS
       - Web
     - id: allucyne-selinda
-      title: Selinda 3D
-      description: Application 3D, versions successives (2014-2015).
+      title:
+        fr: Selinda 3D
+        en: Selinda 3D
+      description:
+        fr: Application 3D, versions successives (2014-2015).
+        en: 3D application, successive versions (2014-2015).
       skillIds:
       - unity
       - csharp
       platforms:
       - PC
     - id: allucyne-bluetooth-android
-      title: Plugin Bluetooth Android pour Unity
-      description: Plugin Java et package Unity, Eclipse et OpenCV (2014-2016).
+      title:
+        fr: Plugin Bluetooth Android pour Unity
+        en: Android Bluetooth plugin for Unity
+      description:
+        fr: Plugin Java et package Unity, Eclipse et OpenCV (2014-2016).
+        en: Java plugin and Unity package, Eclipse and OpenCV (2014-2016).
       skillIds:
       - unity
       - csharp
       platforms:
       - Android
     - id: allucyne-maestro-optinvent
-      title: Maestro sur lunettes Optinvent ORA
-      description: "Application pour lunettes de r\xE9alit\xE9 augment\xE9e, gyroscope
-        et d\xE9mos (2015)."
+      title:
+        fr: Maestro sur lunettes Optinvent ORA
+        en: Maestro on Optinvent ORA glasses
+      description:
+        fr: "Application pour lunettes de r\xE9alit\xE9 augment\xE9e, gyroscope et
+          d\xE9mos (2015)."
+        en: Application for augmented reality glasses, gyroscope and demos (2015).
       skillIds:
       - unity
       - csharp
@@ -466,9 +788,14 @@ MonoBehaviour:
       platforms:
       - Android
     - id: allucyne-front-des-vosges
-      title: "Front des Vosges, tourisme de m\xE9moire"
-      description: "Application Windows 8 de tourisme de m\xE9moire, en r\xE9alit\xE9
-        augment\xE9e et virtuelle (2015)."
+      title:
+        fr: "Front des Vosges, tourisme de m\xE9moire"
+        en: Vosges Front, remembrance tourism
+      description:
+        fr: "Application Windows 8 de tourisme de m\xE9moire, en r\xE9alit\xE9 augment\xE9e
+          et virtuelle (2015)."
+        en: Windows 8 remembrance tourism application, in augmented and virtual reality
+          (2015).
       skillIds:
       - unity
       - csharp
@@ -477,8 +804,12 @@ MonoBehaviour:
       platforms:
       - Windows
     - id: allucyne-sjs-hypervisuel
-      title: SJS HyperVisuel et DistanceRA
-      description: "Modules de r\xE9alit\xE9 augment\xE9e (2015)."
+      title:
+        fr: SJS HyperVisuel et DistanceRA
+        en: SJS HyperVisuel and DistanceRA
+      description:
+        fr: "Modules de r\xE9alit\xE9 augment\xE9e (2015)."
+        en: Augmented reality modules (2015).
       skillIds:
       - unity
       - csharp
@@ -486,8 +817,12 @@ MonoBehaviour:
       platforms:
       - Android
     - id: allucyne-fort-lecluse
-      title: "Fort L\xE9cluse"
-      description: "Visite d'un fort en r\xE9alit\xE9 virtuelle (2015-2016)."
+      title:
+        fr: "Fort L\xE9cluse"
+        en: "Fort L\xE9cluse"
+      description:
+        fr: "Visite d'un fort en r\xE9alit\xE9 virtuelle (2015-2016)."
+        en: Virtual reality tour of a fort (2015-2016).
       skillIds:
       - unity
       - csharp
@@ -496,8 +831,12 @@ MonoBehaviour:
       platforms:
       - PC
     - id: allucyne-colmar
-      title: Colmar
-      description: "Application en r\xE9alit\xE9 virtuelle (2015-2016)."
+      title:
+        fr: Colmar
+        en: Colmar
+      description:
+        fr: "Application en r\xE9alit\xE9 virtuelle (2015-2016)."
+        en: Virtual reality application (2015-2016).
       skillIds:
       - unity
       - csharp
@@ -506,8 +845,12 @@ MonoBehaviour:
       platforms:
       - PC
     - id: allucyne-judo-kodokan
-      title: Judo Kodokan
-      description: Application avec asset bundles (2015-2016).
+      title:
+        fr: Judo Kodokan
+        en: Judo Kodokan
+      description:
+        fr: Application avec asset bundles (2015-2016).
+        en: Application with asset bundles (2015-2016).
       skillIds:
       - unity
       - csharp
@@ -518,8 +861,12 @@ MonoBehaviour:
       projet, cr\xEAte des Vosges, fort, colombages, tranch\xE9e et casque, avion,
       table d'orientation \xE0 jumelles (vue casque). Lieu clos le 2026-09-11."
   - id: whitequest
-    title: WhiteQuest, Alsace
-    years: 2017
+    title:
+      fr: WhiteQuest, Alsace
+      en: WhiteQuest, Alsace
+    years:
+      fr: 2017
+      en: 2017
     place: alsace
     level: 32
     kind: 2
@@ -533,9 +880,14 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: whitequest-labquest-pharma
-      title: LabQuest Pharma
-      description: "Gros projet de R&D : outil de formation et d'\xE9valuation des
-        laborantins en r\xE9alit\xE9 virtuelle, premi\xE8re version (2017)."
+      title:
+        fr: LabQuest Pharma
+        en: LabQuest Pharma
+      description:
+        fr: "Gros projet de R&D : outil de formation et d'\xE9valuation des laborantins
+          en r\xE9alit\xE9 virtuelle, premi\xE8re version (2017)."
+        en: 'Major R&D project: a virtual reality tool to train and assess lab technicians,
+          first version (2017).'
       skillIds:
       - unity
       - csharp
@@ -544,9 +896,14 @@ MonoBehaviour:
       platforms:
       - PC
     - id: whitequest-labquest-system
-      title: LabQuest System
-      description: "Refonte de l'outil (2017-2018), conception des sc\xE9narios et
-        gros travail d'outils d'\xE9diteur Unity."
+      title:
+        fr: LabQuest System
+        en: LabQuest System
+      description:
+        fr: "Refonte de l'outil (2017-2018), conception des sc\xE9narios et gros
+          travail d'outils d'\xE9diteur Unity."
+        en: Rework of the tool (2017-2018), scenario design and a lot of Unity editor
+          tooling.
       skillIds:
       - unity
       - csharp
@@ -558,8 +915,12 @@ MonoBehaviour:
       en coupe (fiche). D\xE9part \xE0 moto vers Avignon : la moto attend au bout
       de la route."
   - id: ggs
-    title: Goras Games Studio
-    years: "2018 - aujourd'hui \xB7 micro-entreprise"
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: "2018 - aujourd'hui \xB7 micro-entreprise"
+      en: "2018 - today \xB7 sole proprietorship"
     place: avignon
     level: 33
     kind: 3
@@ -572,29 +933,49 @@ MonoBehaviour:
     traitsAfter:
     - kind: 0
       id: autonomie
-      label: Autonomie
-      description: "Micro-entreprise men\xE9e en parall\xE8le de tout le reste."
+      label:
+        fr: Autonomie
+        en: Autonomy
+      description:
+        fr: "Micro-entreprise men\xE9e en parall\xE8le de tout le reste."
+        en: A sole proprietorship run alongside everything else.
       category: 3
     rewards:
     - kind: 2
       id: entrepreneur
-      label: Entrepreneur
-      description: "Passif permanent depuis 2018 : Goras Games Studio, micro-entreprise
-        ; jeux PC, mobile et VR, applications web, multijoueur, et tout ce qu'il
-        faut faire soi-m\xEAme \xE0 c\xF4t\xE9."
+      label:
+        fr: Entrepreneur
+        en: Entrepreneur
+      description:
+        fr: "Passif permanent depuis 2018 : Goras Games Studio, micro-entreprise
+          ; jeux PC, mobile et VR, applications web, multijoueur, et tout ce qu'il
+          faut faire soi-m\xEAme \xE0 c\xF4t\xE9."
+        en: 'Permanent passive since 2018: Goras Games Studio, a sole proprietorship;
+          PC, mobile and VR games, web applications, multiplayer, and everything
+          that has to be done on the side.'
       category: 0
     projects:
     - id: ggs-creation
-      title: "Cr\xE9ation de la micro-entreprise"
-      description: "Le guichet : Goras Games Studio na\xEEt en 2018, freelance pour
-        rejoindre Game Academy."
+      title:
+        fr: "Cr\xE9ation de la micro-entreprise"
+        en: Founding the sole proprietorship
+      description:
+        fr: "Le guichet : Goras Games Studio na\xEEt en 2018, freelance pour rejoindre
+          Game Academy."
+        en: 'The counter: Goras Games Studio is born in 2018, freelance to join Game
+          Academy.'
       skillIds:
       - gestion-entreprise
       platforms: []
     - id: ggs-clients-mobiles
-      title: Clients mobiles 2D
-      description: "Projets clients ext\xE9rieurs, mobiles et en 2D pour la plupart
-        (GoodApp, GoodTime, HeartBeat Games, Studio Stark)."
+      title:
+        fr: Clients mobiles 2D
+        en: 2D mobile clients
+      description:
+        fr: "Projets clients ext\xE9rieurs, mobiles et en 2D pour la plupart (GoodApp,
+          GoodTime, HeartBeat Games, Studio Stark)."
+        en: Outside client projects, mobile and mostly 2D (GoodApp, GoodTime, HeartBeat
+          Games, Studio Stark).
       skillIds:
       - unity
       - csharp
@@ -606,8 +987,12 @@ MonoBehaviour:
       et premiers clients mobiles 2D. Le guichet r\xE9appara\xEEt ensuite chaque
       ann\xE9e (fil rouge) avec les projets de l'ann\xE9e."
   - id: game-academy
-    title: Game Academy
-    years: 2018
+    title:
+      fr: Game Academy
+      en: Game Academy
+    years:
+      fr: 2018
+      en: 2018
     place: avignon
     level: 33
     kind: 2
@@ -620,22 +1005,35 @@ MonoBehaviour:
     traitsAfter:
     - kind: 0
       id: force-proposition
-      label: Force de proposition
-      description: "\xC9v\xE9nements, salons jeux vid\xE9o, apport d'id\xE9es nouvelles."
+      label:
+        fr: Force de proposition
+        en: Proactive
+      description:
+        fr: "\xC9v\xE9nements, salons jeux vid\xE9o, apport d'id\xE9es nouvelles."
+        en: Events, video game fairs, bringing new ideas.
       category: 3
     rewards: []
     projects:
     - id: ga-programme
-      title: Conception du programme de formation sur trois ans
-      description: "De la pr\xE9pa \xE0 la troisi\xE8me ann\xE9e : progression, mati\xE8res,
-        projets ; et la gestion d'une activit\xE9 de formation en freelance."
+      title:
+        fr: Conception du programme de formation sur trois ans
+        en: Designing the three-year training programme
+      description:
+        fr: "De la pr\xE9pa \xE0 la troisi\xE8me ann\xE9e : progression, mati\xE8res,
+          projets ; et la gestion d'une activit\xE9 de formation en freelance."
+        en: 'From the preparatory year to the third year: progression, subjects,
+          projects; and running a training business as a freelancer.'
       skillIds:
       - formation
       - gestion-entreprise
       platforms: []
     - id: ga-cours-programmation
-      title: Cours de programmation de jeux (Unity, C#)
-      description: "Dispense des cours de programmation aux \xE9tudiants."
+      title:
+        fr: Cours de programmation de jeux (Unity, C#)
+        en: Game programming classes (Unity, C#)
+      description:
+        fr: "Dispense des cours de programmation aux \xE9tudiants."
+        en: Teaching programming classes to the students.
       skillIds:
       - formation
       - unity
@@ -643,29 +1041,46 @@ MonoBehaviour:
       platforms:
       - PC
     - id: ga-game-designs
-      title: "Game designs cr\xE9\xE9s pour les \xE9tudiants"
-      description: "Des concepts de jeux con\xE7us pour servir de sujets aux promotions."
+      title:
+        fr: "Game designs cr\xE9\xE9s pour les \xE9tudiants"
+        en: Game designs written for the students
+      description:
+        fr: "Des concepts de jeux con\xE7us pour servir de sujets aux promotions."
+        en: Game concepts designed as assignments for the cohorts.
       skillIds:
       - formation
       - game-design
       platforms: []
     - id: ga-histoire-jv
-      title: "Cours d'histoire du jeu vid\xE9o"
-      description: Des origines aux jeux d'aujourd'hui.
+      title:
+        fr: "Cours d'histoire du jeu vid\xE9o"
+        en: Video game history classes
+      description:
+        fr: Des origines aux jeux d'aujourd'hui.
+        en: From the origins to today's games.
       skillIds:
       - formation
       platforms: []
     - id: ga-cours-game-design
-      title: Cours de game design
-      description: "M\xE9caniques, boucles, \xE9quilibrage, documents de conception."
+      title:
+        fr: Cours de game design
+        en: Game design classes
+      description:
+        fr: "M\xE9caniques, boucles, \xE9quilibrage, documents de conception."
+        en: Mechanics, loops, balancing, design documents.
       skillIds:
       - formation
       - game-design
       platforms: []
     - id: ga-evenements
-      title: "Game Camp, salons et \xE9v\xE9nements"
-      description: "Game Camp, journ\xE9e au Capitole (d\xE9cembre 2018), salons
-        jeux vid\xE9o, tests d'admission."
+      title:
+        fr: "Game Camp, salons et \xE9v\xE9nements"
+        en: Game Camp, fairs and events
+      description:
+        fr: "Game Camp, journ\xE9e au Capitole (d\xE9cembre 2018), salons jeux vid\xE9o,
+          tests d'admission."
+        en: Game Camp, a day at the Capitole (December 2018), video game fairs, admission
+          tests.
       skillIds:
       - formation
       platforms: []
@@ -676,8 +1091,12 @@ MonoBehaviour:
       main, \xE9crans visibles, \xC9ric de face ; le personnage passe devant les
       \xE9tudiants, derri\xE8re leurs sprites."
   - id: ggs-2019
-    title: Goras Games Studio
-    years: 2019
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: 2019
+      en: 2019
     place: avignon
     level: 34
     kind: 3
@@ -691,10 +1110,14 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: odn-refonte
-      title: 'ODN CineVR : refonte totale'
-      description: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : refonte
-        compl\xE8te de l'application, version Pro, plugin Android natif, d\xE9clinaisons
-        mobiles."
+      title:
+        fr: 'ODN CineVR : refonte totale'
+        en: 'ODN CineVR: complete rework'
+      description:
+        fr: "One Digital Nation, cin\xE9ma en r\xE9alit\xE9 virtuelle : refonte compl\xE8te
+          de l'application, version Pro, plugin Android natif, d\xE9clinaisons mobiles."
+        en: 'One Digital Nation, virtual reality cinema: complete rework of the application,
+          Pro version, native Android plugin, mobile editions.'
       skillIds:
       - vr
       - unity
@@ -707,8 +1130,12 @@ MonoBehaviour:
     notes: "Guichet annuel 2019 : le fil rouge du studio. D\xE9part \xE0 moto d'Avignon
       vers le Loir-et-Cher, en juin 2020."
   - id: ggs-2020
-    title: Goras Games Studio
-    years: 2020
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: 2020
+      en: 2020
     place: centre
     level: 35
     kind: 3
@@ -722,8 +1149,12 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: odn-quest-rift
-      title: 'ODN CineVR : adaptation Meta Quest et Rift'
-      description: Portage et maintenance sur les casques Meta.
+      title:
+        fr: 'ODN CineVR : adaptation Meta Quest et Rift'
+        en: 'ODN CineVR: Meta Quest and Rift port'
+      description:
+        fr: Portage et maintenance sur les casques Meta.
+        en: Port and maintenance on Meta headsets.
       skillIds:
       - vr
       - unity
@@ -731,8 +1162,12 @@ MonoBehaviour:
       - Quest
       - PC
     - id: k4rant-2020
-      title: "K4rant : d\xE9but du projet"
-      description: Salle d'arcade sociale en VR, premier prototype.
+      title:
+        fr: "K4rant : d\xE9but du projet"
+        en: 'K4rant: project start'
+      description:
+        fr: Salle d'arcade sociale en VR, premier prototype.
+        en: Social VR arcade, first prototype.
       skillIds:
       - game-design
       - unity
@@ -743,8 +1178,12 @@ MonoBehaviour:
       juin 2020, installation en Centre-Val de Loire : le guichet 2020 est pos\xE9
       apr\xE8s le d\xE9m\xE9nagement."
   - id: rpaint
-    title: "R'Paint Games, M\xE9hers"
-    years: 2021
+    title:
+      fr: "R'Paint Games, M\xE9hers"
+      en: "R'Paint Games, M\xE9hers"
+    years:
+      fr: 2021
+      en: 2021
     place: mehers
     level: 36
     kind: 1
@@ -757,30 +1196,49 @@ MonoBehaviour:
     traitsAfter:
     - kind: 0
       id: polyvalence
-      label: Polyvalence
-      description: "Administratif, comptabilit\xE9, urbanisme, nettoyage d'une friche
-        \xE0 la main : tout faire soi-m\xEAme."
+      label:
+        fr: Polyvalence
+        en: Versatility
+      description:
+        fr: "Administratif, comptabilit\xE9, urbanisme, nettoyage d'une friche \xE0
+          la main : tout faire soi-m\xEAme."
+        en: 'Admin, bookkeeping, planning permission, cleaning a derelict site by
+          hand: doing everything oneself.'
       category: 3
     rewards: []
     projects:
     - id: rpaint-creation
-      title: "Cr\xE9ation de la soci\xE9t\xE9 et financement"
-      description: "Co-fondateur et pr\xE9sident : statuts, business plan, banque,
-        dossiers de financement, comptabilit\xE9."
+      title:
+        fr: "Cr\xE9ation de la soci\xE9t\xE9 et financement"
+        en: Founding and financing the company
+      description:
+        fr: "Co-fondateur et pr\xE9sident : statuts, business plan, banque, dossiers
+          de financement, comptabilit\xE9."
+        en: 'Co-founder and chairman: articles, business plan, bank, financing applications,
+          bookkeeping.'
       skillIds:
       - gestion-entreprise
       platforms: []
     - id: rpaint-friche
-      title: "Rachat de la friche de M\xE9hers, urbanisme et plans"
-      description: "Acquisition d'une friche pour 5 400 m\xB2 de paintball indoor,
-        un peu d'urbanisme, plans et maquette du b\xE2timent."
+      title:
+        fr: "Rachat de la friche de M\xE9hers, urbanisme et plans"
+        en: "Buying the derelict site in M\xE9hers, planning and drawings"
+      description:
+        fr: "Acquisition d'une friche pour 5 400 m\xB2 de paintball indoor, un peu
+          d'urbanisme, plans et maquette du b\xE2timent."
+        en: "Acquisition of a derelict site for 5,400 m\xB2 of indoor paintball,
+          a bit of planning permission, drawings and a model of the building."
       skillIds:
       - gestion-entreprise
       platforms: []
     - id: rpaint-nettoyage
-      title: "Nettoyage du b\xE2timent, int\xE9rieur et ext\xE9rieur"
-      description: "La friche nettoy\xE9e \xE0 la main ; la r\xE9novation est rest\xE9e
-        une projection."
+      title:
+        fr: "Nettoyage du b\xE2timent, int\xE9rieur et ext\xE9rieur"
+        en: Cleaning the building, inside and out
+      description:
+        fr: "La friche nettoy\xE9e \xE0 la main ; la r\xE9novation est rest\xE9e
+          une projection."
+        en: The site cleaned by hand; the renovation remained a plan.
       skillIds:
       - gestion-entreprise
       platforms: []
@@ -791,8 +1249,12 @@ MonoBehaviour:
       r\xE9v\xE8le la projection par plaques. Pas de mascotte. Trois points de Gestion
       d'entreprise, un par projet, ramass\xE9s en avan\xE7ant devant la fa\xE7ade."
   - id: ggs-2021
-    title: Goras Games Studio
-    years: 2021
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: 2021
+      en: 2021
     place: centre
     level: 36
     kind: 3
@@ -806,31 +1268,46 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: odn-pico
-      title: 'ODN CineVR : adaptation Pico'
-      description: Portage sur les casques Pico.
+      title:
+        fr: 'ODN CineVR : adaptation Pico'
+        en: 'ODN CineVR: Pico port'
+      description:
+        fr: Portage sur les casques Pico.
+        en: Port to Pico headsets.
       skillIds:
       - vr
       platforms:
       - Pico
     - id: odn-vive
-      title: 'ODN CineVR : adaptation HTC Vive Flow et Focus 3'
-      description: Portage sur les casques HTC.
+      title:
+        fr: 'ODN CineVR : adaptation HTC Vive Flow et Focus 3'
+        en: 'ODN CineVR: HTC Vive Flow and Focus 3 port'
+      description:
+        fr: Portage sur les casques HTC.
+        en: Port to HTC headsets.
       skillIds:
       - vr
       platforms:
       - Vive
     - id: odn-decors
-      title: "ODN CineVR : d\xE9cors"
-      description: "Salles et d\xE9cors : vaisseau, drive-in, IMAX, manoir, plage,
-        lobby."
+      title:
+        fr: "ODN CineVR : d\xE9cors"
+        en: 'ODN CineVR: environments'
+      description:
+        fr: "Salles et d\xE9cors : vaisseau, drive-in, IMAX, manoir, plage, lobby."
+        en: 'Rooms and environments: spaceship, drive-in, IMAX, manor, beach, lobby.'
       skillIds:
       - unity
       - game-design
       platforms:
       - Quest
     - id: k4rant-2021
-      title: "K4rant : \xE9volution 2021"
-      description: Conception du lobby et des bornes.
+      title:
+        fr: "K4rant : \xE9volution 2021"
+        en: 'K4rant: 2021 progress'
+      description:
+        fr: Conception du lobby et des bornes.
+        en: Lobby and arcade cabinet design.
       skillIds:
       - game-design
       platforms:
@@ -838,8 +1315,12 @@ MonoBehaviour:
       - Steam
     notes: 'Guichet annuel 2021 : le fil rouge du studio.'
   - id: ggs-2022
-    title: Goras Games Studio
-    years: 2022
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: 2022
+      en: 2022
     place: centre
     level: 37
     kind: 3
@@ -853,8 +1334,12 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: k4rant-2022
-      title: "K4rant : \xE9volution 2022"
-      description: "R\xE9seau et parties, conception des mondes."
+      title:
+        fr: "K4rant : \xE9volution 2022"
+        en: 'K4rant: 2022 progress'
+      description:
+        fr: "R\xE9seau et parties, conception des mondes."
+        en: Networking and matches, world design.
       skillIds:
       - game-design
       - csharp
@@ -863,8 +1348,12 @@ MonoBehaviour:
       - Steam
     notes: 'Guichet annuel 2022 : le fil rouge du studio.'
   - id: lidl
-    title: Lidl
-    years: "2023 - 2024 \xB7 Employ\xE9 polyvalent"
+    title:
+      fr: Lidl
+      en: Lidl
+    years:
+      fr: "2023 - 2024 \xB7 Employ\xE9 polyvalent"
+      en: "2023 - 2024 \xB7 Store assistant"
     place: sologne
     level: 38
     kind: 1
@@ -877,16 +1366,25 @@ MonoBehaviour:
     traitsAfter:
     - kind: 0
       id: depassement
-      label: "D\xE9passement de soi"
-      description: "Un m\xE9tier alimentaire tenu \xE0 fond, le temps qu'il faut."
+      label:
+        fr: "D\xE9passement de soi"
+        en: Going the extra mile
+      description:
+        fr: "Un m\xE9tier alimentaire tenu \xE0 fond, le temps qu'il faut."
+        en: A day job held flat out, for as long as it took.
       category: 3
     rewards: []
     projects:
     - id: lidl-magasin
-      title: "Employ\xE9 polyvalent, ouverture d'un nouveau magasin"
-      description: "Rayons, boulangerie, inventaire, encaissement, proc\xE9dures
-        : un m\xE9tier alimentaire o\xF9 l'on apprend quand m\xEAme des choses sur
-        la marche d'une entreprise."
+      title:
+        fr: "Employ\xE9 polyvalent, ouverture d'un nouveau magasin"
+        en: Store assistant, opening a new store
+      description:
+        fr: "Rayons, boulangerie, inventaire, encaissement, proc\xE9dures : un m\xE9tier
+          alimentaire o\xF9 l'on apprend quand m\xEAme des choses sur la marche d'une
+          entreprise."
+        en: 'Shelves, bakery, stock-taking, checkout, procedures: a day job that
+          still teaches a thing or two about how a business runs.'
       skillIds:
       - gestion-entreprise
       platforms: []
@@ -894,8 +1392,12 @@ MonoBehaviour:
       un point de Gestion d'entreprise (on y apprend malgr\xE9 tout). Trait D\xE9passement
       de soi en sortant. Fa\xE7ade d'enseigne sans logo."
   - id: ggs-2023
-    title: Goras Games Studio
-    years: 2023
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: 2023
+      en: 2023
     place: centre
     level: 38
     kind: 3
@@ -909,8 +1411,12 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: k4rant-2023
-      title: "K4rant : \xE9volution 2023"
-      description: Version VR, confort et interactions.
+      title:
+        fr: "K4rant : \xE9volution 2023"
+        en: 'K4rant: 2023 progress'
+      description:
+        fr: Version VR, confort et interactions.
+        en: VR version, comfort and interactions.
       skillIds:
       - game-design
       - vr
@@ -919,8 +1425,12 @@ MonoBehaviour:
       - Steam
     notes: 'Guichet annuel 2023 : le fil rouge du studio.'
   - id: ggs-2024
-    title: Goras Games Studio
-    years: 2024
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: 2024
+      en: 2024
     place: centre
     level: 39
     kind: 3
@@ -934,8 +1444,12 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: k4rant-2024
-      title: "K4rant : \xE9volution 2024"
-      description: Refonte technique sous Unity 6.
+      title:
+        fr: "K4rant : \xE9volution 2024"
+        en: 'K4rant: 2024 progress'
+      description:
+        fr: Refonte technique sous Unity 6.
+        en: Technical rework on Unity 6.
       skillIds:
       - game-design
       - unity
@@ -944,8 +1458,12 @@ MonoBehaviour:
       - Steam
     notes: 'Guichet annuel 2024 : le fil rouge du studio.'
   - id: cine-sologne
-    title: "Cin\xE9 Sologne"
-    years: 2025
+    title:
+      fr: "Cin\xE9 Sologne"
+      en: "Cin\xE9 Sologne"
+    years:
+      fr: 2025
+      en: 2025
     place: sologne
     level: 40
     kind: 1
@@ -959,24 +1477,34 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: cine-support
-      title: "Support technique du cin\xE9ma"
-      description: "Informatique, audio, vid\xE9o : la salle qui doit tourner tous
-        les soirs."
+      title:
+        fr: "Support technique du cin\xE9ma"
+        en: Technical support of the cinema
+      description:
+        fr: "Informatique, audio, vid\xE9o : la salle qui doit tourner tous les soirs."
+        en: 'IT, audio, video: the theatre that has to run every evening.'
       skillIds:
       - maintenance
       platforms: []
     - id: cine-gestion
-      title: 'Assistant directeur : programmation, planification, commandes'
-      description: Accueil, encaissement, programmation, plannings, inventaire et
-        commandes.
+      title:
+        fr: 'Assistant directeur : programmation, planification, commandes'
+        en: 'Assistant manager: programming, scheduling, orders'
+      description:
+        fr: Accueil, encaissement, programmation, plannings, inventaire et commandes.
+        en: Front desk, checkout, film programming, schedules, stock-taking and orders.
       skillIds:
       - gestion-entreprise
       platforms: []
     notes: "Passage anecdotique en fa\xE7ade, sans logo : un point de Maintenance
       & Support informatique, un point de Gestion d'entreprise. Pas de trait."
   - id: ggs-2025
-    title: Goras Games Studio
-    years: 2025
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: 2025
+      en: 2025
     place: centre
     level: 40
     kind: 3
@@ -990,8 +1518,12 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: k4rant-2025
-      title: "K4rant : \xE9volution 2025"
-      description: Multijoueur, avatars, portes d'embarquement.
+      title:
+        fr: "K4rant : \xE9volution 2025"
+        en: 'K4rant: 2025 progress'
+      description:
+        fr: Multijoueur, avatars, portes d'embarquement.
+        en: Multiplayer, avatars, boarding gates.
       skillIds:
       - game-design
       - vr
@@ -1001,8 +1533,12 @@ MonoBehaviour:
       - Steam
     notes: 'Guichet annuel 2025 : le fil rouge du studio.'
   - id: crn
-    title: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
-    years: 2026
+    title:
+      fr: "Conseil R\xE9gional du Num\xE9rique Centre-Val de Loire"
+      en: Centre-Val de Loire Regional Digital Council
+    years:
+      fr: 2026
+      en: 2026
     place: centre
     level: 40
     kind: 5
@@ -1015,9 +1551,14 @@ MonoBehaviour:
     traitsAfter:
     - kind: 0
       id: engagement-citoyen
-      label: Engagement citoyen
-      description: "Conseil R\xE9gional du Num\xE9rique et conseil municipal : r\xE9fl\xE9chir
-        et proposer pour les autres, b\xE9n\xE9volement."
+      label:
+        fr: Engagement citoyen
+        en: Civic engagement
+      description:
+        fr: "Conseil R\xE9gional du Num\xE9rique et conseil municipal : r\xE9fl\xE9chir
+          et proposer pour les autres, b\xE9n\xE9volement."
+        en: 'Regional Digital Council and town council: thinking and proposing for
+          others, as a volunteer.'
       category: 3
     rewards: []
     projects: []
@@ -1028,8 +1569,12 @@ MonoBehaviour:
       de mars 2026), sans lieu d\xE9di\xE9. Place publique avec le logo du Conseil
       R\xE9gional."
   - id: ggs-2026
-    title: Goras Games Studio
-    years: 2026
+    title:
+      fr: Goras Games Studio
+      en: Goras Games Studio
+    years:
+      fr: 2026
+      en: 2026
     place: centre
     level: 40
     kind: 3
@@ -1043,43 +1588,67 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: k4rant-2026
-      title: "K4rant : \xE9volution 2026"
-      description: Bornes et leaderboards.
+      title:
+        fr: "K4rant : \xE9volution 2026"
+        en: 'K4rant: 2026 progress'
+      description:
+        fr: Bornes et leaderboards.
+        en: Arcade cabinets and leaderboards.
       skillIds:
       - game-design
       platforms:
       - VR (tous casques)
       - Steam
     - id: ggs-ia-core
-      title: 'IA : outillage du studio (GGS Core, build, versionnage)'
-      description: "Outils d'\xE9diteur et de build \xE9crits avec des agents d'IA."
+      title:
+        fr: 'IA : outillage du studio (GGS Core, build, versionnage)'
+        en: 'AI: studio tooling (GGS Core, build, versioning)'
+      description:
+        fr: "Outils d'\xE9diteur et de build \xE9crits avec des agents d'IA."
+        en: Editor and build tools written with AI agents.
       skillIds:
       - ia
       platforms: []
     - id: ggs-ia-resume
-      title: 'IA : ResuME, ce CV interactif'
-      description: "Con\xE7u et d\xE9velopp\xE9 avec des agents d'IA, donn\xE9es
-        et greybox pilot\xE9es."
+      title:
+        fr: 'IA : ResuME, ce CV interactif'
+        en: 'AI: ResuME, this interactive CV'
+      description:
+        fr: "Con\xE7u et d\xE9velopp\xE9 avec des agents d'IA, donn\xE9es et greybox
+          pilot\xE9es."
+        en: Designed and developed with AI agents, data-driven content and greybox.
       skillIds:
       - ia
       platforms:
       - WebGL
     - id: ggs-ia-agents
-      title: 'IA : agents et automatisations'
-      description: "Revue de code, tests, d\xE9ploiement, m\xE9moire de projet."
+      title:
+        fr: 'IA : agents et automatisations'
+        en: 'AI: agents and automation'
+      description:
+        fr: "Revue de code, tests, d\xE9ploiement, m\xE9moire de projet."
+        en: Code review, tests, deployment, project memory.
       skillIds:
       - ia
       platforms: []
     - id: ggs-ia-contenus
-      title: 'IA : production de contenus'
-      description: Visuels, documents et communication du studio.
+      title:
+        fr: 'IA : production de contenus'
+        en: 'AI: content production'
+      description:
+        fr: Visuels, documents et communication du studio.
+        en: Visuals, documents and communication of the studio.
       skillIds:
       - ia
       platforms: []
     notes: 'Guichet annuel 2026 : le fil rouge du studio.'
   - id: loire-games
-    title: Loire Games
-    years: 2025
+    title:
+      fr: Loire Games
+      en: Loire Games
+    years:
+      fr: 2025
+      en: 2025
     place: centre
     level: 40
     kind: 4
@@ -1093,42 +1662,68 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: lg-cofondation
-      title: "Co-fondation du cluster r\xE9gional Loire Games"
-      description: "F\xE9d\xE9rer les cr\xE9ateurs de jeux de la r\xE9gion Centre-Val
-        de Loire, au m\xEAme niveau que les clusters des autres r\xE9gions ; \xE9v\xE9nements,
-        sc\xE8ne et intervenants."
+      title:
+        fr: "Co-fondation du cluster r\xE9gional Loire Games"
+        en: Co-founding the Loire Games regional cluster
+      description:
+        fr: "F\xE9d\xE9rer les cr\xE9ateurs de jeux de la r\xE9gion Centre-Val de
+          Loire, au m\xEAme niveau que les clusters des autres r\xE9gions ; \xE9v\xE9nements,
+          sc\xE8ne et intervenants."
+        en: Bringing together the game makers of the Centre-Val de Loire region,
+          on a par with the clusters of the other regions; events, stage and speakers.
       skillIds:
       - gestion-entreprise
       platforms: []
     - id: lg-tresorerie
-      title: "Tr\xE9sorerie et comptabilit\xE9 de l'association"
-      description: "Comptes, banque, achats et boutique, adh\xE9sions, notes de frais,
-        factures, devis."
+      title:
+        fr: "Tr\xE9sorerie et comptabilit\xE9 de l'association"
+        en: Treasury and bookkeeping of the non-profit
+      description:
+        fr: "Comptes, banque, achats et boutique, adh\xE9sions, notes de frais, factures,
+          devis."
+        en: Accounts, bank, purchases and shop, memberships, expense reports, invoices,
+          quotes.
       skillIds:
       - gestion-entreprise
       platforms: []
     - id: lg-outil-web
-      title: Outil web d'automatisation des processus
-      description: "D\xE9veloppement web pour automatiser la gestion de l'association."
+      title:
+        fr: Outil web d'automatisation des processus
+        en: Web tool automating the processes
+      description:
+        fr: "D\xE9veloppement web pour automatiser la gestion de l'association."
+        en: Web development to automate the management of the non-profit.
       skillIds:
       - dev-web
       platforms:
       - Web
     - id: lg-ia-gestion
-      title: 'IA : automatisation de la gestion'
-      description: "Agents et outils d'IA au service de la tr\xE9sorerie et de l'administratif."
+      title:
+        fr: 'IA : automatisation de la gestion'
+        en: 'AI: management automation'
+      description:
+        fr: "Agents et outils d'IA au service de la tr\xE9sorerie et de l'administratif."
+        en: AI agents and tools serving the treasury and the administration.
       skillIds:
       - ia
       platforms: []
     - id: lg-ia-dev
-      title: "IA : assistance au d\xE9veloppement"
-      description: Agents de code, revue et outillage de production.
+      title:
+        fr: "IA : assistance au d\xE9veloppement"
+        en: 'AI: development assistance'
+      description:
+        fr: Agents de code, revue et outillage de production.
+        en: Coding agents, review and production tooling.
       skillIds:
       - ia
       platforms: []
     - id: lg-ia-contenus
-      title: 'IA : production de contenus'
-      description: "Visuels, documents et communication assist\xE9s par IA."
+      title:
+        fr: 'IA : production de contenus'
+        en: 'AI: content production'
+      description:
+        fr: "Visuels, documents et communication assist\xE9s par IA."
+        en: Visuals, documents and communication, AI-assisted.
       skillIds:
       - ia
       platforms: []
@@ -1138,8 +1733,12 @@ MonoBehaviour:
       badge Fondateur : \xE9crans o\xF9 des gens jouent, sc\xE8ne pour les intervenants.
       Points valid\xE9s : Gestion 2, D\xE9veloppement web 1, IA 3."
   - id: aujourdhui
-    title: Aujourd'hui
-    years: 2026
+    title:
+      fr: Aujourd'hui
+      en: Today
+    years:
+      fr: 2026
+      en: 2026
     place: centre
     level: 40
     kind: 7
@@ -1153,47 +1752,75 @@ MonoBehaviour:
     rewards: []
     projects:
     - id: wip-k4rant
-      title: 'K4rant : Arcade Worlds'
-      description: En cours.
+      title:
+        fr: 'K4rant : Arcade Worlds'
+        en: 'K4rant: Arcade Worlds'
+      description:
+        fr: En cours.
+        en: In progress.
       skillIds: []
       platforms:
       - VR (tous casques)
       - Steam
     - id: wip-party-hospital
-      title: Party Hospital
-      description: En cours.
+      title:
+        fr: Party Hospital
+        en: Party Hospital
+      description:
+        fr: En cours.
+        en: In progress.
       skillIds: []
       platforms:
       - VR (tous casques)
       - Steam
     - id: wip-rural-quest
-      title: Rural Quest (nom de travail)
-      description: En cours.
+      title:
+        fr: Rural Quest (nom de travail)
+        en: Rural Quest (working title)
+      description:
+        fr: En cours.
+        en: In progress.
       skillIds: []
       platforms:
       - VR (tous casques)
       - Android
     - id: wip-cities-of-mist
-      title: Cities of Mist
-      description: En cours.
+      title:
+        fr: Cities of Mist
+        en: Cities of Mist
+      description:
+        fr: En cours.
+        en: In progress.
       skillIds: []
       platforms:
       - Steam
     - id: wip-commercialst
-      title: CommercialSt
-      description: En cours.
+      title:
+        fr: CommercialSt
+        en: CommercialSt
+      description:
+        fr: En cours.
+        en: In progress.
       skillIds: []
       platforms:
       - Steam
     - id: wip-insecticide
-      title: Insecticide
-      description: En cours.
+      title:
+        fr: Insecticide
+        en: Insecticide
+      description:
+        fr: En cours.
+        en: In progress.
       skillIds: []
       platforms:
       - Steam
     - id: wip-skai
-      title: SkAI
-      description: En cours.
+      title:
+        fr: SkAI
+        en: SkAI
+      description:
+        fr: En cours.
+        en: In progress.
       skillIds: []
       platforms:
       - Steam
