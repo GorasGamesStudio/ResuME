@@ -50,6 +50,7 @@ namespace GGS.Resume.Editor
         [MenuItem("ResuME/Greybox/Rebuild everything")]
         public static void BuildAll()
         {
+            EnsureLayers();
             Sprite square = CreateSquareSprite();
             TMP_FontAsset font = LoadWorldFont();
             if (font == null)
@@ -95,6 +96,28 @@ namespace GGS.Resume.Editor
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Adds the World, Interior and Player layers to the project when they are missing (first free user slots).
+        /// </summary>
+        private static void EnsureLayers()
+        {
+            SerializedObject tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
+            SerializedProperty layers = tagManager.FindProperty("layers");
+            foreach (string name in new[] { WorldLayers.WORLD, WorldLayers.INTERIOR, WorldLayers.PLAYER })
+            {
+                if (LayerMask.NameToLayer(name) >= 0) continue;
+                // User layers start at index 8; take the first empty slot.
+                for (int i = 8; i < layers.arraySize; i++)
+                {
+                    SerializedProperty slot = layers.GetArrayElementAtIndex(i);
+                    if (!string.IsNullOrEmpty(slot.stringValue)) continue;
+                    slot.stringValue = name;
+                    break;
+                }
+            }
+            tagManager.ApplyModifiedPropertiesWithoutUndo();
+        }
 
         /// <summary>
         /// Loads the SDF font the world texts use (the TextMeshPro default, Latin-1 covered).
@@ -193,7 +216,9 @@ namespace GGS.Resume.Editor
 
             // Player
             GameObject playerGo = new GameObject("Player");
+            playerGo.layer = WorldLayers.Player;
             GameObject visualGo = new GameObject("Visual");
+            visualGo.layer = WorldLayers.Player;
             visualGo.transform.SetParent(playerGo.transform, false);
             visualGo.transform.localScale = new Vector3(0.8f, 1.6f, 1f);
             SpriteRenderer playerRenderer = visualGo.AddComponent<SpriteRenderer>();

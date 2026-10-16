@@ -84,6 +84,7 @@ namespace GGS.Resume.World
         private const int SORT_VEHICLE = 4;
         private const float PROJECT_BLOCK_SIZE = 0.7f;
         private const string FILL_NAME = "Fill";
+        private const float FILL_DURATION = 0.35f;
         private const float BUILDING_FLOOR_Y = 0.9f;
         private const float LABEL_NEAR_SCREENS = 0.22f;
         /// <summary>Heights of the world texts in world units (about 24, 18, 16 and 14 pixels on a 1280 px wide screen).</summary>
@@ -140,6 +141,8 @@ namespace GGS.Resume.World
         public event Action<StopDefinition> StopEntered;
         /// <summary>Raised when the character leaves a stop.</summary>
         public event Action<StopDefinition> StopExited;
+        /// <summary>Raised when the character steps inside a building (true) or back outside (false).</summary>
+        public event Action<bool> InteriorChanged;
         /// <summary>Raised with the world position of the pickup and the stop that grants it.</summary>
         public event Action<RewardDefinition, Vector3, StopDefinition> RewardCollected;
         /// <summary>Raised when the character crosses a project: its skills each gain one point.</summary>
@@ -260,6 +263,10 @@ namespace GGS.Resume.World
             StopInstance last = _stops.Count > 0 ? _stops[_stops.Count - 1] : null;
             EndX = last == null ? _path.Length : last.Definition.kind == StopKind.End ? (last.StartX + last.EndX) * 0.5f : last.EndX - 1f;
 
+            // Everything built so far is the outside world; the building the character is in moves to the
+            // Interior layer on entry, so the camera can drop the rest.
+            WorldLayers.SetRecursively(transform, WorldLayers.World);
+
             // One road block per leg, horizontal or vertical, tinted by the region it runs through; the legs of a
             // vehicle ride are darker, like a main road between two regions.
             foreach (RoutePath.Leg leg in _path.Legs)
@@ -291,7 +298,8 @@ namespace GGS.Resume.World
             Vector3 origin = pickup.Origin;
             float bottom = origin.y - PROJECT_BLOCK_SIZE * 0.5f + PROJECT_BLOCK_SIZE * fromRatio;
             float height = PROJECT_BLOCK_SIZE * (toRatio - fromRatio);
-            MakeBlock(FILL_NAME, pickup.Root.transform, origin.x, bottom + height * 0.5f, PROJECT_BLOCK_SIZE * 0.86f, height, color, SORT_PICKUP + 1);
+            GameObject slice = MakeBlock(FILL_NAME, pickup.Root.transform, origin.x, bottom, PROJECT_BLOCK_SIZE * 0.86f, 0f, color, SORT_PICKUP + 1);
+            StartCoroutine(GrowFill(slice, bottom, height));
         }
 
         /// <summary>
@@ -574,7 +582,7 @@ namespace GGS.Resume.World
                 float t = (i + 1f) / (list.Count + 1f);
                 float distance = Mathf.Lerp(fromX, toX, t);
                 // World position from the distance; inside a traversed building the pickup sits on the floor, up in depth.
-                bool inBuilding = pickup.Stop != null && pickup.Stop.kind == StopKind.Traverse && parent != transform;
+                bool inBuilding = pickup.Stop != null && IsInterior(pickup.Stop.kind) && parent != transform;
                 Vector2 onPath = _path.Position(distance);
                 RoutePath.Leg leg = _path.LegAt(distance);
                 bool vertical = leg != null && leg.Vertical;
@@ -663,14 +671,25 @@ namespace GGS.Resume.World
                 if (inside == stop.Inside) continue;
                 stop.Inside = inside;
                 if (stop.FrontWall != null) stop.FrontWall.SetActive(!inside);
+                bool interior = IsInterior(stop.Definition.kind);
                 if (inside)
                 {
                     CurrentStop = stop;
+                    if (interior)
+                    {
+                        WorldLayers.SetRecursively(stop.Root.transform, WorldLayers.Interior);
+                        InteriorChanged?.Invoke(true);
+                    }
                     StopEntered?.Invoke(stop.Definition);
                 }
                 else
                 {
                     if (CurrentStop == stop) CurrentStop = null;
+                    if (interior)
+                    {
+                        WorldLayers.SetRecursively(stop.Root.transform, WorldLayers.World);
+                        InteriorChanged?.Invoke(false);
+                    }
                     StopExited?.Invoke(stop.Definition);
                 }
             }
@@ -730,6 +749,13 @@ namespace GGS.Resume.World
         }
 
         /// <summary>
+        /// Whether a stop kind is walked through from the inside (the outside world hidden meanwhile).
+        /// </summary>
+        /// <param name="kind">Stop kind.</param>
+        /// <returns>True for the bedroom and the traversed companies.</returns>
+        public static bool IsInterior(StopKind kind) => kind == StopKind.Traverse || kind == StopKind.Intro;
+
+        /// <summary>
         /// Finds the pickup of a project.
         /// </summary>
         /// <param name="project">Project to find.</param>
@@ -741,6 +767,29 @@ namespace GGS.Resume.World
                 if (pickup.Project == project) return pickup;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Grows a colour slice from nothing to its height, bottom anchored, like liquid filling the block.
+        /// </summary>
+        /// <param name="slice">Slice block, created with no height.</param>
+        /// <param name="bottom">World Y of the bottom edge.</param>
+        /// <param name="height">Final height in world units.</param>
+        private static IEnumerator GrowFill(GameObject slice, float bottom, float height)
+        {
+            float t = 0f;
+            while (t < FILL_DURATION)
+            {
+                t += Time.deltaTime;
+                if (slice == null) yield break;
+                float h = height * Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t / FILL_DURATION));
+                slice.transform.localScale = new Vector3(PROJECT_BLOCK_SIZE * 0.86f, h, 1f);
+                slice.transform.position = new Vector3(slice.transform.position.x, bottom + h * 0.5f, 0f);
+                yield return null;
+            }
+            if (slice == null) yield break;
+            slice.transform.localScale = new Vector3(PROJECT_BLOCK_SIZE * 0.86f, height, 1f);
+            slice.transform.position = new Vector3(slice.transform.position.x, bottom + height * 0.5f, 0f);
         }
 
         /// <summary>

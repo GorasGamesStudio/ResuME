@@ -43,6 +43,7 @@ namespace GGS.Resume.Player
         private float _distance;
         private float _depth;
         private bool _placed;
+        private bool _depthPlaced;
         private float _dragAccumulated;
         private float _dragDirection;
         private float _flickVelocity;
@@ -127,8 +128,10 @@ namespace GGS.Resume.Player
                 }
 
                 // Depth: walk up into a traversed building, back down to the road elsewhere.
-                bool inBuilding = world.CurrentStop != null && world.CurrentStop.Definition.kind == StopKind.Traverse;
+                bool inBuilding = world.CurrentStop != null && WorldBuilder.IsInterior(world.CurrentStop.Definition.kind);
                 float targetDepth = inBuilding ? buildingFloorY + world.Route.roadHeightUnits * 0.5f : 0f;
+                // The game starts inside the bedroom: no climb on the first frames, the character is already in.
+                if (!_depthPlaced && world.CurrentStop != null) { _depth = targetDepth; _depthPlaced = true; }
                 bool steppingInDepth = Mathf.Abs(_depth - targetDepth) > 0.01f;
                 _depth = Mathf.MoveTowards(_depth, targetDepth, depthSpeed * Time.deltaTime);
 

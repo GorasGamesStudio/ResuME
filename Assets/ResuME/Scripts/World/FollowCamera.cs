@@ -1,3 +1,4 @@
+using GGS.Resume.Data;
 using UnityEngine;
 
 namespace GGS.Resume.World
@@ -38,6 +39,22 @@ namespace GGS.Resume.World
         }
 
         /// <summary>
+        /// Follows the interior state of the world.
+        /// </summary>
+        private void OnEnable()
+        {
+            if (world != null) world.InteriorChanged += OnInteriorChanged;
+        }
+
+        /// <summary>
+        /// Stops following the interior state.
+        /// </summary>
+        private void OnDisable()
+        {
+            if (world != null) world.InteriorChanged -= OnInteriorChanged;
+        }
+
+        /// <summary>
         /// Frames the player after every movement of the frame.
         /// </summary>
         private void LateUpdate()
@@ -56,6 +73,19 @@ namespace GGS.Resume.World
             float k = 1f - Mathf.Exp(-followSpeed * Time.deltaTime);
             transform.position = _snapped ? Vector3.Lerp(transform.position, target, k) : target;
             _snapped = true;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Inside a building only the interior and the character are rendered; outside, everything is.
+        /// </summary>
+        /// <param name="inside">True when the character just stepped into a building.</param>
+        private void OnInteriorChanged(bool inside)
+        {
+            _camera.cullingMask = inside ? WorldLayers.InteriorMask() : WorldLayers.EverythingMask();
         }
 
         #endregion
