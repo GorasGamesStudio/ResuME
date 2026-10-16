@@ -175,12 +175,12 @@ PlayerSettings:
     Standalone: com.DefaultCompany.2D-URP
     iPhone: com.ggs.resume
   buildNumber:
-    Standalone: 17
+    Standalone: 18
     VisionOS: 0
-    iPhone: 17
+    iPhone: 18
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 17
+  AndroidBundleVersionCode: 18
   AndroidMinSdkVersion: 25
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
