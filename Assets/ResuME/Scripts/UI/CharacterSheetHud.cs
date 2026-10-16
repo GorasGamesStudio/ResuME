@@ -13,13 +13,14 @@ namespace GGS.Resume.UI
 {
     /// <summary>
     /// Greybox character profile built from code (uGUI, provisional until the art pass).
-    /// Top-left: portrait, name, class, level, the always-on "ultimate" (the passive) and the
-    /// vertical list of traits. Bottom: the hotbar of usable skills, from which the attacks are
-    /// fired. Right: the progression list, one row per skill (name, gauge, no number), sorted by
-    /// mastery, rows sliding when the ranking changes; a full gauge pulses in Éric's greens.
-    /// Gain sequence, in two strict phases: every skill of the project fires its attack and all of
-    /// them land; only then the points leave the project for their rows, one after the other.
-    /// Walking back plays the reverse: points return to the project, rows and squares vanish.
+    /// Top-left: portrait, name, class, level, then the progression list below it, one row per
+    /// skill (name, gauge, no number), sorted by mastery, rows sliding when the ranking changes; a
+    /// full gauge pulses in Éric's greens. Top centre: the always-on passive. Top right: the vertical
+    /// list of traits. Bottom: the hotbar of usable skills, from which the attacks are fired.
+    /// Gain sequence, in two strict phases: every skill of the project fires its attack, each hit
+    /// paints its colour into the white project block; once the block is full it flies itself to
+    /// the skills list, where every involved row gains its point. Walking back plays the reverse:
+    /// points return to the project, rows and squares vanish.
     /// </summary>
     public class CharacterSheetHud : MonoBehaviour
     {
@@ -80,6 +81,8 @@ namespace GGS.Resume.UI
         private const float INNER_IDLE_ALPHA = 0.35f;
         private const float GAUGE_HEIGHT = 10f;
         private const float TOOLTIP_WIDTH = 320f;
+        /// <summary>Size in canvas pixels of the flying copy of a project block.</summary>
+        private const float CARRY_SIZE = 26f;
         /// <summary>Distance walked from the start, in world units, after which the controls hint fades out.</summary>
         private const float HINT_HIDE_DISTANCE = 3f;
         private const float HINT_FADE_SPEED = 1.5f;
@@ -328,7 +331,7 @@ namespace GGS.Resume.UI
             MakeText(panel, "LevelCaption", Localization.Ui(Route, "level"), 12, FontStyles.Italic, new Vector2(134f, -54f), new Vector2(60f, 34f));
 
             // The ultimate: the passive, always on, pulsing once unlocked.
-            _ultimate = MakePanel(_safeArea, "Ultimate", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -120f), new Vector2(240f, 56f));
+            _ultimate = MakePanel(_safeArea, "Ultimate", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -16f), new Vector2(260f, 56f));
             RectTransform ultimateSquare = MakeImage(_ultimate, "Square", new Vector2(8f, -8f), new Vector2(40f, 40f), SquareBack);
             RectTransform inner = MakeImage(ultimateSquare, "Inner", new Vector2(4f, -4f), new Vector2(32f, 32f), SlotEmpty);
             _ultimateInner = inner.GetComponent<Image>();
@@ -341,7 +344,7 @@ namespace GGS.Resume.UI
             AddHover(ultimateSquare.gameObject, () => _ultimateInner.gameObject.activeSelf ? _ultimateTooltip : null, ultimateSquare, TooltipSide.Below);
 
             // Traits: a vertical list of names under the ultimate, growing along the route.
-            _traitsPanel = MakePanel(_safeArea, "Traits", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -184f), new Vector2(240f, 30f));
+            _traitsPanel = MakePanel(_safeArea, "Traits", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -16f), new Vector2(240f, 30f));
             TMP_Text traitsCaption = MakeText(_traitsPanel, "Caption", Localization.Ui(Route, "traits"), 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
             traitsCaption.color = SectionColor;
             _traitsContent = MakeContainer(_traitsPanel, "Rows", new Vector2(8f, -24f), new Vector2(224f, 0f));
@@ -386,7 +389,7 @@ namespace GGS.Resume.UI
         /// </summary>
         private void BuildList()
         {
-            RectTransform list = MakePanel(_safeArea, "SkillList", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -96f), new Vector2(LIST_WIDTH, 30f + _expectedSkills * ROW_HEIGHT + 8f));
+            RectTransform list = MakePanel(_safeArea, "SkillList", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -120f), new Vector2(LIST_WIDTH, 30f + _expectedSkills * ROW_HEIGHT + 8f));
             TMP_Text caption = MakeText(list, "Caption", Localization.Ui(Route, "skills"), 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
             caption.color = SectionColor;
             _listContent = MakeContainer(list, "Rows", new Vector2(8f, -28f), new Vector2(LIST_WIDTH - 16f, _expectedSkills * ROW_HEIGHT));
@@ -397,7 +400,7 @@ namespace GGS.Resume.UI
         /// </summary>
         private void BuildBannerAndTooltip()
         {
-            RectTransform banner = MakePanel(_safeArea, "Banner", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -16f), new Vector2(LIST_WIDTH, 64f));
+            RectTransform banner = MakePanel(_safeArea, "Banner", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -80f), new Vector2(LIST_WIDTH + 70f, 64f));
             _bannerGroup = banner.gameObject.AddComponent<CanvasGroup>();
             _bannerGroup.alpha = 0f;
             _bannerTitle = MakeText(banner, "Title", "", 15, FontStyles.Bold, new Vector2(0f, -8f), new Vector2(LIST_WIDTH - 10f, 26f));
@@ -632,22 +635,81 @@ namespace GGS.Resume.UI
             }
             if (involved.Count == 0) yield break;
 
-            // Phase 1: the attacks, one by one, until the last one has landed.
+            // Phase 1: the attacks, one by one; each hit paints its share of the white block with the skill colour.
             int landed = 0;
+            int count = involved.Count;
             foreach ((SkillMastery mastery, HotbarSquare square, SkillRow _) in involved)
             {
-                StartCoroutine(Attack(mastery, square, projectPosition, () => landed++));
+                Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
+                StartCoroutine(Attack(mastery, square, projectPosition, () =>
+                {
+                    world.FillProject(project, color, landed / (float)count, (landed + 1) / (float)count);
+                    landed++;
+                }));
                 yield return new WaitForSeconds(ATTACK_STAGGER);
             }
-            while (landed < involved.Count) yield return null;
+            while (landed < count) yield return null;
 
-            // Phase 2: the points, one by one, from the project to their rows; the project pops as soon as the last one left.
+            // Phase 2: the full block leaves the lane and flies to the skills list; on arrival every involved row gains its point.
+            yield return new WaitForSeconds(0.15f);
+            yield return CarryProject(project, involved, projectPosition);
+        }
+
+        /// <summary>
+        /// The coloured project block flies from the lane to the skills list, then each involved row takes
+        /// its point, one after the other, the gauge growing and the ranking moving if needed.
+        /// </summary>
+        /// <param name="project">Project carried.</param>
+        /// <param name="involved">Skills of the project with their rows.</param>
+        /// <param name="projectPosition">World position of the project pickup.</param>
+        private IEnumerator CarryProject(ProjectDefinition project, List<(SkillMastery mastery, HotbarSquare square, SkillRow row)> involved, Vector3 projectPosition)
+        {
+            world.HideProject(project);
+
+            // The flying copy: a white block with the same colour slices, bottom-up, in hit order.
+            RectTransform flyer = MakeFlyer("Carry " + project.id, WorldToCanvas(projectPosition), new Vector2(CARRY_SIZE, CARRY_SIZE), Color.white);
+            float slice = (CARRY_SIZE - 4f) / involved.Count;
+            for (int i = 0; i < involved.Count; i++)
+            {
+                RectTransform part = MakeImage(flyer, "Slice", new Vector2(2f, -2f - (involved.Count - 1 - i) * slice), new Vector2(CARRY_SIZE - 4f, slice), GreyboxPalette.ForSkill(involved[i].mastery.Definition.category));
+                part.GetComponent<Image>().raycastTarget = false;
+            }
+
+            // Flight towards the list, accelerating, then a burst on arrival.
+            float speed = POINT_SPEED;
+            float safety = 1.5f;
+            while (safety > 0f)
+            {
+                safety -= Time.deltaTime;
+                Vector2 to = ListAnchor();
+                Vector2 position = flyer.anchoredPosition;
+                if (Vector2.Distance(position, to) < 6f) break;
+                speed += POINT_SPEED * 2.5f * Time.deltaTime;
+                flyer.anchoredPosition = Vector2.MoveTowards(position, to, speed * Time.deltaTime);
+                yield return null;
+            }
+            StartCoroutine(Burst(flyer.anchoredPosition, Color.white));
+            Destroy(flyer.gameObject);
+
+            // Every involved row takes its point, one after the other.
             foreach ((SkillMastery mastery, HotbarSquare _, SkillRow row) in involved)
             {
-                StartCoroutine(DeliverPoint(mastery, row, projectPosition));
-                yield return new WaitForSeconds(POINT_STAGGER);
+                if (row.Rect == null) continue; // removed by a walk back while the block was in flight
+                row.ShownPoints = Mathf.Min(row.ShownPoints + 1, mastery.Points);
+                RefreshRow(row);
+                StartCoroutine(Punch(row.Fill.rectTransform, 0.12f, 0.25f));
+                Resort();
+                yield return new WaitForSeconds(POINT_STAGGER * 0.6f);
             }
-            world.ReleaseProject(project);
+        }
+
+        /// <summary>
+        /// Canvas position where the carried blocks land: the top centre of the skills list.
+        /// </summary>
+        private Vector2 ListAnchor()
+        {
+            Vector3 world = _listContent.TransformPoint(new Vector3((LIST_WIDTH - 16f) * 0.5f, 8f, 0f));
+            return _canvasRect.InverseTransformPoint(world);
         }
 
         /// <summary>
@@ -663,20 +725,6 @@ namespace GGS.Resume.UI
             square.Inner.color = WithAlpha(color, INNER_IDLE_ALPHA);
             StartCoroutine(Burst(WorldToCanvas(projectPosition), color));
             onLanded();
-        }
-
-        /// <summary>
-        /// A point flies from the project straight to its row, the gauge grows, the ranking may move.
-        /// </summary>
-        private IEnumerator DeliverPoint(SkillMastery mastery, SkillRow row, Vector3 projectPosition)
-        {
-            Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
-            yield return TravelTracking("Point " + mastery.Definition.id, WorldToCanvas(projectPosition), () => RowCentre(row), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), POINT_SPEED);
-            if (row.Rect == null) yield break; // removed by a walk back while the point was in flight
-            row.ShownPoints = Mathf.Min(row.ShownPoints + 1, mastery.Points);
-            RefreshRow(row);
-            StartCoroutine(Punch(row.Fill.rectTransform, 0.12f, 0.25f));
-            Resort();
         }
 
         /// <summary>

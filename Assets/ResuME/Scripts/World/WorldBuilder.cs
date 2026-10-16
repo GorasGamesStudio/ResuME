@@ -82,6 +82,8 @@ namespace GGS.Resume.World
         private const int SORT_LABEL = 6;
         private const int SORT_FRONT_WALL = 10;
         private const int SORT_VEHICLE = 4;
+        private const float PROJECT_BLOCK_SIZE = 0.7f;
+        private const string FILL_NAME = "Fill";
         private const float BUILDING_FLOOR_Y = 0.9f;
         private const float LABEL_NEAR_SCREENS = 0.22f;
         /// <summary>Heights of the world texts in world units (about 24, 18, 16 and 14 pixels on a 1280 px wide screen).</summary>
@@ -272,6 +274,37 @@ namespace GGS.Resume.World
                 else
                     MakeBlock("Road", transform, centre.x, centre.y - road * 0.5f, leg.Length + road, road, color, SORT_FLOOR - 1);
             }
+        }
+
+        /// <summary>
+        /// Paints a slice of a project block with a skill colour, bottom-up: each attack that lands fills
+        /// its share, so the white block ends up coloured before it leaves for the skills.
+        /// </summary>
+        /// <param name="project">The project hit.</param>
+        /// <param name="color">Colour of the skill that hit it.</param>
+        /// <param name="fromRatio">Bottom of the slice, 0 to 1.</param>
+        /// <param name="toRatio">Top of the slice, 0 to 1.</param>
+        public void FillProject(ProjectDefinition project, Color color, float fromRatio, float toRatio)
+        {
+            PickupInstance pickup = FindPickup(project);
+            if (pickup == null || toRatio <= fromRatio) return;
+            Vector3 origin = pickup.Origin;
+            float bottom = origin.y - PROJECT_BLOCK_SIZE * 0.5f + PROJECT_BLOCK_SIZE * fromRatio;
+            float height = PROJECT_BLOCK_SIZE * (toRatio - fromRatio);
+            MakeBlock(FILL_NAME, pickup.Root.transform, origin.x, bottom + height * 0.5f, PROJECT_BLOCK_SIZE * 0.86f, height, color, SORT_PICKUP + 1);
+        }
+
+        /// <summary>
+        /// Hides a completed project at once: the HUD takes over with a flying copy of the block.
+        /// </summary>
+        /// <param name="project">The project whose block leaves the lane.</param>
+        public void HideProject(ProjectDefinition project)
+        {
+            PickupInstance pickup = FindPickup(project);
+            if (pickup == null || !pickup.Collected) return;
+            if (pickup.Hiding != null) StopCoroutine(pickup.Hiding);
+            pickup.Hiding = null;
+            pickup.Root.SetActive(false);
         }
 
         /// <summary>
@@ -551,7 +584,7 @@ namespace GGS.Resume.World
                 string id = pickup.Project != null ? pickup.Project.id : pickup.Reward.id;
                 string caption = Localization.Text(pickup.Project != null ? pickup.Project.title : pickup.Reward.label);
                 Color color = pickup.Project != null ? GreyboxPalette.Project : GreyboxPalette.ForReward(pickup.Reward.kind, pickup.Reward.category);
-                float size = pickup.Project != null ? 0.7f : pickup.Reward.kind == RewardKind.ClassChange ? 0.9f : 0.6f;
+                float size = pickup.Project != null ? PROJECT_BLOCK_SIZE : pickup.Reward.kind == RewardKind.ClassChange ? 0.9f : 0.6f;
 
                 GameObject root = new GameObject($"Pickup {id}");
                 root.transform.SetParent(parent, false);
@@ -689,9 +722,38 @@ namespace GGS.Resume.World
                     pickup.Root.SetActive(true);
                     pickup.Root.transform.localScale = Vector3.one;
                     pickup.Root.transform.position = pickup.Origin;
+                    ClearFills(pickup);
                     if (pickup.Project != null) ProjectUndone?.Invoke(pickup.Project, position, pickup.Stop);
                     else RewardLost?.Invoke(pickup.Reward, position, pickup.Stop);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Finds the pickup of a project.
+        /// </summary>
+        /// <param name="project">Project to find.</param>
+        /// <returns>Its pickup, or null for the final stop's projects.</returns>
+        private PickupInstance FindPickup(ProjectDefinition project)
+        {
+            foreach (PickupInstance pickup in _pickups)
+            {
+                if (pickup.Project == project) return pickup;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Removes the colour slices painted on a project block, so a walk back shows it white again.
+        /// </summary>
+        /// <param name="pickup">Pickup to clean.</param>
+        private static void ClearFills(PickupInstance pickup)
+        {
+            Transform root = pickup.Root.transform;
+            for (int i = root.childCount - 1; i >= 0; i--)
+            {
+                Transform child = root.GetChild(i);
+                if (child.name == FILL_NAME) Destroy(child.gameObject);
             }
         }
 

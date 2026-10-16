@@ -2119,8 +2119,8 @@
   "strings": [
     {
       "id": "ultimate",
-      "fr": "ULTIME",
-      "en": "ULTIMATE"
+      "fr": "PASSIF",
+      "en": "PASSIVE"
     },
     {
       "id": "ultimate-locked",
