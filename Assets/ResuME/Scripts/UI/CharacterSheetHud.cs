@@ -556,6 +556,9 @@ namespace GGS.Resume.UI
         /// </summary>
         private void OnLevelChanged(int level)
         {
+            // The world can wake up and fire before Start built the panels (roots activated mid-frame by the
+            // language screen): Start's own Refresh catches up, nothing to animate yet.
+            if (_levelText == null) return;
             Refresh();
             StartCoroutine(Punch(_levelText.rectTransform, 0.3f, 0.4f));
         }
@@ -565,6 +568,7 @@ namespace GGS.Resume.UI
         /// </summary>
         private void OnClassChanged(string title)
         {
+            if (_classText == null) return;
             Refresh();
             StartCoroutine(Punch(_classText.rectTransform, 0.3f, 0.4f));
         }
@@ -574,7 +578,7 @@ namespace GGS.Resume.UI
         /// </summary>
         private void Refresh()
         {
-            if (progress == null) return;
+            if (progress == null || _classText == null || _levelText == null) return;
             _classText.text = progress.ClassTitle;
             _levelText.text = progress.Level.ToString();
         }
