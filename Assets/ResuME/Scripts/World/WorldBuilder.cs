@@ -263,10 +263,6 @@ namespace GGS.Resume.World
             StopInstance last = _stops.Count > 0 ? _stops[_stops.Count - 1] : null;
             EndX = last == null ? _path.Length : last.Definition.kind == StopKind.End ? (last.StartX + last.EndX) * 0.5f : last.EndX - 1f;
 
-            // Everything built so far is the outside world; the building the character is in moves to the
-            // Interior layer on entry, so the camera can drop the rest.
-            WorldLayers.SetRecursively(transform, WorldLayers.World);
-
             // One road block per leg, horizontal or vertical, tinted by the region it runs through; the legs of a
             // vehicle ride are darker, like a main road between two regions.
             foreach (RoutePath.Leg leg in _path.Legs)
@@ -281,6 +277,10 @@ namespace GGS.Resume.World
                 else
                     MakeBlock("Road", transform, centre.x, centre.y - road * 0.5f, leg.Length + road, road, color, SORT_FLOOR - 1);
             }
+
+            // Everything built is the outside world; the building the character is in moves to the Interior
+            // layer on entry, so the camera can drop the rest.
+            WorldLayers.SetRecursively(transform, WorldLayers.World);
         }
 
         /// <summary>
