@@ -178,6 +178,15 @@ MonoBehaviour:
   - id: language-go
     fr: Commencer
     en: Start
+  - id: menu-subtitle
+    fr: "CV interactif \xB7 un mini-jeu de 3 \xE0 5 minutes"
+    en: "Interactive CV \xB7 a 3 to 5 minute mini-game"
+  - id: menu-play
+    fr: Jouer
+    en: Play
+  - id: menu-language
+    fr: Langue
+    en: Language
   skills:
   - id: unity
     label:
