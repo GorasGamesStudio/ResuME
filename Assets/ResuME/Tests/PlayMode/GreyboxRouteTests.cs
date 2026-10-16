@@ -36,6 +36,13 @@ namespace GGS.Resume.Tests
             yield return null;
             yield return null;
 
+            // The language screen gates the world: choose French, as the route content is written in French.
+            LanguageSelectHud languageScreen = Object.FindFirstObjectByType<LanguageSelectHud>();
+            Assert.IsNotNull(languageScreen, "LanguageSelectHud missing in GA_GreyboxScene");
+            languageScreen.Choose(Language.Fr);
+            yield return null;
+            yield return null;
+
             // Scene lookups are only tolerated in tests: the runtime wires its references at build time.
             WorldBuilder world = Object.FindFirstObjectByType<WorldBuilder>();
             PlayerMover mover = Object.FindFirstObjectByType<PlayerMover>();
@@ -105,7 +112,13 @@ namespace GGS.Resume.Tests
             Assert.AreEqual(expectedGains, totalPoints, "every gain on the lane counts once");
             Assert.AreEqual(expectedTraits, progress.Traits.Count);
             Assert.AreEqual(expectedPassives, progress.Passives.Count);
-            Assert.AreEqual("Développeur de jeux vidéo", progress.ClassTitle);
+            // The final class is the last class change of the route, whatever its title.
+            RewardDefinition lastClass = null;
+            foreach (StopDefinition stop in world.Route.stops)
+                foreach (RewardDefinition reward in stop.rewards)
+                    if (reward.kind == RewardKind.ClassChange) lastClass = reward;
+            Assert.IsNotNull(lastClass, "the route must grant at least one class");
+            Assert.AreEqual(lastClass.label.fr, progress.ClassTitle);
             Assert.AreEqual(40, progress.Level);
             Assert.That(walkSeconds, Is.InRange(30f, 300f), "pure walking time should stay within the 3 to 5 minute budget, with room for pauses");
 
@@ -143,7 +156,7 @@ namespace GGS.Resume.Tests
             Assert.AreEqual(0, progress.Skills.Count, "no skill left after walking back");
             Assert.AreEqual(0, progress.Traits.Count, "no trait left after walking back");
             Assert.AreEqual(0, progress.Passives.Count, "no passive left after walking back");
-            Assert.AreEqual(PlayerProgress.NO_CLASS, progress.ClassTitle, "class reverted after walking back");
+            Assert.IsNull(progress.CurrentClass, "class reverted after walking back");
             Assert.AreEqual(0, hud.BarOrder().Count, "the progression list is empty again");
 
         }

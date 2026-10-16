@@ -130,6 +130,9 @@ namespace GGS.Resume.UI
         private int _masteryScale = 20;
         private int _expectedSkills = 12;
 
+        /// <summary>Route of the world, source of the interface words.</summary>
+        private RouteDefinition Route => world != null ? world.Route : null;
+
         #endregion
 
         #region Unity Editor
@@ -316,13 +319,13 @@ namespace GGS.Resume.UI
             // Portrait, identity and level bubble.
             RectTransform panel = MakePanel(_safeArea, "Profile", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -16f), new Vector2(240f, 96f));
             RectTransform portrait = MakeImage(panel, "Portrait", new Vector2(8f, -8f), new Vector2(80f, 80f), SquareBack);
-            MakeText(portrait, "PortraitLabel", "portrait", 12, FontStyles.Italic, Vector2.zero, new Vector2(80f, 80f)).alignment = TextAlignmentOptions.Center;
+            MakeText(portrait, "PortraitLabel", Localization.Ui(Route, "portrait"), 12, FontStyles.Italic, Vector2.zero, new Vector2(80f, 80f)).alignment = TextAlignmentOptions.Center;
             MakeText(panel, "Name", world != null && world.Route != null ? world.Route.contactName : "", 17, FontStyles.Bold, new Vector2(96f, -8f), new Vector2(140f, 22f));
-            _classText = MakeText(panel, "Class", PlayerProgress.NO_CLASS, 12, FontStyles.Normal, new Vector2(96f, -32f), new Vector2(140f, 18f));
+            _classText = MakeText(panel, "Class", Localization.Ui(Route, "no-class"), 12, FontStyles.Normal, new Vector2(96f, -32f), new Vector2(140f, 18f));
             RectTransform bubble = MakeImage(panel, "LevelBubble", new Vector2(96f, -54f), new Vector2(34f, 34f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
             _levelText = MakeText(bubble, "Level", "-", 15, FontStyles.Bold, Vector2.zero, new Vector2(34f, 34f));
             _levelText.alignment = TextAlignmentOptions.Center;
-            MakeText(panel, "LevelCaption", "niveau", 12, FontStyles.Italic, new Vector2(134f, -54f), new Vector2(60f, 34f));
+            MakeText(panel, "LevelCaption", Localization.Ui(Route, "level"), 12, FontStyles.Italic, new Vector2(134f, -54f), new Vector2(60f, 34f));
 
             // The ultimate: the passive, always on, pulsing once unlocked.
             _ultimate = MakePanel(_safeArea, "Ultimate", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -120f), new Vector2(240f, 56f));
@@ -330,16 +333,16 @@ namespace GGS.Resume.UI
             RectTransform inner = MakeImage(ultimateSquare, "Inner", new Vector2(4f, -4f), new Vector2(32f, 32f), SlotEmpty);
             _ultimateInner = inner.GetComponent<Image>();
             _ultimateInner.raycastTarget = false;
-            TMP_Text caption = MakeText(_ultimate, "Caption", "ULTIME", 12, FontStyles.Bold, new Vector2(56f, -8f), new Vector2(170f, 16f));
+            TMP_Text caption = MakeText(_ultimate, "Caption", Localization.Ui(Route, "ultimate"), 12, FontStyles.Bold, new Vector2(56f, -8f), new Vector2(170f, 16f));
             caption.color = SectionColor;
-            _ultimateLabel = MakeText(_ultimate, "Label", "à débloquer", 13, FontStyles.Italic, new Vector2(56f, -26f), new Vector2(170f, 22f));
+            _ultimateLabel = MakeText(_ultimate, "Label", Localization.Ui(Route, "ultimate-locked"), 13, FontStyles.Italic, new Vector2(56f, -26f), new Vector2(170f, 22f));
             _ultimateLabel.color = SectionColor;
             inner.gameObject.SetActive(false);
             AddHover(ultimateSquare.gameObject, () => _ultimateInner.gameObject.activeSelf ? _ultimateTooltip : null, ultimateSquare, TooltipSide.Below);
 
             // Traits: a vertical list of names under the ultimate, growing along the route.
             _traitsPanel = MakePanel(_safeArea, "Traits", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -184f), new Vector2(240f, 30f));
-            TMP_Text traitsCaption = MakeText(_traitsPanel, "Caption", "TRAITS", 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
+            TMP_Text traitsCaption = MakeText(_traitsPanel, "Caption", Localization.Ui(Route, "traits"), 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
             traitsCaption.color = SectionColor;
             _traitsContent = MakeContainer(_traitsPanel, "Rows", new Vector2(8f, -24f), new Vector2(224f, 0f));
         }
@@ -353,7 +356,7 @@ namespace GGS.Resume.UI
             RectTransform hint = MakePanel(_safeArea, "Hint", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 10f + HOTBAR_HEIGHT + 8f), new Vector2(420f, 28f));
             _hintGroup = hint.gameObject.AddComponent<CanvasGroup>();
             _hintGroup.blocksRaycasts = false;
-            TMP_Text text = MakeText(hint, "Text", "Flèches du clavier ou glisser du doigt pour avancer", 13, FontStyles.Italic, Vector2.zero, new Vector2(420f, 28f));
+            TMP_Text text = MakeText(hint, "Text", Localization.Ui(Route, "hint"), 13, FontStyles.Italic, Vector2.zero, new Vector2(420f, 28f));
             text.alignment = TextAlignmentOptions.Center;
         }
 
@@ -384,7 +387,7 @@ namespace GGS.Resume.UI
         private void BuildList()
         {
             RectTransform list = MakePanel(_safeArea, "SkillList", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -96f), new Vector2(LIST_WIDTH, 30f + _expectedSkills * ROW_HEIGHT + 8f));
-            TMP_Text caption = MakeText(list, "Caption", "COMPÉTENCES", 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
+            TMP_Text caption = MakeText(list, "Caption", Localization.Ui(Route, "skills"), 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
             caption.color = SectionColor;
             _listContent = MakeContainer(list, "Rows", new Vector2(8f, -28f), new Vector2(LIST_WIDTH - 16f, _expectedSkills * ROW_HEIGHT));
         }
@@ -426,7 +429,7 @@ namespace GGS.Resume.UI
 
             RectTransform inner = MakeImage(rect, "Logo", new Vector2(4f, -4f), new Vector2(SQUARE_SIZE - 8f, SQUARE_SIZE - 8f), WithAlpha(color, INNER_IDLE_ALPHA));
             inner.GetComponent<Image>().raycastTarget = false;
-            TMP_Text label = MakeText(rect, "Label", mastery.Definition.shortLabel, 11, FontStyles.Bold, new Vector2(2f, -2f), new Vector2(SQUARE_SIZE - 4f, SQUARE_SIZE - 4f));
+            TMP_Text label = MakeText(rect, "Label", Localization.Text(mastery.Definition.shortLabel), 11, FontStyles.Bold, new Vector2(2f, -2f), new Vector2(SQUARE_SIZE - 4f, SQUARE_SIZE - 4f));
             label.alignment = TextAlignmentOptions.Center;
             label.textWrappingMode = TextWrappingModes.Normal;
 
@@ -448,7 +451,7 @@ namespace GGS.Resume.UI
             Image hit = rect.gameObject.AddComponent<Image>();
             hit.color = Transparent;
 
-            TMP_Text label = MakeText(rect, "Label", mastery.Definition.label, 12, FontStyles.Normal, new Vector2(0f, 0f), new Vector2(rowWidth, 16f));
+            TMP_Text label = MakeText(rect, "Label", Localization.Text(mastery.Definition.label), 12, FontStyles.Normal, new Vector2(0f, 0f), new Vector2(rowWidth, 16f));
             RectTransform glow = MakeImage(rect, "GaugeGlow", new Vector2(-2f, -16f), new Vector2(rowWidth + 4f, GAUGE_HEIGHT + 4f), Transparent);
             glow.GetComponent<Image>().raycastTarget = false;
             RectTransform back = MakeImage(rect, "GaugeBack", new Vector2(0f, -18f), new Vector2(rowWidth, GAUGE_HEIGHT), SlotEmpty);
@@ -524,8 +527,9 @@ namespace GGS.Resume.UI
         /// <param name="stop">Stop just entered.</param>
         private void OnStopEntered(StopDefinition stop)
         {
-            _bannerTitle.text = stop.founder ? $"{stop.title}  [Fondateur]" : stop.title;
-            _bannerYears.text = stop.years;
+            string title = Localization.Text(stop.title);
+            _bannerTitle.text = stop.founder ? $"{title}  [{Localization.Ui(Route, "founder")}]" : title;
+            _bannerYears.text = Localization.Text(stop.years);
             if (_bannerRoutine != null) StopCoroutine(_bannerRoutine);
             _bannerRoutine = StartCoroutine(ShowBanner());
         }
@@ -762,7 +766,7 @@ namespace GGS.Resume.UI
                 case RewardKind.Passive:
                     _ultimateId = null;
                     _ultimateInner.gameObject.SetActive(false);
-                    _ultimateLabel.text = "à débloquer";
+                    _ultimateLabel.text = Localization.Ui(Route, "ultimate-locked");
                     _ultimateLabel.fontStyle = FontStyles.Italic;
                     _ultimateLabel.color = SectionColor;
                     _ultimateTooltip = "";
@@ -782,7 +786,7 @@ namespace GGS.Resume.UI
             RectTransform rect = MakeContainer(_traitsContent, "Trait " + reward.id, new Vector2(0f, -_traits.Count * TRAIT_ROW_HEIGHT), new Vector2(224f, TRAIT_ROW_HEIGHT));
             Image hit = rect.gameObject.AddComponent<Image>();
             hit.color = Transparent;
-            TMP_Text label = MakeText(rect, "Label", reward.label, 12, FontStyles.Normal, new Vector2(18f, 0f), new Vector2(200f, TRAIT_ROW_HEIGHT));
+            TMP_Text label = MakeText(rect, "Label", Localization.Text(reward.label), 12, FontStyles.Normal, new Vector2(18f, 0f), new Vector2(200f, TRAIT_ROW_HEIGHT));
             MakeImage(rect, "Dot", new Vector2(2f, -5f), new Vector2(10f, 10f), GreyboxPalette.ForReward(RewardKind.Trait, reward.category)).GetComponent<Image>().raycastTarget = false;
             rect.gameObject.SetActive(false);
             _traits.Add(new TraitRow { Id = reward.id, Rect = rect, Label = label });
@@ -807,7 +811,7 @@ namespace GGS.Resume.UI
             yield return Travel("Flying " + reward.id, WorldToCanvas(worldPosition), end, new Vector2(22f, 22f), UltimateColor, 0.6f, 60f);
             if (_ultimateId != reward.id) yield break; // taken back by a walk back while in flight
             _ultimateInner.gameObject.SetActive(true);
-            _ultimateLabel.text = reward.label;
+            _ultimateLabel.text = Localization.Text(reward.label);
             _ultimateLabel.fontStyle = FontStyles.Bold;
             _ultimateLabel.color = Color.white;
             _ultimateTooltip = TooltipFor(reward);
@@ -1039,21 +1043,21 @@ namespace GGS.Resume.UI
         /// <summary>
         /// Tooltip text of a reward.
         /// </summary>
-        private static string TooltipFor(RewardDefinition reward)
+        private string TooltipFor(RewardDefinition reward)
         {
-            string category = reward.category == SkillCategory.None ? "" : $" · {reward.category}";
-            return $"<b>{reward.label}</b>{category}\n{reward.description}";
+            string category = reward.category == SkillCategory.None ? "" : $" · {Localization.Category(Route, reward.category)}";
+            return $"<b>{Localization.Text(reward.label)}</b>{category}\n{Localization.Text(reward.description)}";
         }
 
         /// <summary>
         /// Tooltip text of a skill: description and the projects that count.
         /// </summary>
-        private static string TooltipFor(SkillMastery mastery)
+        private string TooltipFor(SkillMastery mastery)
         {
-            string plural = mastery.Points > 1 ? "s" : "";
-            return $"<b>{mastery.Definition.label}</b> · {mastery.Definition.category}\n" +
-                   $"{mastery.Definition.description}\n" +
-                   $"<b>{mastery.Points} projet{plural}</b> : {string.Join(", ", mastery.Contributors)}";
+            string projects = Localization.Ui(Route, mastery.Points > 1 ? "project-many" : "project-one");
+            return $"<b>{Localization.Text(mastery.Definition.label)}</b> · {Localization.Category(Route, mastery.Definition.category)}\n" +
+                   $"{Localization.Text(mastery.Definition.description)}\n" +
+                   $"<b>{mastery.Points} {projects}</b> : {string.Join(", ", mastery.Contributors)}";
         }
 
         /// <summary>

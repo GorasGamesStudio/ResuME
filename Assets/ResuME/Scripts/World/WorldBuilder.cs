@@ -371,7 +371,7 @@ namespace GGS.Resume.World
             ride.Root = root;
             ride.Vehicle = MakeBlock("Vehicle", root.transform, 0f, 0f, car ? CAR_WIDTH : MOTORBIKE_WIDTH, car ? CAR_HEIGHT : MOTORBIKE_HEIGHT,
                 GreyboxPalette.ForTravel(ride.Mode), SORT_VEHICLE);
-            ride.Label = MakeLabel("Label", root.transform, 0f, 0f, car ? "voiture" : "moto", SMALL_TEXT_HEIGHT, SORT_LABEL);
+            ride.Label = MakeLabel("Label", root.transform, 0f, 0f, Localization.Ui(route, car ? "car" : "motorbike"), SMALL_TEXT_HEIGHT, SORT_LABEL);
             PlaceVehicle(ride, ride.StartX);
         }
 
@@ -462,18 +462,18 @@ namespace GGS.Resume.World
                     break;
                 case StopKind.Traverse:
                     MakeBlock("Floor", root.transform, centerX, baseY + height * 0.5f, width, height, tint, SORT_FLOOR);
-                    MakeLabel("Interior", root.transform, centerX, baseY + height * 0.5f, "intérieur", SIGN_TEXT_HEIGHT, SORT_LABEL);
+                    MakeLabel("Interior", root.transform, centerX, baseY + height * 0.5f, Localization.Ui(route, "interior"), SIGN_TEXT_HEIGHT, SORT_LABEL);
                     // The front wall straddles the road and hides the interior until the player walks in.
                     stop.FrontWall = MakeBlock("FrontWall", root.transform, centerX, baseY + (height * 0.65f - road) * 0.5f,
                         width, height * 0.65f + road, GreyboxPalette.FrontWall, SORT_FRONT_WALL);
                     break;
                 case StopKind.Counter:
                     MakeBlock("Booth", root.transform, centerX, baseY + height * 0.25f, width * 0.6f, height * 0.5f, tint, SORT_FLOOR);
-                    MakeLabel("Sign", root.transform, centerX, baseY + height * 0.55f, "guichet", SIGN_TEXT_HEIGHT, SORT_LABEL);
+                    MakeLabel("Sign", root.transform, centerX, baseY + height * 0.55f, Localization.Ui(route, "counter"), SIGN_TEXT_HEIGHT, SORT_LABEL);
                     break;
                 case StopKind.Stand:
                     MakeBlock("Tent", root.transform, centerX, baseY + height * 0.35f, width, height * 0.7f, tint, SORT_FLOOR);
-                    MakeLabel("Sign", root.transform, centerX, baseY + height * 0.75f, "stand", SIGN_TEXT_HEIGHT, SORT_LABEL);
+                    MakeLabel("Sign", root.transform, centerX, baseY + height * 0.75f, Localization.Ui(route, "stand"), SIGN_TEXT_HEIGHT, SORT_LABEL);
                     break;
                 case StopKind.Cluster:
                 {
@@ -498,12 +498,14 @@ namespace GGS.Resume.World
             }
 
             // Title and years above the stop, founder badge when Éric created the structure.
-            string caption = string.IsNullOrEmpty(d.years) ? d.title : $"{d.title}\n{d.years}";
+            string title = Localization.Text(d.title);
+            string years = Localization.Text(d.years);
+            string caption = string.IsNullOrEmpty(years) ? title : $"{title}\n{years}";
             MakeLabel("Title", root.transform, centerX, baseY + height + 0.9f, caption, TITLE_TEXT_HEIGHT, SORT_LABEL, Mathf.Max(width, 8f));
             if (d.founder)
             {
                 MakeBlock("FounderBadge", root.transform, endX - 1.2f, baseY + height + 2.4f, 2.6f, 0.6f, GreyboxPalette.Founder, SORT_LABEL);
-                MakeLabel("FounderLabel", root.transform, endX - 1.2f, baseY + height + 2.4f, "Fondateur", SMALL_TEXT_HEIGHT, SORT_LABEL + 1);
+                MakeLabel("FounderLabel", root.transform, endX - 1.2f, baseY + height + 2.4f, Localization.Ui(route, "founder"), SMALL_TEXT_HEIGHT, SORT_LABEL + 1);
             }
         }
 
@@ -547,7 +549,7 @@ namespace GGS.Resume.World
                 float y = vertical ? onPath.y : onPath.y + (inBuilding ? BUILDING_FLOOR_Y : -route.roadHeightUnits * 0.5f);
 
                 string id = pickup.Project != null ? pickup.Project.id : pickup.Reward.id;
-                string caption = pickup.Project != null ? pickup.Project.title : pickup.Reward.label;
+                string caption = Localization.Text(pickup.Project != null ? pickup.Project.title : pickup.Reward.label);
                 Color color = pickup.Project != null ? GreyboxPalette.Project : GreyboxPalette.ForReward(pickup.Reward.kind, pickup.Reward.category);
                 float size = pickup.Project != null ? 0.7f : pickup.Reward.kind == RewardKind.ClassChange ? 0.9f : 0.6f;
 

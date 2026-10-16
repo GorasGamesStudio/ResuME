@@ -30,7 +30,6 @@ namespace GGS.Resume.Player
     {
         #region Fields
 
-        public const string NO_CLASS = "Sans classe";
         private const int BURST_COUNT = 12;
         private const float BURST_DURATION = 0.6f;
         private const float REINFORCE_DURATION = 0.5f;
@@ -44,10 +43,13 @@ namespace GGS.Resume.Player
         private readonly Dictionary<string, SkillMastery> _skillsById = new Dictionary<string, SkillMastery>();
         private readonly List<RewardDefinition> _traits = new List<RewardDefinition>();
         private readonly List<RewardDefinition> _passives = new List<RewardDefinition>();
-        private readonly Stack<string> _classHistory = new Stack<string>();
+        private readonly Stack<RewardDefinition> _classHistory = new Stack<RewardDefinition>();
 
         public int Level { get; private set; }
-        public string ClassTitle { get; private set; } = NO_CLASS;
+        /// <summary>Current class reward, null before the first class change.</summary>
+        public RewardDefinition CurrentClass { get; private set; }
+        /// <summary>Title of the current class in the session language, or the "no class" word.</summary>
+        public string ClassTitle => CurrentClass != null ? Localization.Text(CurrentClass.label) : Localization.Ui(world != null ? world.Route : null, "no-class");
         /// <summary>Distinct skills, in order of first acquisition.</summary>
         public IReadOnlyList<SkillMastery> Skills => _skills;
         public IReadOnlyList<RewardDefinition> Traits => _traits;
@@ -141,8 +143,8 @@ namespace GGS.Resume.Player
             switch (reward.kind)
             {
                 case RewardKind.ClassChange:
-                    _classHistory.Push(ClassTitle);
-                    ClassTitle = reward.label;
+                    _classHistory.Push(CurrentClass);
+                    CurrentClass = reward;
                     ClassChanged?.Invoke(ClassTitle);
                     StartCoroutine(Reinforce());
                     break;
@@ -163,7 +165,7 @@ namespace GGS.Resume.Player
             switch (reward.kind)
             {
                 case RewardKind.ClassChange:
-                    ClassTitle = _classHistory.Count > 0 ? _classHistory.Pop() : NO_CLASS;
+                    CurrentClass = _classHistory.Count > 0 ? _classHistory.Pop() : null;
                     ClassChanged?.Invoke(ClassTitle);
                     break;
                 case RewardKind.Trait:
@@ -188,7 +190,7 @@ namespace GGS.Resume.Player
                     Debug.LogWarning($"[ResuME] Project {project.id} uses unknown skill '{skillId}'.");
                     continue;
                 }
-                GainSkill(definition, project.title);
+                GainSkill(definition, Localization.Text(project.title));
             }
         }
 
@@ -202,7 +204,7 @@ namespace GGS.Resume.Player
                 if (!_skillsById.TryGetValue(skillId, out SkillMastery mastery)) continue;
                 // Remove one point and the project from the contributors; drop the skill when empty.
                 mastery.Points = Mathf.Max(0, mastery.Points - 1);
-                int index = mastery.Contributors.LastIndexOf(project.title);
+                int index = mastery.Contributors.LastIndexOf(Localization.Text(project.title));
                 if (index >= 0) mastery.Contributors.RemoveAt(index);
                 bool gone = mastery.Points == 0;
                 if (gone)

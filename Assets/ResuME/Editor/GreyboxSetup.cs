@@ -223,6 +223,14 @@ namespace GGS.Resume.Editor
             EndSequence ending = worldGo.AddComponent<EndSequence>();
             ending.Configure(world, mover, progress, card, square, worldFont);
 
+            // Language screen: shown first, the world, the player and the HUD stay inactive until the choice.
+            GameObject languageGo = new GameObject("LanguageSelect", typeof(RectTransform));
+            LanguageSelectHud languageScreen = languageGo.AddComponent<LanguageSelectHud>();
+            languageScreen.Configure(route, worldFont, new[] { worldGo, playerGo, hudGo });
+            worldGo.SetActive(false);
+            playerGo.SetActive(false);
+            hudGo.SetActive(false);
+
             // Event system for the tooltips
             GameObject eventsGo = new GameObject("EventSystem");
             eventsGo.AddComponent<EventSystem>();

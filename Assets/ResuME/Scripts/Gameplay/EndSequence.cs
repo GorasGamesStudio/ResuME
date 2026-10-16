@@ -118,7 +118,7 @@ namespace GGS.Resume.Gameplay
             {
                 float angle = Mathf.PI * (0.15f + 0.7f * i / Mathf.Max(1, count - 1));
                 Vector3 target = head + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle) * 0.6f + 0.6f, 0f) * ORBIT_RADIUS;
-                Transform block = MakeBlock("Project " + stop.projects[i].id, head, BLOCK_SIZE * 1.2f, GreyboxPalette.Project, stop.projects[i].title);
+                Transform block = MakeBlock("Project " + stop.projects[i].id, head, BLOCK_SIZE * 1.2f, GreyboxPalette.Project, Localization.Text(stop.projects[i].title));
                 _orbit.Add(block);
                 StartCoroutine(MoveTo(block, target, 0.35f));
                 yield return new WaitForSeconds(ORBIT_STAGGER);
@@ -145,7 +145,7 @@ namespace GGS.Resume.Gameplay
 
             // Step 2: the thumb rises from the top of the mound.
             Vector3 buried = world.Player.position + Vector3.up * (MOUND_TOP - 1.6f);
-            Transform thumb = MakeBlock("Thumb", buried, 1f, GreyboxPalette.Player, "pouce");
+            Transform thumb = MakeBlock("Thumb", buried, 1f, GreyboxPalette.Player, Localization.Ui(world.Route, "thumb"));
             thumb.localScale = new Vector3(0.6f, 1.4f, 1f);
             yield return MoveTo(thumb, world.Player.position + Vector3.up * (MOUND_TOP + 0.5f), 0.8f);
 

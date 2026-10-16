@@ -15,68 +15,98 @@
     "email": "eric.dovergne@gmx.fr",
     "linkedin": "https://www.linkedin.com/in/ericdovergne/",
     "cvUrl": "",
-    "closingLine": "Rencontrons-nous, on n'en sortira, au pire, que plus vieux."
+    "closingLine": {
+      "fr": "Rencontrons-nous, on n'en sortira, au pire, que plus vieux.",
+      "en": "Let's meet: at worst, we'll only come out of it a little older."
+    }
   },
   "places": [
     {
       "id": "senlis",
-      "label": "Senlis (Oise)",
+      "label": {
+        "fr": "Senlis (Oise)",
+        "en": "Senlis (Oise)"
+      },
       "x": 0.55,
       "y": 0.82,
       "groundColor": "#6E6A5A"
     },
     {
       "id": "picardie",
-      "label": "Picardie, en mission",
+      "label": {
+        "fr": "Picardie, en mission",
+        "en": "Picardy, on assignment"
+      },
       "x": 0.55,
       "y": 0.86,
       "groundColor": "#5E6658"
     },
     {
       "id": "nimes",
-      "label": "Nîmes (Gard)",
+      "label": {
+        "fr": "Nîmes (Gard)",
+        "en": "Nîmes (Gard)"
+      },
       "x": 0.62,
       "y": 0.2,
       "groundColor": "#8A7A55"
     },
     {
       "id": "montbeliard",
-      "label": "Montbéliard (Doubs)",
+      "label": {
+        "fr": "Montbéliard (Doubs)",
+        "en": "Montbéliard (Doubs)"
+      },
       "x": 0.86,
       "y": 0.62,
       "groundColor": "#4F6B4A"
     },
     {
       "id": "alsace",
-      "label": "Alsace",
+      "label": {
+        "fr": "Alsace",
+        "en": "Alsace"
+      },
       "x": 0.9,
       "y": 0.72,
       "groundColor": "#5E7A4E"
     },
     {
       "id": "centre",
-      "label": "Centre-Val de Loire",
+      "label": {
+        "fr": "Centre-Val de Loire",
+        "en": "Centre-Val de Loire"
+      },
       "x": 0.48,
       "y": 0.58,
       "groundColor": "#6B6E52"
     },
     {
       "id": "mehers",
-      "label": "Méhers (Loir-et-Cher)",
+      "label": {
+        "fr": "Méhers (Loir-et-Cher)",
+        "en": "Méhers (Loir-et-Cher)"
+      },
       "x": 0.47,
       "y": 0.56,
       "groundColor": "#6B6E52"
     },
     {
       "id": "sologne",
-      "label": "Sologne (Loir-et-Cher)",
+      "label": {
+        "fr": "Sologne (Loir-et-Cher)",
+        "en": "Sologne (Loir-et-Cher)"
+      },
       "x": 0.5,
       "y": 0.55,
       "groundColor": "#5F6A48"
     },
     {
       "id": "avignon",
-      "label": "Avignon (Vaucluse)",
+      "label": {
+        "fr": "Avignon (Vaucluse)",
+        "en": "Avignon (Vaucluse)"
+      },
       "x": 0.66,
       "y": 0.24,
       "groundColor": "#8C7E58"
@@ -85,136 +115,298 @@
   "skills": [
     {
       "id": "unity",
-      "label": "Unity 3D",
+      "label": {
+        "fr": "Unity 3D",
+        "en": "Unity 3D"
+      },
       "category": "Technique",
-      "description": "Jeux et applications 3D, VR, prototypes 2D et 3D.",
-      "short": "Unity"
+      "description": {
+        "fr": "Jeux et applications 3D, VR, prototypes 2D et 3D.",
+        "en": "3D games and applications, VR, 2D and 3D prototypes."
+      },
+      "short": {
+        "fr": "Unity",
+        "en": "Unity"
+      }
     },
     {
       "id": "csharp",
-      "label": "C#",
+      "label": {
+        "fr": "C#",
+        "en": "C#"
+      },
       "category": "Technique",
-      "description": "Langage principal, d'Unity aux outils web.",
-      "short": "C#"
+      "description": {
+        "fr": "Langage principal, d'Unity aux outils web.",
+        "en": "Main language, from Unity to web tools."
+      },
+      "short": {
+        "fr": "C#",
+        "en": "C#"
+      }
     },
     {
       "id": "cpp",
-      "label": "C / C++",
+      "label": {
+        "fr": "C / C++",
+        "en": "C / C++"
+      },
       "category": "Technique",
-      "description": "Les bases du code, de SFML à DirectX.",
-      "short": "C / C++"
+      "description": {
+        "fr": "Les bases du code, de SFML à DirectX.",
+        "en": "The foundations of code, from SFML to DirectX."
+      },
+      "short": {
+        "fr": "C / C++",
+        "en": "C / C++"
+      }
     },
     {
       "id": "game-design",
-      "label": "Conception de jeux vidéo",
+      "label": {
+        "fr": "Conception de jeux vidéo",
+        "en": "Game design"
+      },
       "category": "Technique",
-      "description": "Game design, game jams, projets personnels et professionnels.",
-      "short": "Game design"
+      "description": {
+        "fr": "Game design, game jams, projets personnels et professionnels.",
+        "en": "Game design, game jams, personal and professional projects."
+      },
+      "short": {
+        "fr": "Game design",
+        "en": "Game design"
+      }
     },
     {
       "id": "vr",
-      "label": "Réalité virtuelle et augmentée",
+      "label": {
+        "fr": "Réalité virtuelle et augmentée",
+        "en": "Virtual and augmented reality"
+      },
       "category": "Technique",
-      "description": "Casques, lunettes et applications immersives, en réalité virtuelle comme augmentée.",
-      "short": "VR / AR"
+      "description": {
+        "fr": "Casques, lunettes et applications immersives, en réalité virtuelle comme augmentée.",
+        "en": "Headsets, smart glasses and immersive applications, in virtual as in augmented reality."
+      },
+      "short": {
+        "fr": "VR / AR",
+        "en": "VR / AR"
+      }
     },
     {
       "id": "maintenance",
-      "label": "Maintenance & Support informatique",
+      "label": {
+        "fr": "Maintenance & Support informatique",
+        "en": "IT maintenance & support"
+      },
       "category": "Technique",
-      "description": "Support utilisateurs, configuration de postes, maintenance réseau.",
-      "short": "Support"
+      "description": {
+        "fr": "Support utilisateurs, configuration de postes, maintenance réseau.",
+        "en": "User support, workstation set-up, network maintenance."
+      },
+      "short": {
+        "fr": "Support",
+        "en": "Support"
+      }
     },
     {
       "id": "installation",
-      "label": "Installation matériel informatique",
+      "label": {
+        "fr": "Installation matériel informatique",
+        "en": "Hardware installation"
+      },
       "category": "Technique",
-      "description": "Installation et migration de parcs, support technique sur site.",
-      "short": "Matériel"
+      "description": {
+        "fr": "Installation et migration de parcs, support technique sur site.",
+        "en": "Fleet installation and migration, on-site technical support."
+      },
+      "short": {
+        "fr": "Matériel",
+        "en": "Hardware"
+      }
     },
     {
       "id": "formation",
-      "label": "Formation & Accompagnement",
+      "label": {
+        "fr": "Formation & Accompagnement",
+        "en": "Training & coaching"
+      },
       "category": "Gestion",
-      "description": "Pédagogie, programmes de formation, transmission.",
-      "short": "Formation"
+      "description": {
+        "fr": "Pédagogie, programmes de formation, transmission.",
+        "en": "Teaching, training programmes, passing knowledge on."
+      },
+      "short": {
+        "fr": "Formation",
+        "en": "Training"
+      }
     },
     {
       "id": "gestion-entreprise",
-      "label": "Gestion d'entreprise",
+      "label": {
+        "fr": "Gestion d'entreprise",
+        "en": "Business management"
+      },
       "category": "Gestion",
-      "description": "Création, administration, comptabilité et trésorerie de structures : micro-entreprise, société, association.",
-      "short": "Gestion"
+      "description": {
+        "fr": "Création, administration, comptabilité et trésorerie de structures : micro-entreprise, société, association.",
+        "en": "Founding, administering and keeping the books and cash of organisations: sole proprietorship, company, non-profit."
+      },
+      "short": {
+        "fr": "Gestion",
+        "en": "Business"
+      }
     },
     {
       "id": "bases-donnees",
-      "label": "Bases de données",
+      "label": {
+        "fr": "Bases de données",
+        "en": "Databases"
+      },
       "category": "Technique",
-      "description": "Modélisation (MCD, Merise), schémas, requêtes, données applicatives.",
-      "short": "BDD"
+      "description": {
+        "fr": "Modélisation (MCD, Merise), schémas, requêtes, données applicatives.",
+        "en": "Modelling (conceptual data models, Merise), schemas, queries, application data."
+      },
+      "short": {
+        "fr": "BDD",
+        "en": "DB"
+      }
     },
     {
       "id": "dev-web",
-      "label": "Développement web",
+      "label": {
+        "fr": "Développement web",
+        "en": "Web development"
+      },
       "category": "Technique",
-      "description": "Sites et applications web, du HTML/PHP des débuts aux outils web des associations.",
-      "short": "Web"
+      "description": {
+        "fr": "Sites et applications web, du HTML/PHP des débuts aux outils web des associations.",
+        "en": "Websites and web applications, from the early HTML/PHP to the web tools of non-profits."
+      },
+      "short": {
+        "fr": "Web",
+        "en": "Web"
+      }
     },
     {
       "id": "ia",
-      "label": "Intelligence artificielle",
+      "label": {
+        "fr": "Intelligence artificielle",
+        "en": "Artificial intelligence"
+      },
       "category": "Technique",
-      "description": "Outils d'IA générative et agents appliqués au développement, à l'outillage et à la production : pratique sérieuse depuis 2026.",
-      "short": "IA"
+      "description": {
+        "fr": "Outils d'IA générative et agents appliqués au développement, à l'outillage et à la production : pratique sérieuse depuis 2026.",
+        "en": "Generative AI tools and agents applied to development, tooling and production: serious practice since 2026."
+      },
+      "short": {
+        "fr": "IA",
+        "en": "AI"
+      }
     }
   ],
   "traits": [
     {
       "id": "curiosite",
-      "label": "Curiosité",
-      "description": "Premiers pas sur internet au son du modem, un Celeron 433 et une N64 : tout a commencé dans cette chambre."
+      "label": {
+        "fr": "Curiosité",
+        "en": "Curiosity"
+      },
+      "description": {
+        "fr": "Premiers pas sur internet au son du modem, un Celeron 433 et une N64 : tout a commencé dans cette chambre.",
+        "en": "First steps on the internet to the sound of a modem, a Celeron 433 and an N64: it all started in this bedroom."
+      }
     },
     {
       "id": "sens-service",
-      "label": "Sens du service",
-      "description": "Support technique sur site, au contact des utilisateurs."
+      "label": {
+        "fr": "Sens du service",
+        "en": "Service-minded"
+      },
+      "description": {
+        "fr": "Support technique sur site, au contact des utilisateurs.",
+        "en": "On-site technical support, in contact with users."
+      }
     },
     {
       "id": "esprit-equipe",
-      "label": "Esprit d'équipe",
-      "description": "Premiers projets professionnels, en équipe."
+      "label": {
+        "fr": "Esprit d'équipe",
+        "en": "Team spirit"
+      },
+      "description": {
+        "fr": "Premiers projets professionnels, en équipe.",
+        "en": "First professional projects, as a team."
+      }
     },
     {
       "id": "autonomie",
-      "label": "Autonomie",
-      "description": "Micro-entreprise menée en parallèle de tout le reste."
+      "label": {
+        "fr": "Autonomie",
+        "en": "Autonomy"
+      },
+      "description": {
+        "fr": "Micro-entreprise menée en parallèle de tout le reste.",
+        "en": "A sole proprietorship run alongside everything else."
+      }
     },
     {
       "id": "force-proposition",
-      "label": "Force de proposition",
-      "description": "Événements, salons jeux vidéo, apport d'idées nouvelles."
+      "label": {
+        "fr": "Force de proposition",
+        "en": "Proactive"
+      },
+      "description": {
+        "fr": "Événements, salons jeux vidéo, apport d'idées nouvelles.",
+        "en": "Events, video game fairs, bringing new ideas."
+      }
     },
     {
       "id": "polyvalence",
-      "label": "Polyvalence",
-      "description": "Administratif, comptabilité, urbanisme, nettoyage d'une friche à la main : tout faire soi-même."
+      "label": {
+        "fr": "Polyvalence",
+        "en": "Versatility"
+      },
+      "description": {
+        "fr": "Administratif, comptabilité, urbanisme, nettoyage d'une friche à la main : tout faire soi-même.",
+        "en": "Admin, bookkeeping, planning permission, cleaning a derelict site by hand: doing everything oneself."
+      }
     },
     {
       "id": "depassement",
-      "label": "Dépassement de soi",
-      "description": "Un métier alimentaire tenu à fond, le temps qu'il faut."
+      "label": {
+        "fr": "Dépassement de soi",
+        "en": "Going the extra mile"
+      },
+      "description": {
+        "fr": "Un métier alimentaire tenu à fond, le temps qu'il faut.",
+        "en": "A day job held flat out, for as long as it took."
+      }
     },
     {
       "id": "engagement-citoyen",
-      "label": "Engagement citoyen",
-      "description": "Conseil Régional du Numérique et conseil municipal : réfléchir et proposer pour les autres, bénévolement."
+      "label": {
+        "fr": "Engagement citoyen",
+        "en": "Civic engagement"
+      },
+      "description": {
+        "fr": "Conseil Régional du Numérique et conseil municipal : réfléchir et proposer pour les autres, bénévolement.",
+        "en": "Regional Digital Council and town council: thinking and proposing for others, as a volunteer."
+      }
     }
   ],
   "stops": [
     {
       "id": "chambre",
-      "title": "Chambre d'enfant",
-      "years": "vers 2000 · entrée en seconde",
+      "title": {
+        "fr": "Chambre d'enfant",
+        "en": "Childhood bedroom"
+      },
+      "years": {
+        "fr": "vers 2000 · entrée en seconde",
+        "en": "around 2000 · starting high school"
+      },
       "level": 15,
       "kind": "Intro",
       "widthScreens": 0.5,
@@ -227,21 +419,39 @@
     },
     {
       "id": "bac",
-      "title": "Lycée Saint Vincent, Senlis",
-      "years": "2003 · BAC STT Comptabilité & Gestion",
+      "title": {
+        "fr": "Lycée Saint Vincent, Senlis",
+        "en": "Lycée Saint Vincent, Senlis"
+      },
+      "years": {
+        "fr": "2003 · BAC STT Comptabilité & Gestion",
+        "en": "2003 · Baccalauréat in Accounting & Management"
+      },
       "level": 18,
       "kind": "Traverse",
       "widthScreens": 0.4,
       "classChange": {
         "id": "classe-gestionnaire",
-        "title": "Gestionnaire",
-        "description": "BAC STT Comptabilité & Gestion, 2003."
+        "title": {
+          "fr": "Gestionnaire",
+          "en": "Manager"
+        },
+        "description": {
+          "fr": "BAC STT Comptabilité & Gestion, 2003.",
+          "en": "Baccalauréat in Accounting & Management, 2003."
+        }
       },
       "projects": [
         {
           "id": "bac-plan-comptable",
-          "title": "Plan comptable et gestion",
-          "description": "Le plan comptable, la gestion administrative, la rigueur des écritures.",
+          "title": {
+            "fr": "Plan comptable et gestion",
+            "en": "Chart of accounts and management"
+          },
+          "description": {
+            "fr": "Le plan comptable, la gestion administrative, la rigueur des écritures.",
+            "en": "The chart of accounts, administrative management, the rigour of bookkeeping entries."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -249,8 +459,14 @@
         },
         {
           "id": "bac-montage-pc",
-          "title": "Montage de PC (perso)",
-          "description": "Composants, assemblage, mises à niveau, pendant les années de lycée.",
+          "title": {
+            "fr": "Montage de PC (perso)",
+            "en": "PC building (personal)"
+          },
+          "description": {
+            "fr": "Composants, assemblage, mises à niveau, pendant les années de lycée.",
+            "en": "Parts, assembly, upgrades, during the high school years."
+          },
           "skills": [
             "installation"
           ],
@@ -263,21 +479,39 @@
     },
     {
       "id": "bts",
-      "title": "Lycée Saint Vincent, Senlis",
-      "years": "2005 · BTS Informatique de Gestion",
+      "title": {
+        "fr": "Lycée Saint Vincent, Senlis",
+        "en": "Lycée Saint Vincent, Senlis"
+      },
+      "years": {
+        "fr": "2005 · BTS Informatique de Gestion",
+        "en": "2005 · Higher diploma in Business IT"
+      },
       "level": 20,
       "kind": "Traverse",
       "widthScreens": 0.4,
       "classChange": {
         "id": "classe-dev-app",
-        "title": "Développeur d'applications",
-        "description": "BTS Informatique de Gestion, 2005."
+        "title": {
+          "fr": "Développeur d'applications",
+          "en": "Application developer"
+        },
+        "description": {
+          "fr": "BTS Informatique de Gestion, 2005.",
+          "en": "Higher diploma in Business IT, 2005."
+        }
       },
       "projects": [
         {
           "id": "bts-bdd-mcd",
-          "title": "Bases de données et MCD (Merise)",
-          "description": "Modélisation conceptuelle des données, requêtes, schémas.",
+          "title": {
+            "fr": "Bases de données et MCD (Merise)",
+            "en": "Databases and conceptual data models (Merise)"
+          },
+          "description": {
+            "fr": "Modélisation conceptuelle des données, requêtes, schémas.",
+            "en": "Conceptual data modelling, queries, schemas."
+          },
           "skills": [
             "bases-donnees"
           ],
@@ -285,8 +519,14 @@
         },
         {
           "id": "bts-sites-web",
-          "title": "Sites HTML et PHP (perso)",
-          "description": "Premiers sites dynamiques, en parallèle du BTS.",
+          "title": {
+            "fr": "Sites HTML et PHP (perso)",
+            "en": "HTML and PHP websites (personal)"
+          },
+          "description": {
+            "fr": "Premiers sites dynamiques, en parallèle du BTS.",
+            "en": "First dynamic websites, alongside the diploma."
+          },
           "skills": [
             "dev-web"
           ],
@@ -300,8 +540,14 @@
     },
     {
       "id": "support",
-      "title": "Missions SSII : support et déploiement",
-      "years": "2005",
+      "title": {
+        "fr": "Missions SSII : support et déploiement",
+        "en": "IT services assignments: support and deployment"
+      },
+      "years": {
+        "fr": "2005",
+        "en": "2005"
+      },
       "level": 20,
       "kind": "Cluster",
       "widthScreens": 0.4,
@@ -311,8 +557,14 @@
       "projects": [
         {
           "id": "support-t-systems",
-          "title": "T-Systems, chez VW Group",
-          "description": "Mission d'intérim : support informatique et outil de suivi des demandes de support (bases Access, MySQL).",
+          "title": {
+            "fr": "T-Systems, chez VW Group",
+            "en": "T-Systems, at VW Group"
+          },
+          "description": {
+            "fr": "Mission d'intérim : support informatique et outil de suivi des demandes de support (bases Access, MySQL).",
+            "en": "Temp assignment: IT support and a support-request tracking tool (Access and MySQL databases)."
+          },
           "skills": [
             "maintenance",
             "installation"
@@ -321,8 +573,14 @@
         },
         {
           "id": "support-spie",
-          "title": "SPIE Communications",
-          "description": "En mission chez des clients : déploiement de postes (jusqu'à 200), migration de parc.",
+          "title": {
+            "fr": "SPIE Communications",
+            "en": "SPIE Communications"
+          },
+          "description": {
+            "fr": "En mission chez des clients : déploiement de postes (jusqu'à 200), migration de parc.",
+            "en": "On assignment at client sites: workstation deployment (up to 200), fleet migration."
+          },
           "skills": [
             "maintenance",
             "installation"
@@ -331,8 +589,14 @@
         },
         {
           "id": "support-iris-conseil",
-          "title": "IRIS Conseil",
-          "description": "En mission chez des clients : développement d'un outil de suivi de tickets, support utilisateurs.",
+          "title": {
+            "fr": "IRIS Conseil",
+            "en": "IRIS Conseil"
+          },
+          "description": {
+            "fr": "En mission chez des clients : développement d'un outil de suivi de tickets, support utilisateurs.",
+            "en": "On assignment at client sites: development of a ticket tracking tool, user support."
+          },
           "skills": [
             "maintenance",
             "installation"
@@ -341,8 +605,14 @@
         },
         {
           "id": "support-computacenter",
-          "title": "Computacenter",
-          "description": "Mission d'intérim, représentative des autres missions de la période dont les noms sont perdus.",
+          "title": {
+            "fr": "Computacenter",
+            "en": "Computacenter"
+          },
+          "description": {
+            "fr": "Mission d'intérim, représentative des autres missions de la période dont les noms sont perdus.",
+            "en": "Temp assignment, standing for the other assignments of the period whose names are lost."
+          },
           "skills": [
             "maintenance"
           ],
@@ -355,21 +625,39 @@
     },
     {
       "id": "creajeux",
-      "title": "Créajeux, Nîmes",
-      "years": "2010",
+      "title": {
+        "fr": "Créajeux, Nîmes",
+        "en": "Créajeux, Nîmes"
+      },
+      "years": {
+        "fr": "2010",
+        "en": "2010"
+      },
       "level": 25,
       "kind": "Facade",
       "widthScreens": 0.4,
       "classChange": {
         "id": "classe-dev-jeux",
-        "title": "Développeur de jeux vidéo",
-        "description": "Créajeux, 2013. Classe définitive."
+        "title": {
+          "fr": "Développeur de jeux vidéo",
+          "en": "Video game developer"
+        },
+        "description": {
+          "fr": "Créajeux, 2013. Classe définitive.",
+          "en": "Créajeux, 2013. Final class."
+        }
       },
       "projects": [
         {
           "id": "creajeux-c-cpp",
-          "title": "Bases du code : C puis C++ avec SFML",
-          "description": "Du jeu du nombre aléatoire (septembre 2010) aux classes, à l'héritage, à la STL et aux design patterns.",
+          "title": {
+            "fr": "Bases du code : C puis C++ avec SFML",
+            "en": "Foundations of code: C, then C++ with SFML"
+          },
+          "description": {
+            "fr": "Du jeu du nombre aléatoire (septembre 2010) aux classes, à l'héritage, à la STL et aux design patterns.",
+            "en": "From the random number game (September 2010) to classes, inheritance, the STL and design patterns."
+          },
           "skills": [
             "cpp"
           ],
@@ -379,8 +667,14 @@
         },
         {
           "id": "creajeux-batailles-spatiales",
-          "title": "Batailles spatiales et Creatapult (C++, SFML)",
-          "description": "Les premiers jeux, évidemment dans l'espace, puis un jeu de catapulte repris en DirectX en troisième année.",
+          "title": {
+            "fr": "Batailles spatiales et Creatapult (C++, SFML)",
+            "en": "Space battles and Creatapult (C++, SFML)"
+          },
+          "description": {
+            "fr": "Les premiers jeux, évidemment dans l'espace, puis un jeu de catapulte repris en DirectX en troisième année.",
+            "en": "The first games, in space of course, then a catapult game redone in DirectX in the third year."
+          },
           "skills": [
             "cpp",
             "game-design"
@@ -391,8 +685,14 @@
         },
         {
           "id": "creajeux-labyrinthe",
-          "title": "Labyrinthe, premier projet Unity",
-          "description": "Octobre 2011, en UnityScript : la découverte du moteur.",
+          "title": {
+            "fr": "Labyrinthe, premier projet Unity",
+            "en": "Maze, first Unity project"
+          },
+          "description": {
+            "fr": "Octobre 2011, en UnityScript : la découverte du moteur.",
+            "en": "October 2011, in UnityScript: discovering the engine."
+          },
           "skills": [
             "unity"
           ],
@@ -402,8 +702,14 @@
         },
         {
           "id": "creajeux-stoba",
-          "title": "Stoba (Unity)",
-          "description": "Projet Unity de 2012, à décrire.",
+          "title": {
+            "fr": "Stoba (Unity)",
+            "en": "Stoba (Unity)"
+          },
+          "description": {
+            "fr": "Projet Unity de 2012, à décrire.",
+            "en": "Unity project from 2012, to be described."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -415,8 +721,14 @@
         },
         {
           "id": "creajeux-hackathon-king",
-          "title": "Hackathon King.com, Paris 2012",
-          "description": "Un jeu en un week-end, « Baignoire », et sa version Gold.",
+          "title": {
+            "fr": "Hackathon King.com, Paris 2012",
+            "en": "King.com hackathon, Paris 2012"
+          },
+          "description": {
+            "fr": "Un jeu en un week-end, « Baignoire », et sa version Gold.",
+            "en": "A game in one weekend, \"Bathtub\", and its Gold version."
+          },
           "skills": [
             "game-design"
           ],
@@ -426,8 +738,14 @@
         },
         {
           "id": "creajeux-prototypes-unity",
-          "title": "Prototypes Unity de deuxième année",
-          "description": "Les projets dont les noms se sont perdus, toujours sur le disque dur.",
+          "title": {
+            "fr": "Prototypes Unity de deuxième année",
+            "en": "Second-year Unity prototypes"
+          },
+          "description": {
+            "fr": "Les projets dont les noms se sont perdus, toujours sur le disque dur.",
+            "en": "The projects whose names got lost, still on the hard drive."
+          },
           "skills": [
             "unity",
             "csharp"
@@ -438,8 +756,14 @@
         },
         {
           "id": "creajeux-game-jam",
-          "title": "Game jam : « Mais qui a tué Eric Bonnet »",
-          "description": "Jeu réalisé en jam sur le framework SFML de l'école (2013).",
+          "title": {
+            "fr": "Game jam : « Mais qui a tué Eric Bonnet »",
+            "en": "Game jam: \"Who killed Eric Bonnet?\""
+          },
+          "description": {
+            "fr": "Jeu réalisé en jam sur le framework SFML de l'école (2013).",
+            "en": "Game made during a jam on the school's SFML framework (2013)."
+          },
           "skills": [
             "game-design"
           ],
@@ -449,8 +773,14 @@
         },
         {
           "id": "creajeux-cyborg-child",
-          "title": "Cyborg Child, projet d'équipe Unity",
-          "description": "Troisième année : pré-production, conception, programmation sous Unity en équipe, avec SVN.",
+          "title": {
+            "fr": "Cyborg Child, projet d'équipe Unity",
+            "en": "Cyborg Child, Unity team project"
+          },
+          "description": {
+            "fr": "Troisième année : pré-production, conception, programmation sous Unity en équipe, avec SVN.",
+            "en": "Third year: pre-production, design, Unity programming as a team, with SVN."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -462,8 +792,14 @@
         },
         {
           "id": "creajeux-cyborg-child-site",
-          "title": "Site web de Cyborg Child (PHP)",
-          "description": "Le site du projet, en PHP.",
+          "title": {
+            "fr": "Site web de Cyborg Child (PHP)",
+            "en": "Cyborg Child website (PHP)"
+          },
+          "description": {
+            "fr": "Le site du projet, en PHP.",
+            "en": "The project's website, in PHP."
+          },
           "skills": [
             "dev-web"
           ],
@@ -473,8 +809,14 @@
         },
         {
           "id": "creajeux-unity-3e-annee",
-          "title": "Projets Unity de troisième année",
-          "description": "Unity devient l'outil principal ; le C++ reste pour DirectX et le réseau.",
+          "title": {
+            "fr": "Projets Unity de troisième année",
+            "en": "Third-year Unity projects"
+          },
+          "description": {
+            "fr": "Unity devient l'outil principal ; le C++ reste pour DirectX et le réseau.",
+            "en": "Unity becomes the main tool; C++ stays for DirectX and networking."
+          },
           "skills": [
             "unity",
             "csharp"
@@ -489,8 +831,14 @@
     },
     {
       "id": "allucyne",
-      "title": "Allucyne (ex Numéri4D), Montbéliard",
-      "years": "2013",
+      "title": {
+        "fr": "Allucyne (ex Numéri4D), Montbéliard",
+        "en": "Allucyne (formerly Numéri4D), Montbéliard"
+      },
+      "years": {
+        "fr": "2013",
+        "en": "2013"
+      },
       "level": 28,
       "kind": "Square",
       "widthScreens": 0.6,
@@ -500,8 +848,14 @@
       "projects": [
         {
           "id": "allucyne-musee-air-france",
-          "title": "Musée Air France (iOS et web)",
-          "description": "Application 3D de visite, versions iOS et web (2013-2014).",
+          "title": {
+            "fr": "Musée Air France (iOS et web)",
+            "en": "Air France Museum (iOS and web)"
+          },
+          "description": {
+            "fr": "Application 3D de visite, versions iOS et web (2013-2014).",
+            "en": "3D tour application, iOS and web versions (2013-2014)."
+          },
           "skills": [
             "unity",
             "csharp"
@@ -513,8 +867,14 @@
         },
         {
           "id": "allucyne-selinda",
-          "title": "Selinda 3D",
-          "description": "Application 3D, versions successives (2014-2015).",
+          "title": {
+            "fr": "Selinda 3D",
+            "en": "Selinda 3D"
+          },
+          "description": {
+            "fr": "Application 3D, versions successives (2014-2015).",
+            "en": "3D application, successive versions (2014-2015)."
+          },
           "skills": [
             "unity",
             "csharp"
@@ -525,8 +885,14 @@
         },
         {
           "id": "allucyne-bluetooth-android",
-          "title": "Plugin Bluetooth Android pour Unity",
-          "description": "Plugin Java et package Unity, Eclipse et OpenCV (2014-2016).",
+          "title": {
+            "fr": "Plugin Bluetooth Android pour Unity",
+            "en": "Android Bluetooth plugin for Unity"
+          },
+          "description": {
+            "fr": "Plugin Java et package Unity, Eclipse et OpenCV (2014-2016).",
+            "en": "Java plugin and Unity package, Eclipse and OpenCV (2014-2016)."
+          },
           "skills": [
             "unity",
             "csharp"
@@ -537,8 +903,14 @@
         },
         {
           "id": "allucyne-maestro-optinvent",
-          "title": "Maestro sur lunettes Optinvent ORA",
-          "description": "Application pour lunettes de réalité augmentée, gyroscope et démos (2015).",
+          "title": {
+            "fr": "Maestro sur lunettes Optinvent ORA",
+            "en": "Maestro on Optinvent ORA glasses"
+          },
+          "description": {
+            "fr": "Application pour lunettes de réalité augmentée, gyroscope et démos (2015).",
+            "en": "Application for augmented reality glasses, gyroscope and demos (2015)."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -550,8 +922,14 @@
         },
         {
           "id": "allucyne-front-des-vosges",
-          "title": "Front des Vosges, tourisme de mémoire",
-          "description": "Application Windows 8 de tourisme de mémoire, en réalité augmentée et virtuelle (2015).",
+          "title": {
+            "fr": "Front des Vosges, tourisme de mémoire",
+            "en": "Vosges Front, remembrance tourism"
+          },
+          "description": {
+            "fr": "Application Windows 8 de tourisme de mémoire, en réalité augmentée et virtuelle (2015).",
+            "en": "Windows 8 remembrance tourism application, in augmented and virtual reality (2015)."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -564,8 +942,14 @@
         },
         {
           "id": "allucyne-sjs-hypervisuel",
-          "title": "SJS HyperVisuel et DistanceRA",
-          "description": "Modules de réalité augmentée (2015).",
+          "title": {
+            "fr": "SJS HyperVisuel et DistanceRA",
+            "en": "SJS HyperVisuel and DistanceRA"
+          },
+          "description": {
+            "fr": "Modules de réalité augmentée (2015).",
+            "en": "Augmented reality modules (2015)."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -577,8 +961,14 @@
         },
         {
           "id": "allucyne-fort-lecluse",
-          "title": "Fort Lécluse",
-          "description": "Visite d'un fort en réalité virtuelle (2015-2016).",
+          "title": {
+            "fr": "Fort Lécluse",
+            "en": "Fort Lécluse"
+          },
+          "description": {
+            "fr": "Visite d'un fort en réalité virtuelle (2015-2016).",
+            "en": "Virtual reality tour of a fort (2015-2016)."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -591,8 +981,14 @@
         },
         {
           "id": "allucyne-colmar",
-          "title": "Colmar",
-          "description": "Application en réalité virtuelle (2015-2016).",
+          "title": {
+            "fr": "Colmar",
+            "en": "Colmar"
+          },
+          "description": {
+            "fr": "Application en réalité virtuelle (2015-2016).",
+            "en": "Virtual reality application (2015-2016)."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -605,8 +1001,14 @@
         },
         {
           "id": "allucyne-judo-kodokan",
-          "title": "Judo Kodokan",
-          "description": "Application avec asset bundles (2015-2016).",
+          "title": {
+            "fr": "Judo Kodokan",
+            "en": "Judo Kodokan"
+          },
+          "description": {
+            "fr": "Application avec asset bundles (2015-2016).",
+            "en": "Application with asset bundles (2015-2016)."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -622,16 +1024,28 @@
     },
     {
       "id": "whitequest",
-      "title": "WhiteQuest, Alsace",
-      "years": "2017",
+      "title": {
+        "fr": "WhiteQuest, Alsace",
+        "en": "WhiteQuest, Alsace"
+      },
+      "years": {
+        "fr": "2017",
+        "en": "2017"
+      },
       "level": 32,
       "kind": "Traverse",
       "widthScreens": 0.4,
       "projects": [
         {
           "id": "whitequest-labquest-pharma",
-          "title": "LabQuest Pharma",
-          "description": "Gros projet de R&D : outil de formation et d'évaluation des laborantins en réalité virtuelle, première version (2017).",
+          "title": {
+            "fr": "LabQuest Pharma",
+            "en": "LabQuest Pharma"
+          },
+          "description": {
+            "fr": "Gros projet de R&D : outil de formation et d'évaluation des laborantins en réalité virtuelle, première version (2017).",
+            "en": "Major R&D project: a virtual reality tool to train and assess lab technicians, first version (2017)."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -644,8 +1058,14 @@
         },
         {
           "id": "whitequest-labquest-system",
-          "title": "LabQuest System",
-          "description": "Refonte de l'outil (2017-2018), conception des scénarios et gros travail d'outils d'éditeur Unity.",
+          "title": {
+            "fr": "LabQuest System",
+            "en": "LabQuest System"
+          },
+          "description": {
+            "fr": "Refonte de l'outil (2017-2018), conception des scénarios et gros travail d'outils d'éditeur Unity.",
+            "en": "Rework of the tool (2017-2018), scenario design and a lot of Unity editor tooling."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -662,8 +1082,14 @@
     },
     {
       "id": "ggs",
-      "title": "Goras Games Studio",
-      "years": "2018 - aujourd'hui · micro-entreprise",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2018 - aujourd'hui · micro-entreprise",
+        "en": "2018 - today · sole proprietorship"
+      },
       "level": 33,
       "kind": "Counter",
       "widthScreens": 0.4,
@@ -673,14 +1099,26 @@
       ],
       "passive": {
         "id": "entrepreneur",
-        "title": "Entrepreneur",
-        "description": "Passif permanent depuis 2018 : Goras Games Studio, micro-entreprise ; jeux PC, mobile et VR, applications web, multijoueur, et tout ce qu'il faut faire soi-même à côté."
+        "title": {
+          "fr": "Entrepreneur",
+          "en": "Entrepreneur"
+        },
+        "description": {
+          "fr": "Passif permanent depuis 2018 : Goras Games Studio, micro-entreprise ; jeux PC, mobile et VR, applications web, multijoueur, et tout ce qu'il faut faire soi-même à côté.",
+          "en": "Permanent passive since 2018: Goras Games Studio, a sole proprietorship; PC, mobile and VR games, web applications, multiplayer, and everything that has to be done on the side."
+        }
       },
       "projects": [
         {
           "id": "ggs-creation",
-          "title": "Création de la micro-entreprise",
-          "description": "Le guichet : Goras Games Studio naît en 2018, freelance pour rejoindre Game Academy.",
+          "title": {
+            "fr": "Création de la micro-entreprise",
+            "en": "Founding the sole proprietorship"
+          },
+          "description": {
+            "fr": "Le guichet : Goras Games Studio naît en 2018, freelance pour rejoindre Game Academy.",
+            "en": "The counter: Goras Games Studio is born in 2018, freelance to join Game Academy."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -688,8 +1126,14 @@
         },
         {
           "id": "ggs-clients-mobiles",
-          "title": "Clients mobiles 2D",
-          "description": "Projets clients extérieurs, mobiles et en 2D pour la plupart (GoodApp, GoodTime, HeartBeat Games, Studio Stark).",
+          "title": {
+            "fr": "Clients mobiles 2D",
+            "en": "2D mobile clients"
+          },
+          "description": {
+            "fr": "Projets clients extérieurs, mobiles et en 2D pour la plupart (GoodApp, GoodTime, HeartBeat Games, Studio Stark).",
+            "en": "Outside client projects, mobile and mostly 2D (GoodApp, GoodTime, HeartBeat Games, Studio Stark)."
+          },
           "skills": [
             "unity",
             "csharp",
@@ -706,8 +1150,14 @@
     },
     {
       "id": "game-academy",
-      "title": "Game Academy",
-      "years": "2018",
+      "title": {
+        "fr": "Game Academy",
+        "en": "Game Academy"
+      },
+      "years": {
+        "fr": "2018",
+        "en": "2018"
+      },
       "level": 33,
       "kind": "Traverse",
       "widthScreens": 0.6,
@@ -717,8 +1167,14 @@
       "projects": [
         {
           "id": "ga-programme",
-          "title": "Conception du programme de formation sur trois ans",
-          "description": "De la prépa à la troisième année : progression, matières, projets ; et la gestion d'une activité de formation en freelance.",
+          "title": {
+            "fr": "Conception du programme de formation sur trois ans",
+            "en": "Designing the three-year training programme"
+          },
+          "description": {
+            "fr": "De la prépa à la troisième année : progression, matières, projets ; et la gestion d'une activité de formation en freelance.",
+            "en": "From the preparatory year to the third year: progression, subjects, projects; and running a training business as a freelancer."
+          },
           "skills": [
             "formation",
             "gestion-entreprise"
@@ -727,8 +1183,14 @@
         },
         {
           "id": "ga-cours-programmation",
-          "title": "Cours de programmation de jeux (Unity, C#)",
-          "description": "Dispense des cours de programmation aux étudiants.",
+          "title": {
+            "fr": "Cours de programmation de jeux (Unity, C#)",
+            "en": "Game programming classes (Unity, C#)"
+          },
+          "description": {
+            "fr": "Dispense des cours de programmation aux étudiants.",
+            "en": "Teaching programming classes to the students."
+          },
           "skills": [
             "formation",
             "unity",
@@ -740,8 +1202,14 @@
         },
         {
           "id": "ga-game-designs",
-          "title": "Game designs créés pour les étudiants",
-          "description": "Des concepts de jeux conçus pour servir de sujets aux promotions.",
+          "title": {
+            "fr": "Game designs créés pour les étudiants",
+            "en": "Game designs written for the students"
+          },
+          "description": {
+            "fr": "Des concepts de jeux conçus pour servir de sujets aux promotions.",
+            "en": "Game concepts designed as assignments for the cohorts."
+          },
           "skills": [
             "formation",
             "game-design"
@@ -750,8 +1218,14 @@
         },
         {
           "id": "ga-histoire-jv",
-          "title": "Cours d'histoire du jeu vidéo",
-          "description": "Des origines aux jeux d'aujourd'hui.",
+          "title": {
+            "fr": "Cours d'histoire du jeu vidéo",
+            "en": "Video game history classes"
+          },
+          "description": {
+            "fr": "Des origines aux jeux d'aujourd'hui.",
+            "en": "From the origins to today's games."
+          },
           "skills": [
             "formation"
           ],
@@ -759,8 +1233,14 @@
         },
         {
           "id": "ga-cours-game-design",
-          "title": "Cours de game design",
-          "description": "Mécaniques, boucles, équilibrage, documents de conception.",
+          "title": {
+            "fr": "Cours de game design",
+            "en": "Game design classes"
+          },
+          "description": {
+            "fr": "Mécaniques, boucles, équilibrage, documents de conception.",
+            "en": "Mechanics, loops, balancing, design documents."
+          },
           "skills": [
             "formation",
             "game-design"
@@ -769,8 +1249,14 @@
         },
         {
           "id": "ga-evenements",
-          "title": "Game Camp, salons et événements",
-          "description": "Game Camp, journée au Capitole (décembre 2018), salons jeux vidéo, tests d'admission.",
+          "title": {
+            "fr": "Game Camp, salons et événements",
+            "en": "Game Camp, fairs and events"
+          },
+          "description": {
+            "fr": "Game Camp, journée au Capitole (décembre 2018), salons jeux vidéo, tests d'admission.",
+            "en": "Game Camp, a day at the Capitole (December 2018), video game fairs, admission tests."
+          },
           "skills": [
             "formation"
           ],
@@ -782,8 +1268,14 @@
     },
     {
       "id": "ggs-2019",
-      "title": "Goras Games Studio",
-      "years": "2019",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2019",
+        "en": "2019"
+      },
       "level": 34,
       "kind": "Counter",
       "widthScreens": 0.2,
@@ -791,8 +1283,14 @@
       "projects": [
         {
           "id": "odn-refonte",
-          "title": "ODN CineVR : refonte totale",
-          "description": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, version Pro, plugin Android natif, déclinaisons mobiles.",
+          "title": {
+            "fr": "ODN CineVR : refonte totale",
+            "en": "ODN CineVR: complete rework"
+          },
+          "description": {
+            "fr": "One Digital Nation, cinéma en réalité virtuelle : refonte complète de l'application, version Pro, plugin Android natif, déclinaisons mobiles.",
+            "en": "One Digital Nation, virtual reality cinema: complete rework of the application, Pro version, native Android plugin, mobile editions."
+          },
           "skills": [
             "vr",
             "unity",
@@ -812,8 +1310,14 @@
     },
     {
       "id": "ggs-2020",
-      "title": "Goras Games Studio",
-      "years": "2020",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2020",
+        "en": "2020"
+      },
       "level": 35,
       "kind": "Counter",
       "widthScreens": 0.2,
@@ -821,8 +1325,14 @@
       "projects": [
         {
           "id": "odn-quest-rift",
-          "title": "ODN CineVR : adaptation Meta Quest et Rift",
-          "description": "Portage et maintenance sur les casques Meta.",
+          "title": {
+            "fr": "ODN CineVR : adaptation Meta Quest et Rift",
+            "en": "ODN CineVR: Meta Quest and Rift port"
+          },
+          "description": {
+            "fr": "Portage et maintenance sur les casques Meta.",
+            "en": "Port and maintenance on Meta headsets."
+          },
           "skills": [
             "vr",
             "unity"
@@ -834,8 +1344,14 @@
         },
         {
           "id": "k4rant-2020",
-          "title": "K4rant : début du projet",
-          "description": "Salle d'arcade sociale en VR, premier prototype.",
+          "title": {
+            "fr": "K4rant : début du projet",
+            "en": "K4rant: project start"
+          },
+          "description": {
+            "fr": "Salle d'arcade sociale en VR, premier prototype.",
+            "en": "Social VR arcade, first prototype."
+          },
           "skills": [
             "game-design",
             "unity"
@@ -851,8 +1367,14 @@
     },
     {
       "id": "rpaint",
-      "title": "R'Paint Games, Méhers",
-      "years": "2021",
+      "title": {
+        "fr": "R'Paint Games, Méhers",
+        "en": "R'Paint Games, Méhers"
+      },
+      "years": {
+        "fr": "2021",
+        "en": "2021"
+      },
       "level": 36,
       "kind": "Facade",
       "widthScreens": 0.6,
@@ -860,8 +1382,14 @@
       "projects": [
         {
           "id": "rpaint-creation",
-          "title": "Création de la société et financement",
-          "description": "Co-fondateur et président : statuts, business plan, banque, dossiers de financement, comptabilité.",
+          "title": {
+            "fr": "Création de la société et financement",
+            "en": "Founding and financing the company"
+          },
+          "description": {
+            "fr": "Co-fondateur et président : statuts, business plan, banque, dossiers de financement, comptabilité.",
+            "en": "Co-founder and chairman: articles, business plan, bank, financing applications, bookkeeping."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -869,8 +1397,14 @@
         },
         {
           "id": "rpaint-friche",
-          "title": "Rachat de la friche de Méhers, urbanisme et plans",
-          "description": "Acquisition d'une friche pour 5 400 m² de paintball indoor, un peu d'urbanisme, plans et maquette du bâtiment.",
+          "title": {
+            "fr": "Rachat de la friche de Méhers, urbanisme et plans",
+            "en": "Buying the derelict site in Méhers, planning and drawings"
+          },
+          "description": {
+            "fr": "Acquisition d'une friche pour 5 400 m² de paintball indoor, un peu d'urbanisme, plans et maquette du bâtiment.",
+            "en": "Acquisition of a derelict site for 5,400 m² of indoor paintball, a bit of planning permission, drawings and a model of the building."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -878,8 +1412,14 @@
         },
         {
           "id": "rpaint-nettoyage",
-          "title": "Nettoyage du bâtiment, intérieur et extérieur",
-          "description": "La friche nettoyée à la main ; la rénovation est restée une projection.",
+          "title": {
+            "fr": "Nettoyage du bâtiment, intérieur et extérieur",
+            "en": "Cleaning the building, inside and out"
+          },
+          "description": {
+            "fr": "La friche nettoyée à la main ; la rénovation est restée une projection.",
+            "en": "The site cleaned by hand; the renovation remained a plan."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -894,8 +1434,14 @@
     },
     {
       "id": "ggs-2021",
-      "title": "Goras Games Studio",
-      "years": "2021",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2021",
+        "en": "2021"
+      },
       "level": 36,
       "kind": "Counter",
       "widthScreens": 0.2,
@@ -903,8 +1449,14 @@
       "projects": [
         {
           "id": "odn-pico",
-          "title": "ODN CineVR : adaptation Pico",
-          "description": "Portage sur les casques Pico.",
+          "title": {
+            "fr": "ODN CineVR : adaptation Pico",
+            "en": "ODN CineVR: Pico port"
+          },
+          "description": {
+            "fr": "Portage sur les casques Pico.",
+            "en": "Port to Pico headsets."
+          },
           "skills": [
             "vr"
           ],
@@ -914,8 +1466,14 @@
         },
         {
           "id": "odn-vive",
-          "title": "ODN CineVR : adaptation HTC Vive Flow et Focus 3",
-          "description": "Portage sur les casques HTC.",
+          "title": {
+            "fr": "ODN CineVR : adaptation HTC Vive Flow et Focus 3",
+            "en": "ODN CineVR: HTC Vive Flow and Focus 3 port"
+          },
+          "description": {
+            "fr": "Portage sur les casques HTC.",
+            "en": "Port to HTC headsets."
+          },
           "skills": [
             "vr"
           ],
@@ -925,8 +1483,14 @@
         },
         {
           "id": "odn-decors",
-          "title": "ODN CineVR : décors",
-          "description": "Salles et décors : vaisseau, drive-in, IMAX, manoir, plage, lobby.",
+          "title": {
+            "fr": "ODN CineVR : décors",
+            "en": "ODN CineVR: environments"
+          },
+          "description": {
+            "fr": "Salles et décors : vaisseau, drive-in, IMAX, manoir, plage, lobby.",
+            "en": "Rooms and environments: spaceship, drive-in, IMAX, manor, beach, lobby."
+          },
           "skills": [
             "unity",
             "game-design"
@@ -937,8 +1501,14 @@
         },
         {
           "id": "k4rant-2021",
-          "title": "K4rant : évolution 2021",
-          "description": "Conception du lobby et des bornes.",
+          "title": {
+            "fr": "K4rant : évolution 2021",
+            "en": "K4rant: 2021 progress"
+          },
+          "description": {
+            "fr": "Conception du lobby et des bornes.",
+            "en": "Lobby and arcade cabinet design."
+          },
           "skills": [
             "game-design"
           ],
@@ -953,8 +1523,14 @@
     },
     {
       "id": "ggs-2022",
-      "title": "Goras Games Studio",
-      "years": "2022",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2022",
+        "en": "2022"
+      },
       "level": 37,
       "kind": "Counter",
       "widthScreens": 0.2,
@@ -962,8 +1538,14 @@
       "projects": [
         {
           "id": "k4rant-2022",
-          "title": "K4rant : évolution 2022",
-          "description": "Réseau et parties, conception des mondes.",
+          "title": {
+            "fr": "K4rant : évolution 2022",
+            "en": "K4rant: 2022 progress"
+          },
+          "description": {
+            "fr": "Réseau et parties, conception des mondes.",
+            "en": "Networking and matches, world design."
+          },
           "skills": [
             "game-design",
             "csharp"
@@ -979,8 +1561,14 @@
     },
     {
       "id": "lidl",
-      "title": "Lidl",
-      "years": "2023 - 2024 · Employé polyvalent",
+      "title": {
+        "fr": "Lidl",
+        "en": "Lidl"
+      },
+      "years": {
+        "fr": "2023 - 2024 · Employé polyvalent",
+        "en": "2023 - 2024 · Store assistant"
+      },
       "level": 38,
       "kind": "Facade",
       "widthScreens": 0.25,
@@ -990,8 +1578,14 @@
       "projects": [
         {
           "id": "lidl-magasin",
-          "title": "Employé polyvalent, ouverture d'un nouveau magasin",
-          "description": "Rayons, boulangerie, inventaire, encaissement, procédures : un métier alimentaire où l'on apprend quand même des choses sur la marche d'une entreprise.",
+          "title": {
+            "fr": "Employé polyvalent, ouverture d'un nouveau magasin",
+            "en": "Store assistant, opening a new store"
+          },
+          "description": {
+            "fr": "Rayons, boulangerie, inventaire, encaissement, procédures : un métier alimentaire où l'on apprend quand même des choses sur la marche d'une entreprise.",
+            "en": "Shelves, bakery, stock-taking, checkout, procedures: a day job that still teaches a thing or two about how a business runs."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -1003,8 +1597,14 @@
     },
     {
       "id": "ggs-2023",
-      "title": "Goras Games Studio",
-      "years": "2023",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2023",
+        "en": "2023"
+      },
       "level": 38,
       "kind": "Counter",
       "widthScreens": 0.2,
@@ -1012,8 +1612,14 @@
       "projects": [
         {
           "id": "k4rant-2023",
-          "title": "K4rant : évolution 2023",
-          "description": "Version VR, confort et interactions.",
+          "title": {
+            "fr": "K4rant : évolution 2023",
+            "en": "K4rant: 2023 progress"
+          },
+          "description": {
+            "fr": "Version VR, confort et interactions.",
+            "en": "VR version, comfort and interactions."
+          },
           "skills": [
             "game-design",
             "vr"
@@ -1029,8 +1635,14 @@
     },
     {
       "id": "ggs-2024",
-      "title": "Goras Games Studio",
-      "years": "2024",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2024",
+        "en": "2024"
+      },
       "level": 39,
       "kind": "Counter",
       "widthScreens": 0.2,
@@ -1038,8 +1650,14 @@
       "projects": [
         {
           "id": "k4rant-2024",
-          "title": "K4rant : évolution 2024",
-          "description": "Refonte technique sous Unity 6.",
+          "title": {
+            "fr": "K4rant : évolution 2024",
+            "en": "K4rant: 2024 progress"
+          },
+          "description": {
+            "fr": "Refonte technique sous Unity 6.",
+            "en": "Technical rework on Unity 6."
+          },
           "skills": [
             "game-design",
             "unity"
@@ -1055,16 +1673,28 @@
     },
     {
       "id": "cine-sologne",
-      "title": "Ciné Sologne",
-      "years": "2025",
+      "title": {
+        "fr": "Ciné Sologne",
+        "en": "Ciné Sologne"
+      },
+      "years": {
+        "fr": "2025",
+        "en": "2025"
+      },
       "level": 40,
       "kind": "Facade",
       "widthScreens": 0.25,
       "projects": [
         {
           "id": "cine-support",
-          "title": "Support technique du cinéma",
-          "description": "Informatique, audio, vidéo : la salle qui doit tourner tous les soirs.",
+          "title": {
+            "fr": "Support technique du cinéma",
+            "en": "Technical support of the cinema"
+          },
+          "description": {
+            "fr": "Informatique, audio, vidéo : la salle qui doit tourner tous les soirs.",
+            "en": "IT, audio, video: the theatre that has to run every evening."
+          },
           "skills": [
             "maintenance"
           ],
@@ -1072,8 +1702,14 @@
         },
         {
           "id": "cine-gestion",
-          "title": "Assistant directeur : programmation, planification, commandes",
-          "description": "Accueil, encaissement, programmation, plannings, inventaire et commandes.",
+          "title": {
+            "fr": "Assistant directeur : programmation, planification, commandes",
+            "en": "Assistant manager: programming, scheduling, orders"
+          },
+          "description": {
+            "fr": "Accueil, encaissement, programmation, plannings, inventaire et commandes.",
+            "en": "Front desk, checkout, film programming, schedules, stock-taking and orders."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -1085,8 +1721,14 @@
     },
     {
       "id": "ggs-2025",
-      "title": "Goras Games Studio",
-      "years": "2025",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2025",
+        "en": "2025"
+      },
       "level": 40,
       "kind": "Counter",
       "widthScreens": 0.2,
@@ -1094,8 +1736,14 @@
       "projects": [
         {
           "id": "k4rant-2025",
-          "title": "K4rant : évolution 2025",
-          "description": "Multijoueur, avatars, portes d'embarquement.",
+          "title": {
+            "fr": "K4rant : évolution 2025",
+            "en": "K4rant: 2025 progress"
+          },
+          "description": {
+            "fr": "Multijoueur, avatars, portes d'embarquement.",
+            "en": "Multiplayer, avatars, boarding gates."
+          },
           "skills": [
             "game-design",
             "vr",
@@ -1112,8 +1760,14 @@
     },
     {
       "id": "crn",
-      "title": "Conseil Régional du Numérique Centre-Val de Loire",
-      "years": "2026",
+      "title": {
+        "fr": "Conseil Régional du Numérique Centre-Val de Loire",
+        "en": "Centre-Val de Loire Regional Digital Council"
+      },
+      "years": {
+        "fr": "2026",
+        "en": "2026"
+      },
       "level": 40,
       "kind": "Square",
       "widthScreens": 0.4,
@@ -1126,8 +1780,14 @@
     },
     {
       "id": "ggs-2026",
-      "title": "Goras Games Studio",
-      "years": "2026",
+      "title": {
+        "fr": "Goras Games Studio",
+        "en": "Goras Games Studio"
+      },
+      "years": {
+        "fr": "2026",
+        "en": "2026"
+      },
       "level": 40,
       "kind": "Counter",
       "widthScreens": 0.2,
@@ -1135,8 +1795,14 @@
       "projects": [
         {
           "id": "k4rant-2026",
-          "title": "K4rant : évolution 2026",
-          "description": "Bornes et leaderboards.",
+          "title": {
+            "fr": "K4rant : évolution 2026",
+            "en": "K4rant: 2026 progress"
+          },
+          "description": {
+            "fr": "Bornes et leaderboards.",
+            "en": "Arcade cabinets and leaderboards."
+          },
           "skills": [
             "game-design"
           ],
@@ -1147,8 +1813,14 @@
         },
         {
           "id": "ggs-ia-core",
-          "title": "IA : outillage du studio (GGS Core, build, versionnage)",
-          "description": "Outils d'éditeur et de build écrits avec des agents d'IA.",
+          "title": {
+            "fr": "IA : outillage du studio (GGS Core, build, versionnage)",
+            "en": "AI: studio tooling (GGS Core, build, versioning)"
+          },
+          "description": {
+            "fr": "Outils d'éditeur et de build écrits avec des agents d'IA.",
+            "en": "Editor and build tools written with AI agents."
+          },
           "skills": [
             "ia"
           ],
@@ -1156,8 +1828,14 @@
         },
         {
           "id": "ggs-ia-resume",
-          "title": "IA : ResuME, ce CV interactif",
-          "description": "Conçu et développé avec des agents d'IA, données et greybox pilotées.",
+          "title": {
+            "fr": "IA : ResuME, ce CV interactif",
+            "en": "AI: ResuME, this interactive CV"
+          },
+          "description": {
+            "fr": "Conçu et développé avec des agents d'IA, données et greybox pilotées.",
+            "en": "Designed and developed with AI agents, data-driven content and greybox."
+          },
           "skills": [
             "ia"
           ],
@@ -1167,8 +1845,14 @@
         },
         {
           "id": "ggs-ia-agents",
-          "title": "IA : agents et automatisations",
-          "description": "Revue de code, tests, déploiement, mémoire de projet.",
+          "title": {
+            "fr": "IA : agents et automatisations",
+            "en": "AI: agents and automation"
+          },
+          "description": {
+            "fr": "Revue de code, tests, déploiement, mémoire de projet.",
+            "en": "Code review, tests, deployment, project memory."
+          },
           "skills": [
             "ia"
           ],
@@ -1176,8 +1860,14 @@
         },
         {
           "id": "ggs-ia-contenus",
-          "title": "IA : production de contenus",
-          "description": "Visuels, documents et communication du studio.",
+          "title": {
+            "fr": "IA : production de contenus",
+            "en": "AI: content production"
+          },
+          "description": {
+            "fr": "Visuels, documents et communication du studio.",
+            "en": "Visuals, documents and communication of the studio."
+          },
           "skills": [
             "ia"
           ],
@@ -1189,8 +1879,14 @@
     },
     {
       "id": "loire-games",
-      "title": "Loire Games",
-      "years": "2025",
+      "title": {
+        "fr": "Loire Games",
+        "en": "Loire Games"
+      },
+      "years": {
+        "fr": "2025",
+        "en": "2025"
+      },
       "level": 40,
       "kind": "Stand",
       "widthScreens": 0.3,
@@ -1198,8 +1894,14 @@
       "projects": [
         {
           "id": "lg-cofondation",
-          "title": "Co-fondation du cluster régional Loire Games",
-          "description": "Fédérer les créateurs de jeux de la région Centre-Val de Loire, au même niveau que les clusters des autres régions ; événements, scène et intervenants.",
+          "title": {
+            "fr": "Co-fondation du cluster régional Loire Games",
+            "en": "Co-founding the Loire Games regional cluster"
+          },
+          "description": {
+            "fr": "Fédérer les créateurs de jeux de la région Centre-Val de Loire, au même niveau que les clusters des autres régions ; événements, scène et intervenants.",
+            "en": "Bringing together the game makers of the Centre-Val de Loire region, on a par with the clusters of the other regions; events, stage and speakers."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -1207,8 +1909,14 @@
         },
         {
           "id": "lg-tresorerie",
-          "title": "Trésorerie et comptabilité de l'association",
-          "description": "Comptes, banque, achats et boutique, adhésions, notes de frais, factures, devis.",
+          "title": {
+            "fr": "Trésorerie et comptabilité de l'association",
+            "en": "Treasury and bookkeeping of the non-profit"
+          },
+          "description": {
+            "fr": "Comptes, banque, achats et boutique, adhésions, notes de frais, factures, devis.",
+            "en": "Accounts, bank, purchases and shop, memberships, expense reports, invoices, quotes."
+          },
           "skills": [
             "gestion-entreprise"
           ],
@@ -1216,8 +1924,14 @@
         },
         {
           "id": "lg-outil-web",
-          "title": "Outil web d'automatisation des processus",
-          "description": "Développement web pour automatiser la gestion de l'association.",
+          "title": {
+            "fr": "Outil web d'automatisation des processus",
+            "en": "Web tool automating the processes"
+          },
+          "description": {
+            "fr": "Développement web pour automatiser la gestion de l'association.",
+            "en": "Web development to automate the management of the non-profit."
+          },
           "skills": [
             "dev-web"
           ],
@@ -1227,8 +1941,14 @@
         },
         {
           "id": "lg-ia-gestion",
-          "title": "IA : automatisation de la gestion",
-          "description": "Agents et outils d'IA au service de la trésorerie et de l'administratif.",
+          "title": {
+            "fr": "IA : automatisation de la gestion",
+            "en": "AI: management automation"
+          },
+          "description": {
+            "fr": "Agents et outils d'IA au service de la trésorerie et de l'administratif.",
+            "en": "AI agents and tools serving the treasury and the administration."
+          },
           "skills": [
             "ia"
           ],
@@ -1236,8 +1956,14 @@
         },
         {
           "id": "lg-ia-dev",
-          "title": "IA : assistance au développement",
-          "description": "Agents de code, revue et outillage de production.",
+          "title": {
+            "fr": "IA : assistance au développement",
+            "en": "AI: development assistance"
+          },
+          "description": {
+            "fr": "Agents de code, revue et outillage de production.",
+            "en": "Coding agents, review and production tooling."
+          },
           "skills": [
             "ia"
           ],
@@ -1245,8 +1971,14 @@
         },
         {
           "id": "lg-ia-contenus",
-          "title": "IA : production de contenus",
-          "description": "Visuels, documents et communication assistés par IA.",
+          "title": {
+            "fr": "IA : production de contenus",
+            "en": "AI: content production"
+          },
+          "description": {
+            "fr": "Visuels, documents et communication assistés par IA.",
+            "en": "Visuals, documents and communication, AI-assisted."
+          },
           "skills": [
             "ia"
           ],
@@ -1258,8 +1990,14 @@
     },
     {
       "id": "aujourdhui",
-      "title": "Aujourd'hui",
-      "years": "2026",
+      "title": {
+        "fr": "Aujourd'hui",
+        "en": "Today"
+      },
+      "years": {
+        "fr": "2026",
+        "en": "2026"
+      },
       "level": 40,
       "kind": "End",
       "widthScreens": 0.7,
@@ -1267,8 +2005,14 @@
       "projects": [
         {
           "id": "wip-k4rant",
-          "title": "K4rant : Arcade Worlds",
-          "description": "En cours.",
+          "title": {
+            "fr": "K4rant : Arcade Worlds",
+            "en": "K4rant: Arcade Worlds"
+          },
+          "description": {
+            "fr": "En cours.",
+            "en": "In progress."
+          },
           "skills": [],
           "platforms": [
             "VR (tous casques)",
@@ -1277,8 +2021,14 @@
         },
         {
           "id": "wip-party-hospital",
-          "title": "Party Hospital",
-          "description": "En cours.",
+          "title": {
+            "fr": "Party Hospital",
+            "en": "Party Hospital"
+          },
+          "description": {
+            "fr": "En cours.",
+            "en": "In progress."
+          },
           "skills": [],
           "platforms": [
             "VR (tous casques)",
@@ -1287,8 +2037,14 @@
         },
         {
           "id": "wip-rural-quest",
-          "title": "Rural Quest (nom de travail)",
-          "description": "En cours.",
+          "title": {
+            "fr": "Rural Quest (nom de travail)",
+            "en": "Rural Quest (working title)"
+          },
+          "description": {
+            "fr": "En cours.",
+            "en": "In progress."
+          },
           "skills": [],
           "platforms": [
             "VR (tous casques)",
@@ -1297,8 +2053,14 @@
         },
         {
           "id": "wip-cities-of-mist",
-          "title": "Cities of Mist",
-          "description": "En cours.",
+          "title": {
+            "fr": "Cities of Mist",
+            "en": "Cities of Mist"
+          },
+          "description": {
+            "fr": "En cours.",
+            "en": "In progress."
+          },
           "skills": [],
           "platforms": [
             "Steam"
@@ -1306,8 +2068,14 @@
         },
         {
           "id": "wip-commercialst",
-          "title": "CommercialSt",
-          "description": "En cours.",
+          "title": {
+            "fr": "CommercialSt",
+            "en": "CommercialSt"
+          },
+          "description": {
+            "fr": "En cours.",
+            "en": "In progress."
+          },
           "skills": [],
           "platforms": [
             "Steam"
@@ -1315,8 +2083,14 @@
         },
         {
           "id": "wip-insecticide",
-          "title": "Insecticide",
-          "description": "En cours.",
+          "title": {
+            "fr": "Insecticide",
+            "en": "Insecticide"
+          },
+          "description": {
+            "fr": "En cours.",
+            "en": "In progress."
+          },
           "skills": [],
           "platforms": [
             "Steam"
@@ -1324,8 +2098,14 @@
         },
         {
           "id": "wip-skai",
-          "title": "SkAI",
-          "description": "En cours.",
+          "title": {
+            "fr": "SkAI",
+            "en": "SkAI"
+          },
+          "description": {
+            "fr": "En cours.",
+            "en": "In progress."
+          },
           "skills": [],
           "platforms": [
             "Steam"
@@ -1335,5 +2115,147 @@
       "place": "centre"
     }
   ],
-  "verticalSpanScreens": 1.2
+  "verticalSpanScreens": 1.2,
+  "strings": [
+    {
+      "id": "ultimate",
+      "fr": "ULTIME",
+      "en": "ULTIMATE"
+    },
+    {
+      "id": "ultimate-locked",
+      "fr": "à débloquer",
+      "en": "to unlock"
+    },
+    {
+      "id": "traits",
+      "fr": "TRAITS",
+      "en": "TRAITS"
+    },
+    {
+      "id": "skills",
+      "fr": "COMPÉTENCES",
+      "en": "SKILLS"
+    },
+    {
+      "id": "level",
+      "fr": "niveau",
+      "en": "level"
+    },
+    {
+      "id": "portrait",
+      "fr": "portrait",
+      "en": "portrait"
+    },
+    {
+      "id": "no-class",
+      "fr": "Sans classe",
+      "en": "No class"
+    },
+    {
+      "id": "hint",
+      "fr": "Flèches du clavier ou glisser du doigt pour avancer",
+      "en": "Arrow keys or swipe to move forward"
+    },
+    {
+      "id": "interior",
+      "fr": "intérieur",
+      "en": "inside"
+    },
+    {
+      "id": "counter",
+      "fr": "guichet",
+      "en": "counter"
+    },
+    {
+      "id": "stand",
+      "fr": "stand",
+      "en": "stand"
+    },
+    {
+      "id": "founder",
+      "fr": "Fondateur",
+      "en": "Founder"
+    },
+    {
+      "id": "car",
+      "fr": "voiture",
+      "en": "car"
+    },
+    {
+      "id": "motorbike",
+      "fr": "moto",
+      "en": "motorbike"
+    },
+    {
+      "id": "thumb",
+      "fr": "pouce",
+      "en": "thumbs up"
+    },
+    {
+      "id": "write",
+      "fr": "Écrire :",
+      "en": "Write to:"
+    },
+    {
+      "id": "linkedin",
+      "fr": "LinkedIn",
+      "en": "LinkedIn"
+    },
+    {
+      "id": "cv",
+      "fr": "CV classique (PDF)",
+      "en": "Classic CV (PDF)"
+    },
+    {
+      "id": "copied",
+      "fr": "adresse copiée",
+      "en": "address copied"
+    },
+    {
+      "id": "project-one",
+      "fr": "projet",
+      "en": "project"
+    },
+    {
+      "id": "project-many",
+      "fr": "projets",
+      "en": "projects"
+    },
+    {
+      "id": "category-technique",
+      "fr": "Technique",
+      "en": "Technical"
+    },
+    {
+      "id": "category-gestion",
+      "fr": "Gestion",
+      "en": "Management"
+    },
+    {
+      "id": "category-relationnel",
+      "fr": "Relationnel",
+      "en": "Interpersonal"
+    },
+    {
+      "id": "language-title",
+      "fr": "Choisissez votre langue",
+      "en": "Choose your language"
+    },
+    {
+      "id": "language-fr",
+      "fr": "Français",
+      "en": "Français"
+    },
+    {
+      "id": "language-en",
+      "fr": "English",
+      "en": "English"
+    },
+    {
+      "id": "language-go",
+      "fr": "Commencer",
+      "en": "Start"
+    }
+  ]
 }

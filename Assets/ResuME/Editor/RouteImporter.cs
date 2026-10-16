@@ -37,34 +37,39 @@ namespace GGS.Resume.Editor
             public TravelFile travel = new TravelFile();
             public float verticalSpanScreens = 1.2f;
             public List<PlaceFile> places = new List<PlaceFile>();
+            public List<StringFile> strings = new List<StringFile>();
             public List<SkillFile> skills = new List<SkillFile>();
             public List<TraitFile> traits = new List<TraitFile>();
             public List<StopFile> stops = new List<StopFile>();
         }
 
+        /// <summary>A text in both languages as written in the JSON.</summary>
+        [Serializable] private class LocalizedTextFile { public string fr; public string en; }
+        /// <summary>A word of the interface in both languages.</summary>
+        [Serializable] private class StringFile { public string id; public string fr; public string en; }
         /// <summary>A place of the map of France, with its ground tint.</summary>
 
-        [Serializable] private class PlaceFile { public string id; public string label; public float x; public float y; public string groundColor; }
+        [Serializable] private class PlaceFile { public string id; public LocalizedTextFile label; public float x; public float y; public string groundColor; }
         /// <summary>The contact card: name, e-mail, LinkedIn, CV link, closing line.</summary>
-        [Serializable] private class ContactFile { public string name; public string email; public string linkedin; public string cvUrl; public string closingLine; }
+        [Serializable] private class ContactFile { public string name; public string email; public string linkedin; public string cvUrl; public LocalizedTextFile closingLine; }
         /// <summary>Vehicle rides: extra road and speed factors.</summary>
         [Serializable] private class TravelFile { public float rideScreens = 2f; public float carSpeedFactor = 2.5f; public float motorbikeSpeedFactor = 3.5f; }
         /// <summary>A skill of the catalogue, with its short label and category.</summary>
-        [Serializable] private class SkillFile { public string id; public string label; public string @short; public string category; public string description; }
+        [Serializable] private class SkillFile { public string id; public LocalizedTextFile label; public LocalizedTextFile @short; public string category; public LocalizedTextFile description; }
         /// <summary>A trait of the catalogue.</summary>
-        [Serializable] private class TraitFile { public string id; public string label; public string description; }
+        [Serializable] private class TraitFile { public string id; public LocalizedTextFile label; public LocalizedTextFile description; }
         /// <summary>A class change or a passive granted by a stop.</summary>
-        [Serializable] private class RewardFile { public string id; public string title; public string description; }
+        [Serializable] private class RewardFile { public string id; public LocalizedTextFile title; public LocalizedTextFile description; }
         /// <summary>A project of a stop: the skills it used and its platforms.</summary>
-        [Serializable] private class ProjectFile { public string id; public string title; public string description; public List<string> skills = new List<string>(); public List<string> platforms = new List<string>(); }
+        [Serializable] private class ProjectFile { public string id; public LocalizedTextFile title; public LocalizedTextFile description; public List<string> skills = new List<string>(); public List<string> platforms = new List<string>(); }
 
         /// <summary>A stop of the timeline with its rewards and projects.</summary>
 
         [Serializable] private class StopFile
         {
             public string id;
-            public string title;
-            public string years;
+            public LocalizedTextFile title;
+            public LocalizedTextFile years;
             public string place;
             public int level;
             public string kind;
@@ -116,6 +121,7 @@ namespace GGS.Resume.Editor
             }
 
             List<string> errors = new List<string>();
+            _missingEnglish = 0;
             Dictionary<string, TraitFile> traits = new Dictionary<string, TraitFile>();
             foreach (TraitFile trait in file.traits)
             {
@@ -134,7 +140,8 @@ namespace GGS.Resume.Editor
                     errors.Add($"skill '{skill.id}': unknown category '{skill.category}'");
                     category = SkillCategory.None;
                 }
-                skills.Add(new SkillDefinition { id = skill.id, label = skill.label, shortLabel = string.IsNullOrEmpty(skill.@short) ? skill.label : skill.@short, category = category, description = skill.description });
+                LocalizedText shortLabel = skill.@short != null && !string.IsNullOrEmpty(skill.@short.fr) ? Text(skill.@short, $"skill '{skill.id}' short", errors) : Text(skill.label, $"skill '{skill.id}' label", errors);
+                skills.Add(new SkillDefinition { id = skill.id, label = Text(skill.label, $"skill '{skill.id}' label", errors), shortLabel = shortLabel, category = category, description = Text(skill.description, $"skill '{skill.id}' description", errors) });
             }
 
             // Places of the map: ids must be unique and every stop must point to one of them.
@@ -144,7 +151,7 @@ namespace GGS.Resume.Editor
             {
                 if (string.IsNullOrEmpty(place.id)) { errors.Add("a place has no id"); continue; }
                 if (!placeIds.Add(place.id)) { errors.Add($"duplicate place id '{place.id}'"); continue; }
-                places.Add(new PlaceDefinition { id = place.id, label = place.label, x = Mathf.Clamp01(place.x), y = Mathf.Clamp01(place.y), groundColor = place.groundColor });
+                places.Add(new PlaceDefinition { id = place.id, label = Text(place.label, $"place '{place.id}' label", errors), x = Mathf.Clamp01(place.x), y = Mathf.Clamp01(place.y), groundColor = place.groundColor });
             }
 
             List<StopDefinition> stops = new List<StopDefinition>();
@@ -171,7 +178,7 @@ namespace GGS.Resume.Editor
 
                 StopDefinition stop = new StopDefinition
                 {
-                    id = s.id, title = s.title, years = s.years, place = s.place, level = s.level, kind = kind,
+                    id = s.id, title = Text(s.title, $"stop '{s.id}' title", errors), years = Text(s.years, $"stop '{s.id}' years", errors), place = s.place, level = s.level, kind = kind,
                     widthScreens = s.widthScreens <= 0f ? 1f : s.widthScreens, gapAfterScreens = s.gapAfterScreens,
                     travelAfter = travel, rideScreens = s.rideScreens, founder = s.founder, notes = s.notes
                 };
@@ -180,14 +187,14 @@ namespace GGS.Resume.Editor
                 foreach (string traitId in s.traitsAfter) AddTrait(stop.traitsAfter, traitId, traits, s.id, errors);
 
                 if (s.classChange != null && !string.IsNullOrEmpty(s.classChange.id))
-                    stop.rewards.Add(new RewardDefinition { kind = RewardKind.ClassChange, id = s.classChange.id, label = s.classChange.title, description = s.classChange.description });
+                    stop.rewards.Add(new RewardDefinition { kind = RewardKind.ClassChange, id = s.classChange.id, label = Text(s.classChange.title, $"class '{s.classChange.id}' title", errors), description = Text(s.classChange.description, $"class '{s.classChange.id}' description", errors) });
                 if (s.passive != null && !string.IsNullOrEmpty(s.passive.id))
-                    stop.rewards.Add(new RewardDefinition { kind = RewardKind.Passive, id = s.passive.id, label = s.passive.title, description = s.passive.description });
+                    stop.rewards.Add(new RewardDefinition { kind = RewardKind.Passive, id = s.passive.id, label = Text(s.passive.title, $"passive '{s.passive.id}' title", errors), description = Text(s.passive.description, $"passive '{s.passive.id}' description", errors) });
 
                 foreach (ProjectFile p in s.projects)
                 {
                     if (string.IsNullOrEmpty(p.id)) { errors.Add($"stop '{s.id}': a project has no id"); continue; }
-                    ProjectDefinition project = new ProjectDefinition { id = p.id, title = p.title, description = p.description, platforms = new List<string>(p.platforms) };
+                    ProjectDefinition project = new ProjectDefinition { id = p.id, title = Text(p.title, $"project '{p.id}' title", errors), description = Text(p.description, $"project '{p.id}' description", errors), platforms = new List<string>(p.platforms) };
                     foreach (string skillId in p.skills)
                     {
                         if (!skillIds.Contains(skillId)) { errors.Add($"project '{p.id}': unknown skill '{skillId}'"); continue; }
@@ -228,7 +235,23 @@ namespace GGS.Resume.Editor
             route.contactEmail = file.contact != null ? file.contact.email : "";
             route.contactLinkedIn = file.contact != null ? file.contact.linkedin : "";
             route.contactCvUrl = file.contact != null ? file.contact.cvUrl : "";
-            route.closingLine = file.contact != null ? file.contact.closingLine : "";
+            route.closingLine = file.contact != null ? Text(file.contact.closingLine, "contact closingLine", errors) : new LocalizedText();
+            route.strings = new List<UiStringDefinition>();
+            HashSet<string> stringIds = new HashSet<string>();
+            foreach (StringFile entry in file.strings)
+            {
+                if (string.IsNullOrEmpty(entry.id)) { errors.Add("a UI string has no id"); continue; }
+                if (!stringIds.Add(entry.id)) { errors.Add($"duplicate UI string id '{entry.id}'"); continue; }
+                if (string.IsNullOrEmpty(entry.fr)) errors.Add($"UI string '{entry.id}': French text missing");
+                if (string.IsNullOrEmpty(entry.en)) _missingEnglish++;
+                route.strings.Add(new UiStringDefinition { id = entry.id, fr = entry.fr, en = entry.en });
+            }
+            if (errors.Count > 0)
+            {
+                Debug.LogError($"[RouteImporter] {errors.Count} error(s) in the UI strings of {JSON_PATH}, asset not updated:\n- " + string.Join("\n- ", errors));
+                return null;
+            }
+            if (_missingEnglish > 0) Debug.LogWarning($"[RouteImporter] {_missingEnglish} text(s) without English: French will be shown instead.");
             route.skills = skills;
             route.stops = stops;
             EditorUtility.SetDirty(route);
@@ -242,6 +265,27 @@ namespace GGS.Resume.Editor
 
         #region Private Methods
 
+        /// <summary>Texts whose English is empty, counted during an import.</summary>
+        private static int _missingEnglish;
+
+        /// <summary>
+        /// Converts a bilingual JSON text to the asset form: French required, English optional (counted when missing).
+        /// </summary>
+        /// <param name="text">JSON text, possibly null.</param>
+        /// <param name="where">Name of the field for the error message.</param>
+        /// <param name="errors">Error list of the import.</param>
+        /// <returns>The localized text, never null.</returns>
+        private static LocalizedText Text(LocalizedTextFile text, string where, List<string> errors)
+        {
+            if (text == null || string.IsNullOrEmpty(text.fr))
+            {
+                errors.Add($"{where}: French text missing (expected an object {{\"fr\": ..., \"en\": ...}})");
+                return new LocalizedText { fr = "", en = "" };
+            }
+            if (string.IsNullOrEmpty(text.en)) _missingEnglish++;
+            return new LocalizedText { fr = text.fr, en = text.en ?? "" };
+        }
+
         /// <summary>
         /// Resolves a trait id against the catalogue and appends it as a reward, or records an error.
         /// </summary>
@@ -252,7 +296,7 @@ namespace GGS.Resume.Editor
                 errors.Add($"stop '{stopId}': unknown trait '{traitId}'");
                 return;
             }
-            list.Add(new RewardDefinition { kind = RewardKind.Trait, id = trait.id, label = trait.label, description = trait.description, category = SkillCategory.Relationnel });
+            list.Add(new RewardDefinition { kind = RewardKind.Trait, id = trait.id, label = Text(trait.label, $"trait '{trait.id}' label", errors), description = Text(trait.description, $"trait '{trait.id}' description", errors), category = SkillCategory.Relationnel });
         }
 
         #endregion

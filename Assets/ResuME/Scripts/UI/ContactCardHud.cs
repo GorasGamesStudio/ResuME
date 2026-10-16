@@ -56,29 +56,29 @@ namespace GGS.Resume.UI
             if (!string.IsNullOrEmpty(route.contactEmail))
             {
                 string email = route.contactEmail;
-                MakeButton(_card, "Email", "Écrire : " + email, new Vector2(16f, y), () =>
+                MakeButton(_card, "Email", Localization.Ui(route, "write") + " " + email, new Vector2(16f, y), () =>
                 {
                     CopyToClipboard(email);
                     Application.OpenURL("mailto:" + email);
-                    _feedback.text = "adresse copiée";
+                    _feedback.text = Localization.Ui(route, "copied");
                 });
                 y -= 34f;
             }
             if (!string.IsNullOrEmpty(route.contactLinkedIn))
             {
                 string url = route.contactLinkedIn;
-                MakeButton(_card, "LinkedIn", "LinkedIn", new Vector2(16f, y), () => Application.OpenURL(url));
+                MakeButton(_card, "LinkedIn", Localization.Ui(route, "linkedin"), new Vector2(16f, y), () => Application.OpenURL(url));
                 y -= 34f;
             }
             if (!string.IsNullOrEmpty(route.contactCvUrl))
             {
                 string url = route.contactCvUrl;
-                MakeButton(_card, "Cv", "CV classique (PDF)", new Vector2(16f, y), () => Application.OpenURL(url));
+                MakeButton(_card, "Cv", Localization.Ui(route, "cv"), new Vector2(16f, y), () => Application.OpenURL(url));
                 y -= 34f;
             }
 
             // The single closing line, and a feedback line for the clipboard.
-            TMP_Text closing = MakeText(_card, "Closing", route.closingLine, 12, FontStyles.Italic, new Vector2(16f, -CARD_HEIGHT + 34f), new Vector2(CARD_WIDTH - 32f, 20f));
+            TMP_Text closing = MakeText(_card, "Closing", Localization.Text(route.closingLine), 12, FontStyles.Italic, new Vector2(16f, -CARD_HEIGHT + 34f), new Vector2(CARD_WIDTH - 32f, 20f));
             closing.alignment = TextAlignmentOptions.Center;
             _feedback = MakeText(_card, "Feedback", "", 12, FontStyles.Normal, new Vector2(16f, -CARD_HEIGHT + 16f), new Vector2(CARD_WIDTH - 32f, 14f));
             _feedback.alignment = TextAlignmentOptions.Center;

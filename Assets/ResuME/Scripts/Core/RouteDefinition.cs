@@ -7,6 +7,47 @@ namespace GGS.Resume.Data
     #region Data Structures
 
     /// <summary>
+    /// Languages the game is served in.
+    /// </summary>
+    public enum Language
+    {
+        Fr,
+        En
+    }
+
+    /// <summary>
+    /// A text in both languages. French is the reference; an empty English falls back to it.
+    /// </summary>
+    [Serializable]
+    public class LocalizedText
+    {
+        public string fr;
+        public string en;
+
+        /// <summary>
+        /// The text in a language, French when the translation is missing.
+        /// </summary>
+        /// <param name="language">Wanted language.</param>
+        /// <returns>The text, never null.</returns>
+        public string Get(Language language)
+        {
+            if (language == Language.En && !string.IsNullOrEmpty(en)) return en;
+            return fr ?? "";
+        }
+    }
+
+    /// <summary>
+    /// A word of the interface in both languages, addressed by id (captions, signs, buttons).
+    /// </summary>
+    [Serializable]
+    public class UiStringDefinition
+    {
+        public string id;
+        public string fr;
+        public string en;
+    }
+
+    /// <summary>
     /// How a stop of the route is represented in the world.
     /// </summary>
     public enum StopKind
@@ -71,11 +112,11 @@ namespace GGS.Resume.Data
     public class SkillDefinition
     {
         public string id;
-        public string label;
+        public LocalizedText label;
         [Tooltip("Short label for the hotbar square, until the logos arrive.")]
-        public string shortLabel;
+        public LocalizedText shortLabel;
         public SkillCategory category;
-        [TextArea] public string description;
+        public LocalizedText description;
     }
 
     /// <summary>
@@ -86,8 +127,8 @@ namespace GGS.Resume.Data
     {
         public RewardKind kind;
         public string id;
-        public string label;
-        [TextArea] public string description;
+        public LocalizedText label;
+        public LocalizedText description;
         public SkillCategory category;
     }
 
@@ -98,8 +139,8 @@ namespace GGS.Resume.Data
     public class ProjectDefinition
     {
         public string id;
-        public string title;
-        [TextArea] public string description;
+        public LocalizedText title;
+        public LocalizedText description;
         [Tooltip("Ids of the skills this project used (one mastery point each).")]
         public List<string> skillIds = new List<string>();
         [Tooltip("Target platforms shipped (PC, Android, iOS, WebGL, VR...): badges, not skills.")]
@@ -114,7 +155,7 @@ namespace GGS.Resume.Data
     public class PlaceDefinition
     {
         public string id;
-        public string label;
+        public LocalizedText label;
         [Range(0f, 1f)] public float x;
         [Range(0f, 1f)] public float y;
         [Tooltip("Greybox tint of the ground in this region (HTML colour), until the art brings the real environment.")]
@@ -128,8 +169,8 @@ namespace GGS.Resume.Data
     public class StopDefinition
     {
         public string id;
-        public string title;
-        public string years;
+        public LocalizedText title;
+        public LocalizedText years;
         [Tooltip("Id of the geographic place (see RouteDefinition.places).")]
         public string place;
         [Tooltip("Displayed level = Éric's age when reaching this stop.")]
@@ -207,9 +248,11 @@ namespace GGS.Resume.Data
         [Tooltip("Path or URL of the classic CV (PDF).")]
         public string contactCvUrl;
         [Tooltip("The only line of text of the ending.")]
-        public string closingLine;
+        public LocalizedText closingLine;
 
         [Header("Content")]
+        [Tooltip("Words of the interface, by id.")]
+        public List<UiStringDefinition> strings = new List<UiStringDefinition>();
         public List<SkillDefinition> skills = new List<SkillDefinition>();
         public List<StopDefinition> stops = new List<StopDefinition>();
 
@@ -279,6 +322,20 @@ namespace GGS.Resume.Data
             foreach (PlaceDefinition place in places)
             {
                 if (place.id == id) return place;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Finds a word of the interface by id.
+        /// </summary>
+        /// <param name="id">String id as written in route.json.</param>
+        /// <returns>The entry, or null when unknown.</returns>
+        public UiStringDefinition FindString(string id)
+        {
+            foreach (UiStringDefinition entry in strings)
+            {
+                if (entry.id == id) return entry;
             }
             return null;
         }
