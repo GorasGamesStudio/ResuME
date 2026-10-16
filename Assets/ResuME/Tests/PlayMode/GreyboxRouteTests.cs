@@ -36,10 +36,10 @@ namespace GGS.Resume.Tests
             yield return null;
             yield return null;
 
-            // The language screen gates the world: choose French, as the route content is written in French.
-            LanguageSelectHud languageScreen = Object.FindFirstObjectByType<LanguageSelectHud>();
-            Assert.IsNotNull(languageScreen, "LanguageSelectHud missing in GA_GreyboxScene");
-            languageScreen.Choose(Language.Fr);
+            // The main menu gates the world: play in French, the reference language of the route content.
+            MainMenuHud mainMenu = Object.FindFirstObjectByType<MainMenuHud>();
+            Assert.IsNotNull(mainMenu, "MainMenuHud missing in GA_GreyboxScene");
+            mainMenu.Choose(Language.Fr);
             yield return null;
             yield return null;
 

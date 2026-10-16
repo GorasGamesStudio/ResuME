@@ -2256,6 +2256,21 @@
       "id": "language-go",
       "fr": "Commencer",
       "en": "Start"
+    },
+    {
+      "id": "menu-subtitle",
+      "fr": "CV interactif · un mini-jeu de 3 à 5 minutes",
+      "en": "Interactive CV · a 3 to 5 minute mini-game"
+    },
+    {
+      "id": "menu-play",
+      "fr": "Jouer",
+      "en": "Play"
+    },
+    {
+      "id": "menu-language",
+      "fr": "Langue",
+      "en": "Language"
     }
   ]
 }

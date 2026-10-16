@@ -223,10 +223,10 @@ namespace GGS.Resume.Editor
             EndSequence ending = worldGo.AddComponent<EndSequence>();
             ending.Configure(world, mover, progress, card, square, worldFont);
 
-            // Language screen: shown first, the world, the player and the HUD stay inactive until the choice.
-            GameObject languageGo = new GameObject("LanguageSelect", typeof(RectTransform));
-            LanguageSelectHud languageScreen = languageGo.AddComponent<LanguageSelectHud>();
-            languageScreen.Configure(route, worldFont, new[] { worldGo, playerGo, hudGo });
+            // Main menu: shown first, the world, the player and the HUD stay inactive until Play.
+            GameObject menuGo = new GameObject("MainMenu", typeof(RectTransform));
+            MainMenuHud mainMenu = menuGo.AddComponent<MainMenuHud>();
+            mainMenu.Configure(route, worldFont, new[] { worldGo, playerGo, hudGo });
             worldGo.SetActive(false);
             playerGo.SetActive(false);
             hudGo.SetActive(false);
