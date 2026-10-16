@@ -95,8 +95,8 @@ MonoBehaviour:
     en: 'Let''s meet: at worst, we''ll only come out of it a little older.'
   strings:
   - id: ultimate
-    fr: ULTIME
-    en: ULTIMATE
+    fr: PASSIF
+    en: PASSIVE
   - id: ultimate-locked
     fr: "\xE0 d\xE9bloquer"
     en: to unlock
