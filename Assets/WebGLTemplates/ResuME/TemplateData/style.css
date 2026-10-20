@@ -1,0 +1,86 @@
+/* ResuME WebGL template: the game fills the window it is given (a browser tab, or the frame of
+   gorasgames.fr/cv), on the studio's dark background, with no scrollbar and no Unity footer. */
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0f130d;
+}
+
+#unity-canvas {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #0f130d;
+  outline: none;
+}
+
+#loading {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #a7b3a1;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+#loading img {
+  width: min(72px, 18vmin);
+  height: auto;
+}
+
+#loading-title {
+  color: #e9eee5;
+  font-size: min(16px, 4.5vmin);
+  letter-spacing: 0.2em;
+}
+
+#loading-track {
+  width: min(320px, 60vw);
+  height: 8px;
+  border-radius: 4px;
+  background: #20281c;
+  box-shadow: inset 0 0 0 1px #2b3626;
+  overflow: hidden;
+}
+
+#loading-fill {
+  width: 0;
+  height: 100%;
+  background: #2a8022;
+  box-shadow: 0 0 12px rgb(42 128 34 / 0.6);
+  transition: width 0.2s;
+}
+
+#warning {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  display: none;
+  max-width: min(90vw, 560px);
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+}
+
+#warning div {
+  margin-top: 6px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #2b3626;
+  color: #e9eee5;
+}
+
+#warning div.error {
+  background: #7a1f1f;
+}

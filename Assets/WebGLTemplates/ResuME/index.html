@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>ResuME · Eric Dovergne</title>
+    <link rel="icon" href="TemplateData/favicon-32.png" type="image/png">
+    <link rel="stylesheet" href="TemplateData/style.css">
+#if SHOW_DIAGNOSTICS
+    <link rel="stylesheet" href="<<<TemplateData/diagnostics.css>>>">
+    <script src="<<<TemplateData/diagnostics.js>>>"></script>
+#endif
+  </head>
+  <body>
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div id="loading">
+      <img src="TemplateData/logo-ggs.webp" alt="">
+      <div id="loading-title">RESUME · ERIC DOVERGNE</div>
+      <div id="loading-track"><div id="loading-fill"></div></div>
+      <div id="loading-label">Chargement</div>
+    </div>
+    <div id="warning"></div>
+    <script>
+      // Same language rule as the game (D25): ?lang= first, then the host name, then the browser.
+      var lang = (function () {
+        var param = new URLSearchParams(location.search).get("lang");
+        if (param === "fr" || param === "en") return param;
+        if (location.hostname.indexOf("resume.") === 0) return "en";
+        if (location.hostname.indexOf("cv.") === 0) return "fr";
+        return (navigator.language || "fr").toLowerCase().indexOf("fr") === 0 ? "fr" : "en";
+      })();
+      document.documentElement.lang = lang;
+      var label = document.querySelector("#loading-label");
+      label.textContent = lang === "fr" ? "Chargement" : "Loading";
+
+      // Messages from the engine: warnings fade after five seconds, errors stay.
+      function unityShowBanner(msg, type) {
+        var banner = document.querySelector("#warning");
+        var div = document.createElement("div");
+        div.textContent = msg;
+        if (type === "error") div.className = "error";
+        banner.appendChild(div);
+        banner.style.display = "block";
+        if (type !== "error") {
+          setTimeout(function () {
+            banner.removeChild(div);
+            if (!banner.children.length) banner.style.display = "none";
+          }, 5000);
+        }
+      }
+
+      var canvas = document.querySelector("#unity-canvas");
+      var buildUrl = "Build";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+        frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_THREADS
+        workerUrl: buildUrl + "/{{{ WORKER_FILENAME }}}",
+#endif
+#if USE_WASM
+        codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+        symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+#endif
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+        productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+        productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+        showBanner: unityShowBanner,
+      };
+
+      // The canvas follows the window (CSS 100 %); Unity matches its render size to it, so the
+      // game never overflows a smaller frame and never needs to scroll.
+      var script = document.createElement("script");
+      script.src = buildUrl + "/{{{ LOADER_FILENAME }}}";
+      script.onload = function () {
+        createUnityInstance(canvas, config, function (progress) {
+          document.querySelector("#loading-fill").style.width = 100 * progress + "%";
+        }).then(function (unityInstance) {
+          document.querySelector("#loading").style.display = "none";
+#if SHOW_DIAGNOSTICS
+          window.unityDiagnosticsInstance = unityInstance;
+#endif
+        }).catch(function (message) {
+          unityShowBanner(String(message), "error");
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>
