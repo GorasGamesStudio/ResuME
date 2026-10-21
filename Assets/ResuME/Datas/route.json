@@ -14,7 +14,8 @@
     "name": "Eric Dovergne",
     "email": "eric.dovergne@gmx.fr",
     "linkedin": "https://www.linkedin.com/in/ericdovergne/",
-    "cvUrl": "",
+    "github": "https://github.com/GorasGamesStudio",
+    "cvUrl": "https://gorasgames.fr/docs/cv-eric-dovergne.pdf",
     "closingLine": {
       "fr": "Rencontrons-nous, on n'en sortira, au pire, que plus vieux.",
       "en": "Let's meet: at worst, we'll only come out of it a little older."
@@ -2201,6 +2202,11 @@
       "id": "linkedin",
       "fr": "LinkedIn",
       "en": "LinkedIn"
+    },
+    {
+      "id": "github",
+      "fr": "GitHub du studio",
+      "en": "The studio's GitHub"
     },
     {
       "id": "cv",

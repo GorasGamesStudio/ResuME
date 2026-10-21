@@ -89,7 +89,8 @@ MonoBehaviour:
   contactName: Eric Dovergne
   contactEmail: eric.dovergne@gmx.fr
   contactLinkedIn: https://www.linkedin.com/in/ericdovergne/
-  contactCvUrl: 
+  contactGitHub: https://github.com/GorasGamesStudio
+  contactCvUrl: https://gorasgames.fr/docs/cv-eric-dovergne.pdf
   closingLine:
     fr: Rencontrons-nous, on n'en sortira, au pire, que plus vieux.
     en: 'Let''s meet: at worst, we''ll only come out of it a little older.'
@@ -145,6 +146,9 @@ MonoBehaviour:
   - id: linkedin
     fr: LinkedIn
     en: LinkedIn
+  - id: github
+    fr: GitHub du studio
+    en: The studio's GitHub
   - id: cv
     fr: CV classique (PDF)
     en: Classic CV (PDF)

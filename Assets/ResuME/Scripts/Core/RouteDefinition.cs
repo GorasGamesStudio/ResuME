@@ -245,6 +245,8 @@ namespace GGS.Resume.Data
         public string contactName;
         public string contactEmail;
         public string contactLinkedIn;
+        [Tooltip("The studio's GitHub page.")]
+        public string contactGitHub;
         [Tooltip("Path or URL of the classic CV (PDF).")]
         public string contactCvUrl;
         [Tooltip("The only line of text of the ending.")]

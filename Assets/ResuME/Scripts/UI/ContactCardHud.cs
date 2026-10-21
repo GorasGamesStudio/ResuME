@@ -70,6 +70,12 @@ namespace GGS.Resume.UI
                 MakeButton(_card, "LinkedIn", Localization.Ui(route, "linkedin"), new Vector2(16f, y), () => Application.OpenURL(url));
                 y -= 34f;
             }
+            if (!string.IsNullOrEmpty(route.contactGitHub))
+            {
+                string url = route.contactGitHub;
+                MakeButton(_card, "GitHub", Localization.Ui(route, "github"), new Vector2(16f, y), () => Application.OpenURL(url));
+                y -= 34f;
+            }
             if (!string.IsNullOrEmpty(route.contactCvUrl))
             {
                 string url = route.contactCvUrl;
@@ -77,10 +83,14 @@ namespace GGS.Resume.UI
                 y -= 34f;
             }
 
+            // The card grows with the number of buttons, keeping room for the two lines below them.
+            float height = Mathf.Max(CARD_HEIGHT, -y + 52f);
+            _card.sizeDelta = new Vector2(CARD_WIDTH, height);
+
             // The single closing line, and a feedback line for the clipboard.
-            TMP_Text closing = MakeText(_card, "Closing", Localization.Text(route.closingLine), 12, FontStyles.Italic, new Vector2(16f, -CARD_HEIGHT + 34f), new Vector2(CARD_WIDTH - 32f, 20f));
+            TMP_Text closing = MakeText(_card, "Closing", Localization.Text(route.closingLine), 12, FontStyles.Italic, new Vector2(16f, -height + 34f), new Vector2(CARD_WIDTH - 32f, 20f));
             closing.alignment = TextAlignmentOptions.Center;
-            _feedback = MakeText(_card, "Feedback", "", 12, FontStyles.Normal, new Vector2(16f, -CARD_HEIGHT + 16f), new Vector2(CARD_WIDTH - 32f, 14f));
+            _feedback = MakeText(_card, "Feedback", "", 12, FontStyles.Normal, new Vector2(16f, -height + 16f), new Vector2(CARD_WIDTH - 32f, 14f));
             _feedback.alignment = TextAlignmentOptions.Center;
         }
 

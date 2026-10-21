@@ -51,7 +51,7 @@ namespace GGS.Resume.Editor
 
         [Serializable] private class PlaceFile { public string id; public LocalizedTextFile label; public float x; public float y; public string groundColor; }
         /// <summary>The contact card: name, e-mail, LinkedIn, CV link, closing line.</summary>
-        [Serializable] private class ContactFile { public string name; public string email; public string linkedin; public string cvUrl; public LocalizedTextFile closingLine; }
+        [Serializable] private class ContactFile { public string name; public string email; public string linkedin; public string github; public string cvUrl; public LocalizedTextFile closingLine; }
         /// <summary>Vehicle rides: extra road and speed factors.</summary>
         [Serializable] private class TravelFile { public float rideScreens = 2f; public float carSpeedFactor = 2.5f; public float motorbikeSpeedFactor = 3.5f; }
         /// <summary>A skill of the catalogue, with its short label and category.</summary>
@@ -234,6 +234,7 @@ namespace GGS.Resume.Editor
             route.contactName = file.contact != null ? file.contact.name : "";
             route.contactEmail = file.contact != null ? file.contact.email : "";
             route.contactLinkedIn = file.contact != null ? file.contact.linkedin : "";
+            route.contactGitHub = file.contact != null ? file.contact.github : "";
             route.contactCvUrl = file.contact != null ? file.contact.cvUrl : "";
             route.closingLine = file.contact != null ? Text(file.contact.closingLine, "contact closingLine", errors) : new LocalizedText();
             route.strings = new List<UiStringDefinition>();
