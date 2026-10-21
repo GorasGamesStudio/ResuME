@@ -296,12 +296,11 @@ namespace GGS.Resume.UI
             Canvas canvas = gameObject.GetComponent<Canvas>();
             if (canvas == null) canvas = gameObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            // Readable on small screens too (phone, frame of the website's resume page). A plain
+            // scaler left by an older scene is replaced: two scalers cannot share a canvas.
             CanvasScaler scaler = gameObject.GetComponent<CanvasScaler>();
-            if (scaler == null) scaler = gameObject.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1280f, 720f);
-            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-            scaler.matchWidthOrHeight = 0.5f;
+            if (scaler != null && !(scaler is ResponsiveCanvasScaler)) DestroyImmediate(scaler);
+            if (gameObject.GetComponent<ResponsiveCanvasScaler>() == null) gameObject.AddComponent<ResponsiveCanvasScaler>();
             if (gameObject.GetComponent<GraphicRaycaster>() == null) gameObject.AddComponent<GraphicRaycaster>();
             _canvasRect = (RectTransform)transform;
 

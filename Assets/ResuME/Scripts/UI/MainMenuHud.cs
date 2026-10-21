@@ -133,11 +133,8 @@ namespace GGS.Resume.UI
             Canvas canvas = gameObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = 100;
-            CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1280f, 720f);
-            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-            scaler.matchWidthOrHeight = 0.5f;
+            // Readable on small screens too (phone, frame of the website's resume page).
+            gameObject.AddComponent<ResponsiveCanvasScaler>();
             gameObject.AddComponent<GraphicRaycaster>();
 
             // Dark veil over the whole screen, centred panel on top.
