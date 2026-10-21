@@ -12,21 +12,22 @@ using UnityEngine.UI;
 namespace GGS.Resume.UI
 {
     /// <summary>
-    /// Greybox character profile built from code (uGUI, provisional until the art pass).
-    /// Top-left: portrait, name, class, level, then the progression list below it, one row per
-    /// skill (name, gauge, no number), sorted by mastery, rows sliding when the ranking changes; a
-    /// full gauge pulses in Éric's greens. Top centre: the always-on passive. Top right: the vertical
-    /// list of traits. Bottom: the hotbar of usable skills, from which the attacks are fired.
-    /// Gain sequence, in two strict phases: every skill of the project fires its attack, each hit
-    /// paints its colour into the white project block; once the block is full it flies itself to
-    /// the skills list, where every involved row gains its point. Walking back plays the reverse:
-    /// points return to the project, rows and squares vanish.
+    /// Greybox character profile built from code (uGUI, provisional until the art pass), laid out
+    /// « all in the bars » on every screen (decision D29): a band along the top with the profile
+    /// (portrait, name, level, class) on the left, the always-on passive in the centre and the traits
+    /// on the right, one dot per trait; the stop banner under it; at the bottom the bar of skills, one
+    /// square per skill with its mastery gauge under it, sorted by mastery, squares sliding when the
+    /// ranking changes; a full gauge pulses in Éric's greens. The middle of the screen stays free for
+    /// the scene. Gain sequence, in two strict phases: every skill of the project fires its attack,
+    /// each hit paints its colour into the white project block; once the block is full it flies
+    /// itself to the bar, where every involved square gains its point. Walking back plays the
+    /// reverse: points return to the project, empty squares vanish.
     /// </summary>
     public class CharacterSheetHud : MonoBehaviour
     {
         #region Data Structures
 
-        /// <summary>A square of the hotbar: one usable skill.</summary>
+        /// <summary>A square of the skill bar: one skill, its logo and its mastery gauge under it.</summary>
         private sealed class HotbarSquare
         {
             public SkillMastery Mastery;
@@ -34,30 +35,18 @@ namespace GGS.Resume.UI
             public Image Frame;
             public Image Inner;
             public TMP_Text Label;
+            public Image GaugeFill;
+            public Image GaugeGlow;
             public float TargetX;
-        }
-
-        /// <summary>A row of the progression list: name and gauge of one skill.</summary>
-        private sealed class SkillRow
-        {
-            public SkillMastery Mastery;
-            public RectTransform Rect;
-            public TMP_Text Label;
-            public Image Fill;
-            public Image Back;
-            public Image Glow;
-            public float FillWidth;
-            public float TargetY;
             public int ShownPoints;
             public bool Full;
         }
 
-        /// <summary>A line of the trait list.</summary>
-        private sealed class TraitRow
+        /// <summary>A trait of the top band: one dot, its name and description in the tooltip.</summary>
+        private sealed class TraitDot
         {
             public string Id;
             public RectTransform Rect;
-            public TMP_Text Label;
         }
 
         /// <summary>Where a tooltip opens relative to its anchor.</summary>
@@ -69,17 +58,29 @@ namespace GGS.Resume.UI
 
         private const float SQUARE_SIZE = 52f;
         private const float SQUARE_GAP = 8f;
-        private const float HOTBAR_HEIGHT = SQUARE_SIZE + 16f;
-        private const float ROW_HEIGHT = 34f;
-        private const float LIST_WIDTH = 250f;
-        private const float TRAIT_ROW_HEIGHT = 20f;
+        /// <summary>Gap between a square and its gauge, and height of the gauge.</summary>
+        private const float GAUGE_GAP = 4f;
+        private const float GAUGE_HEIGHT = 6f;
+        private const float HOTBAR_HEIGHT = SQUARE_SIZE + GAUGE_GAP + GAUGE_HEIGHT + 16f;
+        /// <summary>Margin between the bands and the screen edges.</summary>
+        private const float MARGIN = 12f;
+        private const float TOPBAR_HEIGHT = 56f;
+        /// <summary>Widths of the three sections of the top band, and the room kept between them.</summary>
+        private const float PROFILE_WIDTH = 270f;
+        private const float PROFILE_MIN_WIDTH = 200f;
+        private const float ULTIMATE_WIDTH = 220f;
+        private const float TRAITS_WIDTH = 170f;
+        private const float SECTION_GAP = 16f;
+        private const float BANNER_WIDTH = 320f;
+        /// <summary>Size of a trait dot and distance from one dot to the next.</summary>
+        private const float TRAIT_DOT = 14f;
+        private const float TRAIT_STEP = 20f;
         private const float SLIDE_SPEED = 10f;
         private const float ATTACK_STAGGER = 0.22f;
         private const float POINT_STAGGER = 0.2f;
         private const float ATTACK_SPEED = 2200f;
         private const float POINT_SPEED = 1800f;
         private const float INNER_IDLE_ALPHA = 0.35f;
-        private const float GAUGE_HEIGHT = 10f;
         private const float TOOLTIP_WIDTH = 320f;
         /// <summary>Size in canvas pixels of the flying copy of a project block.</summary>
         private const float CARRY_SIZE = 26f;
@@ -106,9 +107,13 @@ namespace GGS.Resume.UI
         private RectTransform _safeArea;
         private RectTransform _hotbar;
         private RectTransform _hotbarContent;
-        private RectTransform _listContent;
-        private RectTransform _traitsPanel;
+        private RectTransform _topBar;
+        private TMP_Text _levelCaption;
         private RectTransform _traitsContent;
+        /// <summary>Bar width the squares were laid out for: a change (resize, rotation) lays them out again.</summary>
+        private float _laidOutWidth = -1f;
+        /// <summary>Top band width its sections were laid out for.</summary>
+        private float _topLaidOutWidth = -1f;
         private RectTransform _ultimate;
         private Image _ultimateInner;
         private TMP_Text _ultimateLabel;
@@ -127,9 +132,7 @@ namespace GGS.Resume.UI
 
         private readonly List<HotbarSquare> _squares = new List<HotbarSquare>();
         private readonly Dictionary<string, HotbarSquare> _squaresById = new Dictionary<string, HotbarSquare>();
-        private readonly List<SkillRow> _rows = new List<SkillRow>();
-        private readonly Dictionary<string, SkillRow> _rowsById = new Dictionary<string, SkillRow>();
-        private readonly List<TraitRow> _traits = new List<TraitRow>();
+        private readonly List<TraitDot> _traits = new List<TraitDot>();
         private int _masteryScale = 20;
         private int _expectedSkills = 12;
 
@@ -156,9 +159,8 @@ namespace GGS.Resume.UI
             RouteDefinition route = world != null ? world.Route : null;
             _expectedSkills = route != null ? route.CountDistinctSkills() : 12;
             _masteryScale = route != null ? Mathf.Max(1, route.masteryScaleMax) : 20;
-            BuildProfile();
+            BuildTopBar();
             BuildHotbar();
-            BuildList();
             BuildBannerAndTooltip();
             BuildHint();
             Refresh();
@@ -205,7 +207,7 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// Slides rows and squares towards their slots and drives the pulses.
+        /// Slides the squares towards their slots, follows the bar width and drives the pulses.
         /// </summary>
         private void Update()
         {
@@ -220,15 +222,12 @@ namespace GGS.Resume.UI
                 }
             }
 
-            // Rows and squares slide towards their sorted slot: this is the swap animation.
+            // A new bar width (window resized, phone turned) shrinks or grows the row of squares again.
+            if (_hotbar != null && !Mathf.Approximately(_hotbar.rect.width, _laidOutWidth)) LayoutHotbar(null);
+            if (_topBar != null && !Mathf.Approximately(_topBar.rect.width, _topLaidOutWidth)) LayoutTopBar();
+
+            // Squares slide towards their sorted slot: this is the swap animation.
             float k = 1f - Mathf.Exp(-SLIDE_SPEED * Time.deltaTime);
-            foreach (SkillRow row in _rows)
-            {
-                if (row.Rect == null) continue;
-                Vector2 position = row.Rect.anchoredPosition;
-                position.y = Mathf.Lerp(position.y, row.TargetY, k);
-                row.Rect.anchoredPosition = position;
-            }
             foreach (HotbarSquare square in _squares)
             {
                 if (square.Rect == null) continue;
@@ -241,17 +240,12 @@ namespace GGS.Resume.UI
             float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 3f);
             if (_ultimateInner != null && _ultimateInner.gameObject.activeSelf)
                 _ultimateInner.color = Color.Lerp(WithAlpha(UltimateColor, 0.55f), UltimateColor, pulse);
-            foreach (SkillRow row in _rows)
-            {
-                if (!row.Full || row.Fill == null) continue;
-                row.Fill.color = Color.Lerp(FullDark, FullLight, pulse);
-                row.Glow.color = WithAlpha(FullLight, 0.08f + 0.14f * pulse);
-                row.Label.color = Color.Lerp(Color.white, FullLight, 0.5f);
-            }
             foreach (HotbarSquare square in _squares)
             {
-                if (square.Mastery.Points < _masteryScale || square.Frame == null) continue;
+                if (!square.Full || square.Frame == null) continue;
                 square.Frame.color = Color.Lerp(FullDark, FullLight, pulse);
+                square.GaugeFill.color = Color.Lerp(FullDark, FullLight, pulse);
+                square.GaugeGlow.color = WithAlpha(FullLight, 0.08f + 0.14f * pulse);
             }
         }
 
@@ -273,13 +267,13 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// Skill ids in progression-list order with the points they display (for tests and debugging).
+        /// Skill ids in skill-bar order with the points their gauges display (for tests and debugging).
         /// </summary>
         /// <returns>Ordered list of (id, shown points).</returns>
         public List<(string id, int points)> BarOrder()
         {
-            List<(string, int)> order = new List<(string, int)>(_rows.Count);
-            foreach (SkillRow row in _rows) order.Add((row.Mastery.Definition.id, row.ShownPoints));
+            List<(string, int)> order = new List<(string, int)>(_squares.Count);
+            foreach (HotbarSquare square in _squares) order.Add((square.Mastery.Definition.id, square.ShownPoints));
             return order;
         }
 
@@ -314,39 +308,74 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// Builds the top-left profile: portrait, identity, level, ultimate and trait list.
+        /// Builds the top band, across the whole width: profile on the left, passive in the centre,
+        /// traits on the right.
         /// </summary>
-        private void BuildProfile()
+        private void BuildTopBar()
         {
-            // Portrait, identity and level bubble.
-            RectTransform panel = MakePanel(_safeArea, "Profile", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -16f), new Vector2(240f, 96f));
-            RectTransform portrait = MakeImage(panel, "Portrait", new Vector2(8f, -8f), new Vector2(80f, 80f), SquareBack);
-            MakeText(portrait, "PortraitLabel", Localization.Ui(Route, "portrait"), 12, FontStyles.Italic, Vector2.zero, new Vector2(80f, 80f)).alignment = TextAlignmentOptions.Center;
-            MakeText(panel, "Name", world != null && world.Route != null ? world.Route.contactName : "", 17, FontStyles.Bold, new Vector2(96f, -8f), new Vector2(140f, 22f));
-            _classText = MakeText(panel, "Class", Localization.Ui(Route, "no-class"), 12, FontStyles.Normal, new Vector2(96f, -32f), new Vector2(140f, 18f));
-            RectTransform bubble = MakeImage(panel, "LevelBubble", new Vector2(96f, -54f), new Vector2(34f, 34f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
-            _levelText = MakeText(bubble, "Level", "-", 15, FontStyles.Bold, Vector2.zero, new Vector2(34f, 34f));
-            _levelText.alignment = TextAlignmentOptions.Center;
-            MakeText(panel, "LevelCaption", Localization.Ui(Route, "level"), 12, FontStyles.Italic, new Vector2(134f, -54f), new Vector2(60f, 34f));
+            RectTransform bar = MakePanel(_safeArea, "TopBar", new Vector2(0f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -MARGIN), Vector2.zero);
+            bar.anchorMax = new Vector2(1f, 1f);
+            bar.sizeDelta = new Vector2(-2f * MARGIN, TOPBAR_HEIGHT);
+            _topBar = bar;
 
-            // The ultimate: the passive, always on, pulsing once unlocked.
-            _ultimate = MakePanel(_safeArea, "Ultimate", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -16f), new Vector2(260f, 56f));
-            RectTransform ultimateSquare = MakeImage(_ultimate, "Square", new Vector2(8f, -8f), new Vector2(40f, 40f), SquareBack);
+            // Profile: portrait, name, then level bubble, the word « level » and the class.
+            RectTransform profile = MakeContainer(bar, "Profile", new Vector2(6f, -6f), new Vector2(PROFILE_WIDTH, TOPBAR_HEIGHT - 12f));
+            RectTransform portrait = MakeImage(profile, "Portrait", Vector2.zero, new Vector2(44f, 44f), SquareBack);
+            MakeText(portrait, "PortraitLabel", Localization.Ui(Route, "portrait"), 12, FontStyles.Italic, Vector2.zero, new Vector2(44f, 44f)).alignment = TextAlignmentOptions.Center;
+            MakeText(profile, "Name", Route != null ? Route.contactName : "", 16, FontStyles.Bold, new Vector2(52f, 0f), new Vector2(210f, 20f));
+            RectTransform bubble = MakeImage(profile, "LevelBubble", new Vector2(52f, -22f), new Vector2(22f, 22f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
+            _levelText = MakeText(bubble, "Level", "-", 13, FontStyles.Bold, Vector2.zero, new Vector2(22f, 22f));
+            _levelText.alignment = TextAlignmentOptions.Center;
+            _levelCaption = MakeText(profile, "LevelCaption", Localization.Ui(Route, "level"), 12, FontStyles.Italic, new Vector2(80f, -22f), new Vector2(52f, 22f));
+            _classText = MakeText(profile, "Class", Localization.Ui(Route, "no-class"), 12, FontStyles.Normal, new Vector2(134f, -22f), new Vector2(PROFILE_WIDTH - 134f, 22f));
+            _classText.overflowMode = TextOverflowModes.Ellipsis;
+
+            // The ultimate: the passive, always on, pulsing once unlocked, in the centre of the band.
+            _ultimate = MakeContainer(bar, "Ultimate", new Vector2(0f, -8f), new Vector2(ULTIMATE_WIDTH, 40f));
+            _ultimate.anchorMin = _ultimate.anchorMax = new Vector2(0.5f, 1f);
+            _ultimate.pivot = new Vector2(0.5f, 1f);
+            RectTransform ultimateSquare = MakeImage(_ultimate, "Square", Vector2.zero, new Vector2(40f, 40f), SquareBack);
             RectTransform inner = MakeImage(ultimateSquare, "Inner", new Vector2(4f, -4f), new Vector2(32f, 32f), SlotEmpty);
             _ultimateInner = inner.GetComponent<Image>();
             _ultimateInner.raycastTarget = false;
-            TMP_Text caption = MakeText(_ultimate, "Caption", Localization.Ui(Route, "ultimate"), 12, FontStyles.Bold, new Vector2(56f, -8f), new Vector2(170f, 16f));
+            TMP_Text caption = MakeText(_ultimate, "Caption", Localization.Ui(Route, "ultimate"), 12, FontStyles.Bold, new Vector2(48f, 0f), new Vector2(170f, 18f));
             caption.color = SectionColor;
-            _ultimateLabel = MakeText(_ultimate, "Label", Localization.Ui(Route, "ultimate-locked"), 13, FontStyles.Italic, new Vector2(56f, -26f), new Vector2(170f, 22f));
+            _ultimateLabel = MakeText(_ultimate, "Label", Localization.Ui(Route, "ultimate-locked"), 13, FontStyles.Italic, new Vector2(48f, -18f), new Vector2(170f, 22f));
             _ultimateLabel.color = SectionColor;
             inner.gameObject.SetActive(false);
             AddHover(ultimateSquare.gameObject, () => _ultimateInner.gameObject.activeSelf ? _ultimateTooltip : null, ultimateSquare, TooltipSide.Below);
 
-            // Traits: a vertical list of names under the ultimate, growing along the route.
-            _traitsPanel = MakePanel(_safeArea, "Traits", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-16f, -16f), new Vector2(240f, 30f));
-            TMP_Text traitsCaption = MakeText(_traitsPanel, "Caption", Localization.Ui(Route, "traits"), 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
+            // Traits: the caption, then one dot per trait, growing along the route, on the right of the band.
+            RectTransform traits = MakeContainer(bar, "Traits", new Vector2(-6f, -6f), new Vector2(TRAITS_WIDTH, TOPBAR_HEIGHT - 12f));
+            traits.anchorMin = traits.anchorMax = new Vector2(1f, 1f);
+            traits.pivot = new Vector2(1f, 1f);
+            TMP_Text traitsCaption = MakeText(traits, "Caption", Localization.Ui(Route, "traits"), 12, FontStyles.Bold, Vector2.zero, new Vector2(TRAITS_WIDTH, 18f));
             traitsCaption.color = SectionColor;
-            _traitsContent = MakeContainer(_traitsPanel, "Rows", new Vector2(8f, -24f), new Vector2(224f, 0f));
+            _traitsContent = MakeContainer(traits, "Dots", new Vector2(0f, -24f), new Vector2(TRAITS_WIDTH, TRAIT_DOT));
+            LayoutTopBar();
+        }
+
+        /// <summary>
+        /// Fits the three sections of the top band to its width: the passive stays centred while there
+        /// is room, otherwise it follows the profile; on a narrow band (small phone) the profile drops
+        /// the word « level » and the class is shortened with an ellipsis rather than overlapping.
+        /// </summary>
+        private void LayoutTopBar()
+        {
+            _topLaidOutWidth = _topBar.rect.width;
+            float inner = _topBar.rect.width - 12f;
+            float profileWidth = Mathf.Clamp(inner - ULTIMATE_WIDTH - TRAITS_WIDTH - 2f * SECTION_GAP, PROFILE_MIN_WIDTH, PROFILE_WIDTH);
+            bool narrow = profileWidth < PROFILE_WIDTH;
+            _levelCaption.gameObject.SetActive(!narrow);
+            float classX = narrow ? 80f : 134f;
+            _classText.rectTransform.anchoredPosition = new Vector2(classX, -22f);
+            _classText.rectTransform.sizeDelta = new Vector2(profileWidth - classX, 22f);
+
+            // Centred on the band, but never closer to the profile than the gap (offset from the band centre).
+            float profileRight = 6f + profileWidth + SECTION_GAP;
+            float centredLeft = _topBar.rect.width * 0.5f - ULTIMATE_WIDTH * 0.5f;
+            float left = Mathf.Max(centredLeft, profileRight);
+            _ultimate.anchoredPosition = new Vector2(left - centredLeft, -8f);
         }
 
         /// <summary>
@@ -355,7 +384,7 @@ namespace GGS.Resume.UI
         /// </summary>
         private void BuildHint()
         {
-            RectTransform hint = MakePanel(_safeArea, "Hint", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 10f + HOTBAR_HEIGHT + 8f), new Vector2(420f, 28f));
+            RectTransform hint = MakePanel(_safeArea, "Hint", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, MARGIN + HOTBAR_HEIGHT + 8f), new Vector2(420f, 28f));
             _hintGroup = hint.gameObject.AddComponent<CanvasGroup>();
             _hintGroup.blocksRaycasts = false;
             TMP_Text text = MakeText(hint, "Text", Localization.Ui(Route, "hint"), 13, FontStyles.Italic, Vector2.zero, new Vector2(420f, 28f));
@@ -363,7 +392,7 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// Builds the bottom band: the hotbar of usable skills, where the attacks come from.
+        /// Builds the bottom band: the bar of skills with their gauges, where the attacks come from.
         /// </summary>
         private void BuildHotbar()
         {
@@ -373,40 +402,31 @@ namespace GGS.Resume.UI
             _hotbar.anchorMin = new Vector2(0f, 0f);
             _hotbar.anchorMax = new Vector2(1f, 0f);
             _hotbar.pivot = new Vector2(0.5f, 0f);
-            _hotbar.anchoredPosition = new Vector2(0f, 10f);
-            _hotbar.sizeDelta = new Vector2(-32f, HOTBAR_HEIGHT);
+            _hotbar.anchoredPosition = new Vector2(0f, MARGIN);
+            _hotbar.sizeDelta = new Vector2(-2f * MARGIN, HOTBAR_HEIGHT);
             go.GetComponent<Image>().color = PanelColor;
 
             _hotbarContent = MakeContainer(_hotbar, "Squares", Vector2.zero, Vector2.zero);
             _hotbarContent.anchorMin = _hotbarContent.anchorMax = new Vector2(0.5f, 0f);
             _hotbarContent.pivot = new Vector2(0.5f, 0f);
-            _hotbarContent.anchoredPosition = new Vector2(0f, 8f);
+            // The squares sit on top of their gauges, inside the band.
+            _hotbarContent.anchoredPosition = new Vector2(0f, 8f + GAUGE_GAP + GAUGE_HEIGHT);
         }
 
         /// <summary>
-        /// Builds the right column: the progression list, sorted by mastery.
-        /// </summary>
-        private void BuildList()
-        {
-            RectTransform list = MakePanel(_safeArea, "SkillList", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(16f, -120f), new Vector2(LIST_WIDTH, 30f + _expectedSkills * ROW_HEIGHT + 8f));
-            TMP_Text caption = MakeText(list, "Caption", Localization.Ui(Route, "skills"), 12, FontStyles.Bold, new Vector2(8f, -6f), new Vector2(200f, 16f));
-            caption.color = SectionColor;
-            _listContent = MakeContainer(list, "Rows", new Vector2(8f, -28f), new Vector2(LIST_WIDTH - 16f, _expectedSkills * ROW_HEIGHT));
-        }
-
-        /// <summary>
-        /// Builds the stop banner (top-right) and the shared tooltip.
+        /// Builds the stop banner (centre, under the top band) and the shared tooltip.
         /// </summary>
         private void BuildBannerAndTooltip()
         {
-            RectTransform banner = MakePanel(_safeArea, "Banner", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -80f), new Vector2(LIST_WIDTH + 70f, 64f));
+            RectTransform banner = MakePanel(_safeArea, "Banner", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -(MARGIN + TOPBAR_HEIGHT + 8f)), new Vector2(BANNER_WIDTH, 64f));
             _bannerGroup = banner.gameObject.AddComponent<CanvasGroup>();
             _bannerGroup.alpha = 0f;
-            _bannerTitle = MakeText(banner, "Title", "", 15, FontStyles.Bold, new Vector2(0f, -8f), new Vector2(LIST_WIDTH - 10f, 26f));
+            _bannerGroup.blocksRaycasts = false;
+            _bannerTitle = MakeText(banner, "Title", "", 15, FontStyles.Bold, new Vector2(0f, -8f), new Vector2(BANNER_WIDTH - 10f, 26f));
             _bannerTitle.alignment = TextAlignmentOptions.Center;
             _bannerTitle.textWrappingMode = TextWrappingModes.Normal;
             SetStretch(_bannerTitle.rectTransform, -6f, 30f);
-            _bannerYears = MakeText(banner, "Years", "", 12, FontStyles.Normal, new Vector2(0f, -38f), new Vector2(LIST_WIDTH - 10f, 20f));
+            _bannerYears = MakeText(banner, "Years", "", 12, FontStyles.Normal, new Vector2(0f, -38f), new Vector2(BANNER_WIDTH - 10f, 20f));
             _bannerYears.alignment = TextAlignmentOptions.Center;
             SetStretch(_bannerYears.rectTransform, -38f, 20f);
 
@@ -418,7 +438,8 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// Creates a hotbar square for a skill (its inner square stands for the future logo).
+        /// Creates a square of the skill bar (its inner square stands for the future logo), with the
+        /// mastery gauge under it and a halo behind the gauge for the full state.
         /// </summary>
         /// <param name="mastery">Skill to represent.</param>
         /// <returns>The square.</returns>
@@ -431,88 +452,74 @@ namespace GGS.Resume.UI
 
             RectTransform inner = MakeImage(rect, "Logo", new Vector2(4f, -4f), new Vector2(SQUARE_SIZE - 8f, SQUARE_SIZE - 8f), WithAlpha(color, INNER_IDLE_ALPHA));
             inner.GetComponent<Image>().raycastTarget = false;
-            TMP_Text label = MakeText(rect, "Label", Localization.Text(mastery.Definition.shortLabel), 11, FontStyles.Bold, new Vector2(2f, -2f), new Vector2(SQUARE_SIZE - 4f, SQUARE_SIZE - 4f));
+            // The label may use the gap on each side: at 12 px, a nine-letter word (« Formation ») is wider
+            // than the square. Regular weight (narrower than bold); lines break between words only.
+            TMP_Text label = MakeText(rect, "Label", Localization.Text(mastery.Definition.shortLabel), 12, FontStyles.Normal, new Vector2(-SQUARE_GAP * 0.5f, -2f), new Vector2(SQUARE_SIZE + SQUARE_GAP, SQUARE_SIZE - 4f));
             label.alignment = TextAlignmentOptions.Center;
             label.textWrappingMode = TextWrappingModes.Normal;
 
-            HotbarSquare square = new HotbarSquare { Mastery = mastery, Rect = rect, Frame = rect.GetComponent<Image>(), Inner = inner.GetComponent<Image>(), Label = label };
+            // The gauge under the square: halo, empty track, then the fill growing from the left.
+            float gaugeTop = -(SQUARE_SIZE + GAUGE_GAP);
+            RectTransform glow = MakeImage(rect, "GaugeGlow", new Vector2(-2f, gaugeTop + 2f), new Vector2(SQUARE_SIZE + 4f, GAUGE_HEIGHT + 4f), Transparent);
+            glow.GetComponent<Image>().raycastTarget = false;
+            MakeImage(rect, "GaugeBack", new Vector2(0f, gaugeTop), new Vector2(SQUARE_SIZE, GAUGE_HEIGHT), SlotEmpty).GetComponent<Image>().raycastTarget = false;
+            RectTransform fill = MakeImage(rect, "GaugeFill", new Vector2(0f, gaugeTop), new Vector2(0f, GAUGE_HEIGHT), color);
+            fill.GetComponent<Image>().raycastTarget = false;
+
+            HotbarSquare square = new HotbarSquare
+            {
+                Mastery = mastery, Rect = rect, Frame = rect.GetComponent<Image>(), Inner = inner.GetComponent<Image>(), Label = label,
+                GaugeFill = fill.GetComponent<Image>(), GaugeGlow = glow.GetComponent<Image>()
+            };
             AddHover(rect.gameObject, () => TooltipFor(square.Mastery), rect, TooltipSide.Above);
             return square;
         }
 
         /// <summary>
-        /// Creates a progression row for a skill: name above, gauge below, halo behind for the full state.
+        /// Updates the gauge of a square from its shown points; a full gauge switches to the green pulse.
         /// </summary>
-        /// <param name="mastery">Skill to represent.</param>
-        /// <returns>The row.</returns>
-        private SkillRow MakeRow(SkillMastery mastery)
+        /// <param name="square">Square to refresh.</param>
+        private void RefreshSquare(HotbarSquare square)
         {
-            Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
-            float rowWidth = LIST_WIDTH - 16f;
-            RectTransform rect = MakeContainer(_listContent, "Row " + mastery.Definition.id, Vector2.zero, new Vector2(rowWidth, ROW_HEIGHT));
-            Image hit = rect.gameObject.AddComponent<Image>();
-            hit.color = Transparent;
-
-            TMP_Text label = MakeText(rect, "Label", Localization.Text(mastery.Definition.label), 12, FontStyles.Normal, new Vector2(0f, 0f), new Vector2(rowWidth, 16f));
-            RectTransform glow = MakeImage(rect, "GaugeGlow", new Vector2(-2f, -16f), new Vector2(rowWidth + 4f, GAUGE_HEIGHT + 4f), Transparent);
-            glow.GetComponent<Image>().raycastTarget = false;
-            RectTransform back = MakeImage(rect, "GaugeBack", new Vector2(0f, -18f), new Vector2(rowWidth, GAUGE_HEIGHT), SlotEmpty);
-            back.GetComponent<Image>().raycastTarget = false;
-            RectTransform fill = MakeImage(rect, "GaugeFill", new Vector2(0f, -18f), new Vector2(0f, GAUGE_HEIGHT), color);
-            fill.GetComponent<Image>().raycastTarget = false;
-
-            SkillRow row = new SkillRow
-            {
-                Mastery = mastery, Rect = rect, Label = label, Fill = fill.GetComponent<Image>(),
-                Back = back.GetComponent<Image>(), Glow = glow.GetComponent<Image>(), FillWidth = rowWidth
-            };
-            AddHover(rect.gameObject, () => TooltipFor(row.Mastery), rect, TooltipSide.Below);
-            return row;
+            // No number (decision of 2026-09-10): the gauge alone tells the mastery.
+            float ratio = Mathf.Clamp01(square.ShownPoints / (float)_masteryScale);
+            square.GaugeFill.rectTransform.sizeDelta = new Vector2(SQUARE_SIZE * ratio, GAUGE_HEIGHT);
+            square.Full = square.ShownPoints >= _masteryScale;
+            if (square.Full) return;
+            square.GaugeFill.color = GreyboxPalette.ForSkill(square.Mastery.Definition.category);
+            square.GaugeGlow.color = Transparent;
+            square.Frame.color = SquareBack;
         }
 
         /// <summary>
-        /// Updates the gauge of a row from its shown points; a full gauge switches to the green pulse.
-        /// </summary>
-        /// <param name="row">Row to refresh.</param>
-        private void RefreshRow(SkillRow row)
-        {
-            // No number on the row (decision of 2026-09-10): the gauge alone tells the mastery.
-            float ratio = Mathf.Clamp01(row.ShownPoints / (float)_masteryScale);
-            row.Fill.rectTransform.sizeDelta = new Vector2(row.FillWidth * ratio, GAUGE_HEIGHT);
-            row.Full = row.ShownPoints >= _masteryScale;
-            if (row.Full) return;
-            row.Fill.color = GreyboxPalette.ForSkill(row.Mastery.Definition.category);
-            row.Glow.color = Transparent;
-            row.Label.color = Color.white;
-        }
-
-        /// <summary>
-        /// Stable sort of the rows by shown points: on a tie the previous order is kept, so only real overtakes move.
+        /// Stable sort of the squares by shown points, most exercised first: on a tie the previous order
+        /// is kept, so only real overtakes move; the squares then slide to their new slots.
         /// </summary>
         private void Resort()
         {
             // Insertion sort, stable, on a list that is almost sorted already.
-            for (int i = 1; i < _rows.Count; i++)
+            for (int i = 1; i < _squares.Count; i++)
             {
-                SkillRow current = _rows[i];
+                HotbarSquare current = _squares[i];
                 int j = i - 1;
-                while (j >= 0 && _rows[j].ShownPoints < current.ShownPoints)
+                while (j >= 0 && _squares[j].ShownPoints < current.ShownPoints)
                 {
-                    _rows[j + 1] = _rows[j];
+                    _squares[j + 1] = _squares[j];
                     j--;
                 }
-                _rows[j + 1] = current;
+                _squares[j + 1] = current;
             }
-            for (int i = 0; i < _rows.Count; i++) _rows[i].TargetY = -i * ROW_HEIGHT;
+            LayoutHotbar(null);
         }
 
         /// <summary>
-        /// Centres the hotbar squares in acquisition order; the row shrinks to fit narrow screens.
+        /// Centres the squares in their sorted order; the row shrinks to fit narrow screens.
         /// </summary>
         /// <param name="snapNew">Square to place immediately at its slot (no slide), or null.</param>
         private void LayoutHotbar(HotbarSquare snapNew)
         {
             float cell = SQUARE_SIZE + SQUARE_GAP;
+            _laidOutWidth = _hotbar.rect.width;
             float available = _hotbar.rect.width - 24f;
             float scale = Mathf.Min(1f, available / (Mathf.Max(_expectedSkills, 1) * cell));
             _hotbarContent.localScale = Vector3.one * scale;
@@ -608,8 +615,8 @@ namespace GGS.Resume.UI
         {
             yield return null; // let PlayerProgress apply the gains first (handler order is not guaranteed)
 
-            // Make sure every involved skill has its square and its row.
-            List<(SkillMastery mastery, HotbarSquare square, SkillRow row)> involved = new List<(SkillMastery, HotbarSquare, SkillRow)>();
+            // Make sure every involved skill has its square (new ones arrive empty, at the end of the bar).
+            List<(SkillMastery mastery, HotbarSquare square)> involved = new List<(SkillMastery, HotbarSquare)>();
             foreach (string skillId in project.skillIds)
             {
                 SkillMastery mastery = FindMastery(skillId);
@@ -620,24 +627,17 @@ namespace GGS.Resume.UI
                     _squares.Add(square);
                     _squaresById.Add(skillId, square);
                     LayoutHotbar(square);
+                    RefreshSquare(square);
                     StartCoroutine(Scale(square.Rect, 0f, 1f, 0.2f));
                 }
-                if (!_rowsById.TryGetValue(skillId, out SkillRow row))
-                {
-                    row = MakeRow(mastery);
-                    _rows.Add(row);
-                    _rowsById.Add(skillId, row);
-                    row.TargetY = -(_rows.Count - 1) * ROW_HEIGHT;
-                    row.Rect.anchoredPosition = new Vector2(0f, row.TargetY);
-                }
-                involved.Add((mastery, square, row));
+                involved.Add((mastery, square));
             }
             if (involved.Count == 0) yield break;
 
             // Phase 1: the attacks, one by one; each hit paints its share of the white block with the skill colour.
             int landed = 0;
             int count = involved.Count;
-            foreach ((SkillMastery mastery, HotbarSquare square, SkillRow _) in involved)
+            foreach ((SkillMastery mastery, HotbarSquare square) in involved)
             {
                 Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
                 StartCoroutine(Attack(mastery, square, projectPosition, () =>
@@ -649,19 +649,19 @@ namespace GGS.Resume.UI
             }
             while (landed < count) yield return null;
 
-            // Phase 2: the full block leaves the lane and flies to the skills list; on arrival every involved row gains its point.
+            // Phase 2: the full block leaves the lane and flies to the skill bar; on arrival every involved square gains its point.
             yield return new WaitForSeconds(0.15f);
             yield return CarryProject(project, involved, projectPosition);
         }
 
         /// <summary>
-        /// The coloured project block flies from the lane to the skills list, then each involved row takes
+        /// The coloured project block flies from the lane to the skill bar, then each involved square takes
         /// its point, one after the other, the gauge growing and the ranking moving if needed.
         /// </summary>
         /// <param name="project">Project carried.</param>
-        /// <param name="involved">Skills of the project with their rows.</param>
+        /// <param name="involved">Skills of the project with their squares.</param>
         /// <param name="projectPosition">World position of the project pickup.</param>
-        private IEnumerator CarryProject(ProjectDefinition project, List<(SkillMastery mastery, HotbarSquare square, SkillRow row)> involved, Vector3 projectPosition)
+        private IEnumerator CarryProject(ProjectDefinition project, List<(SkillMastery mastery, HotbarSquare square)> involved, Vector3 projectPosition)
         {
             world.HideProject(project);
 
@@ -674,13 +674,13 @@ namespace GGS.Resume.UI
                 part.GetComponent<Image>().raycastTarget = false;
             }
 
-            // Flight towards the list, accelerating, then a burst on arrival.
+            // Flight towards the bar, accelerating, then a burst on arrival.
             float speed = POINT_SPEED;
             float safety = 1.5f;
             while (safety > 0f)
             {
                 safety -= Time.deltaTime;
-                Vector2 to = ListAnchor();
+                Vector2 to = BarAnchor();
                 Vector2 position = flyer.anchoredPosition;
                 if (Vector2.Distance(position, to) < 6f) break;
                 speed += POINT_SPEED * 2.5f * Time.deltaTime;
@@ -690,24 +690,24 @@ namespace GGS.Resume.UI
             StartCoroutine(Burst(flyer.anchoredPosition, Color.white));
             Destroy(flyer.gameObject);
 
-            // Every involved row takes its point, one after the other.
-            foreach ((SkillMastery mastery, HotbarSquare _, SkillRow row) in involved)
+            // Every involved square takes its point, one after the other.
+            foreach ((SkillMastery mastery, HotbarSquare square) in involved)
             {
-                if (row.Rect == null) continue; // removed by a walk back while the block was in flight
-                row.ShownPoints = Mathf.Min(row.ShownPoints + 1, mastery.Points);
-                RefreshRow(row);
-                StartCoroutine(Punch(row.Fill.rectTransform, 0.12f, 0.25f));
+                if (square.Rect == null) continue; // removed by a walk back while the block was in flight
+                square.ShownPoints = Mathf.Min(square.ShownPoints + 1, mastery.Points);
+                RefreshSquare(square);
+                StartCoroutine(Punch(square.Rect, 0.12f, 0.25f));
                 Resort();
                 yield return new WaitForSeconds(POINT_STAGGER * 0.6f);
             }
         }
 
         /// <summary>
-        /// Canvas position where the carried blocks land: the top centre of the skills list.
+        /// Canvas position where the carried blocks land: the top centre of the skill bar.
         /// </summary>
-        private Vector2 ListAnchor()
+        private Vector2 BarAnchor()
         {
-            Vector3 world = _listContent.TransformPoint(new Vector3((LIST_WIDTH - 16f) * 0.5f, 8f, 0f));
+            Vector3 world = _hotbar.TransformPoint(new Vector3(_hotbar.rect.center.x, _hotbar.rect.yMax, 0f));
             return _canvasRect.InverseTransformPoint(world);
         }
 
@@ -747,37 +747,30 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// A point flies from its row back to the project; empty rows and squares vanish.
+        /// A point flies from the gauge of its square back to the project; empty squares vanish.
         /// </summary>
         private IEnumerator UndoSkill(string skillId, Vector3 projectPosition)
         {
-            if (!_rowsById.TryGetValue(skillId, out SkillRow row)) yield break;
-            Color color = GreyboxPalette.ForSkill(row.Mastery.Definition.category);
-            row.ShownPoints = Mathf.Max(0, row.ShownPoints - 1);
-            RefreshRow(row);
-            yield return TravelTracking("Return " + skillId, RowCentre(row), () => WorldToCanvas(projectPosition), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), POINT_SPEED);
+            if (!_squaresById.TryGetValue(skillId, out HotbarSquare square)) yield break;
+            Color color = GreyboxPalette.ForSkill(square.Mastery.Definition.category);
+            square.ShownPoints = Mathf.Max(0, square.ShownPoints - 1);
+            RefreshSquare(square);
+            yield return TravelTracking("Return " + skillId, GaugeCentre(square), () => WorldToCanvas(projectPosition), new Vector2(10f, 10f), Color.Lerp(color, Color.white, 0.4f), POINT_SPEED);
 
             // A skill back to zero leaves the sheet entirely. Two undo flights of the same skill can overlap
-            // (two projects undone in a row): only the first one still registered removes the row.
-            bool stillRegistered = _rowsById.TryGetValue(skillId, out SkillRow registered) && registered == row;
-            if (row.ShownPoints == 0 && stillRegistered && row.Rect != null)
+            // (two projects undone in a row): only the first one still registered removes the square.
+            bool stillRegistered = _squaresById.TryGetValue(skillId, out HotbarSquare registered) && registered == square;
+            if (square.ShownPoints == 0 && stillRegistered && square.Rect != null)
             {
-                _rows.Remove(row);
-                _rowsById.Remove(skillId);
-                Destroy(row.Rect.gameObject);
-                if (_squaresById.TryGetValue(skillId, out HotbarSquare square))
-                {
-                    _squares.Remove(square);
-                    _squaresById.Remove(skillId);
-                    Destroy(square.Rect.gameObject);
-                    LayoutHotbar(null);
-                }
+                _squares.Remove(square);
+                _squaresById.Remove(skillId);
+                Destroy(square.Rect.gameObject);
             }
             Resort();
         }
 
         /// <summary>
-        /// A reward was crossed forward: trait to the list, passive to the ultimate, class to the header.
+        /// A reward was crossed forward: trait to a new dot, passive to the ultimate, class to the profile.
         /// </summary>
         private void OnRewardCollected(RewardDefinition reward, Vector3 worldPosition, StopDefinition stop)
         {
@@ -797,22 +790,21 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// A reward was crossed backward: remove the trait line, switch the ultimate off, or refresh the class.
+        /// A reward was crossed backward: remove the trait dot, switch the ultimate off, or refresh the class.
         /// </summary>
         private void OnRewardLost(RewardDefinition reward, Vector3 worldPosition, StopDefinition stop)
         {
             switch (reward.kind)
             {
                 case RewardKind.Trait:
-                    // Remove the matching line(s) and close the gap.
+                    // Remove the matching dot(s) and close the gap.
                     for (int i = _traits.Count - 1; i >= 0; i--)
                     {
                         if (_traits[i].Id != reward.id) continue;
                         Destroy(_traits[i].Rect.gameObject);
                         _traits.RemoveAt(i);
                     }
-                    for (int i = 0; i < _traits.Count; i++) _traits[i].Rect.anchoredPosition = new Vector2(0f, -i * TRAIT_ROW_HEIGHT);
-                    _traitsPanel.sizeDelta = new Vector2(240f, 30f + _traits.Count * TRAIT_ROW_HEIGHT);
+                    for (int i = 0; i < _traits.Count; i++) _traits[i].Rect.anchoredPosition = new Vector2(i * TRAIT_STEP, 0f);
                     break;
                 case RewardKind.Passive:
                     _ultimateId = null;
@@ -829,23 +821,18 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// A trait flies from the world to a new line of the trait list.
+        /// A trait flies from the world to a new dot of the top band; its name and description show on hover or touch.
         /// </summary>
         private IEnumerator FlyTrait(RewardDefinition reward, Vector3 worldPosition)
         {
-            // Create the line hidden, sized into the panel, then reveal it when the flight lands.
-            RectTransform rect = MakeContainer(_traitsContent, "Trait " + reward.id, new Vector2(0f, -_traits.Count * TRAIT_ROW_HEIGHT), new Vector2(224f, TRAIT_ROW_HEIGHT));
-            Image hit = rect.gameObject.AddComponent<Image>();
-            hit.color = Transparent;
-            TMP_Text label = MakeText(rect, "Label", Localization.Text(reward.label), 12, FontStyles.Normal, new Vector2(18f, 0f), new Vector2(200f, TRAIT_ROW_HEIGHT));
-            MakeImage(rect, "Dot", new Vector2(2f, -5f), new Vector2(10f, 10f), GreyboxPalette.ForReward(RewardKind.Trait, reward.category)).GetComponent<Image>().raycastTarget = false;
+            // Create the dot hidden, after the others, then reveal it when the flight lands.
+            RectTransform rect = MakeImage(_traitsContent, "Trait " + reward.id, new Vector2(_traits.Count * TRAIT_STEP, 0f), new Vector2(TRAIT_DOT, TRAIT_DOT), GreyboxPalette.ForReward(RewardKind.Trait, reward.category));
             rect.gameObject.SetActive(false);
-            _traits.Add(new TraitRow { Id = reward.id, Rect = rect, Label = label });
-            _traitsPanel.sizeDelta = new Vector2(240f, 30f + _traits.Count * TRAIT_ROW_HEIGHT);
+            _traits.Add(new TraitDot { Id = reward.id, Rect = rect });
             AddHover(rect.gameObject, () => TooltipFor(reward), rect, TooltipSide.Below);
 
-            Vector3 lineWorld = _traitsContent.TransformPoint(new Vector3(8f, rect.anchoredPosition.y - TRAIT_ROW_HEIGHT * 0.5f, 0f));
-            Vector2 end = _canvasRect.InverseTransformPoint(lineWorld);
+            Vector3 dotWorld = _traitsContent.TransformPoint(new Vector3(rect.anchoredPosition.x + TRAIT_DOT * 0.5f, -TRAIT_DOT * 0.5f, 0f));
+            Vector2 end = _canvasRect.InverseTransformPoint(dotWorld);
             yield return Travel("Flying " + reward.id, WorldToCanvas(worldPosition), end, new Vector2(16f, 16f), GreyboxPalette.ForReward(RewardKind.Trait, reward.category), 0.6f, 60f);
             if (rect == null) yield break; // taken back by a walk back while in flight
             rect.gameObject.SetActive(true);
@@ -893,11 +880,11 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// Canvas position of the centre of a row, at its target slot.
+        /// Canvas position of the centre of the gauge of a square, at its target slot.
         /// </summary>
-        private Vector2 RowCentre(SkillRow row)
+        private Vector2 GaugeCentre(HotbarSquare square)
         {
-            Vector3 world = _listContent.TransformPoint(new Vector3((LIST_WIDTH - 16f) * 0.5f, row.TargetY - ROW_HEIGHT * 0.5f, 0f));
+            Vector3 world = _hotbarContent.TransformPoint(new Vector3(square.TargetX, -(GAUGE_GAP + GAUGE_HEIGHT * 0.5f), 0f));
             return _canvasRect.InverseTransformPoint(world);
         }
 

@@ -125,11 +125,11 @@ namespace GGS.Resume.Tests
             CharacterSheetHud hud = Object.FindFirstObjectByType<CharacterSheetHud>();
             Assert.IsNotNull(hud, "CharacterSheetHud missing in GA_GreyboxScene");
             var bar = hud.BarOrder();
-            Assert.AreEqual(expectedSkills, bar.Count, "every distinct skill has a row in the list");
+            Assert.AreEqual(expectedSkills, bar.Count, "every distinct skill has a square in the bar");
             for (int i = 1; i < bar.Count; i++)
                 Assert.GreaterOrEqual(bar[i - 1].points, bar[i].points, $"bar must be sorted by mastery at index {i}");
             foreach ((string id, int points) in bar)
-                Assert.AreEqual(progress.MasteryOf(id), points, $"row of {id} shows its mastery");
+                Assert.AreEqual(progress.MasteryOf(id), points, $"the gauge of {id} shows its mastery");
             int best = 0;
             foreach (SkillMastery mastery in progress.Skills) best = Mathf.Max(best, mastery.Points);
             Assert.AreEqual(best, bar[0].points, "the most exercised skill leads the bar");
@@ -157,7 +157,7 @@ namespace GGS.Resume.Tests
             Assert.AreEqual(0, progress.Traits.Count, "no trait left after walking back");
             Assert.AreEqual(0, progress.Passives.Count, "no passive left after walking back");
             Assert.IsNull(progress.CurrentClass, "class reverted after walking back");
-            Assert.AreEqual(0, hud.BarOrder().Count, "the progression list is empty again");
+            Assert.AreEqual(0, hud.BarOrder().Count, "the skill bar is empty again");
 
         }
 

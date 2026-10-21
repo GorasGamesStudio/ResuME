@@ -20,10 +20,10 @@ namespace GGS.Resume.UI
         public static readonly Vector2 REFERENCE_RESOLUTION = new Vector2(1280f, 720f);
 
         /// <summary>
-        /// Smallest number of CSS pixels per reference pixel: a 12 px reference text stays at about
-        /// 10 CSS pixels, the floor of comfortable reading on a phone.
+        /// Smallest number of CSS pixels per reference pixel: the smallest 12 px reference text stays at
+        /// 12 CSS pixels at least, comfortable on a phone (raised from 0.85 with the compact HUD, D29).
         /// </summary>
-        public const float MIN_CSS_SCALE = 0.85f;
+        public const float MIN_CSS_SCALE = 1f;
 
         private Canvas _canvas;
 
