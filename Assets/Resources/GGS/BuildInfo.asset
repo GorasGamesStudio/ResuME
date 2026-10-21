@@ -15,10 +15,10 @@ MonoBehaviour:
   version:
     Major: 0
     Minor: 3
-    Patch: 0
-    Build: 19
+    Patch: 1
+    Build: 20
   gitHash: unknown
   gitBranch: unknown
-  buildDateUtc: 2026-10-20 19:47 UTC
+  buildDateUtc: 2026-10-21 08:32 UTC
   platform: WebGL
   developmentBuild: 0
