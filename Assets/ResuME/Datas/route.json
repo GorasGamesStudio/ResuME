@@ -116,6 +116,7 @@
   "skills": [
     {
       "id": "unity",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-unity.png",
       "label": {
         "fr": "Unity 3D",
         "en": "Unity 3D"
@@ -132,6 +133,7 @@
     },
     {
       "id": "csharp",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-csharp.png",
       "label": {
         "fr": "C#",
         "en": "C#"
@@ -148,6 +150,7 @@
     },
     {
       "id": "cpp",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-cpp.png",
       "label": {
         "fr": "C / C++",
         "en": "C / C++"
@@ -164,6 +167,7 @@
     },
     {
       "id": "game-design",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-game-design.png",
       "label": {
         "fr": "Conception de jeux vidéo",
         "en": "Game design"
@@ -180,6 +184,7 @@
     },
     {
       "id": "vr",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-vr.png",
       "label": {
         "fr": "Réalité virtuelle et augmentée",
         "en": "Virtual and augmented reality"
@@ -196,6 +201,7 @@
     },
     {
       "id": "maintenance",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-maintenance.png",
       "label": {
         "fr": "Maintenance & Support informatique",
         "en": "IT maintenance & support"
@@ -212,6 +218,7 @@
     },
     {
       "id": "installation",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-installation.png",
       "label": {
         "fr": "Installation matériel informatique",
         "en": "Hardware installation"
@@ -228,6 +235,7 @@
     },
     {
       "id": "formation",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-formation.png",
       "label": {
         "fr": "Formation & Accompagnement",
         "en": "Training & coaching"
@@ -244,6 +252,7 @@
     },
     {
       "id": "gestion-entreprise",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-gestion-entreprise.png",
       "label": {
         "fr": "Gestion d'entreprise",
         "en": "Business management"
@@ -260,6 +269,7 @@
     },
     {
       "id": "bases-donnees",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-bases-donnees.png",
       "label": {
         "fr": "Bases de données",
         "en": "Databases"
@@ -276,6 +286,7 @@
     },
     {
       "id": "dev-web",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-dev-web.png",
       "label": {
         "fr": "Développement web",
         "en": "Web development"
@@ -292,6 +303,7 @@
     },
     {
       "id": "ia",
+      "icon": "Assets/ResuME/Graphics/Sprites/Icons/skill-ia.png",
       "label": {
         "fr": "Intelligence artificielle",
         "en": "Artificial intelligence"

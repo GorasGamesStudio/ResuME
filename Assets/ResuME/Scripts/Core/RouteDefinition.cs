@@ -113,8 +113,10 @@ namespace GGS.Resume.Data
     {
         public string id;
         public LocalizedText label;
-        [Tooltip("Short label for the hotbar square, until the logos arrive.")]
+        [Tooltip("Short label for the hotbar square, shown only when the skill has no icon.")]
         public LocalizedText shortLabel;
+        [Tooltip("32 x 32 pixel-art icon of the skill bar square (provisional until the art pass).")]
+        public Sprite icon;
         public SkillCategory category;
         public LocalizedText description;
     }

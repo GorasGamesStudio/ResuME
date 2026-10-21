@@ -13,12 +13,14 @@ namespace GGS.Resume.UI
 {
     /// <summary>
     /// Greybox character profile built from code (uGUI, provisional until the art pass), laid out
-    /// « all in the bars » on every screen (decision D29): a band along the top with the profile
-    /// (portrait, name, level, class) on the left, the always-on passive in the centre and the traits
-    /// on the right, one dot per trait; the stop banner under it; at the bottom the bar of skills, one
-    /// square per skill with its mastery gauge under it, sorted by mastery, squares sliding when the
-    /// ranking changes; a full gauge pulses in Éric's greens. The middle of the screen stays free for
-    /// the scene. Gain sequence, in two strict phases: every skill of the project fires its attack,
+    /// « all in the bars » on every screen, icons for the everyday display and details on demand
+    /// (decisions D29 and D30): a one-line band along the top with the level, name and class on the
+    /// left, the always-on passive in the centre and one dot per trait on the right; the stop banner
+    /// under it; at the bottom the bar of skills, one icon square per skill with its mastery gauge
+    /// under it, sorted by mastery, squares sliding when the ranking changes, and a button that folds
+    /// out a drawer with the full names, gauges, traits and passive. A full gauge pulses in Éric's
+    /// greens. Hover or touch on any square, dot or the passive gives its details. The middle of the
+    /// screen stays free for the scene. Gain sequence, in two strict phases: every skill of the project fires its attack,
     /// each hit paints its colour into the white project block; once the block is full it flies
     /// itself to the bar, where every involved square gains its point. Walking back plays the
     /// reverse: points return to the project, empty squares vanish.
@@ -47,6 +49,7 @@ namespace GGS.Resume.UI
         {
             public string Id;
             public RectTransform Rect;
+            public LocalizedText Label;
         }
 
         /// <summary>Where a tooltip opens relative to its anchor.</summary>
@@ -56,25 +59,34 @@ namespace GGS.Resume.UI
 
         #region Fields
 
-        private const float SQUARE_SIZE = 52f;
-        private const float SQUARE_GAP = 8f;
+        private const float SQUARE_SIZE = 40f;
+        private const float SQUARE_GAP = 6f;
+        /// <summary>Size of a skill icon inside its square (the style bible's 32 x 32).</summary>
+        private const float ICON_SIZE = 32f;
         /// <summary>Gap between a square and its gauge, and height of the gauge.</summary>
-        private const float GAUGE_GAP = 4f;
-        private const float GAUGE_HEIGHT = 6f;
-        private const float HOTBAR_HEIGHT = SQUARE_SIZE + GAUGE_GAP + GAUGE_HEIGHT + 16f;
+        private const float GAUGE_GAP = 3f;
+        private const float GAUGE_HEIGHT = 4f;
+        /// <summary>Padding of the skill bar above and below its content.</summary>
+        private const float BAR_PADDING = 6f;
+        private const float HOTBAR_HEIGHT = BAR_PADDING + GAUGE_HEIGHT + GAUGE_GAP + SQUARE_SIZE + BAR_PADDING;
         /// <summary>Margin between the bands and the screen edges.</summary>
-        private const float MARGIN = 12f;
-        private const float TOPBAR_HEIGHT = 56f;
+        private const float MARGIN = 8f;
+        private const float TOPBAR_HEIGHT = 40f;
         /// <summary>Widths of the three sections of the top band, and the room kept between them.</summary>
-        private const float PROFILE_WIDTH = 270f;
-        private const float PROFILE_MIN_WIDTH = 200f;
-        private const float ULTIMATE_WIDTH = 220f;
-        private const float TRAITS_WIDTH = 170f;
+        private const float PROFILE_WIDTH = 330f;
+        private const float PROFILE_MIN_WIDTH = 220f;
+        private const float ULTIMATE_WIDTH = 190f;
+        private const float TRAITS_WIDTH = 160f;
         private const float SECTION_GAP = 16f;
         private const float BANNER_WIDTH = 320f;
         /// <summary>Size of a trait dot and distance from one dot to the next.</summary>
         private const float TRAIT_DOT = 14f;
         private const float TRAIT_STEP = 20f;
+        /// <summary>Drawer of details: column width, row heights and padding.</summary>
+        private const float DRAWER_COLUMN = 230f;
+        private const float DRAWER_ROW = 28f;
+        private const float DRAWER_LINE = 18f;
+        private const float DRAWER_PADDING = 10f;
         private const float SLIDE_SPEED = 10f;
         private const float ATTACK_STAGGER = 0.22f;
         private const float POINT_STAGGER = 0.2f;
@@ -108,8 +120,11 @@ namespace GGS.Resume.UI
         private RectTransform _hotbar;
         private RectTransform _hotbarContent;
         private RectTransform _topBar;
-        private TMP_Text _levelCaption;
         private RectTransform _traitsContent;
+        private RectTransform _detailsButton;
+        private RectTransform _drawer;
+        /// <summary>Canvas width the drawer was laid out for while open.</summary>
+        private float _drawerLaidOutWidth = -1f;
         /// <summary>Bar width the squares were laid out for: a change (resize, rotation) lays them out again.</summary>
         private float _laidOutWidth = -1f;
         /// <summary>Top band width its sections were laid out for.</summary>
@@ -161,6 +176,7 @@ namespace GGS.Resume.UI
             _masteryScale = route != null ? Mathf.Max(1, route.masteryScaleMax) : 20;
             BuildTopBar();
             BuildHotbar();
+            BuildDrawer();
             BuildBannerAndTooltip();
             BuildHint();
             Refresh();
@@ -225,6 +241,7 @@ namespace GGS.Resume.UI
             // A new bar width (window resized, phone turned) shrinks or grows the row of squares again.
             if (_hotbar != null && !Mathf.Approximately(_hotbar.rect.width, _laidOutWidth)) LayoutHotbar(null);
             if (_topBar != null && !Mathf.Approximately(_topBar.rect.width, _topLaidOutWidth)) LayoutTopBar();
+            if (_drawer != null && _drawer.gameObject.activeSelf && !Mathf.Approximately(_safeArea.rect.width, _drawerLaidOutWidth)) RefreshDrawer();
 
             // Squares slide towards their sorted slot: this is the swap animation.
             float k = 1f - Mathf.Exp(-SLIDE_SPEED * Time.deltaTime);
@@ -308,8 +325,9 @@ namespace GGS.Resume.UI
         }
 
         /// <summary>
-        /// Builds the top band, across the whole width: profile on the left, passive in the centre,
-        /// traits on the right.
+        /// Builds the one-line top band, across the whole width: level, name and class on the left,
+        /// the passive in the centre, the trait dots on the right. The words « level », « passive » and
+        /// « traits » live in the tooltips and in the drawer, not on the band (details on demand, D30).
         /// </summary>
         private void BuildTopBar()
         {
@@ -318,64 +336,56 @@ namespace GGS.Resume.UI
             bar.sizeDelta = new Vector2(-2f * MARGIN, TOPBAR_HEIGHT);
             _topBar = bar;
 
-            // Profile: portrait, name, then level bubble, the word « level » and the class.
-            RectTransform profile = MakeContainer(bar, "Profile", new Vector2(6f, -6f), new Vector2(PROFILE_WIDTH, TOPBAR_HEIGHT - 12f));
-            RectTransform portrait = MakeImage(profile, "Portrait", Vector2.zero, new Vector2(44f, 44f), SquareBack);
-            MakeText(portrait, "PortraitLabel", Localization.Ui(Route, "portrait"), 12, FontStyles.Italic, Vector2.zero, new Vector2(44f, 44f)).alignment = TextAlignmentOptions.Center;
-            MakeText(profile, "Name", Route != null ? Route.contactName : "", 16, FontStyles.Bold, new Vector2(52f, 0f), new Vector2(210f, 20f));
-            RectTransform bubble = MakeImage(profile, "LevelBubble", new Vector2(52f, -22f), new Vector2(22f, 22f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
-            _levelText = MakeText(bubble, "Level", "-", 13, FontStyles.Bold, Vector2.zero, new Vector2(22f, 22f));
+            // Profile: level bubble, name, class, on one line.
+            RectTransform profile = MakeContainer(bar, "Profile", new Vector2(8f, -8f), new Vector2(PROFILE_WIDTH, 24f));
+            RectTransform bubble = MakeImage(profile, "LevelBubble", Vector2.zero, new Vector2(24f, 24f), new Color(0.35f, 0.45f, 0.75f, 0.9f));
+            _levelText = MakeText(bubble, "Level", "-", 13, FontStyles.Bold, Vector2.zero, new Vector2(24f, 24f));
             _levelText.alignment = TextAlignmentOptions.Center;
-            _levelCaption = MakeText(profile, "LevelCaption", Localization.Ui(Route, "level"), 12, FontStyles.Italic, new Vector2(80f, -22f), new Vector2(52f, 22f));
-            _classText = MakeText(profile, "Class", Localization.Ui(Route, "no-class"), 12, FontStyles.Normal, new Vector2(134f, -22f), new Vector2(PROFILE_WIDTH - 134f, 22f));
+            AddHover(bubble.gameObject, () => $"{Localization.Ui(Route, "level")} {_levelText.text}", bubble, TooltipSide.Below);
+            TMP_Text name = MakeText(profile, "Name", Route != null ? Route.contactName : "", 14, FontStyles.Bold, new Vector2(32f, 0f), new Vector2(200f, 24f));
+            name.rectTransform.sizeDelta = new Vector2(Mathf.Ceil(name.GetPreferredValues(name.text).x) + 2f, 24f);
+            _classText = MakeText(profile, "Class", Localization.Ui(Route, "no-class"), 12, FontStyles.Normal, new Vector2(42f + name.rectTransform.sizeDelta.x, 0f), new Vector2(120f, 24f));
             _classText.overflowMode = TextOverflowModes.Ellipsis;
 
             // The ultimate: the passive, always on, pulsing once unlocked, in the centre of the band.
-            _ultimate = MakeContainer(bar, "Ultimate", new Vector2(0f, -8f), new Vector2(ULTIMATE_WIDTH, 40f));
+            _ultimate = MakeContainer(bar, "Ultimate", new Vector2(0f, -6f), new Vector2(ULTIMATE_WIDTH, 28f));
             _ultimate.anchorMin = _ultimate.anchorMax = new Vector2(0.5f, 1f);
             _ultimate.pivot = new Vector2(0.5f, 1f);
-            RectTransform ultimateSquare = MakeImage(_ultimate, "Square", Vector2.zero, new Vector2(40f, 40f), SquareBack);
-            RectTransform inner = MakeImage(ultimateSquare, "Inner", new Vector2(4f, -4f), new Vector2(32f, 32f), SlotEmpty);
+            RectTransform ultimateSquare = MakeImage(_ultimate, "Square", Vector2.zero, new Vector2(28f, 28f), SquareBack);
+            RectTransform inner = MakeImage(ultimateSquare, "Inner", new Vector2(3f, -3f), new Vector2(22f, 22f), SlotEmpty);
             _ultimateInner = inner.GetComponent<Image>();
             _ultimateInner.raycastTarget = false;
-            TMP_Text caption = MakeText(_ultimate, "Caption", Localization.Ui(Route, "ultimate"), 12, FontStyles.Bold, new Vector2(48f, 0f), new Vector2(170f, 18f));
-            caption.color = SectionColor;
-            _ultimateLabel = MakeText(_ultimate, "Label", Localization.Ui(Route, "ultimate-locked"), 13, FontStyles.Italic, new Vector2(48f, -18f), new Vector2(170f, 22f));
+            _ultimateLabel = MakeText(_ultimate, "Label", Localization.Ui(Route, "ultimate-locked"), 12, FontStyles.Italic, new Vector2(36f, 0f), new Vector2(ULTIMATE_WIDTH - 36f, 28f));
             _ultimateLabel.color = SectionColor;
+            _ultimateLabel.overflowMode = TextOverflowModes.Ellipsis;
             inner.gameObject.SetActive(false);
-            AddHover(ultimateSquare.gameObject, () => _ultimateInner.gameObject.activeSelf ? _ultimateTooltip : null, ultimateSquare, TooltipSide.Below);
+            AddHover(ultimateSquare.gameObject, () => _ultimateInner.gameObject.activeSelf ? _ultimateTooltip : $"<b>{Localization.Ui(Route, "ultimate")}</b> · {Localization.Ui(Route, "ultimate-locked")}", ultimateSquare, TooltipSide.Below);
 
-            // Traits: the caption, then one dot per trait, growing along the route, on the right of the band.
-            RectTransform traits = MakeContainer(bar, "Traits", new Vector2(-6f, -6f), new Vector2(TRAITS_WIDTH, TOPBAR_HEIGHT - 12f));
-            traits.anchorMin = traits.anchorMax = new Vector2(1f, 1f);
-            traits.pivot = new Vector2(1f, 1f);
-            TMP_Text traitsCaption = MakeText(traits, "Caption", Localization.Ui(Route, "traits"), 12, FontStyles.Bold, Vector2.zero, new Vector2(TRAITS_WIDTH, 18f));
-            traitsCaption.color = SectionColor;
-            _traitsContent = MakeContainer(traits, "Dots", new Vector2(0f, -24f), new Vector2(TRAITS_WIDTH, TRAIT_DOT));
+            // Traits: one dot per trait, growing along the route, on the right of the band.
+            _traitsContent = MakeContainer(bar, "Traits", new Vector2(-8f, -(TOPBAR_HEIGHT - TRAIT_DOT) * 0.5f), new Vector2(TRAITS_WIDTH, TRAIT_DOT));
+            _traitsContent.anchorMin = _traitsContent.anchorMax = new Vector2(1f, 1f);
+            _traitsContent.pivot = new Vector2(1f, 1f);
             LayoutTopBar();
         }
 
         /// <summary>
         /// Fits the three sections of the top band to its width: the passive stays centred while there
-        /// is room, otherwise it follows the profile; on a narrow band (small phone) the profile drops
-        /// the word « level » and the class is shortened with an ellipsis rather than overlapping.
+        /// is room, otherwise it follows the profile; on a narrow band the class is shortened with an
+        /// ellipsis rather than overlapping.
         /// </summary>
         private void LayoutTopBar()
         {
             _topLaidOutWidth = _topBar.rect.width;
-            float inner = _topBar.rect.width - 12f;
+            float inner = _topBar.rect.width - 16f;
             float profileWidth = Mathf.Clamp(inner - ULTIMATE_WIDTH - TRAITS_WIDTH - 2f * SECTION_GAP, PROFILE_MIN_WIDTH, PROFILE_WIDTH);
-            bool narrow = profileWidth < PROFILE_WIDTH;
-            _levelCaption.gameObject.SetActive(!narrow);
-            float classX = narrow ? 80f : 134f;
-            _classText.rectTransform.anchoredPosition = new Vector2(classX, -22f);
-            _classText.rectTransform.sizeDelta = new Vector2(profileWidth - classX, 22f);
+            float classX = _classText.rectTransform.anchoredPosition.x;
+            _classText.rectTransform.sizeDelta = new Vector2(Mathf.Max(40f, profileWidth - classX), 24f);
 
             // Centred on the band, but never closer to the profile than the gap (offset from the band centre).
-            float profileRight = 6f + profileWidth + SECTION_GAP;
+            float profileRight = 8f + profileWidth + SECTION_GAP;
             float centredLeft = _topBar.rect.width * 0.5f - ULTIMATE_WIDTH * 0.5f;
             float left = Mathf.Max(centredLeft, profileRight);
-            _ultimate.anchoredPosition = new Vector2(left - centredLeft, -8f);
+            _ultimate.anchoredPosition = new Vector2(left - centredLeft, -6f);
         }
 
         /// <summary>
@@ -384,7 +394,7 @@ namespace GGS.Resume.UI
         /// </summary>
         private void BuildHint()
         {
-            RectTransform hint = MakePanel(_safeArea, "Hint", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, MARGIN + HOTBAR_HEIGHT + 8f), new Vector2(420f, 28f));
+            RectTransform hint = MakePanel(_safeArea, "Hint", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, MARGIN + HOTBAR_HEIGHT + 6f), new Vector2(420f, 28f));
             _hintGroup = hint.gameObject.AddComponent<CanvasGroup>();
             _hintGroup.blocksRaycasts = false;
             TMP_Text text = MakeText(hint, "Text", Localization.Ui(Route, "hint"), 13, FontStyles.Italic, Vector2.zero, new Vector2(420f, 28f));
@@ -410,7 +420,95 @@ namespace GGS.Resume.UI
             _hotbarContent.anchorMin = _hotbarContent.anchorMax = new Vector2(0.5f, 0f);
             _hotbarContent.pivot = new Vector2(0.5f, 0f);
             // The squares sit on top of their gauges, inside the band.
-            _hotbarContent.anchoredPosition = new Vector2(0f, 8f + GAUGE_GAP + GAUGE_HEIGHT);
+            _hotbarContent.anchoredPosition = new Vector2(0f, BAR_PADDING + GAUGE_HEIGHT + GAUGE_GAP);
+
+            // The details button, at the left end of the bar: three lines drawn from code, no asset needed.
+            _detailsButton = MakeImage(_hotbar, "Details", Vector2.zero, new Vector2(SQUARE_SIZE, SQUARE_SIZE + GAUGE_GAP + GAUGE_HEIGHT), SquareBack);
+            _detailsButton.anchorMin = _detailsButton.anchorMax = new Vector2(0f, 0f);
+            _detailsButton.pivot = new Vector2(0f, 0f);
+            _detailsButton.anchoredPosition = new Vector2(BAR_PADDING, BAR_PADDING);
+            for (int i = 0; i < 3; i++)
+            {
+                float y = -12f - i * 8f;
+                MakeImage(_detailsButton, "Dot", new Vector2(9f, y), new Vector2(4f, 4f), Color.white).GetComponent<Image>().raycastTarget = false;
+                MakeImage(_detailsButton, "Line", new Vector2(16f, y), new Vector2(15f, 4f), Color.white).GetComponent<Image>().raycastTarget = false;
+            }
+            EventTrigger trigger = _detailsButton.gameObject.AddComponent<EventTrigger>();
+            AddEntry(trigger, EventTriggerType.PointerClick, _ => ToggleDrawer());
+        }
+
+        /// <summary>
+        /// Builds the drawer of details, folded: it opens above the skill bar, from the left.
+        /// </summary>
+        private void BuildDrawer()
+        {
+            _drawer = MakePanel(_safeArea, "Drawer", new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(MARGIN, MARGIN + HOTBAR_HEIGHT + 6f), new Vector2(DRAWER_COLUMN, 40f));
+            _drawer.GetComponent<Image>().color = WithAlpha(PanelColor, 0.94f);
+            _drawer.gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Opens or closes the drawer of details; the button lights up while it is open.
+        /// </summary>
+        private void ToggleDrawer()
+        {
+            bool open = !_drawer.gameObject.activeSelf;
+            _drawer.gameObject.SetActive(open);
+            _detailsButton.GetComponent<Image>().color = open ? FullDark : SquareBack;
+            if (open) RefreshDrawer();
+        }
+
+        /// <summary>
+        /// Rebuilds the drawer content: the skills in two columns (full name and gauge, sorted like the
+        /// bar), then the passive and the traits in a third column; the columns narrow to fit the screen.
+        /// </summary>
+        private void RefreshDrawer()
+        {
+            if (_drawer == null || !_drawer.gameObject.activeSelf) return;
+            for (int i = _drawer.childCount - 1; i >= 0; i--) Destroy(_drawer.GetChild(i).gameObject);
+            _drawerLaidOutWidth = _safeArea.rect.width;
+
+            float available = _safeArea.rect.width - 2f * MARGIN;
+            float column = Mathf.Min(DRAWER_COLUMN, (available - 2f * DRAWER_PADDING - 2f * SECTION_GAP) / 3f);
+            float top = -DRAWER_PADDING;
+
+            // Skills: two columns, most exercised first.
+            TMP_Text skillsCaption = MakeText(_drawer, "SkillsCaption", Localization.Ui(Route, "skills"), 12, FontStyles.Bold, new Vector2(DRAWER_PADDING, top), new Vector2(column * 2f, 18f));
+            skillsCaption.color = SectionColor;
+            int perColumn = Mathf.Max(1, Mathf.CeilToInt(_squares.Count / 2f));
+            for (int i = 0; i < _squares.Count; i++)
+            {
+                HotbarSquare square = _squares[i];
+                float x = DRAWER_PADDING + (i / perColumn) * (column + SECTION_GAP);
+                float y = top - 22f - (i % perColumn) * DRAWER_ROW;
+                TMP_Text label = MakeText(_drawer, "Skill", Localization.Text(square.Mastery.Definition.label), 12, FontStyles.Normal, new Vector2(x, y), new Vector2(column, 14f));
+                label.overflowMode = TextOverflowModes.Ellipsis;
+                MakeImage(_drawer, "Back", new Vector2(x, y - 16f), new Vector2(column, 6f), SlotEmpty).GetComponent<Image>().raycastTarget = false;
+                float ratio = Mathf.Clamp01(square.ShownPoints / (float)_masteryScale);
+                Color fill = square.Full ? FullLight : GreyboxPalette.ForSkill(square.Mastery.Definition.category);
+                MakeImage(_drawer, "Fill", new Vector2(x, y - 16f), new Vector2(column * ratio, 6f), fill).GetComponent<Image>().raycastTarget = false;
+            }
+
+            // Passive and traits: the third column.
+            float tx = DRAWER_PADDING + 2f * (column + SECTION_GAP);
+            float ty = top;
+            TMP_Text passiveCaption = MakeText(_drawer, "PassiveCaption", Localization.Ui(Route, "ultimate"), 12, FontStyles.Bold, new Vector2(tx, ty), new Vector2(column, 18f));
+            passiveCaption.color = SectionColor;
+            TMP_Text passive = MakeText(_drawer, "Passive", _ultimateLabel.text, 12, _ultimateInner.gameObject.activeSelf ? FontStyles.Bold : FontStyles.Italic, new Vector2(tx, ty - 18f), new Vector2(column, DRAWER_LINE));
+            passive.overflowMode = TextOverflowModes.Ellipsis;
+            ty -= 44f;
+            TMP_Text traitsCaption = MakeText(_drawer, "TraitsCaption", Localization.Ui(Route, "traits"), 12, FontStyles.Bold, new Vector2(tx, ty), new Vector2(column, 18f));
+            traitsCaption.color = SectionColor;
+            for (int i = 0; i < _traits.Count; i++)
+            {
+                if (!_traits[i].Rect.gameObject.activeSelf) continue; // still flying
+                TMP_Text trait = MakeText(_drawer, "Trait", Localization.Text(_traits[i].Label), 12, FontStyles.Normal, new Vector2(tx, ty - 18f - i * DRAWER_LINE), new Vector2(column, DRAWER_LINE));
+                trait.overflowMode = TextOverflowModes.Ellipsis;
+            }
+
+            float skillsHeight = 22f + perColumn * DRAWER_ROW;
+            float traitsHeight = 44f + 18f + _traits.Count * DRAWER_LINE;
+            _drawer.sizeDelta = new Vector2(2f * DRAWER_PADDING + 3f * column + 2f * SECTION_GAP, DRAWER_PADDING * 2f + Mathf.Max(skillsHeight, traitsHeight));
         }
 
         /// <summary>
@@ -418,17 +516,17 @@ namespace GGS.Resume.UI
         /// </summary>
         private void BuildBannerAndTooltip()
         {
-            RectTransform banner = MakePanel(_safeArea, "Banner", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -(MARGIN + TOPBAR_HEIGHT + 8f)), new Vector2(BANNER_WIDTH, 64f));
+            RectTransform banner = MakePanel(_safeArea, "Banner", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -(MARGIN + TOPBAR_HEIGHT + 6f)), new Vector2(BANNER_WIDTH, 44f));
             _bannerGroup = banner.gameObject.AddComponent<CanvasGroup>();
             _bannerGroup.alpha = 0f;
             _bannerGroup.blocksRaycasts = false;
-            _bannerTitle = MakeText(banner, "Title", "", 15, FontStyles.Bold, new Vector2(0f, -8f), new Vector2(BANNER_WIDTH - 10f, 26f));
+            _bannerTitle = MakeText(banner, "Title", "", 13, FontStyles.Bold, new Vector2(0f, -4f), new Vector2(BANNER_WIDTH - 10f, 20f));
             _bannerTitle.alignment = TextAlignmentOptions.Center;
             _bannerTitle.textWrappingMode = TextWrappingModes.Normal;
-            SetStretch(_bannerTitle.rectTransform, -6f, 30f);
+            SetStretch(_bannerTitle.rectTransform, -4f, 20f);
             _bannerYears = MakeText(banner, "Years", "", 12, FontStyles.Normal, new Vector2(0f, -38f), new Vector2(BANNER_WIDTH - 10f, 20f));
             _bannerYears.alignment = TextAlignmentOptions.Center;
-            SetStretch(_bannerYears.rectTransform, -38f, 20f);
+            SetStretch(_bannerYears.rectTransform, -24f, 16f);
 
             _tooltip = MakePanel(_safeArea, "Tooltip", new Vector2(0f, 0f), new Vector2(0.5f, 0f), Vector2.zero, new Vector2(TOOLTIP_WIDTH, 92f));
             _tooltipText = MakeText(_tooltip, "Text", "", 13, FontStyles.Normal, new Vector2(8f, -6f), new Vector2(TOOLTIP_WIDTH - 16f, 80f));
@@ -450,13 +548,25 @@ namespace GGS.Resume.UI
             rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0f);
             rect.pivot = new Vector2(0.5f, 0f);
 
-            RectTransform inner = MakeImage(rect, "Logo", new Vector2(4f, -4f), new Vector2(SQUARE_SIZE - 8f, SQUARE_SIZE - 8f), WithAlpha(color, INNER_IDLE_ALPHA));
+            RectTransform inner = MakeImage(rect, "Back", new Vector2(2f, -2f), new Vector2(SQUARE_SIZE - 4f, SQUARE_SIZE - 4f), WithAlpha(color, INNER_IDLE_ALPHA));
             inner.GetComponent<Image>().raycastTarget = false;
-            // The label may use the gap on each side: at 12 px, a nine-letter word (« Formation ») is wider
-            // than the square. Regular weight (narrower than bold); lines break between words only.
-            TMP_Text label = MakeText(rect, "Label", Localization.Text(mastery.Definition.shortLabel), 12, FontStyles.Normal, new Vector2(-SQUARE_GAP * 0.5f, -2f), new Vector2(SQUARE_SIZE + SQUARE_GAP, SQUARE_SIZE - 4f));
-            label.alignment = TextAlignmentOptions.Center;
-            label.textWrappingMode = TextWrappingModes.Normal;
+
+            // The icon of the skill (D30); the short label stands in for a skill that has none yet.
+            TMP_Text label = null;
+            Sprite icon = mastery.Definition.icon;
+            if (icon != null)
+            {
+                float offset = (SQUARE_SIZE - ICON_SIZE) * 0.5f;
+                Image iconImage = MakeImage(rect, "Icon", new Vector2(offset, -offset), new Vector2(ICON_SIZE, ICON_SIZE), Color.white).GetComponent<Image>();
+                iconImage.sprite = icon;
+                iconImage.raycastTarget = false;
+            }
+            else
+            {
+                label = MakeText(rect, "Label", Localization.Text(mastery.Definition.shortLabel), 12, FontStyles.Normal, new Vector2(-SQUARE_GAP * 0.5f, -2f), new Vector2(SQUARE_SIZE + SQUARE_GAP, SQUARE_SIZE - 4f));
+                label.alignment = TextAlignmentOptions.Center;
+                label.textWrappingMode = TextWrappingModes.Normal;
+            }
 
             // The gauge under the square: halo, empty track, then the fill growing from the left.
             float gaugeTop = -(SQUARE_SIZE + GAUGE_GAP);
@@ -510,6 +620,7 @@ namespace GGS.Resume.UI
                 _squares[j + 1] = current;
             }
             LayoutHotbar(null);
+            RefreshDrawer();
         }
 
         /// <summary>
@@ -520,7 +631,7 @@ namespace GGS.Resume.UI
         {
             float cell = SQUARE_SIZE + SQUARE_GAP;
             _laidOutWidth = _hotbar.rect.width;
-            float available = _hotbar.rect.width - 24f;
+            float available = _hotbar.rect.width - 2f * (SQUARE_SIZE + 2f * BAR_PADDING);
             float scale = Mathf.Min(1f, available / (Mathf.Max(_expectedSkills, 1) * cell));
             _hotbarContent.localScale = Vector3.one * scale;
             for (int i = 0; i < _squares.Count; i++)
@@ -805,6 +916,7 @@ namespace GGS.Resume.UI
                         _traits.RemoveAt(i);
                     }
                     for (int i = 0; i < _traits.Count; i++) _traits[i].Rect.anchoredPosition = new Vector2(i * TRAIT_STEP, 0f);
+                    RefreshDrawer();
                     break;
                 case RewardKind.Passive:
                     _ultimateId = null;
@@ -813,6 +925,7 @@ namespace GGS.Resume.UI
                     _ultimateLabel.fontStyle = FontStyles.Italic;
                     _ultimateLabel.color = SectionColor;
                     _ultimateTooltip = "";
+                    RefreshDrawer();
                     break;
                 default:
                     Refresh();
@@ -828,7 +941,7 @@ namespace GGS.Resume.UI
             // Create the dot hidden, after the others, then reveal it when the flight lands.
             RectTransform rect = MakeImage(_traitsContent, "Trait " + reward.id, new Vector2(_traits.Count * TRAIT_STEP, 0f), new Vector2(TRAIT_DOT, TRAIT_DOT), GreyboxPalette.ForReward(RewardKind.Trait, reward.category));
             rect.gameObject.SetActive(false);
-            _traits.Add(new TraitDot { Id = reward.id, Rect = rect });
+            _traits.Add(new TraitDot { Id = reward.id, Rect = rect, Label = reward.label });
             AddHover(rect.gameObject, () => TooltipFor(reward), rect, TooltipSide.Below);
 
             Vector3 dotWorld = _traitsContent.TransformPoint(new Vector3(rect.anchoredPosition.x + TRAIT_DOT * 0.5f, -TRAIT_DOT * 0.5f, 0f));
@@ -837,6 +950,7 @@ namespace GGS.Resume.UI
             if (rect == null) yield break; // taken back by a walk back while in flight
             rect.gameObject.SetActive(true);
             StartCoroutine(Punch(rect, 0.1f, 0.25f));
+            RefreshDrawer();
         }
 
         /// <summary>
@@ -845,7 +959,7 @@ namespace GGS.Resume.UI
         private IEnumerator FlyUltimate(RewardDefinition reward, Vector3 worldPosition)
         {
             _ultimateId = reward.id;
-            Vector2 end = (Vector2)_canvasRect.InverseTransformPoint(_ultimateInner.rectTransform.position) + new Vector2(16f, -16f);
+            Vector2 end = (Vector2)_canvasRect.InverseTransformPoint(_ultimateInner.rectTransform.position) + new Vector2(11f, -11f);
             yield return Travel("Flying " + reward.id, WorldToCanvas(worldPosition), end, new Vector2(22f, 22f), UltimateColor, 0.6f, 60f);
             if (_ultimateId != reward.id) yield break; // taken back by a walk back while in flight
             _ultimateInner.gameObject.SetActive(true);
@@ -854,6 +968,7 @@ namespace GGS.Resume.UI
             _ultimateLabel.color = Color.white;
             _ultimateTooltip = TooltipFor(reward);
             StartCoroutine(Punch(_ultimate, 0.15f, 0.4f));
+            RefreshDrawer();
         }
 
         /// <summary>

@@ -55,7 +55,7 @@ namespace GGS.Resume.Editor
         /// <summary>Vehicle rides: extra road and speed factors.</summary>
         [Serializable] private class TravelFile { public float rideScreens = 2f; public float carSpeedFactor = 2.5f; public float motorbikeSpeedFactor = 3.5f; }
         /// <summary>A skill of the catalogue, with its short label and category.</summary>
-        [Serializable] private class SkillFile { public string id; public LocalizedTextFile label; public LocalizedTextFile @short; public string category; public LocalizedTextFile description; }
+        [Serializable] private class SkillFile { public string id; public string icon; public LocalizedTextFile label; public LocalizedTextFile @short; public string category; public LocalizedTextFile description; }
         /// <summary>A trait of the catalogue.</summary>
         [Serializable] private class TraitFile { public string id; public LocalizedTextFile label; public LocalizedTextFile description; }
         /// <summary>A class change or a passive granted by a stop.</summary>
@@ -141,7 +141,8 @@ namespace GGS.Resume.Editor
                     category = SkillCategory.None;
                 }
                 LocalizedText shortLabel = skill.@short != null && !string.IsNullOrEmpty(skill.@short.fr) ? Text(skill.@short, $"skill '{skill.id}' short", errors) : Text(skill.label, $"skill '{skill.id}' label", errors);
-                skills.Add(new SkillDefinition { id = skill.id, label = Text(skill.label, $"skill '{skill.id}' label", errors), shortLabel = shortLabel, category = category, description = Text(skill.description, $"skill '{skill.id}' description", errors) });
+                Sprite icon = LoadIcon(skill.icon, skill.id, errors);
+                skills.Add(new SkillDefinition { id = skill.id, label = Text(skill.label, $"skill '{skill.id}' label", errors), shortLabel = shortLabel, icon = icon, category = category, description = Text(skill.description, $"skill '{skill.id}' description", errors) });
             }
 
             // Places of the map: ids must be unique and every stop must point to one of them.
@@ -300,7 +301,74 @@ namespace GGS.Resume.Editor
             list.Add(new RewardDefinition { kind = RewardKind.Trait, id = trait.id, label = Text(trait.label, $"trait '{trait.id}' label", errors), description = Text(trait.description, $"trait '{trait.id}' description", errors), category = SkillCategory.Relationnel });
         }
 
+        /// <summary>
+        /// Loads the icon of a skill as a sprite, applying the style bible's import settings first
+        /// (sprite, Point filter, no compression, no mipmaps, 32 pixels per unit).
+        /// </summary>
+        /// <param name="path">Project path of the PNG, or empty for no icon.</param>
+        /// <param name="skillId">Skill id, for the error message.</param>
+        /// <param name="errors">Collected import errors.</param>
+        /// <returns>The sprite, or null.</returns>
+        private static Sprite LoadIcon(string path, string skillId, List<string> errors)
+        {
+            if (string.IsNullOrEmpty(path)) return null;
+            if (AssetImporter.GetAtPath(path) is TextureImporter importer)
+            {
+                IconImportSettings.Apply(importer);
+            }
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (sprite == null) errors.Add($"skill '{skillId}': icon not found at '{path}'");
+            return sprite;
+        }
+
         #endregion
+    }
+
+    /// <summary>
+    /// Import settings of the pixel-art icons (style bible: PNG 32 x 32, Point filter, no compression,
+    /// no mipmaps), applied to every texture of the icons folder when it is imported, so the final icons
+    /// of the art pass only need to replace the files.
+    /// </summary>
+    public sealed class IconImportSettings : AssetPostprocessor
+    {
+        /// <summary>Folder holding the skill icons.</summary>
+        public const string ICONS_FOLDER = "Assets/ResuME/Graphics/Sprites/Icons/";
+
+        /// <summary>
+        /// Applies the icon settings to a texture of the icons folder before it is imported.
+        /// </summary>
+        private void OnPreprocessTexture()
+        {
+            if (!assetPath.StartsWith(ICONS_FOLDER)) return;
+            Configure((TextureImporter)assetImporter);
+        }
+
+        /// <summary>
+        /// Applies the icon settings to an importer and reimports it when something changed.
+        /// </summary>
+        /// <param name="importer">Importer of an icon.</param>
+        public static void Apply(TextureImporter importer)
+        {
+            if (importer.textureType == TextureImporterType.Sprite && importer.filterMode == FilterMode.Point
+                && importer.textureCompression == TextureImporterCompression.Uncompressed && !importer.mipmapEnabled
+                && Mathf.Approximately(importer.spritePixelsPerUnit, 32f)) return;
+            Configure(importer);
+            importer.SaveAndReimport();
+        }
+
+        /// <summary>
+        /// Sets the style bible's settings on an importer.
+        /// </summary>
+        private static void Configure(TextureImporter importer)
+        {
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Single;
+            importer.spritePixelsPerUnit = 32f;
+            importer.filterMode = FilterMode.Point;
+            importer.textureCompression = TextureImporterCompression.Uncompressed;
+            importer.mipmapEnabled = false;
+            importer.alphaIsTransparency = true;
+        }
     }
 
     /// <summary>Re-imports the Route asset every time route.json is saved, so content changes need no compilation.</summary>

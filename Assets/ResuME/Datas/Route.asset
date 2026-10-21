@@ -199,6 +199,7 @@ MonoBehaviour:
     shortLabel:
       fr: Unity
       en: Unity
+    icon: {fileID: 21300000, guid: 7f9cbbdd2d147e2f1a62e0e9d4414d71, type: 3}
     category: 1
     description:
       fr: Jeux et applications 3D, VR, prototypes 2D et 3D.
@@ -210,6 +211,7 @@ MonoBehaviour:
     shortLabel:
       fr: C#
       en: C#
+    icon: {fileID: 21300000, guid: 8f6677f019088a5098512e2bfc431efa, type: 3}
     category: 1
     description:
       fr: Langage principal, d'Unity aux outils web.
@@ -221,6 +223,7 @@ MonoBehaviour:
     shortLabel:
       fr: C / C++
       en: C / C++
+    icon: {fileID: 21300000, guid: 504bdf255ba900e058049fd7371b590b, type: 3}
     category: 1
     description:
       fr: "Les bases du code, de SFML \xE0 DirectX."
@@ -232,6 +235,7 @@ MonoBehaviour:
     shortLabel:
       fr: Game design
       en: Game design
+    icon: {fileID: 21300000, guid: fb034205dd11ebc6a845e516b1f2c59a, type: 3}
     category: 1
     description:
       fr: Game design, game jams, projets personnels et professionnels.
@@ -243,6 +247,7 @@ MonoBehaviour:
     shortLabel:
       fr: VR / AR
       en: VR / AR
+    icon: {fileID: 21300000, guid: 133932416b9a20cd9b1a0d3323da1148, type: 3}
     category: 1
     description:
       fr: "Casques, lunettes et applications immersives, en r\xE9alit\xE9 virtuelle
@@ -256,6 +261,7 @@ MonoBehaviour:
     shortLabel:
       fr: Support
       en: Support
+    icon: {fileID: 21300000, guid: 949ce9e927070fca39465a74f9a8705b, type: 3}
     category: 1
     description:
       fr: "Support utilisateurs, configuration de postes, maintenance r\xE9seau."
@@ -267,6 +273,7 @@ MonoBehaviour:
     shortLabel:
       fr: "Mat\xE9riel"
       en: Hardware
+    icon: {fileID: 21300000, guid: eb54f802e160c62508fb44ecec6c664c, type: 3}
     category: 1
     description:
       fr: Installation et migration de parcs, support technique sur site.
@@ -278,6 +285,7 @@ MonoBehaviour:
     shortLabel:
       fr: Formation
       en: Training
+    icon: {fileID: 21300000, guid: 0c4ec6bebe5d90275ad8689370582ecd, type: 3}
     category: 2
     description:
       fr: "P\xE9dagogie, programmes de formation, transmission."
@@ -289,6 +297,7 @@ MonoBehaviour:
     shortLabel:
       fr: Gestion
       en: Business
+    icon: {fileID: 21300000, guid: 7435c88d271802448b77947dd7eb52f9, type: 3}
     category: 2
     description:
       fr: "Cr\xE9ation, administration, comptabilit\xE9 et tr\xE9sorerie de structures
@@ -302,6 +311,7 @@ MonoBehaviour:
     shortLabel:
       fr: BDD
       en: DB
+    icon: {fileID: 21300000, guid: 7671fc82a65da0a01a95749461fe9d20, type: 3}
     category: 1
     description:
       fr: "Mod\xE9lisation (MCD, Merise), sch\xE9mas, requ\xEAtes, donn\xE9es applicatives."
@@ -314,6 +324,7 @@ MonoBehaviour:
     shortLabel:
       fr: Web
       en: Web
+    icon: {fileID: 21300000, guid: d67c51b169068fa5d9a7618fcde67fe5, type: 3}
     category: 1
     description:
       fr: "Sites et applications web, du HTML/PHP des d\xE9buts aux outils web des
@@ -327,6 +338,7 @@ MonoBehaviour:
     shortLabel:
       fr: IA
       en: AI
+    icon: {fileID: 21300000, guid: 5b0d985276ee2e56497ac89fe0838eb4, type: 3}
     category: 1
     description:
       fr: "Outils d'IA g\xE9n\xE9rative et agents appliqu\xE9s au d\xE9veloppement,
