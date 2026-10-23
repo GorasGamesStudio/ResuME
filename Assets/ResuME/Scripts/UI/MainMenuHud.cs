@@ -1,9 +1,9 @@
-using GGS.Resume.Data;
+using GGS.ResuME.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GGS.Resume.UI
+namespace GGS.ResuME.UI
 {
     /// <summary>
     /// The main menu, shown first: the candidate's name, a subtitle, the language switch

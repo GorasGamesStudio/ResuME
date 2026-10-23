@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GGS.Resume.UI
+namespace GGS.ResuME.UI
 {
     /// <summary>
     /// Keeps a full-screen container inside <see cref="Screen.safeArea"/> (notches, rounded corners,

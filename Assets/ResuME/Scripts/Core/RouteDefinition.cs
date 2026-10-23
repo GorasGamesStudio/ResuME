@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GGS.Resume.Data
+namespace GGS.ResuME.Data
 {
     #region Data Structures
 

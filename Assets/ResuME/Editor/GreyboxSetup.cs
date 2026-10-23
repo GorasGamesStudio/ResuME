@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using GGS.Resume.Data;
-using GGS.Resume.Gameplay;
-using GGS.Resume.Player;
-using GGS.Resume.UI;
-using GGS.Resume.World;
+using GGS.ResuME.Data;
+using GGS.ResuME.Gameplay;
+using GGS.ResuME.Player;
+using GGS.ResuME.UI;
+using GGS.ResuME.World;
 using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -16,12 +16,12 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
-namespace GGS.Resume.Editor
+namespace GGS.ResuME.Editor
 {
     /// <summary>
     /// Builds everything the greybox needs from code, inside the GGS Core project layout: the
     /// square sprite, the Route asset and the GA_GreyboxScene scene. Safe to run again: assets are overwritten, the scene is recreated.
-    /// Also callable in batch mode: <c>-executeMethod GGS.Resume.Editor.GreyboxSetup.BuildAll</c>.
+    /// Also callable in batch mode: <c>-executeMethod GGS.ResuME.Editor.GreyboxSetup.BuildAll</c>.
     /// </summary>
     public static class GreyboxSetup
     {
@@ -77,7 +77,7 @@ namespace GGS.Resume.Editor
         /// <summary>
         /// Imports the TextMeshPro essential resources (shaders, default SDF font) when they are missing.
         /// Run it alone before BuildAll in batch mode: the package import completes on the next editor start.
-        /// Batch: <c>-executeMethod GGS.Resume.Editor.GreyboxSetup.ImportTextResources</c>.
+        /// Batch: <c>-executeMethod GGS.ResuME.Editor.GreyboxSetup.ImportTextResources</c>.
         /// </summary>
         [MenuItem("ResuME/Greybox/Import text resources")]
         public static void ImportTextResources()

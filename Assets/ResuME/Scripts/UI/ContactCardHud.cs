@@ -1,10 +1,10 @@
 using System.Runtime.InteropServices;
-using GGS.Resume.Data;
+using GGS.ResuME.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GGS.Resume.UI
+namespace GGS.ResuME.UI
 {
     /// <summary>
     /// Greybox contact card shown at the end: e-mail (copied to the clipboard on click), LinkedIn,

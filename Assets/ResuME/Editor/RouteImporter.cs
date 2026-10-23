@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using GGS.Resume.Data;
+using GGS.ResuME.Data;
 using UnityEditor;
 using UnityEngine;
 
-namespace GGS.Resume.Editor
+namespace GGS.ResuME.Editor
 {
     /// <summary>
     /// Turns <c>Datas/route.json</c> (hand-edited, no compilation needed) into the Route asset the

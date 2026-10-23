@@ -1,7 +1,7 @@
-using GGS.Resume.Data;
+using GGS.ResuME.Data;
 using UnityEngine;
 
-namespace GGS.Resume.World
+namespace GGS.ResuME.World
 {
     /// <summary>
     /// Flat greys with a hint of tint, so every kind of block stays readable without any art.

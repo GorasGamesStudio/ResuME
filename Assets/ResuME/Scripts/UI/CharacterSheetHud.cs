@@ -1,15 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GGS.Resume.Data;
-using GGS.Resume.Player;
-using GGS.Resume.World;
+using GGS.ResuME.Data;
+using GGS.ResuME.Player;
+using GGS.ResuME.World;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace GGS.Resume.UI
+namespace GGS.ResuME.UI
 {
     /// <summary>
     /// Greybox character profile built from code (uGUI, provisional until the art pass), laid out

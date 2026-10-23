@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GGS.Resume.UI
+namespace GGS.ResuME.UI
 {
     /// <summary>
     /// Canvas scaler that keeps the interface readable on small screens. On large screens it scales

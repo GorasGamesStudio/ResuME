@@ -1,10 +1,10 @@
 using System.Collections;
-using GGS.Resume.Data;
-using GGS.Resume.World;
+using GGS.ResuME.Data;
+using GGS.ResuME.World;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace GGS.Resume.Player
+namespace GGS.ResuME.Player
 {
     /// <summary>
     /// Moves the character along the single lane. Arrow keys and gamepad come from the Input

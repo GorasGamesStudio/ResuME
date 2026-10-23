@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GGS.Resume.Data
+namespace GGS.ResuME.Data
 {
     /// <summary>
     /// The three layers the camera plays with: the outside world, the interior of the building the

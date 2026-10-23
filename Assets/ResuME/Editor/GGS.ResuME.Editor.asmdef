@@ -1,8 +1,8 @@
 {
-    "name": "ResuME.Editor",
-    "rootNamespace": "GGS.Resume.Editor",
+    "name": "GGS.ResuME.Editor",
+    "rootNamespace": "GGS.ResuME.Editor",
     "references": [
-        "ResuME.Runtime",
+        "GUID:18ad6d7669b271ee99fe2a0fab5347a4",
         "Unity.InputSystem",
         "Unity.RenderPipelines.Universal.Runtime",
         "UnityEngine.UI",

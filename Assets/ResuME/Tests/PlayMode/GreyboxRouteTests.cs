@@ -1,14 +1,14 @@
 using System.Collections;
 using NUnit.Framework;
-using GGS.Resume.Data;
-using GGS.Resume.Player;
-using GGS.Resume.UI;
-using GGS.Resume.World;
+using GGS.ResuME.Data;
+using GGS.ResuME.Player;
+using GGS.ResuME.UI;
+using GGS.ResuME.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace GGS.Resume.Tests
+namespace GGS.ResuME.Tests
 {
     /// <summary>
     /// Walks the greybox from start to end with a forced direction and checks that the route

@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GGS.Resume.Data;
-using GGS.Resume.World;
+using GGS.ResuME.Data;
+using GGS.ResuME.World;
 using UnityEngine;
 
-namespace GGS.Resume.Player
+namespace GGS.ResuME.Player
 {
     #region Data Structures
 

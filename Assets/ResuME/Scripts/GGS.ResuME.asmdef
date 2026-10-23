@@ -1,6 +1,6 @@
 {
-    "name": "ResuME.Runtime",
-    "rootNamespace": "GGS.Resume",
+    "name": "GGS.ResuME",
+    "rootNamespace": "GGS.ResuME",
     "references": [
         "Unity.InputSystem",
         "UnityEngine.UI",

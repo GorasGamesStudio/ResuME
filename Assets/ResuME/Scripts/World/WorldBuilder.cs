@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GGS.Resume.Data;
+using GGS.ResuME.Data;
 using TMPro;
 using UnityEngine;
 
-namespace GGS.Resume.World
+namespace GGS.ResuME.World
 {
     /// <summary>
     /// Spawns the whole route as grey blocks from a <see cref="RouteDefinition"/> and drives stop

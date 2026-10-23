@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using GGS.Resume.Data;
+using GGS.ResuME.Data;
 using UnityEngine;
 
-namespace GGS.Resume.World
+namespace GGS.ResuME.World
 {
     /// <summary>
     /// Geometry of the route as a polyline of legs: the stops sit on horizontal legs that always go

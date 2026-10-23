@@ -1,7 +1,7 @@
-using GGS.Resume.Data;
+using GGS.ResuME.Data;
 using UnityEngine;
 
-namespace GGS.Resume.World
+namespace GGS.ResuME.World
 {
     /// <summary>
     /// Orthographic camera locked on the lane: follows the player horizontally within the route

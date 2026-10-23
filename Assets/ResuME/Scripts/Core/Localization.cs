@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GGS.Resume.Data
+namespace GGS.ResuME.Data
 {
     /// <summary>
     /// The language of the session and the text lookups every display goes through. The language

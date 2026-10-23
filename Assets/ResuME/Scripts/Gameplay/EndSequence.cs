@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using GGS.Resume.Data;
-using GGS.Resume.Player;
-using GGS.Resume.UI;
-using GGS.Resume.World;
+using GGS.ResuME.Data;
+using GGS.ResuME.Player;
+using GGS.ResuME.UI;
+using GGS.ResuME.World;
 using TMPro;
 using UnityEngine;
 
-namespace GGS.Resume.Gameplay
+namespace GGS.ResuME.Gameplay
 {
     /// <summary>
     /// The greybox ending. When the character reaches the middle of the final stop the inputs lock,
