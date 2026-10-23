@@ -264,18 +264,29 @@ namespace GGS.Resume.World
             EndX = last == null ? _path.Length : last.Definition.kind == StopKind.End ? (last.StartX + last.EndX) * 0.5f : last.EndX - 1f;
 
             // One road block per leg, horizontal or vertical, tinted by the region it runs through; the legs of a
-            // vehicle ride are darker, like a main road between two regions.
-            foreach (RoutePath.Leg leg in _path.Legs)
+            // vehicle ride are darker, like a main road between two regions. Every block is centred on the road
+            // centre line (half a road below the path). A vertical block runs half a road past both ends and owns
+            // the two corner squares; a horizontal block stops at the edge of a corner square (and runs half a road
+            // past the very ends of the route), so no two blocks overlap and a turn is a clean corner even when the
+            // climb is shorter than the road is wide.
+            float road = route.roadHeightUnits;
+            IReadOnlyList<RoutePath.Leg> legs = _path.Legs;
+            for (int i = 0; i < legs.Count; i++)
             {
+                RoutePath.Leg leg = legs[i];
                 Vector2 centre = leg.Start + leg.Direction * (leg.Length * 0.5f);
-                float road = route.roadHeightUnits;
                 float middle = leg.StartDistance + leg.Length * 0.5f;
                 Color color = RegionTint(middle);
                 if (RideAt(middle) != TravelMode.Walk) color = Color.Lerp(color, GreyboxPalette.Asphalt, 0.5f);
                 if (leg.Vertical)
-                    MakeBlock("Road", transform, centre.x, centre.y, road, leg.Length + road, color, SORT_FLOOR - 1);
-                else
-                    MakeBlock("Road", transform, centre.x, centre.y - road * 0.5f, leg.Length + road, road, color, SORT_FLOOR - 1);
+                {
+                    MakeBlock("Road", transform, centre.x, centre.y - road * 0.5f, road, leg.Length + road, color, SORT_FLOOR - 1);
+                    continue;
+                }
+                float left = leg.Start.x + (i == 0 ? -road * 0.5f : legs[i - 1].Vertical ? road * 0.5f : 0f);
+                float right = leg.End.x + (i == legs.Count - 1 ? road * 0.5f : legs[i + 1].Vertical ? -road * 0.5f : 0f);
+                if (right > left)
+                    MakeBlock("Road", transform, (left + right) * 0.5f, centre.y - road * 0.5f, right - left, road, color, SORT_FLOOR - 1);
             }
 
             // Everything built is the outside world; the building the character is in moves to the Interior
@@ -364,17 +375,14 @@ namespace GGS.Resume.World
         #region Private Methods
 
         /// <summary>
-        /// World position of the road at a distance: the middle of the road band on a horizontal leg, the
-        /// centre line on a vertical one. Both the character and the vehicles stand on it.
+        /// World position of the road at a distance: the centre line of the road band, half a road below the
+        /// path on every leg, so a turn is a clean corner. Both the character and the vehicles stand on it.
         /// </summary>
         /// <param name="distance">Distance along the path.</param>
         /// <returns>The anchor position.</returns>
         private Vector2 RoadAnchor(float distance)
         {
-            RoutePath.Leg leg = _path.LegAt(distance);
-            Vector2 onRoad = _path.Position(distance);
-            float roadCentre = leg != null && !leg.Vertical ? -route.roadHeightUnits * 0.5f : 0f;
-            return onRoad + Vector2.up * roadCentre;
+            return _path.Position(distance) + Vector2.down * (route.roadHeightUnits * 0.5f);
         }
 
         /// <summary>
@@ -587,7 +595,7 @@ namespace GGS.Resume.World
                 RoutePath.Leg leg = _path.LegAt(distance);
                 bool vertical = leg != null && leg.Vertical;
                 float x = onPath.x + (vertical ? route.roadHeightUnits * 0.9f : 0f);
-                float y = vertical ? onPath.y : onPath.y + (inBuilding ? BUILDING_FLOOR_Y : -route.roadHeightUnits * 0.5f);
+                float y = onPath.y + (inBuilding ? BUILDING_FLOOR_Y : -route.roadHeightUnits * 0.5f);
 
                 string id = pickup.Project != null ? pickup.Project.id : pickup.Reward.id;
                 string caption = Localization.Text(pickup.Project != null ? pickup.Project.title : pickup.Reward.label);
