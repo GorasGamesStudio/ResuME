@@ -304,12 +304,15 @@ namespace GGS.ResuME.World
         /// <param name="toRatio">Top of the slice, 0 to 1.</param>
         public void FillProject(ProjectDefinition project, Color color, float fromRatio, float toRatio)
         {
+            // A project walked back is white again: a late attack never paints it (bug B14).
             PickupInstance pickup = FindPickup(project);
-            if (pickup == null || toRatio <= fromRatio) return;
+            if (pickup == null || !pickup.Collected || toRatio <= fromRatio) return;
             Vector3 origin = pickup.Origin;
             float bottom = origin.y - PROJECT_BLOCK_SIZE * 0.5f + PROJECT_BLOCK_SIZE * fromRatio;
             float height = PROJECT_BLOCK_SIZE * (toRatio - fromRatio);
             GameObject slice = MakeBlock(FILL_NAME, pickup.Root.transform, origin.x, bottom, PROJECT_BLOCK_SIZE * 0.86f, 0f, color, SORT_PICKUP + 1);
+            // Same layer as its block, so an interior's culling hides or shows both together (bug B18).
+            slice.layer = pickup.Root.layer;
             StartCoroutine(GrowFill(slice, bottom, height));
         }
 
@@ -324,21 +327,6 @@ namespace GGS.ResuME.World
             if (pickup.Hiding != null) StopCoroutine(pickup.Hiding);
             pickup.Hiding = null;
             pickup.Root.SetActive(false);
-        }
-
-        /// <summary>
-        /// Pops and hides a completed project right away (called by the HUD once its last point has left).
-        /// </summary>
-        /// <param name="project">The project whose pickup can disappear.</param>
-        public void ReleaseProject(ProjectDefinition project)
-        {
-            foreach (PickupInstance pickup in _pickups)
-            {
-                if (pickup.Project != project || !pickup.Collected || !pickup.Root.activeSelf) continue;
-                if (pickup.Hiding != null) StopCoroutine(pickup.Hiding);
-                pickup.Hiding = StartCoroutine(PopAndHide(pickup, 0f));
-                return;
-            }
         }
 
         /// <summary>
@@ -735,7 +723,7 @@ namespace GGS.ResuME.World
                     CollectedRewards++;
                     if (pickup.Project != null) ProjectCompleted?.Invoke(pickup.Project, position, pickup.Stop);
                     else RewardCollected?.Invoke(pickup.Reward, position, pickup.Stop);
-                    // A project waits for the HUD to release it (after its last point left); a safety delay covers a missing HUD.
+                    // A project is hidden by the HUD when its coloured block takes off; this delay only covers a missing HUD.
                     float delay = pickup.Project != null ? 2f + 0.6f * pickup.Project.skillIds.Count : 0.1f;
                     pickup.Hiding = StartCoroutine(PopAndHide(pickup, delay));
                 }

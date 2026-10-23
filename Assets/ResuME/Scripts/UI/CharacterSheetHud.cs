@@ -148,6 +148,14 @@ namespace GGS.ResuME.UI
         private readonly List<HotbarSquare> _squares = new List<HotbarSquare>();
         private readonly Dictionary<string, HotbarSquare> _squaresById = new Dictionary<string, HotbarSquare>();
         private readonly List<TraitDot> _traits = new List<TraitDot>();
+        /// <summary>
+        /// Points gained by skill id but not delivered to their gauge yet (block still being filled or flying).
+        /// For every skill, shown points plus pending points equal the mastery: a walk back takes a pending
+        /// point first, so the gauges never depend on the order the animations finish in (bug B14).
+        /// </summary>
+        private readonly Dictionary<string, int> _pendingPoints = new Dictionary<string, int>();
+        /// <summary>Gain run of each project: a walk back bumps it, which cancels the gain still playing.</summary>
+        private readonly Dictionary<ProjectDefinition, int> _gainRuns = new Dictionary<ProjectDefinition, int>();
         private int _masteryScale = 20;
         private int _expectedSkills = 12;
 
@@ -712,7 +720,10 @@ namespace GGS.ResuME.UI
         /// </summary>
         private void OnProjectCompleted(ProjectDefinition project, Vector3 worldPosition, StopDefinition stop)
         {
-            StartCoroutine(GainProject(project, worldPosition));
+            int run = GainRun(project) + 1;
+            _gainRuns[project] = run;
+            foreach (string skillId in project.skillIds) _pendingPoints[skillId] = PendingPoints(skillId) + 1;
+            StartCoroutine(GainProject(project, worldPosition, run));
         }
 
         /// <summary>
@@ -722,9 +733,11 @@ namespace GGS.ResuME.UI
         /// </summary>
         /// <param name="project">Project crossed.</param>
         /// <param name="projectPosition">World position of the project pickup.</param>
-        private IEnumerator GainProject(ProjectDefinition project, Vector3 projectPosition)
+        /// <param name="run">Gain run of the project; a walk back changes it and stops this sequence.</param>
+        private IEnumerator GainProject(ProjectDefinition project, Vector3 projectPosition, int run)
         {
             yield return null; // let PlayerProgress apply the gains first (handler order is not guaranteed)
+            if (GainRun(project) != run) yield break;
 
             // Make sure every involved skill has its square (new ones arrive empty, at the end of the bar).
             List<(SkillMastery mastery, HotbarSquare square)> involved = new List<(SkillMastery, HotbarSquare)>();
@@ -741,6 +754,8 @@ namespace GGS.ResuME.UI
                     RefreshSquare(square);
                     StartCoroutine(Scale(square.Rect, 0f, 1f, 0.2f));
                 }
+                // A skill dropped to zero and gained again gets a new mastery object: keep the square on the live one.
+                square.Mastery = mastery;
                 involved.Add((mastery, square));
             }
             if (involved.Count == 0) yield break;
@@ -753,16 +768,23 @@ namespace GGS.ResuME.UI
                 Color color = GreyboxPalette.ForSkill(mastery.Definition.category);
                 StartCoroutine(Attack(mastery, square, projectPosition, () =>
                 {
-                    world.FillProject(project, color, landed / (float)count, (landed + 1) / (float)count);
+                    // An attack still in flight when the project is walked back does not paint it any more.
+                    if (GainRun(project) == run) world.FillProject(project, color, landed / (float)count, (landed + 1) / (float)count);
                     landed++;
                 }));
                 yield return new WaitForSeconds(ATTACK_STAGGER);
+                if (GainRun(project) != run) yield break;
             }
-            while (landed < count) yield return null;
+            while (landed < count)
+            {
+                if (GainRun(project) != run) yield break;
+                yield return null;
+            }
 
             // Phase 2: the full block leaves the lane and flies to the skill bar; on arrival every involved square gains its point.
             yield return new WaitForSeconds(0.15f);
-            yield return CarryProject(project, involved, projectPosition);
+            if (GainRun(project) != run) yield break;
+            yield return CarryProject(project, involved, projectPosition, run);
         }
 
         /// <summary>
@@ -772,7 +794,8 @@ namespace GGS.ResuME.UI
         /// <param name="project">Project carried.</param>
         /// <param name="involved">Skills of the project with their squares.</param>
         /// <param name="projectPosition">World position of the project pickup.</param>
-        private IEnumerator CarryProject(ProjectDefinition project, List<(SkillMastery mastery, HotbarSquare square)> involved, Vector3 projectPosition)
+        /// <param name="run">Gain run of the project; a walk back during the flight drops the flying copy.</param>
+        private IEnumerator CarryProject(ProjectDefinition project, List<(SkillMastery mastery, HotbarSquare square)> involved, Vector3 projectPosition, int run)
         {
             world.HideProject(project);
 
@@ -790,6 +813,12 @@ namespace GGS.ResuME.UI
             float safety = 1.5f;
             while (safety > 0f)
             {
+                if (GainRun(project) != run)
+                {
+                    // Walked back mid-flight: the points stay pending and the walk back has taken them.
+                    Destroy(flyer.gameObject);
+                    yield break;
+                }
                 safety -= Time.deltaTime;
                 // Move first, then test the arrival (same reason as in TravelTracking, bug B13).
                 Vector2 to = BarAnchor();
@@ -801,11 +830,14 @@ namespace GGS.ResuME.UI
             StartCoroutine(Burst(flyer.anchoredPosition, Color.white));
             Destroy(flyer.gameObject);
 
-            // Every involved square takes its point, one after the other.
+            // Every involved square takes its point, one after the other, if a walk back has not taken it meanwhile.
             foreach ((SkillMastery mastery, HotbarSquare square) in involved)
             {
                 if (square.Rect == null) continue; // removed by a walk back while the block was in flight
-                square.ShownPoints = Mathf.Min(square.ShownPoints + 1, mastery.Points);
+                string skillId = mastery.Definition.id;
+                if (PendingPoints(skillId) <= 0) continue;
+                _pendingPoints[skillId] = PendingPoints(skillId) - 1;
+                square.ShownPoints++;
                 RefreshSquare(square);
                 StartCoroutine(Punch(square.Rect, 0.12f, 0.25f));
                 Resort();
@@ -842,19 +874,66 @@ namespace GGS.ResuME.UI
         /// </summary>
         private void OnProjectUndone(ProjectDefinition project, Vector3 worldPosition, StopDefinition stop)
         {
-            StartCoroutine(UndoSkillsOneByOne(project, worldPosition));
+            // Cancel the gain still playing, then take back first the points that never reached their gauge.
+            _gainRuns[project] = GainRun(project) + 1;
+            List<string> delivered = new List<string>();
+            foreach (string skillId in project.skillIds)
+            {
+                if (PendingPoints(skillId) > 0)
+                {
+                    _pendingPoints[skillId] = PendingPoints(skillId) - 1;
+                    RemoveSquareIfEmpty(skillId);
+                }
+                else
+                {
+                    delivered.Add(skillId);
+                }
+            }
+            StartCoroutine(UndoSkillsOneByOne(delivered, worldPosition));
         }
 
         /// <summary>
-        /// Undoes the skills of a project in reverse order, staggered.
+        /// Undoes delivered skill points in reverse order, staggered.
         /// </summary>
-        private IEnumerator UndoSkillsOneByOne(ProjectDefinition project, Vector3 worldPosition)
+        /// <param name="skillIds">Skills whose gauge gives a point back.</param>
+        /// <param name="worldPosition">World position of the project the points return to.</param>
+        private IEnumerator UndoSkillsOneByOne(List<string> skillIds, Vector3 worldPosition)
         {
-            for (int i = project.skillIds.Count - 1; i >= 0; i--)
+            for (int i = skillIds.Count - 1; i >= 0; i--)
             {
-                StartCoroutine(UndoSkill(project.skillIds[i], worldPosition));
+                StartCoroutine(UndoSkill(skillIds[i], worldPosition));
                 yield return new WaitForSeconds(0.25f);
             }
+        }
+
+        /// <summary>
+        /// Points of a skill gained but not delivered to its gauge yet.
+        /// </summary>
+        private int PendingPoints(string skillId)
+        {
+            return _pendingPoints.TryGetValue(skillId, out int pending) ? pending : 0;
+        }
+
+        /// <summary>
+        /// Current gain run of a project (0 before its first crossing).
+        /// </summary>
+        private int GainRun(ProjectDefinition project)
+        {
+            return _gainRuns.TryGetValue(project, out int run) ? run : 0;
+        }
+
+        /// <summary>
+        /// Removes the square of a skill that has nothing left to show or to receive.
+        /// </summary>
+        /// <param name="skillId">Skill whose square may go.</param>
+        private void RemoveSquareIfEmpty(string skillId)
+        {
+            if (!_squaresById.TryGetValue(skillId, out HotbarSquare square)) return;
+            if (square.ShownPoints > 0 || PendingPoints(skillId) > 0) return;
+            _squares.Remove(square);
+            _squaresById.Remove(skillId);
+            if (square.Rect != null) Destroy(square.Rect.gameObject);
+            Resort();
         }
 
         /// <summary>
@@ -871,12 +950,7 @@ namespace GGS.ResuME.UI
             // A skill back to zero leaves the sheet entirely. Two undo flights of the same skill can overlap
             // (two projects undone in a row): only the first one still registered removes the square.
             bool stillRegistered = _squaresById.TryGetValue(skillId, out HotbarSquare registered) && registered == square;
-            if (square.ShownPoints == 0 && stillRegistered && square.Rect != null)
-            {
-                _squares.Remove(square);
-                _squaresById.Remove(skillId);
-                Destroy(square.Rect.gameObject);
-            }
+            if (stillRegistered && square.Rect != null) RemoveSquareIfEmpty(skillId);
             Resort();
         }
 

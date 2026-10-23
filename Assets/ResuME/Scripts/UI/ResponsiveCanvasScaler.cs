@@ -49,6 +49,9 @@ namespace GGS.ResuME.UI
         #region Private Methods
 
 #if UNITY_WEBGL && !UNITY_EDITOR
+        /// <summary>
+        /// Browser device pixel ratio, from Plugins/WebGL/DevicePixelRatio.jslib.
+        /// </summary>
         [DllImport("__Internal")]
         private static extern float ResumeDevicePixelRatio();
 #endif

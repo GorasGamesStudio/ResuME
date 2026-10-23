@@ -14,7 +14,7 @@ namespace GGS.ResuME.Data
 
         private const string ENGLISH_HOST_PREFIX = "resume.";
         private const string FRENCH_HOST_PREFIX = "cv.";
-        private const string QUERY_PARAMETER = "lang=";
+        private const string QUERY_PARAMETER = "lang";
 
         /// <summary>Language of the session, French until chosen.</summary>
         public static Language Current { get; set; } = Language.Fr;
@@ -70,13 +70,10 @@ namespace GGS.ResuME.Data
             if (!string.IsNullOrEmpty(url))
             {
                 // Query parameter: the only way to force a language on a host that names none (localhost).
-                int query = url.IndexOf(QUERY_PARAMETER, StringComparison.OrdinalIgnoreCase);
-                if (query >= 0 && query + QUERY_PARAMETER.Length + 2 <= url.Length)
-                {
-                    string code = url.Substring(query + QUERY_PARAMETER.Length, 2).ToLowerInvariant();
-                    if (code == "en") return Language.En;
-                    if (code == "fr") return Language.Fr;
-                }
+                // Only the real "lang" parameter counts, not a "lang=" inside another name (bug B17).
+                string code = QueryValue(url, QUERY_PARAMETER);
+                if (code == "en") return Language.En;
+                if (code == "fr") return Language.Fr;
 
                 // Host name: cv.gorasgames.fr is French, resume.gorasgames.fr is English.
                 if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
@@ -87,6 +84,32 @@ namespace GGS.ResuME.Data
                 }
             }
             return systemLanguage == SystemLanguage.French ? Language.Fr : Language.En;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Value of a query parameter of a URL, lower case, or null when absent.
+        /// </summary>
+        /// <param name="url">Full URL.</param>
+        /// <param name="name">Parameter name, matched exactly (case-insensitive).</param>
+        /// <returns>The value, or null.</returns>
+        private static string QueryValue(string url, string name)
+        {
+            int start = url.IndexOf('?');
+            if (start < 0) return null;
+            int end = url.IndexOf('#', start);
+            string query = end < 0 ? url.Substring(start + 1) : url.Substring(start + 1, end - start - 1);
+            foreach (string pair in query.Split('&'))
+            {
+                int equals = pair.IndexOf('=');
+                string key = equals < 0 ? pair : pair.Substring(0, equals);
+                if (!string.Equals(Uri.UnescapeDataString(key), name, StringComparison.OrdinalIgnoreCase)) continue;
+                return equals < 0 ? "" : Uri.UnescapeDataString(pair.Substring(equals + 1)).ToLowerInvariant();
+            }
+            return null;
         }
 
         #endregion
