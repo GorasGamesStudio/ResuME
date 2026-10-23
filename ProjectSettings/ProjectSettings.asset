@@ -147,7 +147,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.7.2
+  bundleVersion: 0.7.3
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   metroInputSource: 0
@@ -175,12 +175,12 @@ PlayerSettings:
     Standalone: com.DefaultCompany.2D-URP
     iPhone: com.ggs.resume
   buildNumber:
-    Standalone: 32
+    Standalone: 33
     VisionOS: 0
-    iPhone: 32
+    iPhone: 33
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 32
+  AndroidBundleVersionCode: 33
   AndroidMinSdkVersion: 25
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
