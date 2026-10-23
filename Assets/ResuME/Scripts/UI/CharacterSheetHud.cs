@@ -791,11 +791,11 @@ namespace GGS.Resume.UI
             while (safety > 0f)
             {
                 safety -= Time.deltaTime;
+                // Move first, then test the arrival (same reason as in TravelTracking, bug B13).
                 Vector2 to = BarAnchor();
-                Vector2 position = flyer.anchoredPosition;
-                if (Vector2.Distance(position, to) < 6f) break;
+                flyer.anchoredPosition = Vector2.MoveTowards(flyer.anchoredPosition, to, speed * Time.deltaTime);
+                if (Vector2.Distance(flyer.anchoredPosition, to) < 6f) break;
                 speed += POINT_SPEED * 2.5f * Time.deltaTime;
-                flyer.anchoredPosition = Vector2.MoveTowards(position, to, speed * Time.deltaTime);
                 yield return null;
             }
             StartCoroutine(Burst(flyer.anchoredPosition, Color.white));
@@ -1066,11 +1066,13 @@ namespace GGS.Resume.UI
             while (safety > 0f)
             {
                 safety -= Time.deltaTime;
+                // Move first, then test the arrival against this frame's target: testing before the move compared
+                // against a target the camera had already shifted, and a walking character shifts it by more
+                // than the arrival distance every frame (bug B13).
                 Vector2 to = target();
-                Vector2 position = rect.anchoredPosition;
-                if (Vector2.Distance(position, to) < 6f) break;
+                rect.anchoredPosition = Vector2.MoveTowards(rect.anchoredPosition, to, speed * Time.deltaTime);
+                if (Vector2.Distance(rect.anchoredPosition, to) < 6f) break;
                 speed += pixelsPerSecond * 2.5f * Time.deltaTime;
-                rect.anchoredPosition = Vector2.MoveTowards(position, to, speed * Time.deltaTime);
                 yield return null;
             }
             Destroy(rect.gameObject);
