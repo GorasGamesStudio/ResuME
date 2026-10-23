@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: GGS.Core.Data.Runtime::GGS.Core.Data.BuildInfo
   version:
     Major: 0
-    Minor: 6
-    Patch: 1
-    Build: 29
+    Minor: 7
+    Patch: 0
+    Build: 30
   gitHash: unknown
   gitBranch: unknown
-  buildDateUtc: 2026-10-23 08:06 UTC
+  buildDateUtc: 2026-10-23 08:26 UTC
   platform: WebGL
   developmentBuild: 0
