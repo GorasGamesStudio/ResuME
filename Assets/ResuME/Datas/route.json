@@ -481,7 +481,8 @@
             "en": "Parts, assembly, upgrades, during the high school years."
           },
           "skills": [
-            "installation"
+            "installation",
+            "maintenance"
           ],
           "platforms": []
         }
@@ -1274,6 +1275,21 @@
             "formation"
           ],
           "platforms": []
+        },
+        {
+          "id": "ga-parc-informatique",
+          "title": {
+            "fr": "Parc informatique de l'école",
+            "en": "The school's computers"
+          },
+          "description": {
+            "fr": "Postes des étudiants et des salles : mises à jour, dépannages, support au quotidien.",
+            "en": "Student and classroom workstations: updates, troubleshooting, day-to-day support."
+          },
+          "skills": [
+            "maintenance"
+          ],
+          "platforms": []
         }
       ],
       "notes": "Deux ans et demi comme formateur (trois années de formation). Dossier : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste anecdotique (pas de projet). Composition : bâtiment avec logo (photos d'Éric à venir), salle vue de derrière, étudiants de dos qui lèvent la main, écrans visibles, Éric de face ; le personnage passe devant les étudiants, derrière leurs sprites.",
@@ -1825,6 +1841,21 @@
           ]
         },
         {
+          "id": "ggs-serveur",
+          "title": {
+            "fr": "Serveur du studio : conteneurs et mises en ligne",
+            "en": "Studio server: containers and releases"
+          },
+          "description": {
+            "fr": "Le VPS du studio : conteneurs Docker, nginx, certificats, livraison des jeux et des sites, dont ce CV.",
+            "en": "The studio VPS: Docker containers, nginx, certificates, shipping the games and websites, this resume included."
+          },
+          "skills": [
+            "maintenance"
+          ],
+          "platforms": []
+        },
+        {
           "id": "ggs-ia-core",
           "title": {
             "fr": "IA : outillage du studio (GGS Core, build, versionnage)",
@@ -1932,6 +1963,21 @@
           },
           "skills": [
             "gestion-entreprise"
+          ],
+          "platforms": []
+        },
+        {
+          "id": "lg-support",
+          "title": {
+            "fr": "Support informatique de l'association",
+            "en": "The association's IT support"
+          },
+          "description": {
+            "fr": "Matériel et outils de l'association, aide aux membres.",
+            "en": "The association's hardware and tools, help for the members."
+          },
+          "skills": [
+            "maintenance"
           ],
           "platforms": []
         },

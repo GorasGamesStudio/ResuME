@@ -432,6 +432,7 @@ MonoBehaviour:
         en: Parts, assembly, upgrades, during the high school years.
       skillIds:
       - installation
+      - maintenance
       platforms: []
     notes: "Lyc\xE9e catholique de Senlis (Oise) : cour pav\xE9e, grand c\xE8dre,
       chapelle \xE0 clocher, fa\xE7ade classique en pierre blonde \xE0 fronton cintr\xE9,
@@ -1109,6 +1110,18 @@ MonoBehaviour:
       skillIds:
       - formation
       platforms: []
+    - id: ga-parc-informatique
+      title:
+        fr: "Parc informatique de l'\xE9cole"
+        en: The school's computers
+      description:
+        fr: "Postes des \xE9tudiants et des salles : mises \xE0 jour, d\xE9pannages,
+          support au quotidien."
+        en: 'Student and classroom workstations: updates, troubleshooting, day-to-day
+          support.'
+      skillIds:
+      - maintenance
+      platforms: []
     notes: "Deux ans et demi comme formateur (trois ann\xE9es de formation). Dossier
       : Autres/Entreprenariat/LevelUp/Game Academy. Le logiciel de pointage reste
       anecdotique (pas de projet). Composition : b\xE2timent avec logo (photos d'\xC9ric
@@ -1624,6 +1637,18 @@ MonoBehaviour:
       platforms:
       - VR (tous casques)
       - Steam
+    - id: ggs-serveur
+      title:
+        fr: 'Serveur du studio : conteneurs et mises en ligne'
+        en: 'Studio server: containers and releases'
+      description:
+        fr: 'Le VPS du studio : conteneurs Docker, nginx, certificats, livraison
+          des jeux et des sites, dont ce CV.'
+        en: 'The studio VPS: Docker containers, nginx, certificates, shipping the
+          games and websites, this resume included.'
+      skillIds:
+      - maintenance
+      platforms: []
     - id: ggs-ia-core
       title:
         fr: 'IA : outillage du studio (GGS Core, build, versionnage)'
@@ -1710,6 +1735,16 @@ MonoBehaviour:
           quotes.
       skillIds:
       - gestion-entreprise
+      platforms: []
+    - id: lg-support
+      title:
+        fr: Support informatique de l'association
+        en: The association's IT support
+      description:
+        fr: "Mat\xE9riel et outils de l'association, aide aux membres."
+        en: The association's hardware and tools, help for the members.
+      skillIds:
+      - maintenance
       platforms: []
     - id: lg-outil-web
       title:
