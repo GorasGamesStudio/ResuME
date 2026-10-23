@@ -1616,7 +1616,7 @@ MonoBehaviour:
     place: centre
     level: 40
     kind: 3
-    widthScreens: 0.2
+    widthScreens: 0.3
     gapAfterScreens: -1
     travelAfter: 0
     rideScreens: -1
@@ -1702,7 +1702,7 @@ MonoBehaviour:
     place: centre
     level: 40
     kind: 4
-    widthScreens: 0.3
+    widthScreens: 0.45
     gapAfterScreens: -1
     travelAfter: 0
     rideScreens: -1
@@ -1726,15 +1726,40 @@ MonoBehaviour:
       platforms: []
     - id: lg-tresorerie
       title:
-        fr: "Tr\xE9sorerie et comptabilit\xE9 de l'association"
-        en: Treasury and bookkeeping of the non-profit
+        fr: "Tr\xE9sorerie de l'association"
+        en: The association's treasury
       description:
-        fr: "Comptes, banque, achats et boutique, adh\xE9sions, notes de frais, factures,
-          devis."
-        en: Accounts, bank, purchases and shop, memberships, expense reports, invoices,
-          quotes.
+        fr: "Comptes, banque et virements, factures et devis, achats et boutique,
+          adh\xE9sions, notes de frais."
+        en: Accounts, bank and transfers, invoices and quotes, purchases and shop,
+          memberships, expense reports.
       skillIds:
       - gestion-entreprise
+      platforms: []
+    - id: lg-administratif
+      title:
+        fr: Administratif de l'association
+        en: The association's paperwork
+      description:
+        fr: "Le l\xE9gal et l'administratif : statuts, d\xE9clarations, obligations
+          de l'association."
+        en: 'Legal and administrative work: articles, filings, the association''s
+          obligations.'
+      skillIds:
+      - gestion-entreprise
+      platforms: []
+    - id: lg-gestion
+      title:
+        fr: Gestion de l'association
+        en: Running the association
+      description:
+        fr: "Subventions, rendez-vous, installation du mat\xE9riel, \xE9v\xE9nements
+          et accueil du public."
+        en: Grants, meetings, setting up the equipment, events and welcoming the
+          public.
+      skillIds:
+      - gestion-entreprise
+      - installation
       platforms: []
     - id: lg-support
       title:
